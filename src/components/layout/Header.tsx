@@ -5,7 +5,7 @@ export default function Header() {
 	return (
 		<header className="sticky top-0 flex-center w-full backdrop-blur-md bg-black/50 shadow-xl text-white p-4">
 			<div className="container flex-between">
-				<div className="flex w-[100px]>
+				<div className="flex w-[100px]">
 					<h1 className="text-2xl font-bold">
 						<Link href={`/`}>ARW</Link>
 					</h1>
