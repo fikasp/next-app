@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
+import colors from 'tailwindcss/colors'
 
 const config = {
 	darkMode: ['class'],
@@ -25,6 +26,12 @@ const config = {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				blue: {
+					DEFAULT: colors.blue[500],
+				},
+				orange: {
+					DEFAULT: colors.orange[500],
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',

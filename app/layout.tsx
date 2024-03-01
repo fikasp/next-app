@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-// import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Roboto, Poppins } from 'next/font/google'
 import { cn } from '@/utils/utils'
 import './globals.css'
@@ -29,16 +29,22 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en">
-			<body
-				className={cn(
-					'font-poppins antialiased',
-					poppins.variable,
-					roboto.variable
-				)}
-			>
-				{children}
-			</body>
-		</html>
+		<ClerkProvider
+			appearance={{
+				variables: { colorPrimary: '#468' },
+			}}
+		>
+			<html lang="en">
+				<body
+					className={cn(
+						'font-poppins antialiased',
+						poppins.variable,
+						roboto.variable
+					)}
+				>
+					{children}
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }

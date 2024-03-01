@@ -5,8 +5,8 @@ export default function Home() {
 	return (
 		<div className="container flex flex-wrap justify-center bg-gray-800 text-white gap-2 p-4">
 			{table.map( item => (
-				<Link href={`/task/${item}`}>
-					<div className="h-[300px] w-[300px] bg-orange-500 flex-center">{item}</div>
+				<Link href={`/task/${item}`} key={item}>
+					<div className="h-[300px] w-[300px] bg-blue-900 flex-center">{item}</div>
 				</Link>
 			))}
 		</div>

@@ -1,8 +1,5 @@
-export default function Component() {
+import { SignIn } from '@clerk/nextjs'
 
-  return (
-    <div>
-      
-    </div>
-  )
+export default function SignInPage() {
+	return <SignIn />
 }
