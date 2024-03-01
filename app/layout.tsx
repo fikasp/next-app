@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
-import { Roboto, Poppins } from 'next/font/google'
-import { cn } from '@/utils/utils'
+import { Poppins, Roboto } from 'next/font/google'
+import { cn } from '@/utils'
 import './globals.css'
 
 // fonts
@@ -20,7 +20,7 @@ const roboto = Roboto({
 // metadata
 export const metadata: Metadata = {
 	title: 'ARW Next App Template',
-	description: 'To do list Next App',
+	description: 'Items list with CRUD',
 }
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
 			<html lang="en">
 				<body
 					className={cn(
-						'font-poppins antialiased',
+						'font-poppins antialiased bg-gray-900 text-white',
 						poppins.variable,
 						roboto.variable
 					)}

@@ -107,6 +107,9 @@ const config = {
 					justifyContent: 'flex-end',
 					alignItems: 'center',
 				},
+				'.grid-auto-300': {
+					gridTemplateColumns: 'repeat(auto-fill, minmax(300px,1fr));'
+				}
 			})
 		}),
 	],
