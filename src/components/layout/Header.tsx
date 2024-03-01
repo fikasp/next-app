@@ -4,7 +4,7 @@ import { UserButton } from '@clerk/nextjs'
 export default function Header() {
 	return (
 		<header className="sticky top-0 flex-center w-full backdrop-blur-md bg-black/50 shadow-xl text-white p-4">
-			<div className="container flex-between">
+			<div className="container flex-between p-0">
 				<div className="flex w-[100px]">
 					<h1 className="text-2xl font-bold">
 						<Link href={`/`}>ARW</Link>
