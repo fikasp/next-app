@@ -1,5 +1,7 @@
 # Next App Template
 
+## Introduction
+
 This project is a comprehensive template for building web applications using Next.js, styled with Tailwind CSS, featuring Shadcn as a component library, MongoDB for database management, Uploadthing for data storage and Clerk for user authentication.
 
 You can try it on:
@@ -14,7 +16,7 @@ You can try it on:
 - **Uploadthing** - Data storage
 - **Clerk** - User authentication
 
-## Project structure
+## Structure
 
 - `/public` - Static files
 - `/src` - Source files of the application
@@ -29,7 +31,7 @@ You can try it on:
 - `package.json` - Lists project metadata and dependencies
 - `README.md` - Documentation of the project
 
-## Quick start
+## Setup
 
 **Prerequisites**
 
@@ -91,7 +93,5 @@ This template serves as a scalable starting point for your web applications.
 
 Customize the components, pages, and styles to your project's requirements. Implement custom authentication flows with Clerk and manage data efficiently with MongoDB and Uploadthing.
 
-
-
-## Contact
+## More
 For more information please contact [fikasp@gmail.com](mailto:fikasp@gmail.com).
