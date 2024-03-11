@@ -55,12 +55,13 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `/constants` - Constant values
     - `/types` - TypeScript type definitions
     - `/utils` - Utility functions
+  - `middleware.ts` - Authentication middleware for the Clerk
+  - `navigation.ts` - Managing navigation routes and links
 
 - `/` - Configurations files in root directory:
   
   - `.gitignore` - List of files to ignore by git
   - `components.json` - Shadcn components configuration
-  - `middleware.ts` - Authentication middleware for the Clerk
   - `next.config.js` - Configuration file for Next.js
   - `package.json` - Lists project metadata and dependencies
   - `postcss.config` - PostCSS configuration

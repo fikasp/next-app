@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 import plugin from 'tailwindcss/plugin'
 
 const config = {
@@ -18,7 +19,16 @@ const config = {
 				'2xl': '1400px',
 			},
 		},
+
 		extend: {
+			colors: {
+				blue: {
+					DEFAULT: colors.blue[500],
+				},
+				orange: {
+					DEFAULT: colors.orange[500],
+				},
+			},
 			fontFamily: {
 				sans: ['Verdana', 'sans-serif'],
 				serif: ['Times New Roman', 'serif'],
@@ -45,6 +55,11 @@ const config = {
 		require('tailwindcss-animate'),
 		plugin(({ addUtilities }) => {
 			addUtilities({
+				'.flex-start': {
+					display: 'flex',
+					justifyContent: 'start',
+					alignItems: 'center',
+				},
 				'.flex-center': {
 					display: 'flex',
 					justifyContent: 'center',

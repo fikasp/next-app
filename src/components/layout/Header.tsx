@@ -1,5 +1,17 @@
-import Link from 'next/link'
+'use client'
+
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from '@/components/ui/sheet'
+import { ReactSVG } from 'react-svg'
 import { UserButton } from '@clerk/nextjs'
+import Link from 'next/link'
+import Menu from './Menu'
 
 export default function Header() {
 	return (
@@ -10,8 +22,15 @@ export default function Header() {
 						<Link href={`/`}>ARW</Link>
 					</h1>
 				</div>
-				<div>
-					<h1 className="font-bold">Menu</h1>
+				<div className="flex-center">
+					<Sheet>
+						<SheetTrigger>
+							<ReactSVG src="/assets/icons/menu.svg" />
+						</SheetTrigger>
+						<SheetContent side="top" className="bg-black/50 backdrop-blur-md border-none p-5">
+							<Menu />
+						</SheetContent>
+					</Sheet>
 				</div>
 				<div className="flex-end w-[100px]">
 					<h1>
