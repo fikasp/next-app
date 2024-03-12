@@ -28,6 +28,9 @@ const config = {
 				orange: {
 					DEFAULT: colors.orange[500],
 				},
+				red: {
+					DEFAULT: colors.red[500],
+				},
 			},
 			fontFamily: {
 				sans: ['Verdana', 'sans-serif'],
@@ -57,7 +60,7 @@ const config = {
 			addUtilities({
 				'.flex-start': {
 					display: 'flex',
-					justifyContent: 'start',
+					justifyContent: 'flex-start',
 					alignItems: 'center',
 				},
 				'.flex-center': {
