@@ -1,11 +1,7 @@
 'use client'
 
-import {
-	Sheet,
-	SheetContent,
-	SheetTrigger,
-} from '@/components/ui/sheet'
 import { ReactSVG } from 'react-svg'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 import Menu from './Menu'
@@ -17,30 +13,39 @@ export default function Header() {
 				{/* left */}
 				<div className="flex-start w-[100px]">
 					<h1 className="text-2xl font-bold">
-						<Link href={`/`}>ARW</Link>
+						<Link href={`/`} className="hover-blue">
+							ARW
+						</Link>
 					</h1>
 				</div>
 
 				{/* center */}
-				<div className="flex-center">
-					<Sheet>
-						<SheetTrigger>
-							<ReactSVG src="/assets/icons/menu.svg" />
-						</SheetTrigger>
-						<SheetContent
-							side="top"
-							className="bg-black/50 backdrop-blur-md border-none p-5"
-						>
-							<Menu />
-						</SheetContent>
-					</Sheet>
+				<div className="flex-center ">
+					<SignedIn>
+						<Sheet>
+							<SheetTrigger>
+								<ReactSVG src="/assets/icons/menu.svg" className="hover-blue" />
+							</SheetTrigger>
+							<SheetContent
+								side="top"
+								className="bg-black/50 backdrop-blur-md border-none p-5 flex-center"
+							>
+								<Menu />
+							</SheetContent>
+						</Sheet>
+					</SignedIn>
 				</div>
 
 				{/* right */}
 				<div className="flex-end w-[100px]">
-					<h1>
+					<SignedIn>
 						<UserButton afterSignOutUrl="/" />
-					</h1>
+					</SignedIn>
+					<SignedOut>
+						<Link href={`/sign-in`} className="hover-blue px-2">
+							Login
+						</Link>
+					</SignedOut>
 				</div>
 			</div>
 		</header>

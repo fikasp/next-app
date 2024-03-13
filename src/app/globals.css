@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .hover-blue {
+    @apply hover:text-blue transition;
+  }
+}
+
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
