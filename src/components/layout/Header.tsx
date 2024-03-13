@@ -20,7 +20,7 @@ export default function Header() {
 				</div>
 
 				{/* center */}
-				<div className="translate-center flex-center">
+				<div className="absolute-center flex-center">
 					<SignedIn>
 						<Sheet>
 							<SheetTrigger>
