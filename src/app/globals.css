@@ -3,9 +3,15 @@
 @tailwind utilities;
 
 @layer utilities {
-  .hover-blue {
-    @apply hover:text-blue transition;
-  }
+	.hover-blue {
+		@apply hover:text-blue transition;
+	}
+	.backdrop-black {
+		@apply backdrop-blur-md bg-black/50;
+	}
+	.translate-center {
+		@apply top-1/2 left-1/2 transform -translate-x-1/2
+	}
 }
 
 ::-webkit-scrollbar {

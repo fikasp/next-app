@@ -8,10 +8,10 @@ import Menu from './Menu'
 
 export default function Header() {
 	return (
-		<header className="sticky top-0 flex-center w-full backdrop-blur-md bg-black/50 shadow-xl text-white p-4">
-			<div className="container flex-between p-0">
+		<header className="sticky top-0 backdrop-black shadow-xl text-white p-4">
+			<div className="container flex-between p-0 xl:px-4">
 				{/* left */}
-				<div className="flex-start w-[100px]">
+				<div className="flex-start">
 					<h1 className="text-2xl font-bold">
 						<Link href={`/`} className="hover-blue">
 							ARW
@@ -20,7 +20,7 @@ export default function Header() {
 				</div>
 
 				{/* center */}
-				<div className="flex-center ">
+				<div className="translate-center flex-center">
 					<SignedIn>
 						<Sheet>
 							<SheetTrigger>
@@ -28,7 +28,7 @@ export default function Header() {
 							</SheetTrigger>
 							<SheetContent
 								side="top"
-								className="bg-black/50 backdrop-blur-md border-none p-5 flex-center"
+								className="backdrop-black border-none p-5 flex-center"
 							>
 								<Menu />
 							</SheetContent>
@@ -37,7 +37,7 @@ export default function Header() {
 				</div>
 
 				{/* right */}
-				<div className="flex-end w-[100px]">
+				<div className="flex-end">
 					<SignedIn>
 						<UserButton afterSignOutUrl="/" />
 					</SignedIn>

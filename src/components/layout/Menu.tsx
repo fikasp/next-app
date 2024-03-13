@@ -9,7 +9,7 @@ export default function Menu() {
 	const pathname = usePathname()
 
 	return (
-		<nav className="flex-center max-md:p-2">
+		<nav className="flex-center">
 			<ul className="flex max-md:flex-col gap-6">
 				{nav.map((link) => {
 					const isActive = link.route === pathname
@@ -18,7 +18,7 @@ export default function Menu() {
 							key={link.route}
 							className={`${
 								isActive && 'text-blue'
-							} hover:text-blue transition`}
+							} hover-blue`}
 						>
 							<Link className="flex-start" href={link.route}>
 								<ReactSVG className="w-[35px] flex-center" src={link.icon} />
