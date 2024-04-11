@@ -1,7 +1,9 @@
-import { clerkClient } from '@clerk/nextjs'
-import { WebhookEvent } from '@clerk/nextjs/server'
+// next
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
+// clerk
+import { clerkClient } from '@clerk/nextjs'
+import { WebhookEvent } from '@clerk/nextjs/server'
 import { Webhook } from 'svix'
 
 import {
