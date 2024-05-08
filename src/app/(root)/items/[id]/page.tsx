@@ -1,15 +1,5 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import Item from '@/components/pages/Item'
 
-export default function Task({ params }: any) {
-	return (
-		<div className="container flex-center flex-col p-4">
-			<div>Item no. {params.id}</div>
-			<div className="mt-4">
-				<Link href="/items">
-					<Button variant="secondary">Back</Button>
-				</Link>
-			</div>
-		</div>
-	)
+export default function ItemPage({ params }: { params: any }) {
+	return <Item id={params.id} />
 }

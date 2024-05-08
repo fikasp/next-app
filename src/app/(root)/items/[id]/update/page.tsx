@@ -1,7 +1,5 @@
-export default function Task({ params }: any) {
-	return (
-  <div className="container flex-center p-4">
-    Update item no. {params.id}
-  </div>
-  )
+import ItemUpdate from '@/components/pages/ItemUpdate'
+
+export default function ItemUpdatePage({ params }: { params: any }) {
+	return <ItemUpdate id={params.id} />
 }
