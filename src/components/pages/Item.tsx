@@ -1,4 +1,6 @@
+// modules
 import Link from 'next/link'
+// components
 import { Button } from '@/components/ui/button'
 
 export default function Item({ id }: { id: string }) {

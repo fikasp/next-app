@@ -1,10 +1,11 @@
 'use client'
-
-import { ReactSVG } from 'react-svg'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+// modules
 import Link from 'next/link'
-import Menu from './Menu'
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+// components
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import Icon from '@/components/shared/common/ArwIcon'
+import Menu from '@/components/layout/Menu'
 
 export default function Header() {
 	return (
@@ -24,7 +25,7 @@ export default function Header() {
 					<SignedIn>
 						<Sheet>
 							<SheetTrigger>
-								<ReactSVG src="/assets/icons/menu.svg" className="hover-blue" />
+								<Icon src="/assets/icons/menu.svg" className="hover-blue" />
 							</SheetTrigger>
 							<SheetContent
 								side="top"

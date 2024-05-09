@@ -31,6 +31,15 @@ const config = {
 				red: {
 					DEFAULT: colors.red[500],
 				},
+				gray: {
+					DEFAULT: colors.gray[500],
+				},
+				form: {
+					bg: colors.gray[700],
+					hover: colors.blue[600],
+					placeholder: colors.gray[400],
+					text: colors.white,
+				},
 			},
 			fontFamily: {
 				sans: ['Verdana', 'sans-serif'],

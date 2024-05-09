@@ -1,9 +1,10 @@
 'use client'
-
+// modules
 import Link from 'next/link'
-import { ReactSVG } from 'react-svg'
 import { usePathname } from 'next/navigation'
 import { nav } from '@/navigation'
+// components
+import Icon from '@/components/shared/common/ArwIcon'
 
 export default function Menu() {
 	const pathname = usePathname()
@@ -16,12 +17,10 @@ export default function Menu() {
 					return (
 						<li
 							key={link.route}
-							className={`${
-								isActive && 'text-blue'
-							} hover-blue`}
+							className={`${isActive && 'text-blue'} hover-blue`}
 						>
 							<Link className="flex-start" href={link.route}>
-								<ReactSVG className="w-[35px] flex-center" src={link.icon} />
+								<Icon className="w-[35px] flex-center" src={link.icon} />
 								{link.label}
 							</Link>
 						</li>

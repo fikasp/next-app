@@ -1,12 +1,12 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-// TAILWIND CLASSNAMES
+// Tailwind classNames
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-// ERROR HANDLER
+// Error handler
 export const handleError = (error: unknown) => {
 	if (error instanceof Error) {
 		// This is a native JavaScript error

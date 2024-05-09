@@ -1,4 +1,4 @@
-// USER PARAMS
+// User
 declare type CreateUserParams = {
 	clerkId: string
 	email: string
