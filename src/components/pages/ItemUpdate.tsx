@@ -1,3 +1,5 @@
+import ArwContainer from "@/components/shared/containers/ArwContainer";
+
 export default function ItemUpdate({ id }: { id: string }) {
-	return <div className="container flex-center p-4">Update item no. {id}</div>
+	return <ArwContainer className="flex-center p-4">Update item no. {id}</ArwContainer>
 }

@@ -28,7 +28,7 @@ export default function ItemForm() {
 
 	return (
 		// prettier-ignore
-		<ArwForm form={form} onSubmit={onSubmit} className="w-[300px] gap-8">
+		<ArwForm form={form} onSubmit={onSubmit} className="gap-8">
 			<ArwGroup>
 				<ArwInput 
 					control={form.control} 
