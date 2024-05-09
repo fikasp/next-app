@@ -35,9 +35,9 @@ const config = {
 					DEFAULT: colors.gray[500],
 				},
 				form: {
-					bg: colors.gray[700],
+					bg: colors.slate[700],
 					hover: colors.blue[600],
-					placeholder: colors.gray[400],
+					placeholder: colors.slate[400],
 					text: colors.white,
 				},
 			},
