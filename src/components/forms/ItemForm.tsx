@@ -49,7 +49,7 @@ export default function ItemForm() {
 					label="Description"
 				/>
 			</ArwGroup>
-			<Button className="bg-blue-600 hover:bg-blue-500 shadow">
+			<Button className="bg-stone-600 hover:bg-stone-500 shadow">
 				Add item
 			</Button>
 		</ArwForm>
