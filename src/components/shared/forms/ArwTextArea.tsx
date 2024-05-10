@@ -37,7 +37,7 @@ export default function ArwTextArea({
 						<Textarea
 							placeholder={placeholder}
 							className={cn(
-								'bg-form-bg border-none shadow text-center text-form-text placeholder:text-form-placeholder',
+								'arw-bg-inputs text-center border-accent dark:border-accent',
 								className
 							)}
 							{...field}

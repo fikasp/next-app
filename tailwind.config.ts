@@ -34,11 +34,8 @@ const config = {
 				gray: {
 					DEFAULT: colors.gray[500],
 				},
-				form: {
-					bg: colors.stone[700],
-					hover: colors.blue[600],
-					placeholder: colors.stone[400],
-					text: colors.white,
+				accent: {
+					DEFAULT: colors.blue[500],
 				},
 			},
 			fontFamily: {

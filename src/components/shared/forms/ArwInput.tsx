@@ -40,7 +40,7 @@ export default function ArwInput({
 							type={type}
 							placeholder={placeholder}
 							className={cn(
-								'bg-form-bg border-none shadow text-center text-form-text placeholder:text-form-placeholder',
+								'text-center arw-bg-inputs border-accent dark:border-accent',
 								className
 							)}
 							{...field}

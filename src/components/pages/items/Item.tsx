@@ -6,7 +6,7 @@ import ArwContainer from '@/components/shared/containers/ArwContainer'
 
 export default function Item({ id }: { id: string }) {
 	return (
-		<ArwContainer className="flex-center flex-col p-4">
+		<ArwContainer className="flex-center flex-col">
 			<div>Item no. {id}</div>
 			<div className="mt-4">
 				<Link href="/items">

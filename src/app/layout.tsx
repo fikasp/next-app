@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Poppins, Roboto } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 // components
 import { Toaster } from '@/components/ui/toaster'
 // lib
@@ -41,13 +42,20 @@ export default function RootLayout({
 			<html lang="en">
 				<body
 					className={cn(
-						'font-poppins antialiased bg-gray-900 text-white overflow-y-scroll',
+						'font-poppins antialiased bg-gray-50 dark:bg-gray-900 text-black dark:text-white',
 						poppins.variable,
 						roboto.variable
 					)}
 				>
-					{children}
-					<Toaster />
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						disableTransitionOnChange
+						enableSystem
+					>
+						{children}
+						<Toaster />
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>

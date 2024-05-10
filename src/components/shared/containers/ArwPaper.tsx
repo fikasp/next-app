@@ -11,7 +11,7 @@ export default function ArwPaper({
 	return (
 		<div
 			className={cn(
-				'flex flex-col gap-6 bg-stone-800 rounded-2xl p-8 shadow-lg',
+				'flex flex-col gap-4 arw-bg-secondary rounded-xl shadow-lg p-8',
 				className
 			)}
 		>

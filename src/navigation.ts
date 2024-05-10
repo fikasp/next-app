@@ -2,6 +2,7 @@ export const routes = {
 	HOME: '/',
 	ITEMS: '/items',
 	ITEMS_CREATE: '/items/create',
+	SETTINGS: '/settings',
 }
 
 export const nav = [
@@ -19,5 +20,10 @@ export const nav = [
 		route: routes.ITEMS_CREATE,
 		icon: '/assets/icons/add.svg',
 		label: 'Add item',
+	},
+	{
+		route: routes.SETTINGS,
+		icon: '/assets/icons/settings.svg',
+		label: 'Settings',
 	},
 ]
