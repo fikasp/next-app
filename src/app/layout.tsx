@@ -1,6 +1,10 @@
+// modules
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Poppins, Roboto } from 'next/font/google'
+// components
+import { Toaster } from '@/components/ui/toaster'
+// lib
 import { cn } from '@/lib/utils/'
 import './globals.css'
 
@@ -43,6 +47,7 @@ export default function RootLayout({
 					)}
 				>
 					{children}
+					<Toaster />
 				</body>
 			</html>
 		</ClerkProvider>

@@ -33,7 +33,7 @@ export default function ArwInput({
 			name={name}
 			control={control}
 			render={({ field }) => (
-				<FormItem className="flex-center flex-col">
+				<FormItem className="flex flex-col items-center">
 					<FormLabel>{label}</FormLabel>
 					<FormControl>
 						<Input

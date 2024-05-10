@@ -1,6 +1,7 @@
 'use client'
 // modules
 import Link from 'next/link'
+import { useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 // components
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -8,6 +9,7 @@ import Icon from '@/components/shared/common/ArwIcon'
 import Menu from '@/components/layout/Menu'
 
 export default function Header() {
+	const [isSheetOpen, setIsSheetOpen] = useState(false);
 	return (
 		<header className="sticky top-0 backdrop-black shadow-xl text-white p-4">
 			<div className="container flex-between p-0 xl:px-4">
@@ -23,15 +25,15 @@ export default function Header() {
 				{/* center */}
 				<div className="absolute-center flex-center">
 					<SignedIn>
-						<Sheet>
-							<SheetTrigger>
+						<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+							<SheetTrigger >
 								<Icon src="/assets/icons/menu.svg" className="hover-blue" />
 							</SheetTrigger>
 							<SheetContent
 								side="top"
 								className="backdrop-black border-none p-5 flex-center"
 							>
-								<Menu />
+								<Menu setOpen={setIsSheetOpen}/>
 							</SheetContent>
 						</Sheet>
 					</SignedIn>

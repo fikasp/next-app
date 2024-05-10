@@ -6,7 +6,11 @@ import { nav } from '@/navigation'
 // components
 import Icon from '@/components/shared/common/ArwIcon'
 
-export default function Menu() {
+export default function Menu({
+	setOpen,
+}: {
+	setOpen: (open: boolean) => void
+}) {
 	const pathname = usePathname()
 
 	return (
@@ -18,6 +22,7 @@ export default function Menu() {
 						<li
 							key={link.route}
 							className={`${isActive && 'text-blue'} hover-blue`}
+							onClick={() => setOpen(false)}
 						>
 							<Link className="flex-start" href={link.route}>
 								<Icon className="w-[35px] flex-center" src={link.icon} />
