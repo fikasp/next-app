@@ -10,8 +10,6 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
-// lib
-import { cn } from '@/lib/utils'
 
 export default function ArwTextArea({
 	control,
@@ -36,14 +34,11 @@ export default function ArwTextArea({
 					<FormControl>
 						<Textarea
 							placeholder={placeholder}
-							className={cn(
-								'text-center arw-inputs p-3',
-								className
-							)}
+							className={className}
 							{...field}
 						/>
 					</FormControl>
-					<FormMessage className="text-xs" />
+					<FormMessage />
 				</FormItem>
 			)}
 		/>

@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
@@ -29,7 +30,7 @@ export default function ItemForm() {
 	// Action
 	const onSubmit = async (data: ItemFormData) => {
 		console.log(data)
-		form.reset()
+		form.reset(initialValues, { keepIsSubmitted: true })
 		toast({
 			title: 'Item added!',
 			description: `${data.title} is successfully added`,

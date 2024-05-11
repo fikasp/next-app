@@ -39,14 +39,11 @@ export default function ArwInput({
 						<Input
 							type={type}
 							placeholder={placeholder}
-							className={cn(
-								'text-center arw-inputs p-6',
-								className
-							)}
+							className={className}
 							{...field}
 						/>
 					</FormControl>
-					<FormMessage className="text-xs" />
+					<FormMessage />
 				</FormItem>
 			)}
 		/>
