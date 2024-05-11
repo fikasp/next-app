@@ -1,4 +1,4 @@
-import ItemsList from '@/components/pages/items/ItemsList'
+import ItemsList from '@/components/pages/ItemsList'
 
 export default function ItemListPage() {
 	return <ItemsList />

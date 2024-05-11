@@ -3,57 +3,24 @@
 @tailwind utilities;
 
 @layer utilities {
-
-	/* background */
-	.arw-bg-primary {
-		@apply bg-white dark:bg-gray-900;
-	}
-	.arw-bg-secondary {
-		@apply bg-gray-200 dark:bg-gray-800;
-	}
-	.arw-bg-accent {
-		@apply bg-blue-600 dark:bg-blue-500;
-	}
-	.arw-bg-hover {
-		@apply bg-blue-500 dark:bg-blue-400;
-	}
-	.arw-bg-item {
-		@apply bg-blue-300 dark:bg-blue-900;
-	}
-	.arw-bg-inputs {
-		@apply bg-gray-100 dark:bg-gray-700;
-	}
-	.arw-backdrop-light {
-		@apply backdrop-blur-md bg-gray-200/50;
-	}
-	.arw-backdrop-dark {
-		@apply backdrop-blur-md bg-black/50;
-	}
-
 	/* text */
-	.arw-text-primary{
-		@apply text-black dark:text-white;
-	}
-	.arw-text-secondary {
-		@apply text-gray-800 dark:text-gray-200;
-	}
 	.arw-text-accent {
-		@apply text-blue-600 dark:text-blue-500
+		@apply text-accent-600 dark:text-accent-500;
 	}
 	.arw-text-hover {
-		@apply hover:text-blue-600 dark:hover:text-blue-500 transition;
+		@apply hover:text-accent-600 dark:hover:text-accent-500 transition;
 	}
+}
 
-	/* positions */
-	.arw-absolute-center {
-		@apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
-	}
+/* layout */
+.grid-auto-300 {
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 /* scrollbar */
 ::-webkit-scrollbar {
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 }
 
 ::-webkit-scrollbar-track {

@@ -25,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.4",
+    "react-responsive": "^10.0.0",
     "react-svg": "^16.1.33",
     "svix": "^1.21.0",
     "tailwind-merge": "^2.2.1",

@@ -33,14 +33,14 @@ export default function ArwInput({
 			name={name}
 			control={control}
 			render={({ field }) => (
-				<FormItem className="flex flex-col items-center">
+				<FormItem className="flex flex-col items-center h-[80px]">
 					<FormLabel>{label}</FormLabel>
 					<FormControl>
 						<Input
 							type={type}
 							placeholder={placeholder}
 							className={cn(
-								'text-center arw-bg-inputs border-accent dark:border-accent',
+								'text-center arw-inputs p-6',
 								className
 							)}
 							{...field}

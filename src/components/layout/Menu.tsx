@@ -2,6 +2,7 @@
 // modules
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useMediaQuery } from 'react-responsive'
 import { nav } from '@/navigation'
 // components
 import Icon from '@/components/shared/common/ArwIcon'
@@ -15,11 +16,18 @@ const MenuItem = ({
 	setOpen: (open: boolean) => void
 }) => {
 	const pathname = usePathname()
+	const isMobile = useMediaQuery({ maxWidth: 768 })
 	const isActive = link.route === pathname
+	const handleClick = () => {
+		if (isMobile) {
+			setOpen(false)
+		}
+	}
+
 	return (
 		<li
 			className={`${isActive && 'arw-text-accent'} arw-text-hover`}
-			onClick={() => setOpen(true)}
+			onClick={handleClick}
 		>
 			<Link className="flex-start" href={link.route}>
 				<Icon className="w-[35px] flex-center" src={link.icon} />
@@ -41,7 +49,7 @@ export default function Menu({
 					return <MenuItem key={link.route} link={link} setOpen={setOpen} />
 				})}
 				<li className="flex-center">
-					<Theme setOpen={setOpen} />
+					<Theme />
 				</li>
 			</ul>
 		</nav>

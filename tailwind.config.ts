@@ -2,6 +2,9 @@ import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
 import plugin from 'tailwindcss/plugin'
 
+const BASE = 'slate'
+const ACCENT = 'blue'
+
 const config = {
 	darkMode: ['class'],
 	content: [
@@ -19,23 +22,27 @@ const config = {
 				'2xl': '1400px',
 			},
 		},
-
 		extend: {
 			colors: {
+				accent: {
+					...colors[ACCENT],
+					DEFAULT: colors[ACCENT][500],
+				},
+				base: {
+					...colors[BASE],
+					DEFAULT: colors[BASE][500],
+				},
 				blue: {
 					DEFAULT: colors.blue[500],
+				},
+				gray: {
+					DEFAULT: colors.gray[500],
 				},
 				orange: {
 					DEFAULT: colors.orange[500],
 				},
 				red: {
 					DEFAULT: colors.red[500],
-				},
-				gray: {
-					DEFAULT: colors.gray[500],
-				},
-				accent: {
-					DEFAULT: colors.blue[500],
 				},
 			},
 			fontFamily: {
@@ -83,9 +90,6 @@ const config = {
 					display: 'flex',
 					justifyContent: 'flex-end',
 					alignItems: 'center',
-				},
-				'.grid-auto-300': {
-					gridTemplateColumns: 'repeat(auto-fill, minmax(300px,1fr));',
 				},
 			})
 		}),

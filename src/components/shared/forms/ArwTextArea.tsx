@@ -31,13 +31,13 @@ export default function ArwTextArea({
 			name={name}
 			control={control}
 			render={({ field }) => (
-				<FormItem className="flex flex-col items-center">
+				<FormItem className="flex flex-col items-center min-h-[128px]">
 					<FormLabel>{label}</FormLabel>
 					<FormControl>
 						<Textarea
 							placeholder={placeholder}
 							className={cn(
-								'arw-bg-inputs text-center border-accent dark:border-accent',
+								'text-center arw-inputs p-3',
 								className
 							)}
 							{...field}

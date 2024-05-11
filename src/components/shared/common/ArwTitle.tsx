@@ -9,7 +9,9 @@ export default function ArwTitle({
 	className?: string
 }) {
 	return (
-		<h1 className={cn('arw-text-accent text-center text-xl font-bold', className)}>
+		<h1
+			className={cn('arw-text-accent text-center text-xl font-bold', className)}
+		>
 			{children}
 		</h1>
 	)

@@ -5,7 +5,7 @@ import ArwContainer from '@/components/shared/containers/ArwContainer'
 
 const Item = ({ item }: { item: number }) => {
 	return (
-		<div className="justify-self-center aspect-square arw-bg-item shadow-md flex-between flex-col p-4">
+		<div className="flex-between flex-col aspect-square bg-accent-200 dark:bg-accent-900 shadow-md p-4">
 			<h1 className="font-bold">{`Item no. ${item}`}</h1>
 			<p>Description</p>
 		</div>

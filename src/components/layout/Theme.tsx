@@ -10,17 +10,11 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { handleClientScriptLoad } from 'next/script'
 
-export default function Theme({
-	setOpen,
-}: {
-	setOpen: (open: boolean) => void
-}) {
+export default function Theme() {
 	const { setTheme } = useTheme()
 	const handleClick = (theme: string) => () => {
 		setTheme(theme)
-		setOpen(true)
 	}
 	return (
 		<DropdownMenu>
@@ -34,12 +28,20 @@ export default function Theme({
 					<span className="sr-only">Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="center">
-				<DropdownMenuItem onClick={handleClick('light')}>
+			<DropdownMenuContent align="center" className="text-center mt-2">
+				<DropdownMenuItem
+					className="flex-center"
+					onClick={handleClick('light')}
+				>
 					Light
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={handleClick('dark')}>Dark</DropdownMenuItem>
-				<DropdownMenuItem onClick={handleClick('system')}>
+				<DropdownMenuItem className="flex-center" onClick={handleClick('dark')}>
+					Dark
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className="flex-center"
+					onClick={handleClick('system')}
+				>
 					System
 				</DropdownMenuItem>
 			</DropdownMenuContent>

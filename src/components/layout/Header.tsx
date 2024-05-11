@@ -11,7 +11,7 @@ import Menu from '@/components/layout/Menu'
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
 	return (
-		<header className="sticky top-0 arw-backdrop-light dark:arw-backdrop-dark shadow-md p-4 h-[72px] flex-center">
+		<header className="sticky top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 dark:arw-backdrop-dark shadow-md p-4 h-[75px] flex-center">
 			<div className="container flex-between p-0 xl:px-4">
 				{/* left */}
 				<div className="flex-start">
@@ -23,7 +23,7 @@ export default function Header() {
 				</div>
 
 				{/* center */}
-				<div className="arw-absolute-center flex-center">
+				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center">
 					<SignedIn>
 						<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal={false}>
 							<SheetTrigger>
@@ -31,7 +31,7 @@ export default function Header() {
 							</SheetTrigger>
 							<SheetContent
 								side="top"
-								className="arw-backdrop-light dark:arw-backdrop-dark border-none flex-center"
+								className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
 							>
 								<Menu setOpen={setIsSheetOpen} />
 							</SheetContent>

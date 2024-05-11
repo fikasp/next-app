@@ -15,21 +15,24 @@ import { ItemFormData, itemSchema } from '@/lib/zod'
 
 export default function ItemForm() {
 	const { toast } = useToast()
+
+	const initialValues = {
+		title: '',
+		description: '',
+	}
 	// Form
 	const form = useForm<ItemFormData>({
 		resolver: zodResolver(itemSchema),
-		defaultValues: {
-			title: '',
-			description: '',
-		},
+		defaultValues: initialValues,
 	})
 
 	// Action
 	const onSubmit = async (data: ItemFormData) => {
 		console.log(data)
+		form.reset(initialValues, {keepDefaultValues: true})
 		toast({
-			title: "Item added!",
-			description: `You've successfully added ${data.title}`,
+			title: 'Item added!',
+			description: `${data.title} is successfully added`,
 		})
 	}
 
