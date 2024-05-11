@@ -29,7 +29,7 @@ export default function ItemForm() {
 	// Action
 	const onSubmit = async (data: ItemFormData) => {
 		console.log(data)
-		form.reset(initialValues, {keepDefaultValues: true})
+		form.reset()
 		toast({
 			title: 'Item added!',
 			description: `${data.title} is successfully added`,
