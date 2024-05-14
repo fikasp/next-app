@@ -49,7 +49,7 @@ export default function Menu({
 					return <MenuItem key={link.route} link={link} setOpen={setOpen} />
 				})}
 				<li className="flex-center">
-					<Theme />
+					<Theme setOpen={setOpen} />
 				</li>
 			</ul>
 		</nav>

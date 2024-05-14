@@ -11,10 +11,15 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export default function Theme() {
+export default function Theme({
+	setOpen,
+}: {
+	setOpen: (open: boolean) => void
+}) {
 	const { setTheme } = useTheme()
 	const handleClick = (theme: string) => () => {
 		setTheme(theme)
+		setOpen(false)
 	}
 	return (
 		<DropdownMenu>
