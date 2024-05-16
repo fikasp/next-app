@@ -5,10 +5,11 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/database'
 import User from '@/database/models/user.model'
 // lib
+import { CreateUserData, UpdateUserData } from '@/lib/types'
 import { handleError } from '@/lib/utils'
 
 // CREATE
-export async function createUser(user: CreateUserParams) {
+export async function createUser(user: CreateUserData) {
 	try {
 		await connectToDatabase()
 
@@ -36,7 +37,7 @@ export async function getUserById(userId: string) {
 }
 
 // UPDATE
-export async function updateUser(clerkId: string, user: UpdateUserParams) {
+export async function updateUser(clerkId: string, user: UpdateUserData) {
 	try {
 		await connectToDatabase()
 
