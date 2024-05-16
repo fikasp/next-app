@@ -2,8 +2,8 @@
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Poppins, Roboto } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
 // components
+import { ThemeProvider } from '@/components/layout/Provider'
 import { Toaster } from '@/components/ui/toaster'
 // lib
 import { cn } from '@/lib/utils/'
