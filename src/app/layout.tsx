@@ -1,4 +1,5 @@
 // modules
+import React from 'react'
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Poppins, Roboto } from 'next/font/google'
@@ -47,15 +48,15 @@ export default function RootLayout({
 						roboto.variable
 					)}
 				>
-					<ThemeProvider
+					{/* <ThemeProvider
 						attribute="class"
 						defaultTheme="system"
 						disableTransitionOnChange
 						enableSystem
-					>
+					> */}
 						{children}
 						<Toaster />
-					</ThemeProvider>
+					{/* </ThemeProvider> */}
 				</body>
 			</html>
 		</ClerkProvider>
