@@ -17,7 +17,7 @@ import { ItemFormData, itemSchema } from '@/lib/zod'
 
 export default function ItemForm() {
 	const { toast } = useToast()
-
+	
 	const initialValues = {
 		title: '',
 		description: '',
@@ -30,15 +30,15 @@ export default function ItemForm() {
 
 	// Action
 	const onSubmit = async (itemFormData: ItemFormData) => {
-		const userId = '123123'
 		try {
 			console.log(itemFormData)
-			await createItem({ userId, ...itemFormData })
-			form.reset(initialValues, { keepIsSubmitted: true })
-			toast({
-				title: 'Item added!',
-				description: `${itemFormData.title} is successfully added`,
-			})
+			const newItem = await createItem(itemFormData)
+			if (newItem) {
+				toast({
+					title: 'Item added!',
+					description: `${itemFormData.title} is successfully added`,
+				})
+			}
 		} catch (err) {
 			console.error(err)
 		}
@@ -56,7 +56,7 @@ export default function ItemForm() {
 				/>
 				<ArwTextArea
 					control={form.control}
-					name="description"
+					name="info"
 					label="Description"
 				/>
 			</ArwGroup>

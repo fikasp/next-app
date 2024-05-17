@@ -1,21 +1,31 @@
+// modules
 import { Schema, model, models } from 'mongoose'
+// database
+import { IUser } from '@/database/models/user.model'
+
+export interface IItem extends Document {
+	_id: string
+	user: IUser
+	title: string
+	info: string
+}
 
 const ItemSchema = new Schema({
-	userId: {
-		type: String,
+	user: {
+		type: Schema.Types.ObjectId,
 		required: true,
-		unique: true,
+		ref: 'User',
 	},
 	title: {
 		type: String,
 		required: true,
 	},
-	description: {
+	info: {
 		type: String,
 		required: true,
 	},
 })
 
-const ItemModel = models?.Item || model('Item', ItemSchema)
+const Item = models?.Item || model('Item', ItemSchema)
 
-export default ItemModel
+export default Item

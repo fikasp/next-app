@@ -48,15 +48,15 @@ export default function RootLayout({
 						roboto.variable
 					)}
 				>
-					{/* <ThemeProvider
+					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
 						disableTransitionOnChange
 						enableSystem
-					> */}
+					>
 						{children}
 						<Toaster />
-					{/* </ThemeProvider> */}
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
