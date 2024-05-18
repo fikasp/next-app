@@ -24,7 +24,7 @@ export default function ListItem({ item }: { item: IItem }) {
 	return (
 		<div className="flex flex-col justify-between aspect-square bg-accent-200 dark:bg-accent-900 rounded-xl shadow-md px-5 py-4">
 			<div className="flex-between ">
-				<Link href={`/items/${item._id}`} key={item._id}>
+				<Link href={`/items/${item.slug}`} key={item.slug}>
 					<ArwTitle className="arw-text-hover">{item.title}</ArwTitle>
 				</Link>
 				<div onClick={handleDelete(item._id)} className="arw-text-hover">
