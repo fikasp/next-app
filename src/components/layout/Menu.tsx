@@ -13,7 +13,7 @@ const MenuItem = ({
 	setOpen,
 }: {
 	link: any
-	setOpen: (open: boolean) => void
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
 	const pathname = usePathname()
 	const isMobile = useMediaQuery({ maxWidth: 768 })
@@ -40,7 +40,7 @@ const MenuItem = ({
 export default function Menu({
 	setOpen,
 }: {
-	setOpen: (open: boolean) => void
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 	return (
 		<nav className="flex-center">

@@ -1,5 +1,5 @@
 'use client'
-
+/* eslint-disable no-mixed-spaces-and-tabs */
 // Inspired by react-hot-toast library
 import * as React from 'react'
 
@@ -126,6 +126,7 @@ export const reducer = (state: State, action: Action): State => {
 	}
 }
 
+// eslint-disable-next-line no-unused-vars
 const listeners: Array<(state: State) => void> = []
 
 let memoryState: State = { toasts: [] }

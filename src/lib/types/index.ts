@@ -1,5 +1,5 @@
 // Commmon
 export enum Operation {
-	CREATE = 'CREATE',
-	UPDATE = 'UPDATE',
+	// CREATE = 'CREATE',
+	// UPDATE = 'UPDATE',
 }

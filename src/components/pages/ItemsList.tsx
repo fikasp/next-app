@@ -14,7 +14,7 @@ export default async function ItemsList() {
 		return (
 			<ArwContainer className="grid grid-auto-300 gap-3">
 				{items.map((item: IItem) => (
-					<ListItem item={item} />
+					<ListItem item={item} key={item._id} />
 				))}
 			</ArwContainer>
 		)

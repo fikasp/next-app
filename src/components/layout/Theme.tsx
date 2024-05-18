@@ -15,7 +15,7 @@ import {
 export default function Theme({
 	setOpen,
 }: {
-	setOpen: (open: boolean) => void
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 	const { setTheme } = useTheme()
 	const isMobile = useMediaQuery({ maxWidth: 768 })
