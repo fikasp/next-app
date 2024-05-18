@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import { nav } from '@/navigation'
 // components
-import Icon from '@/components/shared/common/ArwIcon'
+import ArwIcon from '@/components/shared/common/ArwIcon'
 import Theme from './Theme'
 
 const MenuItem = ({
@@ -30,7 +30,7 @@ const MenuItem = ({
 			onClick={handleClick}
 		>
 			<Link className="flex-start" href={link.route}>
-				<Icon className="w-[35px] flex-center" src={link.icon} />
+				<ArwIcon className="w-[35px] flex-center" src={link.icon} />
 				{link.label}
 			</Link>
 		</li>

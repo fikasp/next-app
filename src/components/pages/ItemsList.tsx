@@ -1,26 +1,22 @@
-// modules
-import Link from 'next/link'
 // components
 import ArwContainer from '@/components/shared/containers/ArwContainer'
+import ListItem from '@/components/partials/ListItem'
+// database
+import { getItemsByUser } from '@/database/actions/item.action'
+import { IItem } from '@/database/models/item.model'
 
-const Item = ({ item }: { item: number }) => {
-	return (
-		<div className="flex-between flex-col aspect-square bg-accent-200 dark:bg-accent-900 shadow-md p-4">
-			<h1 className="font-bold">{`Item no. ${item}`}</h1>
-			<p>Description</p>
-		</div>
-	)
-}
+export default async function ItemsList() {
+	const items: IItem[] = await getItemsByUser()
 
-export default function ItemsList() {
-	const table = Array.from(Array(12).keys()).map((x) => x + 1)
-	return (
-		<ArwContainer className="grid grid-auto-300 gap-2">
-			{table.map((item) => (
-				<Link href={`/items/${item}`} key={item}>
-					<Item item={item} />
-				</Link>
-			))}
-		</ArwContainer>
-	)
+	if (items.length === 0) {
+		return <div className="text-center p-4">No items</div>
+	} else {
+		return (
+			<ArwContainer className="grid grid-auto-300 gap-3">
+				{items.map((item: IItem) => (
+					<ListItem item={item} />
+				))}
+			</ArwContainer>
+		)
+	}
 }

@@ -5,8 +5,10 @@ import { useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 // components
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import Icon from '@/components/shared/common/ArwIcon'
+import ArwIcon from '@/components/shared/common/ArwIcon'
 import Menu from '@/components/layout/Menu'
+// lib
+import { icons } from '@/navigation'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
@@ -25,9 +27,13 @@ export default function Header() {
 				{/* center */}
 				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center">
 					<SignedIn>
-						<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal={false}>
+						<Sheet
+							open={isSheetOpen}
+							onOpenChange={setIsSheetOpen}
+							modal={false}
+						>
 							<SheetTrigger>
-								<Icon src="/assets/icons/menu.svg" className="arw-text-hover" />
+								<ArwIcon src={icons.MENU} className="arw-text-hover" />
 							</SheetTrigger>
 							<SheetContent
 								side="top"

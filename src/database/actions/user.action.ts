@@ -7,6 +7,7 @@ import { CreateUserData, UpdateUserData } from '@/database/models/user.model'
 import User from '@/database/models/user.model'
 // lib
 import { handleError } from '@/lib/utils'
+import { routes } from '@/navigation'
 
 // CREATE
 export async function createUser(user: CreateUserData) {
@@ -14,6 +15,7 @@ export async function createUser(user: CreateUserData) {
 		await connectToDatabase()
 
 		const newUser = await User.create(user)
+		revalidatePath(routes.ITEMS)
 
 		return JSON.parse(JSON.stringify(newUser))
 	} catch (error) {
@@ -65,7 +67,6 @@ export async function deleteUser(clerkId: string) {
 		}
 
 		const deletedUser = await User.findByIdAndDelete(userToDelete._id)
-		revalidatePath('/')
 
 		return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null
 	} catch (error) {

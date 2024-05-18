@@ -2,6 +2,7 @@
 // modules
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
@@ -14,9 +15,11 @@ import ArwTitle from '@/components/shared/common/ArwTitle'
 import { createItem } from '@/database/actions/item.action'
 // lib
 import { ItemFormData, itemSchema } from '@/lib/zod'
+import { routes } from '@/navigation'
 
 export default function ItemForm() {
 	const { toast } = useToast()
+	const router = useRouter()
 	
 	const initialValues = {
 		title: '',
@@ -39,6 +42,7 @@ export default function ItemForm() {
 					description: `${itemFormData.title} is successfully added`,
 				})
 			}
+			router.push(routes.ITEMS)
 		} catch (err) {
 			console.error(err)
 		}
@@ -47,7 +51,7 @@ export default function ItemForm() {
 	return (
 		// prettier-ignore
 		<ArwForm form={form} onSubmit={onSubmit} className="grow justify-between gap-8">
-			<ArwTitle>Add new item</ArwTitle>
+			<ArwTitle className="arw-text-accent">Add new item</ArwTitle>
 			<ArwGroup className="gap-8">
 				<ArwInput 
 					control={form.control} 
