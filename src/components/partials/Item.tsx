@@ -2,14 +2,14 @@
 // modules
 import Link from 'next/link'
 // components
-import ArwIcon from '@/components/shared/common/ArwIcon'
 import { useToast } from '@/components/ui/use-toast'
+import ArwIcon from '@/components/shared/common/ArwIcon'
+import ArwTitle from '@/components/shared/common/ArwTitle'
 // database
 import { deleteItem } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'
 // lib
 import { icons } from '@/navigation'
-import ArwTitle from '../shared/common/ArwTitle'
 
 export default function ListItem({ item }: { item: IItem }) {
 	const { toast } = useToast()

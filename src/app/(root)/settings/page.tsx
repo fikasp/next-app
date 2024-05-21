@@ -1,5 +1,5 @@
-import Settings from '@/components/pages/Settings'
+import SettingsPage from '@/components/pages/SettingsPage'
 
-export default function ItemListPage() {
-	return <Settings />
+export default function Page() {
+	return <SettingsPage />
 }

@@ -1,11 +1,11 @@
 // components
 import ArwContainer from '@/components/shared/containers/ArwContainer'
-import ListItem from '@/components/partials/ListItem'
+import ListItem from '@/components/partials/Item'
 // database
 import { getItemsByUser } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'
 
-export default async function ItemsList() {
+export default async function ItemsListPage() {
 	const items: IItem[] = await getItemsByUser()
 
 	if (items.length === 0) {

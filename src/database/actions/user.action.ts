@@ -24,11 +24,11 @@ export async function createUser(user: CreateUserData) {
 }
 
 // READ
-export async function getUserById(userId: string | null) {
+export async function getUser(clerkId: string | null) {
 	try {
 		await connectToDatabase()
 
-		const user = await User.findOne({ clerkId: userId })
+		const user = await User.findOne({ clerkId })
 
 		if (!user) throw new Error('User not found')
 

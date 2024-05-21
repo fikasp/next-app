@@ -1,5 +1,5 @@
-import ItemsList from '@/components/pages/ItemsList'
+import ItemsListPage from '@/components/pages/items/ItemsListPage'
 
-export default function ItemListPage() {
-	return <ItemsList />
+export default function Page() {
+	return <ItemsListPage/>
 }

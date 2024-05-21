@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // database
 import { connectToDatabase } from '@/database'
-import { getUserById } from '@/database/actions/user.action'
+import { getUser } from '@/database/actions/user.action'
 import Item from '@/database/models/item.model'
 // lib
 import { handleError } from '@/lib/utils'
@@ -17,7 +17,7 @@ export async function createItem(itemData: ItemFormData) {
 		await connectToDatabase()
 
 		const { userId } = auth()
-		const user = await getUserById(userId)
+		const user = await getUser(userId)
 
 		const newItem = await Item.create({ user, ...itemData })
 		console.log('Created Item:', newItem)
@@ -30,28 +30,29 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
-// export async function getItemById(itemId: string) {
-// 	try {
-// 		await connectToDatabase()
+export async function getItemBySlug(slug: string) {
+	try {
+		await connectToDatabase()
 
-// 		const item = await Item.findOne({ _id: itemId })
+		const item = await Item.findOne({ slug })
 
-// 		if (!item) throw new Error('Item not found')
+		if (!item) throw new Error('Item not found')
+		console.log('Item:', item)
 
-// 		return JSON.parse(JSON.stringify(item))
-// 	} catch (error) {
-// 		handleError(error)
-// 	}
-// }
+		return JSON.parse(JSON.stringify(item))
+	} catch (error) {
+		handleError(error)
+	}
+}
 
 export async function getItemsByUser() {
 	try {
 		await connectToDatabase()
 
 		const { userId } = auth()
-		const user = await getUserById(userId)
+		const user = await getUser(userId)
 
-		const items = await Item.find({user: user._id})
+		const items = await Item.find({ user: user._id })
 		// console.log('Items:', items)
 
 		return JSON.parse(JSON.stringify(items))
