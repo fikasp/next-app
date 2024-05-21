@@ -2,6 +2,8 @@
 // modules
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
+import { model } from 'mongoose'
+import slugify from 'slugify'
 // database
 import { connectToDatabase } from '@/database'
 import { getUser } from '@/database/actions/user.action'
@@ -11,6 +13,26 @@ import { handleError } from '@/lib/utils'
 import { ItemFormData } from '@/lib/zod'
 import { routes } from '@/navigation'
 
+async function generateUniqueSlug(
+	title: string,
+	currentSlug?: string
+): Promise<string> {
+	const slugBase = slugify(title, { lower: true, strict: true })
+	let newSlug = slugBase
+
+	if (currentSlug !== newSlug) {
+		let slugCounter = 1
+		let slugExists = await Item.findOne({ slug: newSlug })
+
+		while (slugExists) {
+			newSlug = `${slugBase}-${slugCounter}`
+			slugExists = await Item.findOne({ slug: newSlug })
+			slugCounter++
+		}
+	}
+	return newSlug
+}
+
 // CREATE
 export async function createItem(itemData: ItemFormData) {
 	try {
@@ -19,10 +41,12 @@ export async function createItem(itemData: ItemFormData) {
 		const { userId } = auth()
 		const user = await getUser(userId)
 
-		const newItem = await Item.create({ user, ...itemData })
-		console.log('Created Item:', newItem)
+		const slug = await generateUniqueSlug(itemData.title)
+
+		const newItem = await Item.create({ user, slug, ...itemData })
 		revalidatePath(routes.ITEMS)
 
+		console.log('*** createItem:', newItem)
 		return JSON.parse(JSON.stringify(newItem))
 	} catch (error) {
 		handleError(error)
@@ -36,9 +60,7 @@ export async function getItemBySlug(slug: string) {
 
 		const item = await Item.findOne({ slug })
 
-		if (!item) throw new Error('Item not found')
-		console.log('Item:', item)
-
+		console.log('*** getItemBySlug:', item)
 		return JSON.parse(JSON.stringify(item))
 	} catch (error) {
 		handleError(error)
@@ -53,8 +75,8 @@ export async function getItemsByUser() {
 		const user = await getUser(userId)
 
 		const items = await Item.find({ user: user._id })
-		// console.log('Items:', items)
 
+		console.log('*** getItemsByUser:', items)
 		return JSON.parse(JSON.stringify(items))
 	} catch (error) {
 		handleError(error)
@@ -62,21 +84,28 @@ export async function getItemsByUser() {
 }
 
 // UPDATE
-// export async function updateItem(itemId: string, itemData: ItemFormData) {
-// 	try {
-// 		await connectToDatabase()
+export async function updateItem(slug: string, itemData: ItemFormData) {
+	try {
+		await connectToDatabase()
 
-// 		const updatedItem = await Item.findOneAndUpdate({ _id: itemId }, itemData, {
-// 			new: true,
-// 		})
+		const item = await Item.findOne({ slug })
 
-// 		if (!updatedItem) throw new Error('Item update failed')
+		const newSlug = await generateUniqueSlug(itemData.title, item.slug)
 
-// 		return JSON.parse(JSON.stringify(updatedItem))
-// 	} catch (error) {
-// 		handleError(error)
-// 	}
-// }
+		const updatedItem = await Item.findOneAndUpdate(
+			{ slug },
+			{ slug: newSlug, ...itemData },
+			{ new: true }
+		)
+
+		revalidatePath(routes.ITEMS)
+
+		console.log('*** updateItem:', updatedItem)
+		return JSON.parse(JSON.stringify(updatedItem))
+	} catch (error) {
+		handleError(error)
+	}
+}
 
 // DELETE
 export async function deleteItem(itemId: string) {
@@ -85,12 +114,11 @@ export async function deleteItem(itemId: string) {
 
 		const itemToDelete = await Item.findOne({ _id: itemId })
 
-		if (!itemToDelete) throw new Error('Item not found')
-
 		const deletedItem = await Item.findByIdAndDelete(itemToDelete._id)
 		revalidatePath(routes.ITEMS)
 
-		return deletedItem ? JSON.parse(JSON.stringify(deletedItem)) : null
+		console.log('*** deleteItem:', deletedItem)
+		return JSON.parse(JSON.stringify(deletedItem))
 	} catch (error) {
 		handleError(error)
 	}

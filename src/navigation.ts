@@ -1,7 +1,7 @@
 export const routes = {
 	HOME: '/',
 	ITEMS: '/items',
-	ITEMS_ADD: '/items/add',
+	ITEMS_CREATE: '/items/create',
 	SETTINGS: '/settings',
 }
 
@@ -27,7 +27,7 @@ export const nav = [
 		label: 'Items list',
 	},
 	{
-		route: routes.ITEMS_ADD,
+		route: routes.ITEMS_CREATE,
 		icon: icons.ADD,
 		label: 'Add item',
 	},

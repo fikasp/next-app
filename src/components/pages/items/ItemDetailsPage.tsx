@@ -11,7 +11,6 @@ import { IItem } from '@/database/models/item.model'
 
 export default async function ItemDetailsPage({ slug }: { slug: string }) {
 	const item: IItem = await getItemBySlug(slug)
-	console.log('Item:', item)
 
 	return (
 		<ArwContainer className="flex flex-col grow">

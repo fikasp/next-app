@@ -1,5 +1,5 @@
 // Commmon
-export enum Operation {
-	// CREATE = 'CREATE',
-	// UPDATE = 'UPDATE',
+export enum Mode {
+	CREATE = 'CREATE',
+	UPDATE = 'UPDATE',
 }

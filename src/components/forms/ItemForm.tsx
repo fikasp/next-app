@@ -12,19 +12,29 @@ import ArwInput from '@/components/shared/forms/ArwInput'
 import ArwTextArea from '@/components/shared/forms/ArwTextArea'
 import ArwTitle from '@/components/shared/common/ArwTitle'
 // database
-import { createItem } from '@/database/actions/item.action'
+import { createItem, updateItem } from '@/database/actions/item.action'
+import { IItem } from '@/database/models/item.model'
 // lib
 import { ItemFormData, itemSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
 
-export default function ItemForm() {
+export default function ItemForm({ item }: { item?: IItem }) {
+
 	const { toast } = useToast()
 	const router = useRouter()
-	
-	const initialValues = {
+
+	const defaultValues: ItemFormData = {
 		title: '',
-		description: '',
+		info: '',
 	}
+
+	const initialValues: ItemFormData = item
+		? {
+				title: item.title,
+				info: item.info,
+		  }
+		: defaultValues
+
 	// Form
 	const form = useForm<ItemFormData>({
 		resolver: zodResolver(itemSchema),
@@ -33,14 +43,26 @@ export default function ItemForm() {
 
 	// Action
 	const onSubmit = async (itemFormData: ItemFormData) => {
+		console.log(itemFormData)
 		try {
-			console.log(itemFormData)
-			const newItem = await createItem(itemFormData)
-			if (newItem) {
-				toast({
-					title: 'Item added!',
-					description: `${itemFormData.title} is successfully added`,
-				})
+			if (item) {
+				// Update item
+				const updatedItem = await updateItem(item.slug, itemFormData)
+				if (updatedItem) {
+					toast({
+						title: 'Item updated!',
+						description: `${itemFormData.title} is successfully updated`,
+					})
+				}
+			} else {
+				// Create item
+				const newItem = await createItem(itemFormData)
+				if (newItem) {
+					toast({
+						title: 'Item added!',
+						description: `${itemFormData.title} is successfully added`,
+					})
+				}
 			}
 			router.push(routes.ITEMS)
 		} catch (err) {
@@ -50,8 +72,15 @@ export default function ItemForm() {
 
 	return (
 		// prettier-ignore
-		<ArwForm form={form} onSubmit={onSubmit} className="grow justify-between gap-8">
-			<ArwTitle className="arw-text-accent">Add new item</ArwTitle>
+		<ArwForm 
+			form={form} 
+			onSubmit={onSubmit} 
+			className="grow justify-between gap-8"
+		>
+			<ArwTitle className="arw-text-accent">
+				{item ? "Update item" : "Add new item"}
+			</ArwTitle>
+			
 			<ArwGroup className="gap-8">
 				<ArwInput 
 					control={form.control} 
@@ -61,11 +90,11 @@ export default function ItemForm() {
 				<ArwTextArea
 					control={form.control}
 					name="info"
-					label="Description"
+					label="Info"
 				/>
 			</ArwGroup>
 			<Button variant="accent">
-				Add item
+				{item ? "Update item" : "Add new item"}
 			</Button>
 		</ArwForm>
 	)

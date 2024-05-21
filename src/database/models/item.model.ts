@@ -33,23 +33,6 @@ const ItemSchema = new Schema({
 	},
 })
 
-ItemSchema.pre('validate', async function (next) {
-	if (this.isModified('title')) {
-		let slug = slugify(this.title, { lower: true, strict: true })
-		const Item = model('Item')
-
-		let slugExists = await Item.findOne({ slug })
-		let counter = 1
-		while (slugExists) {
-			slug = `${slugify(this.title, { lower: true, strict: true })}-${counter}`
-			slugExists = await Item.findOne({ slug })
-			counter++
-		}
-		this.slug = slug
-	}
-	next()
-})
-
 const Item = models?.Item || model('Item', ItemSchema)
 
 export default Item
