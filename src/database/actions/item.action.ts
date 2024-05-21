@@ -2,7 +2,6 @@
 // modules
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
-import { model } from 'mongoose'
 import slugify from 'slugify'
 // database
 import { connectToDatabase } from '@/database'
@@ -14,10 +13,10 @@ import { ItemFormData } from '@/lib/zod'
 import { routes } from '@/navigation'
 
 async function generateUniqueSlug(
-	title: string,
+	text: string,
 	currentSlug?: string
 ): Promise<string> {
-	const slugBase = slugify(title, { lower: true, strict: true })
+	const slugBase = slugify(text, { lower: true, strict: true })
 	let newSlug = slugBase
 
 	if (currentSlug !== newSlug) {
@@ -40,7 +39,6 @@ export async function createItem(itemData: ItemFormData) {
 
 		const { userId } = auth()
 		const user = await getUser(userId)
-
 		const slug = await generateUniqueSlug(itemData.title)
 
 		const newItem = await Item.create({ user, slug, ...itemData })
@@ -88,13 +86,11 @@ export async function updateItem(slug: string, itemData: ItemFormData) {
 	try {
 		await connectToDatabase()
 
-		const item = await Item.findOne({ slug })
-
-		const newSlug = await generateUniqueSlug(itemData.title, item.slug)
+		const updatedSlug = await generateUniqueSlug(itemData.title, slug)
 
 		const updatedItem = await Item.findOneAndUpdate(
 			{ slug },
-			{ slug: newSlug, ...itemData },
+			{ slug: updatedSlug, ...itemData },
 			{ new: true }
 		)
 

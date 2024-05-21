@@ -1,5 +1,4 @@
 // modules
-import slugify from 'slugify'
 import { Schema, model, models } from 'mongoose'
 // database
 import { IUser } from '@/database/models/user.model'

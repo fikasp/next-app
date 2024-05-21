@@ -5,8 +5,6 @@ import ArwPaper from '@/components/shared/containers/ArwPaper'
 // database
 import { getItemBySlug } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'
-// lib
-import { Mode } from '@/lib/types'
 
 export default async function ItemUpdatePage({ slug }: { slug: string }) {
 	const item: IItem = await getItemBySlug(slug)

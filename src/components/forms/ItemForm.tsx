@@ -19,7 +19,6 @@ import { ItemFormData, itemSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
 
 export default function ItemForm({ item }: { item?: IItem }) {
-
 	const { toast } = useToast()
 	const router = useRouter()
 
@@ -32,7 +31,7 @@ export default function ItemForm({ item }: { item?: IItem }) {
 		? {
 				title: item.title,
 				info: item.info,
-		  }
+			}
 		: defaultValues
 
 	// Form
