@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 // database
 import { connectToDatabase } from '@/database'
 import { CreateUserData, UpdateUserData } from '@/database/models/user.model'
-import User from '@/database/models/user.model'
+import UserModel from '@/database/models/user.model'
 // lib
 import { handleError } from '@/lib/utils'
 import { routes } from '@/navigation'
@@ -14,7 +14,7 @@ export async function createUser(user: CreateUserData) {
 	try {
 		await connectToDatabase()
 
-		const newUser = await User.create(user)
+		const newUser = await UserModel.create(user)
 		revalidatePath(routes.ITEMS)
 
 		return JSON.parse(JSON.stringify(newUser))
@@ -28,7 +28,7 @@ export async function getUser(clerkId: string | null) {
 	try {
 		await connectToDatabase()
 
-		const user = await User.findOne({ clerkId })
+		const user = await UserModel.findOne({ clerkId })
 
 		if (!user) throw new Error('User not found')
 
@@ -43,7 +43,7 @@ export async function updateUser(clerkId: string, user: UpdateUserData) {
 	try {
 		await connectToDatabase()
 
-		const updatedUser = await User.findOneAndUpdate({ clerkId }, user, {
+		const updatedUser = await UserModel.findOneAndUpdate({ clerkId }, user, {
 			new: true,
 		})
 
@@ -60,13 +60,13 @@ export async function deleteUser(clerkId: string) {
 	try {
 		await connectToDatabase()
 
-		const userToDelete = await User.findOne({ clerkId })
+		const userToDelete = await UserModel.findOne({ clerkId })
 
 		if (!userToDelete) {
 			throw new Error('User not found')
 		}
 
-		const deletedUser = await User.findByIdAndDelete(userToDelete._id)
+		const deletedUser = await UserModel.findByIdAndDelete(userToDelete._id)
 
 		return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null
 	} catch (error) {

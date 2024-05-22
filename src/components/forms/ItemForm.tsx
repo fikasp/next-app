@@ -17,6 +17,7 @@ import { IItem } from '@/database/models/item.model'
 // lib
 import { ItemFormData, itemSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
+import Link from 'next/link'
 
 export default function ItemForm({ item }: { item?: IItem }) {
 	const { toast } = useToast()
@@ -92,9 +93,14 @@ export default function ItemForm({ item }: { item?: IItem }) {
 					label="Info"
 				/>
 			</ArwGroup>
-			<Button variant="accent">
-				{item ? "Update item" : "Add new item"}
-			</Button>
+			<ArwGroup>
+				<Button variant="accent">
+					{item ? "Update item" : "Add new item"}
+				</Button>
+				<Link href="/items">
+					<Button className='w-full' variant='secondary'>Back to items list</Button>
+				</Link>
+			</ArwGroup>
 		</ArwForm>
 	)
 }

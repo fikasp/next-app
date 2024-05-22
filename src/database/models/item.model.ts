@@ -32,6 +32,6 @@ const ItemSchema = new Schema({
 	},
 })
 
-const Item = models?.Item || model('Item', ItemSchema)
+const ItemModel = models?.Item || model('Item', ItemSchema)
 
-export default Item
+export default ItemModel
