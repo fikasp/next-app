@@ -2,9 +2,9 @@
 import Link from 'next/link'
 // components
 import { Button } from '@/components/ui/button'
-import ArwContainer from '@/components/shared/containers/ArwContainer'
-import ArwPaper from '@/components/shared/containers/ArwPaper'
-import ArwTitle from '@/components/shared/common/ArwTitle'
+import ArwContainer from '@/components/shared/ArwContainer'
+import ArwPaper from '@/components/shared/ArwPaper'
+import ArwTitle from '@/components/shared/ArwTitle'
 // database
 import { getItemBySlug } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'

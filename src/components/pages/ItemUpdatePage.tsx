@@ -1,7 +1,7 @@
 // components
 import ItemForm from '@/components/forms/ItemForm'
-import ArwContainer from '@/components/shared/containers/ArwContainer'
-import ArwPaper from '@/components/shared/containers/ArwPaper'
+import ArwContainer from '@/components/shared/ArwContainer'
+import ArwPaper from '@/components/shared/ArwPaper'
 // database
 import { getItemBySlug } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'

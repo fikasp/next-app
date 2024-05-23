@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 // components
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import ArwIcon from '@/components/shared/common/ArwIcon'
+import ArwIcon from '@/components/shared/ArwIcon'
 import Menu from '@/components/layout/Menu'
 // lib
 import { icons } from '@/navigation'

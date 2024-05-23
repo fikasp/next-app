@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 // components
 import { useToast } from '@/components/ui/use-toast'
-import ArwIcon from '@/components/shared/common/ArwIcon'
-import ArwTitle from '@/components/shared/common/ArwTitle'
+import ArwIcon from '@/components/shared/ArwIcon'
+import ArwTitle from '@/components/shared/ArwTitle'
 // database
 import { deleteItem } from '@/database/actions/item.action'
 import { IItem } from '@/database/models/item.model'

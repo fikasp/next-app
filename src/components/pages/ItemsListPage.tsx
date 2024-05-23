@@ -1,5 +1,5 @@
 // components
-import ArwContainer from '@/components/shared/containers/ArwContainer'
+import ArwContainer from '@/components/shared/ArwContainer'
 import ListItem from '@/components/partials/Item'
 // database
 import { getItemsByUser } from '@/database/actions/item.action'

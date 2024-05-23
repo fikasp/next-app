@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import { nav } from '@/navigation'
 // components
-import ArwIcon from '@/components/shared/common/ArwIcon'
+import ArwIcon from '@/components/shared/ArwIcon'
 import Theme from './Theme'
 
 const MenuItem = ({

@@ -33,19 +33,13 @@ export async function generateUniqueSlug(
 	currentSlug?: string
 ): Promise<string> {
 	const slugBase = slugify(text, { lower: true, strict: true })
-	let uniqueSlug = slugBase
+	let newSlug = slugBase
 
-	if (currentSlug !== uniqueSlug) {
-		let slugCounter = 1
-		let slugExists
-
-		do {
-			slugExists = await Model.findOne({ slug: uniqueSlug })
-			if (slugExists) {
-				uniqueSlug = `${slugBase}-${slugCounter}`
-				slugCounter++
-			}
-		} while (slugExists)
+	if (currentSlug !== newSlug) {
+		let counter = 1
+		while (await Model.findOne({ slug: newSlug })) {
+			newSlug = `${slugBase}-${counter++}`
+		}
 	}
-	return uniqueSlug
+	return newSlug
 }
