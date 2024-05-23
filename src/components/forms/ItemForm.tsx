@@ -9,7 +9,6 @@ import { useToast } from '@/components/ui/use-toast'
 import ArwForm from '@/components/forms/ArwForm'
 import ArwGroup from '@/components/shared/ArwGroup'
 import ArwInput from '@/components/forms/ArwInput'
-import ArwTextArea from '@/components/forms/ArwTextArea'
 import ArwTitle from '@/components/shared/ArwTitle'
 // database
 import { createItem, updateItem } from '@/database/actions/item.action'
@@ -17,9 +16,14 @@ import { IItem } from '@/database/models/item.model'
 // lib
 import { ItemFormData, itemSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
-import Link from 'next/link'
 
-export default function ItemForm({ item }: { item?: IItem }) {
+export default function ItemForm({
+	item,
+	close,
+}: {
+	item?: IItem
+	close?: () => void
+}) {
 	const { toast } = useToast()
 	const router = useRouter()
 
@@ -29,12 +33,8 @@ export default function ItemForm({ item }: { item?: IItem }) {
 	}
 
 	const initialValues: ItemFormData = item
-		? {
-				title: item.title,
-				info: item.info,
-			}
+		? { title: item.title, info: item.info }
 		: defaultValues
-
 	// Form
 	const form = useForm<ItemFormData>({
 		resolver: zodResolver(itemSchema),
@@ -43,7 +43,6 @@ export default function ItemForm({ item }: { item?: IItem }) {
 
 	// Action
 	const onSubmit = async (itemFormData: ItemFormData) => {
-		console.log(itemFormData)
 		try {
 			if (item) {
 				// Update item
@@ -53,6 +52,9 @@ export default function ItemForm({ item }: { item?: IItem }) {
 						title: 'Item updated!',
 						description: `${itemFormData.title} is successfully updated`,
 					})
+				}
+				if (close) {
+					close()
 				}
 			} else {
 				// Create item
@@ -87,7 +89,7 @@ export default function ItemForm({ item }: { item?: IItem }) {
 					name="title"
 					label="Title" 
 				/>
-				<ArwTextArea
+				<ArwInput
 					control={form.control}
 					name="info"
 					label="Info"
@@ -97,9 +99,6 @@ export default function ItemForm({ item }: { item?: IItem }) {
 				<Button variant="accent">
 					{item ? "Update item" : "Add new item"}
 				</Button>
-				<Link href="/items">
-					<Button className='w-full' variant='secondary'>Back to items list</Button>
-				</Link>
 			</ArwGroup>
 		</ArwForm>
 	)
