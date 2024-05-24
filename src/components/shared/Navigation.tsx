@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
@@ -29,6 +30,27 @@ export default function Navigation({
 	const handleBackClick = () => {
 		router.push(back)
 	}
+
+	useEffect(() => {
+		const keyMap: { [key: string]: () => void } = {
+			ArrowLeft: handlePrevClick,
+			ArrowRight: handleNextClick,
+			ArrowUp: handleBackClick,
+		}
+
+		const handleKeyPress = (event: KeyboardEvent) => {
+			const handler = keyMap[event.key]
+			if (handler) {
+				handler()
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyPress)
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyPress)
+		}
+	}, [handlePrevClick, handleNextClick, handleBackClick])
 
 	return (
 		<ArwFlex between row>
