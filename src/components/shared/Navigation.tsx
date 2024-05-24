@@ -12,8 +12,8 @@ export default function Navigation({
 	next,
 }: {
 	back: string
-	prev: string | null
-	next: string | null
+	prev?: string | null
+	next?: string | null
 }) {
 	const router = useRouter()
 
@@ -50,7 +50,7 @@ export default function Navigation({
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
 		}
-	}, [])
+	})
 
 	return (
 		<ArwFlex between row>
