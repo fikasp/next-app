@@ -16,7 +16,7 @@ export default async function ItemsListPage() {
 		)
 	} else {
 		return (
-			<ArwContainer grid className="arw-grid-auto-300 gap-3">
+			<ArwContainer grid className="arw-grid-auto-300 gap-3 content-start">
 				{items.map((item: IItem) => (
 					<ItemCard item={item} key={item._id} />
 				))}

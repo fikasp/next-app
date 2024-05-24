@@ -7,7 +7,7 @@ import ItemModel from '@/lib/models/item.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { generateUniqueSlug, handleError } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
-import { ItemFormData } from '@/lib/types'
+import { AdjacentItems, ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
 
 // CREATE
@@ -30,19 +30,6 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
-export async function getItemBySlug(slug: string) {
-	try {
-		await connectToDatabase()
-
-		const item = await ItemModel.findOne({ slug })
-
-		console.log('*** getItemBySlug:', item)
-		return JSON.parse(JSON.stringify(item))
-	} catch (error) {
-		handleError(error)
-	}
-}
-
 export async function getItemsByUser() {
 	try {
 		await connectToDatabase()
@@ -56,6 +43,52 @@ export async function getItemsByUser() {
 		return JSON.parse(JSON.stringify(items))
 	} catch (error) {
 		handleError(error)
+	}
+}
+
+export async function getItemBySlug(slug: string) {
+	try {
+		await connectToDatabase()
+
+		const item = await ItemModel.findOne({ slug })
+
+		console.log('*** getItemBySlug:', item)
+		return JSON.parse(JSON.stringify(item))
+	} catch (error) {
+		handleError(error)
+	}
+}
+
+// prettier-ignore
+export async function getAdjacentItems(slug: string) : Promise<AdjacentItems> {
+	try {
+		await connectToDatabase()
+
+		const { userId } = auth()
+		const user = await getUser(userId)
+		
+		const currentItem = await ItemModel
+			.findOne({ user: user._id, slug })
+
+		const prevItem = await ItemModel
+			.findOne({ user: user._id, _id: { $lt: currentItem._id }})
+			.sort({ _id: -1 })
+
+		const nextItem = await ItemModel
+			.findOne({user: user._id,	_id: { $gt: currentItem._id }})
+			.sort({ _id: 1 })
+
+		const items = {
+			prev: JSON.parse(JSON.stringify(prevItem)),
+			current: JSON.parse(JSON.stringify(currentItem)),
+			next: JSON.parse(JSON.stringify(nextItem)),
+		}
+
+		console.log('*** getAdjacentItems:', items)
+		return items
+	} catch (error) {
+		handleError(error)
+		return { prev: null, current: null, next: null }
 	}
 }
 

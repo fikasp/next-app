@@ -1,25 +1,27 @@
 // components
-import { Button } from '@/components/ui/button'
 import ArwContainer from '@/components/arw/ArwContainer'
-import ArwLink from '@/components/arw/ArwLink'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
+import Navigation from '@/components/shared/Navigation'
 // lib
-import { getItemBySlug } from '@/lib/actions/item.action'
-import { IItem } from '@/lib/models/item.model'
+import { getAdjacentItems } from '@/lib/actions/item.action'
+import { AdjacentItems } from '@/lib/types'
+import { routes } from '@/navigation'
 
 export default async function ItemDetailsPage({ slug }: { slug: string }) {
-	const item: IItem = await getItemBySlug(slug)
+	const {prev, current, next}: AdjacentItems = await getAdjacentItems(slug)
 
 	return (
 		<ArwContainer>
 			<ArwPaper grow between accent>
-				<ArwTitle>{item.title}</ArwTitle>
-				<ArwText>{item.info}</ArwText>
-				<ArwLink href="/items">
-					<Button>Back</Button>
-				</ArwLink>
+				<ArwTitle>{current?.title}</ArwTitle>
+				<ArwText>{current?.info}</ArwText>
+				<Navigation
+					back={routes.ITEMS}
+					prev={prev && `${routes.ITEMS}/${prev.slug}`}
+					next={next && `${routes.ITEMS}/${next.slug}`}
+				/>
 			</ArwPaper>
 		</ArwContainer>
 	)
