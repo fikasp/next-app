@@ -10,11 +10,11 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { useToast } from '@/components/ui/use-toast'
-// database
-import { deleteItem } from '@/database/actions/item.action'
-import { IItem } from '@/database/models/item.model'
+// lib
+import { deleteItem } from '@/lib/actions/item.action'
+import { IItem } from '@/lib/models/item.model'
 
-export default function ItemDeleteModal({
+export default function ItemDeleteDialog({
 	item,
 	open,
 	close,
@@ -40,7 +40,7 @@ export default function ItemDeleteModal({
 				<AlertDialogHeader>
 					<AlertDialogTitle>Delete confirmation</AlertDialogTitle>
 					<AlertDialogDescription>
-						<p>Are you sure you want to delete this item?</p>
+						<p>Are you sure to delete this item?</p>
 						<p>This action cannot be undone.</p>
 					</AlertDialogDescription>
 				</AlertDialogHeader>

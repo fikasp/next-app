@@ -19,7 +19,7 @@ export default function Theme({
 }) {
 	const { setTheme } = useTheme()
 	const isMobile = useMediaQuery({ maxWidth: 768 })
-	
+
 	const handleClick = (theme: string) => () => {
 		setTheme(theme)
 		if (isMobile) {

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import { nav } from '@/navigation'
 // components
-import ArwIcon from '@/components/shared/ArwIcon'
+import ArwIcon from '@/components/arw/ArwIcon'
 import Theme from './Theme'
 
 const MenuItem = ({
@@ -26,10 +26,10 @@ const MenuItem = ({
 
 	return (
 		<li
-			className={`${isActive && 'arw-text-accent'} arw-text-hover`}
+			className={`${isActive && 'text-accent'} hover:text-accent transition`}
 			onClick={handleClick}
 		>
-			<Link className="flex-start" href={link.route}>
+			<Link className="flex-center" href={link.route}>
 				<ArwIcon className="w-[35px] flex-center" src={link.icon} />
 				{link.label}
 			</Link>

@@ -1,17 +1,23 @@
 // lib
 import { cn } from '@/lib/utils'
 
-export default function ArwPaper({
+export default function ArwContainer({
 	children,
 	className,
+	center,
+	grow,
 }: {
 	children: React.ReactNode
 	className?: string
+	center?: boolean
+	grow?: boolean
 }) {
 	return (
 		<div
 			className={cn(
-				'flex flex-col gap-4 bg-base-100 dark:bg-base-950/50 shadow-xl rounded-xl p-8',
+				'container flex flex-col p-4',
+				grow ? 'grow' : '',
+				center ? 'justify-center items-center' : '',
 				className
 			)}
 		>

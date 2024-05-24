@@ -1,10 +1,10 @@
 // components
-import { Dialog, DialogContent } from '@/components/ui/dialog'
 import ItemForm from '@/components/forms/ItemForm'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 // database
-import { IItem } from '@/database/models/item.model'
+import { IItem } from '@/lib/models/item.model'
 
-export default function ItemUpdateModal({
+export default function ItemUpdateDialog({
 	item,
 	open,
 	close,
@@ -15,7 +15,7 @@ export default function ItemUpdateModal({
 }) {
 	return (
 		<Dialog open={open} onOpenChange={close}>
-			<DialogContent className="flex flex-col aspect-square sm:w-[480px]">
+			<DialogContent className="flex flex-col aspect-square w-full-4 max-w-md">
 				<ItemForm item={item} close={close} />
 			</DialogContent>
 		</Dialog>

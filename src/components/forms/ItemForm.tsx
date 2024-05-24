@@ -6,15 +6,15 @@ import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import ArwForm from '@/components/forms/ArwForm'
-import ArwGroup from '@/components/shared/ArwGroup'
-import ArwInput from '@/components/forms/ArwInput'
-import ArwTitle from '@/components/shared/ArwTitle'
-// database
-import { createItem, updateItem } from '@/database/actions/item.action'
-import { IItem } from '@/database/models/item.model'
+import ArwForm from '@/components/arw/ArwForm'
+import ArwFlex from '@/components/arw/ArwFlex'
+import ArwInput from '@/components/arw/ArwInput'
+import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { ItemFormData, itemSchema } from '@/lib/zod'
+import { createItem, updateItem } from '@/lib/actions/item.action'
+import { IItem } from '@/lib/models/item.model'
+import { itemSchema } from '@/lib/zod'
+import { ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
 
 export default function ItemForm({
@@ -79,11 +79,11 @@ export default function ItemForm({
 			onSubmit={onSubmit} 
 			className="grow justify-between gap-8"
 		>
-			<ArwTitle className="arw-text-accent">
+			<ArwTitle center accent>
 				{item ? "Update item" : "Add new item"}
 			</ArwTitle>
 			
-			<ArwGroup className="gap-8">
+			<ArwFlex className="gap-8">
 				<ArwInput 
 					control={form.control} 
 					name="title"
@@ -94,12 +94,12 @@ export default function ItemForm({
 					name="info"
 					label="Info"
 				/>
-			</ArwGroup>
-			<ArwGroup>
+			</ArwFlex>
+			<ArwFlex>
 				<Button variant="accent">
 					{item ? "Update item" : "Add new item"}
 				</Button>
-			</ArwGroup>
+			</ArwFlex>
 		</ArwForm>
 	)
 }

@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose'
 
-export interface IUser {
+export interface IUser extends Document {
 	_id: string
 	clerkId: string
 	email: string
@@ -41,18 +41,4 @@ const UserModel = models?.User || model('User', UserSchema)
 
 export default UserModel
 
-export type CreateUserData = {
-	clerkId: string
-	email: string
-	username: string
-	firstName: string
-	lastName: string
-	photo: string
-}
 
-export type UpdateUserData = {
-	username: string
-	firstName: string
-	lastName: string
-	photo: string
-}

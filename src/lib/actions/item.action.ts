@@ -2,15 +2,13 @@
 // modules
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
-// database
-import { connectToDatabase } from '@/database'
-import { getUser } from '@/database/actions/user.action'
-import ItemModel from '@/database/models/item.model'
 // lib
+import ItemModel from '@/lib/models/item.model'
+import { connectToDatabase } from '@/lib/utils/mongoose'
 import { generateUniqueSlug, handleError } from '@/lib/utils'
-import { ItemFormData } from '@/lib/zod'
+import { getUser } from '@/lib/actions/user.action'
+import { ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
-
 
 // CREATE
 export async function createItem(itemData: ItemFormData) {
@@ -66,7 +64,11 @@ export async function updateItem(slug: string, itemData: ItemFormData) {
 	try {
 		await connectToDatabase()
 
-		const updatedSlug = await generateUniqueSlug(ItemModel, itemData.title, slug)
+		const updatedSlug = await generateUniqueSlug(
+			ItemModel,
+			itemData.title,
+			slug
+		)
 
 		const updatedItem = await ItemModel.findOneAndUpdate(
 			{ slug },

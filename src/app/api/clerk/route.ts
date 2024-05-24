@@ -10,7 +10,7 @@ import {
 	createUser,
 	deleteUser,
 	updateUser,
-} from '@/database/actions/user.action'
+} from '@/lib/actions/user.action'
 
 export async function POST(req: Request) {
 	const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET

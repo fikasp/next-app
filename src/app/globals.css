@@ -3,16 +3,6 @@
 @tailwind utilities;
 
 @layer utilities {
-	/* text */
-	.arw-text-accent {
-		@apply text-accent-600 
-		dark:text-accent-500;
-	}
-	.arw-text-hover {
-		@apply hover:text-accent-600 
-		dark:hover:text-accent-500 
-		transition;
-	}
 	/* forms */
 	.arw-input {
 		@apply bg-base-50 
@@ -28,27 +18,13 @@
 		rounded-md
 		text-lg;
 	}
-}
-
-/* layout */
-.grid-auto-300 {
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-/* scrollbar */
-::-webkit-scrollbar {
-	width: 0px;
-	height: 0px;
-}
-
-::-webkit-scrollbar-track {
-	background: #222;
-}
-
-::-webkit-scrollbar-thumb {
-	background: #111;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: #333;
+	/* layout */
+	.arw-grid-auto-300 {
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	}
+	/* scrollbar */
+	::-webkit-scrollbar {
+		width: 0px;
+		height: 0px;
+	}
 }

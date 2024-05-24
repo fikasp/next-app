@@ -1,5 +1,5 @@
 // components
-import ArwSpinner from '@/components/shared/ArwSpinner'
+import ArwSpinner from '@/components/arw/ArwSpinner'
 
 export default function Loading() {
 	return <ArwSpinner />

@@ -65,17 +65,15 @@ const config = {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
+			width: {
+				'full-4': 'calc(100% - 32px)',
+			},
 		},
 	},
 	plugins: [
 		require('tailwindcss-animate'),
 		plugin(({ addUtilities }) => {
 			addUtilities({
-				'.flex-start': {
-					display: 'flex',
-					justifyContent: 'flex-start',
-					alignItems: 'center',
-				},
 				'.flex-center': {
 					display: 'flex',
 					justifyContent: 'center',
@@ -83,12 +81,7 @@ const config = {
 				},
 				'.flex-between': {
 					display: 'flex',
-					justifyContent: 'space-between',
-					alignItems: 'center',
-				},
-				'.flex-end': {
-					display: 'flex',
-					justifyContent: 'flex-end',
+					justifyContent: 'between',
 					alignItems: 'center',
 				},
 			})

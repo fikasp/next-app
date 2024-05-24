@@ -8,7 +8,7 @@ export default function ArwForm({
 	className,
 	onSubmit,
 	form,
-	row = false,
+	row,
 }: {
 	children: React.ReactNode
 	className?: string
@@ -20,7 +20,7 @@ export default function ArwForm({
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className={cn(`flex ${row ? '' : 'flex-col'} gap-4`, className)}
+				className={cn('flex gap-4', row ? '' : 'flex-col', className)}
 			>
 				{children}
 			</form>

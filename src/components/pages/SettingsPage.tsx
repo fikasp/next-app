@@ -1,6 +1,10 @@
 // components
-import ArwContainer from '@/components/shared/ArwContainer'
+import ArwContainer from '@/components/arw/ArwContainer'
 
 export default function SettingsPage() {
-	return <ArwContainer className="flex-center grow">Settings</ArwContainer>
+	return (
+		<ArwContainer grow center>
+			Settings
+		</ArwContainer>
+	)
 }

@@ -1,7 +1,7 @@
 // modules
 import { Schema, model, models } from 'mongoose'
-// database
-import { IUser } from '@/database/models/user.model'
+// lib
+import { IUser } from '@/lib/models/user.model'
 
 export interface IItem extends Document {
 	_id: string

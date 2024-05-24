@@ -1,11 +1,10 @@
 'use server'
 // modules
 import { revalidatePath } from 'next/cache'
-// database
-import { connectToDatabase } from '@/database'
-import { CreateUserData, UpdateUserData } from '@/database/models/user.model'
-import UserModel from '@/database/models/user.model'
 // lib
+import UserModel from '@/lib/models/user.model'
+import { CreateUserData, UpdateUserData } from '@/lib/types'
+import { connectToDatabase } from '@/lib/utils/mongoose'
 import { handleError } from '@/lib/utils'
 import { routes } from '@/navigation'
 

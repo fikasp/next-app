@@ -1,6 +1,10 @@
 // components
-import ArwContainer from '@/components/shared/ArwContainer'
+import ArwContainer from '@/components/arw/ArwContainer'
 
 export default function HomePage() {
-	return <ArwContainer className="flex-center grow">Home page</ArwContainer>
+	return (
+		<ArwContainer grow center>
+			Home page
+		</ArwContainer>
+	)
 }

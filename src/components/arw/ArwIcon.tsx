@@ -14,10 +14,10 @@ export default function ArwIcon({
 	return (
 		<ReactSVG
 			src={src}
+			className={className}
 			beforeInjection={(svg) => {
 				svg.setAttribute('style', `width: ${size}; height: ${size}`)
 			}}
-			className={className}
 		/>
 	)
 }
