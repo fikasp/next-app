@@ -14,7 +14,7 @@ import ItemUpdateDialog from '@/components/dialogs/ItemUpdateDialog'
 import { IItem } from '@/lib/models/item.model'
 import { icons, routes } from '@/navigation'
 
-export default function ItemCard({ item }: { item: IItem }) {
+export default function UserItemCard({ item }: { item: IItem }) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 

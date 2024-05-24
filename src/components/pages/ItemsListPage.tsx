@@ -1,5 +1,5 @@
 // components
-import ItemCard from '@/components/cards/ItemCard'
+import UserItemCard from '@/components/cards/UserItemCard'
 import ArwContainer from '@/components/arw/ArwContainer'
 // lib
 import { getItemsByUser } from '@/lib/actions/item.action'
@@ -9,16 +9,12 @@ export default async function ItemsListPage() {
 	const items: IItem[] = await getItemsByUser()
 
 	if (items.length === 0) {
-		return (
-			<ArwContainer center>
-				No items
-			</ArwContainer>
-		)
+		return <ArwContainer center>No items</ArwContainer>
 	} else {
 		return (
 			<ArwContainer grid className="arw-grid-auto-300 gap-3 content-start">
 				{items.map((item: IItem) => (
-					<ItemCard item={item} key={item._id} />
+					<UserItemCard item={item} key={item._id} />
 				))}
 			</ArwContainer>
 		)

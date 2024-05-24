@@ -9,8 +9,18 @@ import { getAdjacentItems } from '@/lib/actions/item.action'
 import { AdjacentItems } from '@/lib/types'
 import { routes } from '@/navigation'
 
-export default async function ItemDetailsPage({ slug }: { slug: string }) {
-	const {prev, current, next}: AdjacentItems = await getAdjacentItems(slug)
+export default async function ItemDetailsPage({
+	slug,
+	home,
+}: {
+	slug: string
+	home?: boolean
+}) {
+	const { prev, current, next }: AdjacentItems = await getAdjacentItems(
+		slug,
+		home
+	)
+	const baseUrl = home ? routes.HOME : routes.ITEMS
 
 	return (
 		<ArwContainer>
@@ -18,9 +28,9 @@ export default async function ItemDetailsPage({ slug }: { slug: string }) {
 				<ArwTitle>{current?.title}</ArwTitle>
 				<ArwText>{current?.info}</ArwText>
 				<Navigation
-					back={routes.ITEMS}
-					prev={prev && `${routes.ITEMS}/${prev.slug}`}
-					next={next && `${routes.ITEMS}/${next.slug}`}
+					back={baseUrl}
+					prev={prev && `${baseUrl}/${prev.slug}`}
+					next={next && `${baseUrl}/${next.slug}`}
 				/>
 			</ArwPaper>
 		</ArwContainer>

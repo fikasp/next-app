@@ -30,6 +30,19 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
+export async function getAllItems() {
+	try {
+		await connectToDatabase()
+
+		const items = await ItemModel.find()
+
+		console.log('*** getAllItems:', items)
+		return JSON.parse(JSON.stringify(items))
+	} catch (error) {
+		handleError(error)
+	}
+}
+
 export async function getItemsByUser() {
 	try {
 		await connectToDatabase()
@@ -60,23 +73,40 @@ export async function getItemBySlug(slug: string) {
 }
 
 // prettier-ignore
-export async function getAdjacentItems(slug: string) : Promise<AdjacentItems> {
+export async function getAdjacentItems(
+	slug: string,
+	home: boolean | undefined
+): Promise<AdjacentItems> {
 	try {
 		await connectToDatabase()
 
-		const { userId } = auth()
-		const user = await getUser(userId)
-		
-		const currentItem = await ItemModel
-			.findOne({ user: user._id, slug })
+		let currentItem
+		let prevItem
+		let nextItem
 
-		const prevItem = await ItemModel
-			.findOne({ user: user._id, _id: { $lt: currentItem._id }})
-			.sort({ _id: -1 })
+		if (home) {
+			currentItem = await ItemModel
+				.findOne({ slug })
+			prevItem = await ItemModel
+				.findOne({_id: { $lt: currentItem._id }})
+				.sort({ _id: -1 })
+			nextItem = await ItemModel
+				.findOne({_id: { $gt: currentItem._id }})
+				.sort({ _id: 1 })
 
-		const nextItem = await ItemModel
-			.findOne({user: user._id,	_id: { $gt: currentItem._id }})
-			.sort({ _id: 1 })
+		} else {
+			const { userId } = auth()
+			const user = await getUser(userId)
+
+			currentItem = await ItemModel
+				.findOne({ user: user._id, slug })
+			prevItem = await ItemModel
+				.findOne({ user: user._id, _id: { $lt: currentItem._id }})
+				.sort({ _id: -1 })
+			nextItem = await ItemModel
+				.findOne({ user: user._id, _id: { $gt: currentItem._id }})
+				.sort({ _id: 1 })
+		}
 
 		const items = {
 			prev: JSON.parse(JSON.stringify(prevItem)),
@@ -86,6 +116,7 @@ export async function getAdjacentItems(slug: string) : Promise<AdjacentItems> {
 
 		console.log('*** getAdjacentItems:', items)
 		return items
+		
 	} catch (error) {
 		handleError(error)
 		return { prev: null, current: null, next: null }

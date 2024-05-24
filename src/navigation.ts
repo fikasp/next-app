@@ -1,8 +1,9 @@
 export const routes = {
-	HOME: '/',
 	ADD: '/add',
+	HOME: '/home',
 	ITEMS: '/items',
 	SETTINGS: '/settings',
+	START: '/',
 }
 
 export const icons = {
