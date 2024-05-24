@@ -50,7 +50,7 @@ export default function Navigation({
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
 		}
-	}, [handlePrevClick, handleNextClick, handleBackClick])
+	}, [])
 
 	return (
 		<ArwFlex between row>
