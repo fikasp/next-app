@@ -13,7 +13,7 @@ export default function ItemDetailsLoading({ home }: { home?: boolean }) {
 		<ArwContainer>
 			<ArwPaper grow between accent>
 				<ArwTitle>Loading...</ArwTitle>
-				<ArwSpinner />
+				<ArwSpinner accent />
 				<Navigation back={baseUrl} prev={baseUrl} next={baseUrl} />
 			</ArwPaper>
 		</ArwContainer>
