@@ -5,7 +5,7 @@ import ItemForm from '@/components/forms/ItemForm'
 
 export default function ItemAddPage() {
 	return (
-		<ArwContainer grow center>
+		<ArwContainer center>
 			<ArwPaper square className="w-full-4 max-w-md">
 				<ItemForm />
 			</ArwPaper>

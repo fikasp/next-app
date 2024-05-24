@@ -5,18 +5,18 @@ export default function ArwContainer({
 	children,
 	className,
 	center,
-	grow,
+	grid,
 }: {
 	children: React.ReactNode
 	className?: string
 	center?: boolean
-	grow?: boolean
+	grid?: boolean
 }) {
 	return (
 		<div
 			className={cn(
-				'container flex flex-col p-4',
-				grow ? 'grow' : '',
+				'container grow p-4',
+				grid ? 'grid' : 'flex flex-col',
 				center ? 'justify-center items-center' : '',
 				className
 			)}

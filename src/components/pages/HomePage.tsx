@@ -3,7 +3,7 @@ import ArwContainer from '@/components/arw/ArwContainer'
 
 export default function HomePage() {
 	return (
-		<ArwContainer grow center>
+		<ArwContainer center>
 			Home page
 		</ArwContainer>
 	)

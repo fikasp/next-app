@@ -13,7 +13,7 @@ export default async function ItemDetailsPage({ slug }: { slug: string }) {
 	const item: IItem = await getItemBySlug(slug)
 
 	return (
-		<ArwContainer grow>
+		<ArwContainer>
 			<ArwPaper grow between accent>
 				<ArwTitle>{item.title}</ArwTitle>
 				<ArwText>{item.info}</ArwText>
