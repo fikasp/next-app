@@ -72,7 +72,6 @@ export async function getItemBySlug(slug: string) {
 	}
 }
 
-// prettier-ignore
 export async function getAdjacentItems(
 	slug: string,
 	userMode: boolean
@@ -80,33 +79,27 @@ export async function getAdjacentItems(
 	try {
 		await connectToDatabase()
 
-		let currentItem
-		let prevItem
-		let nextItem
+		const userFilter: any = {}
+		const itemQuery: any = { slug }
 
 		if (userMode) {
 			const { userId } = auth()
 			const user = await getUser(userId)
 
-			currentItem = await ItemModel
-				.findOne({ user: user._id, slug })
-			prevItem = await ItemModel
-				.findOne({ user: user._id, _id: { $lt: currentItem._id }})
-				.sort({ _id: -1 })
-			nextItem = await ItemModel
-				.findOne({ user: user._id, _id: { $gt: currentItem._id }})
-				.sort({ _id: 1 })
-
-		} else {
-			currentItem = await ItemModel
-				.findOne({ slug })
-			prevItem = await ItemModel
-				.findOne({_id: { $lt: currentItem._id }})
-				.sort({ _id: -1 })
-			nextItem = await ItemModel
-				.findOne({_id: { $gt: currentItem._id }})
-				.sort({ _id: 1 })
+			userFilter.user = user._id // { user: user._id}
+			itemQuery.user = user._id // { slug, user: user._id}
 		}
+		const currentItem = await ItemModel.findOne(itemQuery)
+
+		const prevItem = await ItemModel.findOne({
+			...userFilter,
+			_id: { $lt: currentItem._id },
+		}).sort({ _id: -1 })
+
+		const nextItem = await ItemModel.findOne({
+			...userFilter,
+			_id: { $gt: currentItem._id },
+		}).sort({ _id: 1 })
 
 		const items = {
 			prev: JSON.parse(JSON.stringify(prevItem)),
@@ -116,7 +109,6 @@ export async function getAdjacentItems(
 
 		console.log('*** getAdjacentItems:', items)
 		return items
-		
 	} catch (error) {
 		handleError(error)
 		return { prev: null, current: null, next: null }
