@@ -29,7 +29,7 @@ export default function UserItemCard({ item }: { item: IItem }) {
 			<ArwPaper
 				accent
 				square
-				className="relative justify-between px-5 py-4 group"
+				className="relative justify-between px-5 py-4 group max-sm:aspect-video"
 			>
 				<Link
 					href={`${routes.ITEMS}/${item.slug}?user=true`}
