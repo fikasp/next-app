@@ -26,7 +26,7 @@ export default async function ItemDetailsPage({
 		<ArwContainer>
 			<ArwPaper grow between accent>
 				<ArwTitle>{current?.title}</ArwTitle>
-				<ArwText>{current?.info}</ArwText>
+				<ArwText>{userMode? "UserMode" : "Error"}</ArwText>
 				<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 			</ArwPaper>
 		</ArwContainer>
