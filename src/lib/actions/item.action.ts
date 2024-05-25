@@ -10,7 +10,6 @@ import { getUser } from '@/lib/actions/user.action'
 import { AdjacentItems, ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
 
-
 // CREATE
 export async function createItem(itemData: ItemFormData) {
 	try {
@@ -76,7 +75,7 @@ export async function getItemBySlug(slug: string) {
 // prettier-ignore
 export async function getAdjacentItems(
 	slug: string,
-	home: boolean | undefined
+	userMode: boolean
 ): Promise<AdjacentItems> {
 	try {
 		await connectToDatabase()
@@ -85,17 +84,7 @@ export async function getAdjacentItems(
 		let prevItem
 		let nextItem
 
-		if (home) {
-			currentItem = await ItemModel
-				.findOne({ slug })
-			prevItem = await ItemModel
-				.findOne({_id: { $lt: currentItem._id }})
-				.sort({ _id: -1 })
-			nextItem = await ItemModel
-				.findOne({_id: { $gt: currentItem._id }})
-				.sort({ _id: 1 })
-
-		} else {
+		if (userMode) {
 			const { userId } = auth()
 			const user = await getUser(userId)
 
@@ -106,6 +95,16 @@ export async function getAdjacentItems(
 				.sort({ _id: -1 })
 			nextItem = await ItemModel
 				.findOne({ user: user._id, _id: { $gt: currentItem._id }})
+				.sort({ _id: 1 })
+
+		} else {
+			currentItem = await ItemModel
+				.findOne({ slug })
+			prevItem = await ItemModel
+				.findOne({_id: { $lt: currentItem._id }})
+				.sort({ _id: -1 })
+			nextItem = await ItemModel
+				.findOne({_id: { $gt: currentItem._id }})
 				.sort({ _id: 1 })
 		}
 

@@ -18,7 +18,7 @@ export const icons = {
 
 export const nav = [
 	{
-		route: routes.HOME,
+		route: routes.START,
 		icon: icons.HOME,
 		label: 'Home',
 	},

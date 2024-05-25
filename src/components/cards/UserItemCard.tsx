@@ -1,10 +1,10 @@
 'use client'
 // modules
+import Link from 'next/link'
 import { useState } from 'react'
 // components
 import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'
-import ArwLink from '@/components/arw/ArwLink'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
@@ -26,17 +26,33 @@ export default function UserItemCard({ item }: { item: IItem }) {
 
 	return (
 		<>
-			<ArwPaper accent square className="justify-between px-5 py-4">
-				<ArwFlex row between>
-					<ArwLink href={`${routes.ITEMS}/${item.slug}`}>
-						<ArwTitle>{item.title}</ArwTitle>
-					</ArwLink>
+			<ArwPaper
+				accent
+				square
+				className="relative justify-between px-5 py-4 group"
+			>
+				<Link
+					href={`${routes.ITEMS}/${item.slug}?user`}
+					className="absolute inset-0 z-10"
+				/>
+				<ArwFlex row between className="relative z-20">
+					<ArwTitle className="group-hover:text-accent transition cursor-pointer">
+						{item.title}
+					</ArwTitle>
 					<ArwFlex row>
-						<ArwButton onClick={openUpdateDialog} src={icons.EDIT} />
-						<ArwButton onClick={openDeleteDialog} src={icons.DELETE} />
+						<ArwButton
+							className="relative z-30"
+							onClick={openUpdateDialog}
+							src={icons.EDIT}
+						/>
+						<ArwButton
+							className="relative z-30"
+							onClick={openDeleteDialog}
+							src={icons.DELETE}
+						/>
 					</ArwFlex>
 				</ArwFlex>
-				<ArwText>{item.info}</ArwText>
+				<ArwText className="relative z-20">{item.info}</ArwText>
 			</ArwPaper>
 
 			<ItemDeleteDialog

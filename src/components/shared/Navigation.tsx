@@ -11,9 +11,9 @@ export default function Navigation({
 	prev,
 	next,
 }: {
-	back: string
-	prev?: string | null
-	next?: string | null
+	back?: string | undefined | null
+	prev?: string | undefined | null
+	next?: string | undefined | null
 }) {
 	const router = useRouter()
 
@@ -28,7 +28,9 @@ export default function Navigation({
 		}
 	}
 	const handleBackClick = () => {
-		router.push(back)
+		if (back) {
+			router.push(back)
+		}
 	}
 
 	useEffect(() => {
