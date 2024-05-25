@@ -33,10 +33,10 @@ export default function UserItemCard({ item }: { item: IItem }) {
 			>
 				<Link
 					href={`${routes.ITEMS}/${item.slug}?user=true`}
-					className="absolute inset-0 z-10"
+					className="absolute inset-0 z-20"
 				/>
-				<ArwFlex row between className="relative z-20">
-					<ArwTitle className="group-hover:text-accent transition cursor-pointer">
+				<ArwFlex row between className="relative">
+					<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
 						{item.title}
 					</ArwTitle>
 					<ArwFlex row>
@@ -52,7 +52,7 @@ export default function UserItemCard({ item }: { item: IItem }) {
 						/>
 					</ArwFlex>
 				</ArwFlex>
-				<ArwText className="relative z-20">{item.info}</ArwText>
+				<ArwText className="relative z-10">{item.info}</ArwText>
 			</ArwPaper>
 
 			<ItemDeleteDialog

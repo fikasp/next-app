@@ -15,7 +15,7 @@ export default function ItemUpdateDialog({
 }) {
 	return (
 		<Dialog open={open} onOpenChange={close}>
-			<DialogContent className="flex flex-col aspect-square w-full-4 max-w-md">
+			<DialogContent className="flex flex-col aspect-square w-full-4 max-h-full max-w-md">
 				<ItemForm item={item} close={close} />
 			</DialogContent>
 		</Dialog>

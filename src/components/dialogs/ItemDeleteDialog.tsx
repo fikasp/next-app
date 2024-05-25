@@ -10,6 +10,7 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { useToast } from '@/components/ui/use-toast'
+import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { deleteItem } from '@/lib/actions/item.action'
 import { IItem } from '@/lib/models/item.model'
@@ -38,7 +39,7 @@ export default function ItemDeleteDialog({
 		<AlertDialog open={open} onOpenChange={close}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Delete confirmation</AlertDialogTitle>
+					<AlertDialogTitle><ArwTitle accent>Delete item</ArwTitle></AlertDialogTitle>
 					<AlertDialogDescription>
 						<p>Are you sure to delete this item?</p>
 						<p>This action cannot be undone.</p>

@@ -26,7 +26,7 @@ export default function ArwPaper({
 				between ? 'justify-between items-center' : '',
 				accent
 					? 'bg-accent-200 dark:bg-accent-900'
-					: 'bg-white dark:bg-base-900',
+					: 'bg-white dark:bg-base-800/50',
 				square ? 'aspect-square' : '',
 				grow ? 'grow' : '',
 				className
