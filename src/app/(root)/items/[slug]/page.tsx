@@ -1,19 +1,16 @@
-// import ItemDetailsPage from '@/components/pages/ItemDetailsPage'
+import ItemDetailsPage from '@/components/pages/ItemDetailsPage'
 
 export default function Page({
-	// params,
+	params,
 	searchParams,
 }: {
 	params: any
 	searchParams: any
 }) {
-	console.log("****", searchParams)
-	console.log(Boolean(searchParams.user == ''))
-	console.log(searchParams.user)
 	return (
-		<>
-		<div>{searchParams.user}</div>
-		{/* <ItemDetailsPage slug={params.slug} userMode={Boolean(searchParams.user == '')} /> */}
-		</>
+		<ItemDetailsPage
+			slug={params.slug}
+			userMode={searchParams.user == 'true'}
+		/>
 	)
 }
