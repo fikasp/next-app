@@ -14,7 +14,7 @@ import { routes } from '@/navigation'
 export default function PublicItemCard({ item }: { item: IItem }) {
 	return (
 		<Link href={`${routes.ITEMS}/${item.slug}`}>
-			<ArwPaper accent square className="justify-between px-5 py-4 group max-sm:aspect-video">
+			<ArwPaper accent square className="justify-between px-5 py-4 group max-lg:aspect-video">
 				<ArwTitle className="group-hover:text-accent transition">{item.title}</ArwTitle>
 				<ArwFlex row className="items-center gap-2">
 					<Avatar>

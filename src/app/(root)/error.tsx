@@ -5,8 +5,8 @@ import ArwTitle from '@/components/arw/ArwTitle'
 
 export default function Error() {
 	return (
-		<ArwContainer center className="gap-6">
-			<ArwTitle>Oops! Something went wrong...</ArwTitle>
+		<ArwContainer center className="gap-6 p-6">
+			<ArwTitle center>Oops! Something went wrong...</ArwTitle>
 			<ArwText center>
 				It seems that we&apos;ve encountered an unexpected issue while using the application. 
 			</ArwText>
