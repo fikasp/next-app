@@ -7,7 +7,9 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
+	console.log("****", searchParams)
+	console.log(Boolean(searchParams.user == ''))
 	return (
-		<ItemDetailsPage slug={params.slug} userMode={searchParams.user === ''} />
+		<ItemDetailsPage slug={params.slug} userMode={Boolean(searchParams.user == '')} />
 	)
 }
