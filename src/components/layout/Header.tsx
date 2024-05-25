@@ -14,7 +14,7 @@ import { icons } from '@/navigation'
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
 	return (
-		<header className="sticky top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 dark:arw-backdrop-dark shadow-md p-4 h-[75px] flex-center">
+		<header className="sticky z-50 top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 dark:arw-backdrop-dark shadow-md p-4 h-[75px] flex-center">
 			<div className="container flex justify-between p-0 xl:px-4">
 				{/* left */}
 				<div className="flex items-center">
