@@ -1,7 +1,7 @@
-import ItemDetailsPage from '@/components/pages/ItemDetailsPage'
+// import ItemDetailsPage from '@/components/pages/ItemDetailsPage'
 
 export default function Page({
-	params,
+	// params,
 	searchParams,
 }: {
 	params: any
@@ -9,7 +9,11 @@ export default function Page({
 }) {
 	console.log("****", searchParams)
 	console.log(Boolean(searchParams.user == ''))
+	console.log(searchParams.user)
 	return (
-		<ItemDetailsPage slug={params.slug} userMode={Boolean(searchParams.user == '')} />
+		<>
+		<div>{searchParams.user}</div>
+		{/* <ItemDetailsPage slug={params.slug} userMode={Boolean(searchParams.user == '')} /> */}
+		</>
 	)
 }

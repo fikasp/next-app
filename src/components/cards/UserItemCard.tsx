@@ -32,7 +32,7 @@ export default function UserItemCard({ item }: { item: IItem }) {
 				className="relative justify-between px-5 py-4 group"
 			>
 				<Link
-					href={`${routes.ITEMS}/${item.slug}?user`}
+					href={`${routes.ITEMS}/${item.slug}?user=true`}
 					className="absolute inset-0 z-10"
 				/>
 				<ArwFlex row between className="relative z-20">

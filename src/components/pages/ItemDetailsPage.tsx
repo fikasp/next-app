@@ -19,14 +19,14 @@ export default async function ItemDetailsPage({
 }) {
 	const { prev, current, next }: AdjacentItems = await getAdjacentItems(slug, userMode)
 	const backUrl = userMode ? routes.ITEMS : routes.START
-	const prevUrl =	prev && `${routes.ITEMS}/${prev.slug}${userMode ? '?user' : ''}`
-	const nextUrl =	next && `${routes.ITEMS}/${next.slug}${userMode ? '?user' : ''}`
+	const prevUrl =	prev && `${routes.ITEMS}/${prev.slug}${userMode ? '?user=true' : ''}`
+	const nextUrl =	next && `${routes.ITEMS}/${next.slug}${userMode ? '?user=true' : ''}`
 
 	return (
 		<ArwContainer>
 			<ArwPaper grow between accent>
 				<ArwTitle>{current?.title}</ArwTitle>
-				<ArwText>{userMode? "UserMode" : "Error"}</ArwText>
+				<ArwText>{current?.info}</ArwText>
 				<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 			</ArwPaper>
 		</ArwContainer>
