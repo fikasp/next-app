@@ -21,12 +21,12 @@ export default function ArwPaper({
 	return (
 		<div
 			className={cn(
-				'flex flex-col gap-4 p-8 shadow-xl rounded-xl ',
+				'flex flex-col gap-4 p-8 shadow-xl rounded-xl',
 				center ? 'justify-center items-center' : '',
 				between ? 'justify-between items-center' : '',
 				accent
 					? 'bg-accent-200 dark:bg-accent-900'
-					: 'bg-base-100 dark:bg-base-950/50',
+					: 'bg-white dark:bg-base-900',
 				square ? 'aspect-square' : '',
 				grow ? 'grow' : '',
 				className
