@@ -2,7 +2,7 @@ export const routes = {
 	ADD: '/add',
 	HOME: '/home',
 	ITEMS: '/items',
-	SETTINGS: '/settings',
+	SEARCH: '/search',
 	START: '/',
 }
 
@@ -13,7 +13,7 @@ export const icons = {
 	HOME: '/assets/icons/home.svg',
 	ITEMS: '/assets/icons/items.svg',
 	MENU: '/assets/icons/menu.svg',
-	SETTINGS: '/assets/icons/settings.svg',
+	SEARCH: '/assets/icons/search.svg',
 }
 
 export const nav = [
@@ -25,7 +25,7 @@ export const nav = [
 	{
 		route: routes.ITEMS,
 		icon: icons.ITEMS,
-		label: 'Items list',
+		label: 'My items',
 	},
 	{
 		route: routes.ADD,
@@ -33,8 +33,8 @@ export const nav = [
 		label: 'Add item',
 	},
 	{
-		route: routes.SETTINGS,
-		icon: icons.SETTINGS,
-		label: 'Settings',
+		route: routes.SEARCH,
+		icon: icons.SEARCH,
+		label: 'Search',
 	},
 ]

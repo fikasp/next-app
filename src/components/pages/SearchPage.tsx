@@ -1,10 +1,10 @@
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
 
-export default function SettingsPage() {
+export default function SearchPage() {
 	return (
 		<ArwContainer center>
-			Settings
+			Search
 		</ArwContainer>
 	)
 }

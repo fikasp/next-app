@@ -10,6 +10,7 @@ import { getUser } from '@/lib/actions/user.action'
 import { AdjacentItems, ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
 
+
 // CREATE
 export async function createItem(itemData: ItemFormData) {
 	try {
@@ -34,7 +35,7 @@ export async function getAllItems() {
 	try {
 		await connectToDatabase()
 
-		const items = await ItemModel.find()
+		const items = await ItemModel.find().populate('user', '_id username photo')
 
 		console.log('*** getAllItems:', items)
 		return JSON.parse(JSON.stringify(items))
