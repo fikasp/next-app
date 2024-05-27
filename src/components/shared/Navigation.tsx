@@ -21,11 +21,14 @@ export default function Navigation({
 	const router = useRouter()
 
 	const handlePrevClick = () => {
+		console.log('handleprevclick')
+
 		if (prev) {
 			router.push(prev)
 		}
 	}
 	const handleNextClick = () => {
+		console.log('handlenextclick')
 		if (next) {
 			router.push(next)
 		}
@@ -59,30 +62,26 @@ export default function Navigation({
 			touchStartX = event.touches[0].clientX
 		}
 
-		const handleTouchEnd = () => {
-			if (touchStartX - touchEndX > 50) {
-				handleNextClick()
-			}
+		const handleTouchEnd = (event: TouchEvent) => {
+			touchEndX = event.changedTouches[0].clientX
 
-			if (touchStartX - touchEndX < -50) {
+			const swipeDistance = touchStartX - touchEndX
+
+			if (swipeDistance > 50) {
+				handleNextClick()
+			} else if (swipeDistance < -50) {
 				handlePrevClick()
 			}
 		}
-
-		const handleTouchMove = (event: TouchEvent) => {
-			touchEndX = event.touches[0].clientX
-		}
-
+		
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)
-		document.addEventListener('touchmove', handleTouchMove)
 
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
 			document.removeEventListener('touchstart', handleTouchStart)
 			document.removeEventListener('touchend', handleTouchEnd)
-			document.removeEventListener('touchmove', handleTouchMove)
 		}
 	})
 
