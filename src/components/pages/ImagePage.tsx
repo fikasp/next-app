@@ -26,9 +26,9 @@ export default async function ImagePage({
 
 	return (
 		<ArwContainer>
-			<ArwPaper grow className="p-5 bg-accent dark:bg-accent relative">
+			<ArwPaper grow className="p-5 bg-accent dark:bg-accent relative flex-center">
 				Image {id}
-				<Navigation back={backUrl} prev={prevUrl} next={nextUrl} className="absolute bottom-5 right-5" />
+				<Navigation back={backUrl} prev={prevUrl} next={nextUrl} className="absolute top-5 right-5" />
 			</ArwPaper>
 		</ArwContainer>
 	)

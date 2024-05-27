@@ -3,14 +3,15 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
-import { Button } from '@/components/ui/button'
 import ArwFlex from '@/components/arw/ArwFlex'
+import { icons } from '@/navigation'
+import ArwButton from '../arw/ArwButton'
 
 export default function Navigation({
 	back,
 	prev,
 	next,
-	className
+	className,
 }: {
 	back?: string | undefined | null
 	prev?: string | undefined | null
@@ -60,15 +61,9 @@ export default function Navigation({
 
 	return (
 		<ArwFlex between row className={className}>
-			<Button variant="secondary" disabled={!prev} onClick={handlePrevClick}>
-				Prev
-			</Button>
-			<Button variant="secondary" onClick={handleBackClick}>
-				Back
-			</Button>
-			<Button variant="secondary" disabled={!next} onClick={handleNextClick}>
-				Next
-			</Button>
+			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrevClick} />
+			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNextClick} />
+			<ArwButton src={icons.CLOSE} onClick={handleBackClick} />
 		</ArwFlex>
 	)
 }

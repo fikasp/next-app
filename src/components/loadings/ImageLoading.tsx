@@ -9,7 +9,7 @@ export default async function ImageLoading() {
 		<ArwContainer>
 			<ArwPaper grow className="p-5 bg-accent dark:bg-accent relative">
 				<ArwSpinner accent />
-				<Navigation className="absolute bottom-5 right-5"/>
+				<Navigation className="absolute top-5 right-5"/>
 			</ArwPaper>
 		</ArwContainer>
 	)

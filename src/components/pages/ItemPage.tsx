@@ -5,12 +5,10 @@ import ArwPaper from '@/components/arw/ArwPaper'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Gallery from '@/components/shared/Gallery'
 import Navigation from '@/components/shared/Navigation'
-import Manipulations from '@/components/shared/Manipulations'
 // lib
 import { AdjacentItems } from '@/lib/types'
 import { getAdjacentItems } from '@/lib/actions/item.action'
 import { routes } from '@/navigation'
-import { When } from 'react-if'
 
 export default async function ItemPage({
 	slug,
@@ -34,17 +32,14 @@ export default async function ItemPage({
 				<ArwPaper grow accent className="px-5 pb-5">
 					<ArwFlex row between>
 						<ArwTitle>{current.title}</ArwTitle>
-						<When condition={userMode}>
-							<Manipulations item={current} />
-						</When>
+						<Navigation
+							back={backUrl}
+							prev={prevUrl}
+							next={nextUrl}
+							className="justify-end"
+						/>
 					</ArwFlex>
 					<Gallery item={current} userMode={userMode} />
-					<Navigation
-						back={backUrl}
-						prev={prevUrl}
-						next={nextUrl}
-						className="justify-end"
-					/>
 				</ArwPaper>
 			</ArwContainer>
 		)
