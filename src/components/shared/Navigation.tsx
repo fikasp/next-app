@@ -2,11 +2,10 @@
 // modules
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useDrag } from '@use-gesture/react'
 // components
 import ArwFlex from '@/components/arw/ArwFlex'
+import ArwButton from '@/components/arw/ArwButton'
 import { icons } from '@/navigation'
-import ArwButton from '../arw/ArwButton'
 
 export default function Navigation({
 	back,
@@ -53,8 +52,6 @@ export default function Navigation({
 			}
 		}
 
-		document.addEventListener('keydown', handleKeyPress)
-
 		let touchStartX = 0
 		let touchEndX = 0
 		let touchStartY = 0
@@ -84,6 +81,7 @@ export default function Navigation({
 			touchEndY = event.touches[0].clientY
 		}
 
+		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)
 		document.addEventListener('touchmove', handleTouchMove)
