@@ -30,6 +30,8 @@ export default function Navigation({
 	const handleBackClick = () => {
 		if (back) {
 			router.push(back)
+		} else {
+			router.back()
 		}
 	}
 
@@ -56,11 +58,13 @@ export default function Navigation({
 
 	return (
 		<ArwFlex between row>
-			<Button disabled={!prev} onClick={handlePrevClick}>
+			<Button variant="secondary" disabled={!prev} onClick={handlePrevClick}>
 				Prev
 			</Button>
-			<Button onClick={handleBackClick}>Back</Button>
-			<Button disabled={!next} onClick={handleNextClick}>
+			<Button variant="secondary" onClick={handleBackClick}>
+				Back
+			</Button>
+			<Button variant="secondary" disabled={!next} onClick={handleNextClick}>
 				Next
 			</Button>
 		</ArwFlex>

@@ -1,5 +1,5 @@
 // components
-import HomeItemCard from '@/components/cards/HomeItemCard'
+import ItemCard from '@/components/cards/ItemCard'
 import ArwContainer from '@/components/arw/ArwContainer'
 // lib
 import { getAllItems } from '@/lib/actions/item.action'
@@ -14,7 +14,7 @@ export default async function HomePage() {
 		return (
 			<ArwContainer grid className="arw-grid-auto-300 gap-3 content-start">
 				{items.map((item: IItem) => (
-					<HomeItemCard item={item} key={item._id} />
+					<ItemCard item={item} key={item._id} />
 				))}
 			</ArwContainer>
 		)

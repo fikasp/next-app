@@ -29,6 +29,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.4",
+    "react-if": "^4.1.5",
     "react-responsive": "^10.0.0",
     "react-svg": "^16.1.33",
     "slugify": "^1.6.6",

@@ -1,3 +1,5 @@
+// modules
+import { MouseEventHandler } from 'react'
 // components
 import { cn } from '@/lib/utils'
 import ArwIcon from './ArwIcon'
@@ -8,7 +10,7 @@ export default function ArwButton({
 	label,
 	src,
 }: {
-	onClick: () => void
+	onClick: MouseEventHandler<HTMLButtonElement>
 	className?: string
 	label?: string
 	src?: string

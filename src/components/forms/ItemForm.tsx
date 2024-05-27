@@ -66,10 +66,10 @@ export default function ItemForm({
 					})
 				}
 			}
-			router.push(routes.ITEMS)
 		} catch (err) {
 			console.error(err)
 		}
+		router.push(routes.ITEMS)
 	}
 
 	return (

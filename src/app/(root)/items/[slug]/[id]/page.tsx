@@ -1,4 +1,4 @@
-import ItemPage from '@/components/pages/ItemPage'
+import ImagePage from '@/components/pages/ImagePage'
 
 export default function Page({
 	params,
@@ -8,7 +8,8 @@ export default function Page({
 	searchParams: any
 }) {
 	return (
-		<ItemPage
+		<ImagePage
+			id={params.id}
 			slug={params.slug}
 			userMode={searchParams.user == 'mode'}
 		/>

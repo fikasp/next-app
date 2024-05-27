@@ -1,3 +1,5 @@
+// modules
+import { useRouter } from 'next/navigation'
 // components
 import {
 	AlertDialog,
@@ -14,6 +16,7 @@ import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { deleteItem } from '@/lib/actions/item.action'
 import { IItem } from '@/lib/models/item.model'
+import { routes } from '@/navigation'
 
 export default function ItemDeleteDialog({
 	item,
@@ -25,6 +28,7 @@ export default function ItemDeleteDialog({
 	close: () => void
 }) {
 	const { toast } = useToast()
+	const router = useRouter()
 
 	const handleDelete = async () => {
 		const deletedItem = await deleteItem(item._id)
@@ -32,6 +36,7 @@ export default function ItemDeleteDialog({
 			title: 'Item deleted!',
 			description: `${deletedItem.title} is successfully deleted`,
 		})
+		router.push(routes.ITEMS)
 		close()
 	}
 
@@ -39,7 +44,9 @@ export default function ItemDeleteDialog({
 		<AlertDialog open={open} onOpenChange={close}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle><ArwTitle accent>Delete item</ArwTitle></AlertDialogTitle>
+					<AlertDialogTitle>
+						<ArwTitle accent>Delete item</ArwTitle>
+					</AlertDialogTitle>
 					<AlertDialogDescription>
 						<p>Are you sure to delete this item?</p>
 						<p>This action cannot be undone.</p>

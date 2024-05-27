@@ -2,6 +2,8 @@
 import { Schema, model, models } from 'mongoose'
 // lib
 import { IUser } from '@/lib/models/user.model'
+import { IImage } from '@/lib/models/image.model'
+import { Document } from 'mongoose'
 
 export interface IItem extends Document {
 	_id: string
@@ -9,6 +11,7 @@ export interface IItem extends Document {
 	slug: string
 	title: string
 	info: string
+	images: IImage[]
 }
 
 const ItemSchema = new Schema({
@@ -30,8 +33,17 @@ const ItemSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	images: {
+		type: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Image',
+			},
+		],
+		default: [],
+	},
 })
 
-const ItemModel = models?.Item || model('Item', ItemSchema)
+const ItemModel = models?.Item || model<IItem>('Item', ItemSchema)
 
 export default ItemModel

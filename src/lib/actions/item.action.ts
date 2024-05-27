@@ -3,12 +3,13 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import ItemModel from '@/lib/models/item.model'
+import { AdjacentImages, AdjacentItems, ItemFormData } from '@/lib/types'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { generateUniqueSlug, handleError } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
-import { AdjacentItems, ItemFormData } from '@/lib/types'
 import { routes } from '@/navigation'
+import ImageModel, { IImage } from '@/lib/models/image.model'
+import ItemModel from '@/lib/models/item.model'
 
 // CREATE
 export async function createItem(itemData: ItemFormData) {
@@ -50,7 +51,10 @@ export async function getItemsByUser() {
 		const { userId } = auth()
 		const user = await getUser(userId)
 
-		const items = await ItemModel.find({ user: user._id })
+		const items = await ItemModel.find({ user: user._id }).populate(
+			'user',
+			'_id username photo'
+		)
 
 		console.log('*** getItemsByUser:', items)
 		return JSON.parse(JSON.stringify(items))
@@ -89,7 +93,7 @@ export async function getAdjacentItems(
 			userFilter.user = user._id // { user: user._id}
 			itemQuery.user = user._id // { slug, user: user._id}
 		}
-		const currentItem = await ItemModel.findOne(itemQuery)
+		const currentItem = await ItemModel.findOne(itemQuery).populate('images')
 
 		const prevItem = await ItemModel.findOne({
 			...userFilter,
@@ -115,6 +119,44 @@ export async function getAdjacentItems(
 	}
 }
 
+export async function getAdjacentImages(
+	id: string,
+	slug: string
+): Promise<AdjacentImages> {
+	try {
+		await connectToDatabase()
+
+		const currentItem = await ItemModel.findOne({ slug }).populate('images')
+
+		const sortedImages = currentItem.images.sort((a: IImage, b: IImage) =>
+			a._id.toString().localeCompare(b._id.toString())
+		)
+
+		const currentImageIndex = sortedImages.findIndex(
+			(image: IImage) => image._id.toString() === id
+		)
+
+		const prevImage =
+			currentImageIndex > 0 ? sortedImages[currentImageIndex - 1] : null
+
+		const nextImage =
+			currentImageIndex < sortedImages.length - 1
+				? sortedImages[currentImageIndex + 1]
+				: null
+
+		const images = {
+			prev: JSON.parse(JSON.stringify(prevImage)),
+			next: JSON.parse(JSON.stringify(nextImage)),
+		}
+
+		console.log('*** getAdjacentImages:', images)
+		return images
+	} catch (error) {
+		handleError(error)
+		return { prev: null, next: null }
+	}
+}
+
 // UPDATE
 export async function updateItem(slug: string, itemData: ItemFormData) {
 	try {
@@ -135,6 +177,46 @@ export async function updateItem(slug: string, itemData: ItemFormData) {
 		revalidatePath(routes.ITEMS)
 
 		console.log('*** updateItem:', updatedItem)
+		return JSON.parse(JSON.stringify(updatedItem))
+	} catch (error) {
+		handleError(error)
+	}
+}
+
+export async function addImageToItem(
+	slug: string,
+	url: string,
+	caption: string
+) {
+	try {
+		await connectToDatabase()
+
+		const image = await ImageModel.create({ url, caption })
+
+		const updatedItem = await ItemModel.findOneAndUpdate(
+			{ slug },
+			{ $push: { images: image._id } }
+		)
+
+		console.log('*** addImageToItem:', updatedItem)
+		revalidatePath(routes.ITEMS)
+		return JSON.parse(JSON.stringify(updatedItem))
+	} catch (error) {
+		handleError(error)
+	}
+}
+
+export async function removeImageFromItem(slug: string, imageId: string) {
+	try {
+		await connectToDatabase()
+
+		const updatedItem = await ItemModel.findOneAndUpdate(
+			{ slug },
+			{ $pull: { images: imageId } }
+		)
+
+		console.log('*** removeImageFromItem:', updatedItem)
+		revalidatePath(routes.ITEMS)
 		return JSON.parse(JSON.stringify(updatedItem))
 	} catch (error) {
 		handleError(error)

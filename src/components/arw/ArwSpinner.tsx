@@ -14,8 +14,8 @@ export default function ArwSpinner({
 				className={cn(
 					'animate-spin h-32 w-32 rounded-full border-8 border-t-8',
 					accent
-						? 'border-accent-300 border-t-accent  dark:border-accent-800 dark:border-t-accent'
-						: 'border-base-300 border-t-base dark:border-base-800 dark:border-t-base',
+						? 'border-accent-300 border-t-accent-400  dark:border-accent-800 dark:border-t-accent-700'
+						: 'border-base-300 border-t-base-400 dark:border-base-800 dark:border-t-base-700',
 					className
 				)}
 			></div>
