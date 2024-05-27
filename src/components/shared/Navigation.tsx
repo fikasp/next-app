@@ -2,6 +2,7 @@
 // modules
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useDrag } from '@use-gesture/react'
 // components
 import ArwFlex from '@/components/arw/ArwFlex'
 import { icons } from '@/navigation'
@@ -54,11 +55,46 @@ export default function Navigation({
 
 		document.addEventListener('keydown', handleKeyPress)
 
+		let touchStartX = 0
+		let touchEndX = 0
+		let touchStartY = 0
+		let touchEndY = 0
+
+		const handleTouchStart = (event: TouchEvent) => {
+			touchStartX = event.touches[0].clientX
+			touchStartY = event.touches[0].clientY
+		}
+
+		const handleTouchEnd = () => {
+			if (touchStartX - touchEndX > 50) {
+				handleNextClick()
+			}
+
+			if (touchStartX - touchEndX < -50) {
+				handlePrevClick()
+			}
+
+			if (touchStartY - touchEndY > 50) {
+				handleBackClick()
+			}
+		}
+
+		const handleTouchMove = (event: TouchEvent) => {
+			touchEndX = event.touches[0].clientX
+			touchEndY = event.touches[0].clientY
+		}
+
+		document.addEventListener('touchstart', handleTouchStart)
+		document.addEventListener('touchend', handleTouchEnd)
+		document.addEventListener('touchmove', handleTouchMove)
+
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
+			document.removeEventListener('touchstart', handleTouchStart)
+			document.removeEventListener('touchend', handleTouchEnd)
+			document.removeEventListener('touchmove', handleTouchMove)
 		}
 	})
-
 	return (
 		<ArwFlex between row className={className}>
 			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrevClick} />
