@@ -21,16 +21,16 @@ export default function ImageCard({
 	handleRemove: (imageId: string) => MouseEventHandler<HTMLButtonElement>
 }) {
 	return (
-		<div className="group/image relative flex-center rounded-md h-[150px] bg-accent">
+		<div className="group relative flex-center rounded-md h-[150px] bg-accent">
 			<Link
 				href={`${routes.ITEMS}/${slug}/${image._id}${
 					userMode ? '?user=mode' : ''
 				}`}
 				className="absolute inset-0 z-20"
 			/>
-			<div>Image</div>
+			<div className="group-hover:text-accent-400 transition">Image</div>
 			<When condition={userMode}>
-				<div className="group/delete absolute top-0 right-0 z-30 p-3">
+				<div className="absolute top-0 right-0 z-50 p-3">
 					<ArwButton
 						onClick={handleRemove(image._id)}
 						src={icons.DELETE}
