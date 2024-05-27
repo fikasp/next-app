@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
 import ArwFlex from '@/components/arw/ArwFlex'
-import ArwButton from '@/components/arw/ArwButton'
 import { icons } from '@/navigation'
+import ArwButton from '../arw/ArwButton'
 
 export default function Navigation({
 	back,
@@ -54,12 +54,9 @@ export default function Navigation({
 
 		let touchStartX = 0
 		let touchEndX = 0
-		let touchStartY = 0
-		let touchEndY = 0
 
 		const handleTouchStart = (event: TouchEvent) => {
 			touchStartX = event.touches[0].clientX
-			touchStartY = event.touches[0].clientY
 		}
 
 		const handleTouchEnd = () => {
@@ -70,15 +67,10 @@ export default function Navigation({
 			if (touchStartX - touchEndX < -50) {
 				handlePrevClick()
 			}
-
-			if (touchStartY - touchEndY > 50) {
-				handleBackClick()
-			}
 		}
 
 		const handleTouchMove = (event: TouchEvent) => {
 			touchEndX = event.touches[0].clientX
-			touchEndY = event.touches[0].clientY
 		}
 
 		document.addEventListener('keydown', handleKeyPress)
@@ -93,8 +85,9 @@ export default function Navigation({
 			document.removeEventListener('touchmove', handleTouchMove)
 		}
 	})
+
 	return (
-		<ArwFlex between row className={className}>
+		<ArwFlex between row className={className} {...bind()}>
 			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrevClick} />
 			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNextClick} />
 			<ArwButton src={icons.CLOSE} onClick={handleBackClick} />
