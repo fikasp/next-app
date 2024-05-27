@@ -87,7 +87,7 @@ export default function Navigation({
 	})
 
 	return (
-		<ArwFlex between row className={className} {...bind()}>
+		<ArwFlex between row className={className}>
 			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrevClick} />
 			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNextClick} />
 			<ArwButton src={icons.CLOSE} onClick={handleBackClick} />
