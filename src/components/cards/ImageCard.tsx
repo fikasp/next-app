@@ -30,7 +30,7 @@ export default function ImageCard({
 			/>
 			<div className="group-hover:text-accent-400 transition">Image</div>
 			<When condition={userMode}>
-				<div className="absolute top-0 right-0 z-50 p-3">
+				<div className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						onClick={handleRemove(image._id)}
 						src={icons.DELETE}
