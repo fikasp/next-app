@@ -1,5 +1,6 @@
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
+import ArwFlex from '@/components/arw/ArwFlex'
 import ArwPaper from '@/components/arw/ArwPaper'
 import Navigation from '@/components/shared/Navigation'
 
@@ -27,7 +28,7 @@ export default async function ImagePage({
 	return (
 		<ArwContainer>
 			<ArwPaper grow accent className="p-5">
-				<div className="grow flex-center rounded-md bg-accent">Image {id}</div>
+				<ArwFlex className="grow flex-center rounded-md bg-accent p-4 text-center">Image {id}</ArwFlex>
 				<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 			</ArwPaper>
 		</ArwContainer>

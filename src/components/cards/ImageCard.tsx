@@ -33,7 +33,7 @@ export default function ImageCard({
 			/>
 			<div>Image</div>
 			<When condition={userMode}>
-				<div className="group/delete absolute top-3 right-3 z-30">
+				<div className="group/delete absolute top-0 right-0 z-30 p-3">
 					<ArwButton
 						onClick={handleRemove(image._id)}
 						src={icons.DELETE}
