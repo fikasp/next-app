@@ -73,7 +73,7 @@ export default function Navigation({
 				handlePrevClick()
 			}
 		}
-		
+
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)

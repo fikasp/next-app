@@ -23,7 +23,7 @@ export default function ArwButton({
 			aria-label={label}
 			disabled={disabled}
 			className={cn(
-				disabled ? 'text-gray-400' : 'hover:text-accent-400 transition',
+				disabled ? 'text-gray-400' : 'hover:text-accent-400',
 				'flex-center gap-2',
 				className
 			)}

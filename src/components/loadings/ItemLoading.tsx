@@ -12,7 +12,7 @@ export default function ItemLoading() {
 			<ArwPaper grow accent className="px-5 pb-5">
 				<ArwFlex row between>
 					<ArwTitle>Loading...</ArwTitle>
-					<Navigation className="justify-end" />
+					<Navigation />
 				</ArwFlex>
 				<ArwSpinner accent />
 			</ArwPaper>
