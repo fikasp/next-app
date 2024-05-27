@@ -61,7 +61,7 @@ export default function Navigation({
 			<Button variant="secondary" disabled={!prev} onClick={handlePrevClick}>
 				Prev
 			</Button>
-			<Button variant="secondary" onClick={handleBackClick}>
+			<Button variant="secondary" className="grow" onClick={handleBackClick}>
 				Back
 			</Button>
 			<Button variant="secondary" disabled={!next} onClick={handleNextClick}>
