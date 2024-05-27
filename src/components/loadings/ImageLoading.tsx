@@ -7,11 +7,9 @@ import Navigation from '@/components/shared/Navigation'
 export default async function ImageLoading() {
 	return (
 		<ArwContainer>
-			<ArwPaper grow accent className="p-5">
-				<div className="grow flex-center rounded-md bg-accent">
-					<ArwSpinner accent />
-				</div>
-				<Navigation />
+			<ArwPaper grow className="p-5 bg-accent dark:bg-accent relative">
+				<ArwSpinner accent />
+				<Navigation className="absolute bottom-5 right-5"/>
 			</ArwPaper>
 		</ArwContainer>
 	)

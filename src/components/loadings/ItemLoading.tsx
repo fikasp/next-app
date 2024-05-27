@@ -11,7 +11,7 @@ export default function ItemLoading() {
 			<ArwPaper grow accent className="px-5 pb-5">
 				<ArwTitle>Loading...</ArwTitle>
 				<ArwSpinner accent />
-				<Navigation />
+				<Navigation className="justify-end"/>
 			</ArwPaper>
 		</ArwContainer>
 	)

@@ -10,10 +10,12 @@ export default function Navigation({
 	back,
 	prev,
 	next,
+	className
 }: {
 	back?: string | undefined | null
 	prev?: string | undefined | null
 	next?: string | undefined | null
+	className?: string
 }) {
 	const router = useRouter()
 
@@ -57,11 +59,11 @@ export default function Navigation({
 	})
 
 	return (
-		<ArwFlex between row>
+		<ArwFlex between row className={className}>
 			<Button variant="secondary" disabled={!prev} onClick={handlePrevClick}>
 				Prev
 			</Button>
-			<Button variant="secondary" className="grow" onClick={handleBackClick}>
+			<Button variant="secondary" onClick={handleBackClick}>
 				Back
 			</Button>
 			<Button variant="secondary" disabled={!next} onClick={handleNextClick}>

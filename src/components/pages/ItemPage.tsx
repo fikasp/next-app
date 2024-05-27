@@ -39,7 +39,12 @@ export default async function ItemPage({
 						</When>
 					</ArwFlex>
 					<Gallery item={current} userMode={userMode} />
-					<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
+					<Navigation
+						back={backUrl}
+						prev={prevUrl}
+						next={nextUrl}
+						className="justify-end"
+					/>
 				</ArwPaper>
 			</ArwContainer>
 		)

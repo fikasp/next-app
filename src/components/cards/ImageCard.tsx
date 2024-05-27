@@ -1,12 +1,10 @@
 // modules
 import { MouseEventHandler } from 'react'
-import { useMediaQuery } from 'react-responsive'
 import { When } from 'react-if'
 import Link from 'next/link'
 // components
 import ArwButton from '@/components/arw/ArwButton'
 // lib
-import { cn } from '@/lib/utils'
 import { IImage } from '@/lib/models/image.model'
 import { icons, routes } from '@/navigation'
 
@@ -22,7 +20,6 @@ export default function ImageCard({
 	// eslint-disable-next-line no-unused-vars
 	handleRemove: (imageId: string) => MouseEventHandler<HTMLButtonElement>
 }) {
-	const isMobile = useMediaQuery({ maxWidth: 768 })
 	return (
 		<div className="group/image relative flex-center rounded-md h-[150px] bg-accent">
 			<Link
@@ -37,11 +34,7 @@ export default function ImageCard({
 					<ArwButton
 						onClick={handleRemove(image._id)}
 						src={icons.DELETE}
-						className={cn(
-							isMobile
-								? 'hover:text-accent-400'
-								: 'text-transparent group-hover/image:text-accent-400 group-hover/delete:text-white transition'
-						)}
+						className="hover:text-accent-400 transition"
 					/>
 				</div>
 			</When>
