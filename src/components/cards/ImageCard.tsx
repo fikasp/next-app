@@ -39,7 +39,7 @@ export default function ImageCard({
 						src={icons.DELETE}
 						className={cn(
 							isMobile
-								? 'hove:text-white'
+								? 'hover:text-accent-400'
 								: 'text-transparent group-hover/image:text-accent-400 group-hover/delete:text-white transition'
 						)}
 					/>
