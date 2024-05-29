@@ -3,5 +3,7 @@
 	"globals": {
 		"React": "writable"
 	},
-	"rules": {}
+	"rules": {
+		"no-unused-vars": "off"
+	}
 }

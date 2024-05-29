@@ -22,7 +22,6 @@ export default function ArwFormField({
 	control: Control<any>
 	name: string
 	render: (props: { field: any }) => React.ReactNode
-	className?: string
 	label: string
 	grid?: boolean
 }) {
