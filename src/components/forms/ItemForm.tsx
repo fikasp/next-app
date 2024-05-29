@@ -5,10 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
-import ArwForm from '@/components/arw/ArwForm'
 import ArwFlex from '@/components/arw/ArwFlex'
-import ArwInput from '@/components/arw/ArwInput'
+import ArwForm from '@/components/arw/ArwForm'
+import ArwFormField from '@/components/arw/ArwFormField'
+import ArwGrid from '@/components/arw/ArwGrid'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { createItem, updateItem } from '@/lib/actions/item.action'
@@ -83,16 +85,30 @@ export default function ItemForm({
 				{item ? "Update item" : "Add new item"}
 			</ArwTitle>
 			
-			<ArwFlex className="gap-8">
-				<ArwInput 
+			<ArwFlex>
+				<ArwFormField
 					control={form.control} 
 					name="title"
 					label="Title" 
+					render={({ field }) => (
+						<Input
+							placeholder="Title"
+							className="text-center"
+							{...field}
+						/>
+					)}
 				/>
-				<ArwInput
-					control={form.control}
+				<ArwFormField
+					control={form.control} 
 					name="info"
-					label="Info"
+					label="Info" 
+					render={({ field }) => (
+						<Input
+							placeholder="Info"
+							className="text-center"
+							{...field}
+						/>
+					)}
 				/>
 			</ArwFlex>
 			<ArwFlex>
