@@ -7,10 +7,5 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
-	return (
-		<ItemPage
-			slug={params.slug}
-			userMode={searchParams.user == 'mode'}
-		/>
-	)
+	return <ItemPage params={params} searchParams={searchParams} />
 }

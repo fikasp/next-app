@@ -1,5 +1,6 @@
 // modules
 import Link from 'next/link'
+import qs from 'query-string'
 import { If, Then, Else, When } from 'react-if'
 // components
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
@@ -12,23 +13,29 @@ import Manipulations from '@/components/shared/Manipulations'
 import { IItem } from '@/lib/models/item.model'
 import { routes } from '@/navigation'
 
-export default function UserItemCard({
+export default function ItemCard({
 	item,
 	userMode,
+	title,
 }: {
 	item: IItem
 	userMode?: boolean
+	title?: string
 }) {
+	const url = qs.stringifyUrl({
+		url: `${routes.ITEMS}/${item.slug}${userMode ? '?user=mode' : ''}`,
+		query: {
+			...(title ? { title } : {}),
+		},
+	})
+
 	return (
 		<ArwPaper
 			accent
 			square
 			className="relative justify-between px-5 py-4 group max-lg:aspect-video"
 		>
-			<Link
-				href={`${routes.ITEMS}/${item.slug}${userMode ? '?user=mode' : ''}`}
-				className="absolute inset-0 z-20"
-			/>
+			<Link href={url} className="absolute inset-0 z-20" />
 			<ArwFlex row between className="relative">
 				<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
 					{item.title}

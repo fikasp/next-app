@@ -10,6 +10,7 @@ import { getUser } from '@/lib/actions/user.action'
 import { routes } from '@/navigation'
 import ImageModel, { IImage } from '@/lib/models/image.model'
 import ItemModel from '@/lib/models/item.model'
+import { Title } from '@radix-ui/react-toast'
 
 // CREATE
 export async function createItem(itemData: ItemFormData) {
@@ -31,11 +32,13 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
-export async function getAllItems() {
+export async function getAllItems(title: string) {
 	try {
 		await connectToDatabase()
 
-		const items = await ItemModel.find().populate('user', '_id username photo')
+		const items = await ItemModel.find({
+			title: { $regex: title, $options: 'i' },
+		}).populate('user', '_id username photo')
 
 		console.log('*** getAllItems:', items)
 		return JSON.parse(JSON.stringify(items))
@@ -76,39 +79,59 @@ export async function getItemBySlug(slug: string) {
 	}
 }
 
-export async function getAdjacentItems(
-	slug: string,
+export async function getAdjacentItems({
+	slug,
+	userMode,
+	title,
+}: {
+	slug: string
 	userMode: boolean
-): Promise<AdjacentItems> {
+	title: string
+}): Promise<AdjacentItems> {
 	try {
 		await connectToDatabase()
 
 		const userFilter: any = {}
 		const itemQuery: any = { slug }
 
+		if (title) {
+			itemQuery.title = { $regex: title, $options: 'i' }
+		}
+
 		if (userMode) {
 			const { userId } = auth()
 			const user = await getUser(userId)
-
-			userFilter.user = user._id // { user: user._id}
-			itemQuery.user = user._id // { slug, user: user._id}
+			userFilter.user = user._id // { user: user._id }
+			itemQuery.user = user._id // { slug, user: user._id }
 		}
-		const currentItem = await ItemModel.findOne(itemQuery).populate('images')
 
-		const prevItem = await ItemModel.findOne({
+		const currentItem = await ItemModel.findOne(itemQuery).populate('images')
+		if (!currentItem) {
+			return { prev: null, current: null, next: null }
+		}
+
+		const prevItemQuery = {
 			...userFilter,
 			_id: { $lt: currentItem._id },
-		}).sort({ _id: -1 })
+		}
 
-		const nextItem = await ItemModel.findOne({
+		const nextItemQuery = {
 			...userFilter,
 			_id: { $gt: currentItem._id },
-		}).sort({ _id: 1 })
+		}
+
+		if (title) {
+			prevItemQuery.title = { $regex: title, $options: 'i' }
+			nextItemQuery.title = { $regex: title, $options: 'i' }
+		}
+
+		const prevItem = await ItemModel.findOne(prevItemQuery).sort({ _id: -1 })
+		const nextItem = await ItemModel.findOne(nextItemQuery).sort({ _id: 1 })
 
 		const items = {
-			prev: JSON.parse(JSON.stringify(prevItem)),
-			current: JSON.parse(JSON.stringify(currentItem)),
-			next: JSON.parse(JSON.stringify(nextItem)),
+			prev: prevItem ? JSON.parse(JSON.stringify(prevItem)) : null,
+			current: currentItem ? JSON.parse(JSON.stringify(currentItem)) : null,
+			next: nextItem ? JSON.parse(JSON.stringify(nextItem)) : null,
 		}
 
 		console.log('*** getAdjacentItems:', items)
