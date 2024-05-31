@@ -90,6 +90,7 @@ export default function ItemForm({
 					control={form.control} 
 					name="title"
 					label="Title" 
+					className="justify-center"
 					render={({ field }) => (
 						<Input
 							placeholder="Title"
@@ -102,6 +103,7 @@ export default function ItemForm({
 					control={form.control} 
 					name="info"
 					label="Info" 
+					className="justify-center"
 					render={({ field }) => (
 						<Input
 							placeholder="Info"

@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { When } from 'react-if'
 import { Control } from 'react-hook-form'
 // components
 import {
@@ -13,46 +14,61 @@ import {
 import { cn } from '@/lib/utils'
 
 export default function ArwFormField({
+	className,
 	control,
 	name,
 	render,
 	label,
 	grid,
 }: {
+	className?: string
 	control: Control<any>
 	name: string
 	render: (props: { field: any }) => React.ReactNode
-	label: string
+	label?: string
 	grid?: boolean
 }) {
-	// prettier-ignore
 	return (
 		<FormField
 			name={name}
 			control={control}
-			render={({ field }) => {
-				const content = (
+			render={({ field, fieldState }) => {
+				return grid && label ? (
 					<>
 						<FormLabel
 							className={cn(
-								'flex-center',
-								grid && 'bg-base-100 dark:bg-base-800 p-2 rounded-md'
+								'flex items-center bg-base-100 dark:bg-base-800 p-4 rounded-md',
+								className
 							)}
 						>
 							{label}
 						</FormLabel>
-						<FormControl>{render({ field })}</FormControl>						
-						<FormMessage 
-							className={cn(
-								'text-center', 
-								grid && 'col-span-2'
-							)} />
+						<FormControl>{render({ field })}</FormControl>
+
+						{fieldState.error && (
+							<>
+								<FormItem />
+								<FormMessage
+									className={cn(
+										'flex items-center relative top-[-10px]',
+										className
+									)}
+								/>
+							</>
+						)}
 					</>
-				)
-				return grid ? (
-					content
 				) : (
-					<FormItem className="flex flex-col gap-2">{content}</FormItem>
+					<FormItem className="flex flex-col gap-2">
+						{label && (
+							<FormLabel className={cn('flex items-center', className)}>
+								{label}
+							</FormLabel>
+						)}
+						<FormControl>{render({ field })}</FormControl>
+						<FormMessage
+							className={cn('flex items-center text-center', className)}
+						/>
+					</FormItem>
 				)
 			}}
 		/>
