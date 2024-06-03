@@ -13,9 +13,11 @@ import { handleError } from '@/lib/utils'
 export default function Gallery({
 	item,
 	userMode,
+	searchParams
 }: {
 	item: IItem
 	userMode: boolean
+	searchParams: any
 }) {
 	const { toast } = useToast()
 
@@ -62,6 +64,7 @@ export default function Gallery({
 						image={image}
 						handleRemove={handleRemoveImage}
 						userMode={userMode}
+						searchParams={searchParams}
 						slug={item.slug}
 					/>
 				))}

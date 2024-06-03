@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { type ClassValue, clsx } from 'clsx'
 import mongoose from 'mongoose'
 import slugify from 'slugify'
+import qs from 'query-string'
 
 // Tailwind classNames
 export function cn(...inputs: ClassValue[]) {
@@ -42,4 +43,19 @@ export async function generateUniqueSlug(
 		}
 	}
 	return newSlug
+}
+
+// URL generator
+export function generateUrl(
+	pathSegments: string[],
+	queryParams: { [key: string]: string } = {}
+): string {
+	// Join the path segments into a single string
+	const path = pathSegments.join('/')
+
+	// Generate the full URL with query parameters
+	return qs.stringifyUrl({
+		url: path,
+		query: queryParams,
+	})
 }

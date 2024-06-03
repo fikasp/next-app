@@ -3,6 +3,7 @@ export const routes = {
 	HOME: '/home',
 	ITEMS: '/items',
 	SEARCH: '/search',
+	SETTINGS: '/settings',
 	START: '/',
 }
 
@@ -17,6 +18,7 @@ export const icons = {
 	MENU: '/assets/icons/menu.svg',
 	NEXT: '/assets/icons/next.svg',
 	SEARCH: '/assets/icons/search.svg',
+	SETTINGS: '/assets/icons/settings.svg',
 }
 
 export const nav = [
@@ -34,6 +36,11 @@ export const nav = [
 		route: routes.ADD,
 		icon: icons.ADD,
 		label: 'Add item',
+	},
+	{
+		route: routes.SETTINGS,
+		icon: icons.SETTINGS,
+		label: 'Settings',
 	},
 	{
 		route: routes.SEARCH,

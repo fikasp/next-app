@@ -7,11 +7,5 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
-	return (
-		<ImagePage
-			id={params.id}
-			slug={params.slug}
-			userMode={searchParams.user == 'mode'}
-		/>
-	)
+	return <ImagePage params={params} searchParams={searchParams} />
 }

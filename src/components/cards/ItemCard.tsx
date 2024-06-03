@@ -23,8 +23,9 @@ export default function ItemCard({
 	title?: string
 }) {
 	const url = qs.stringifyUrl({
-		url: `${routes.ITEMS}/${item.slug}${userMode ? '?user=mode' : ''}`,
+		url: `${routes.ITEMS}/${item.slug}`,
 		query: {
+			...(userMode ? { user: 'current' } : {}),
 			...(title ? { title } : {}),
 		},
 	})

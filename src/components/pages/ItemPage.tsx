@@ -10,14 +10,8 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { AdjacentItems } from '@/lib/types'
 import { getAdjacentItems } from '@/lib/actions/item.action'
+import { generateUrl } from '@/lib/utils'
 import { routes } from '@/navigation'
-
-function generateUrl(baseUrl: string, params: any) {
-	return qs.stringifyUrl({
-		url: baseUrl,
-		query: params,
-	})
-}
 
 export default async function ItemPage({
 	params,
@@ -27,10 +21,7 @@ export default async function ItemPage({
 	searchParams: any
 }) {
 	const title = searchParams.title || ''
-
-	console.log("*** title", title)
-	const userMode = searchParams.user == 'mode'
-	console.log("*** userMode",  userMode)
+	const userMode = searchParams.user == 'current'
 
 	const { prev, current, next }: AdjacentItems = await getAdjacentItems({
 		slug: params.slug,
@@ -38,18 +29,11 @@ export default async function ItemPage({
 		title,
 	})
 
-	const queryParams = {
-		...(userMode && { user: 'mode' }),
-		...(title && { title }),
-	}
-
-	const prevUrl =
-		prev && generateUrl(`${routes.ITEMS}/${prev.slug}`, queryParams)
-	const nextUrl =
-		next && generateUrl(`${routes.ITEMS}/${next.slug}`, queryParams)
+	const prevUrl = prev && generateUrl([routes.ITEMS, prev.slug], searchParams)
+	const nextUrl = next && generateUrl([routes.ITEMS, next.slug], searchParams)
 	const backUrl = generateUrl(
-		userMode ? routes.ITEMS : routes.START,
-		queryParams
+		[userMode ? routes.ITEMS : routes.START],
+		searchParams
 	)
 
 	return (
@@ -60,7 +44,11 @@ export default async function ItemPage({
 						<ArwTitle>{current.title}</ArwTitle>
 						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 					</ArwFlex>
-					<Gallery item={current} userMode={userMode} />
+					<Gallery
+						item={current}
+						searchParams={searchParams}
+						userMode={userMode}
+					/>
 				</ArwPaper>
 			</ArwContainer>
 		)
