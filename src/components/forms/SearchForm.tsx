@@ -6,17 +6,22 @@ import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import {
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwForm from '@/components/arw/ArwForm'
 import ArwFormField from '@/components/arw/ArwFormField'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { generateUrl } from '@/lib/utils'
+import { checkUserMode, generateUrl } from '@/lib/utils'
 import { SearchFormData } from '@/lib/types'
 import { searchSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
-import { FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 
 export default function SearchForm() {
 	const router = useRouter()
@@ -35,7 +40,10 @@ export default function SearchForm() {
 			...(searchFormData.userMode ? { user: 'current' } : {}),
 		}
 
-		const url = generateUrl([routes.ITEMS], queryParams)
+		const url = generateUrl(
+			searchFormData.userMode ? [routes.ITEMS] : [routes.START],
+			queryParams
+		)
 		router.push(url)
 	}
 

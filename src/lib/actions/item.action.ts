@@ -31,6 +31,19 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
+export async function getItemBySlug(slug: string) {
+	try {
+		await connectToDatabase()
+
+		const item = await ItemModel.findOne({ slug })
+
+		console.log('*** getItemBySlug:', item)
+		return JSON.parse(JSON.stringify(item))
+	} catch (error) {
+		handleError(error)
+	}
+}
+
 export async function getItems(searchParams: any) {
 	try {
 		await connectToDatabase()
@@ -41,6 +54,8 @@ export async function getItems(searchParams: any) {
 			const { userId } = auth()
 			const currentUser = await getUser(userId)
 			itemQuery.user = currentUser._id
+		} else if (searchParams.user) {
+			itemQuery.user = searchParams.user
 		}
 
 		if (searchParams.title) {
@@ -54,19 +69,6 @@ export async function getItems(searchParams: any) {
 
 		console.log('*** getItems:', items)
 		return JSON.parse(JSON.stringify(items))
-	} catch (error) {
-		handleError(error)
-	}
-}
-
-export async function getItemBySlug(slug: string) {
-	try {
-		await connectToDatabase()
-
-		const item = await ItemModel.findOne({ slug })
-
-		console.log('*** getItemBySlug:', item)
-		return JSON.parse(JSON.stringify(item))
 	} catch (error) {
 		handleError(error)
 	}
@@ -90,6 +92,9 @@ export async function getAdjacentItems({
 			const currentUser = await getUser(userId)
 			userFilter.user = currentUser._id
 			itemQuery.user = currentUser._id
+		} else if (searchParams.user) {
+			userFilter.user = searchParams.user
+			itemQuery.user = searchParams.user
 		}
 
 		if (searchParams.title) {

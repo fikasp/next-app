@@ -8,7 +8,7 @@ import { ThemeProvider } from '@/components/layout/Provider'
 import { Toaster } from '@/components/ui/toaster'
 // lib
 import { cn } from '@/lib/utils/'
-import './globals.css'
+import '@/lib/styles/globals.css'
 
 // fonts
 const poppins = Poppins({

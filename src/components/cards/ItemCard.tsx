@@ -4,6 +4,7 @@ import { If, Then, Else, When } from 'react-if'
 // components
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import ArwFlex from '@/components/arw/ArwFlex'
+import ArwLink from '@/components/arw/ArwLink'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
@@ -21,7 +22,7 @@ export default function ItemCard({
 	searchParams?: any
 }) {
 	const userMode = checkUserMode(searchParams)
-	const url = generateUrl([routes.ITEMS, item.slug], searchParams)
+	const queryParams = { ...searchParams, user: item.user._id }
 
 	return (
 		<ArwPaper
@@ -29,7 +30,10 @@ export default function ItemCard({
 			square
 			className="relative justify-between px-5 py-4 group max-lg:aspect-video"
 		>
-			<Link href={url} className="absolute inset-0 z-20" />
+			<Link
+				href={generateUrl([routes.ITEMS, item.slug], searchParams)}
+				className="absolute inset-0 z-20"
+			/>
 			<ArwFlex row between className="relative">
 				<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
 					{item.title}
@@ -43,12 +47,14 @@ export default function ItemCard({
 					<ArwText className="relative z-10">{item.info}</ArwText>
 				</Then>
 				<Else>
-					<ArwFlex row className="items-center gap-2">
-						<Avatar>
-							<AvatarImage src={item.user.photo} />
-						</Avatar>
-						<ArwText>{item.user.username}</ArwText>
-					</ArwFlex>
+					<ArwLink href={generateUrl([routes.START], queryParams)}>
+						<ArwFlex row className="items-center gap-2 relative z-30">
+							<Avatar>
+								<AvatarImage src={item.user.photo} />
+							</Avatar>
+							<ArwText>{item.user.username}</ArwText>
+						</ArwFlex>
+					</ArwLink>
 				</Else>
 			</If>
 		</ArwPaper>
