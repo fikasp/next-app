@@ -10,25 +10,19 @@ import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Manipulations from '@/components/shared/Manipulations'
 // lib
+import { checkUserMode, generateUrl } from '@/lib/utils'
 import { IItem } from '@/lib/models/item.model'
 import { routes } from '@/navigation'
 
 export default function ItemCard({
 	item,
-	userMode,
-	title,
+	searchParams,
 }: {
 	item: IItem
-	userMode?: boolean
-	title?: string
+	searchParams?: any
 }) {
-	const url = qs.stringifyUrl({
-		url: `${routes.ITEMS}/${item.slug}`,
-		query: {
-			...(userMode ? { user: 'current' } : {}),
-			...(title ? { title } : {}),
-		},
-	})
+	const userMode = checkUserMode(searchParams)
+	const url = generateUrl([routes.ITEMS, item.slug], searchParams)
 
 	return (
 		<ArwPaper

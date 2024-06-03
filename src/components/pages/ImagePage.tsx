@@ -20,12 +20,8 @@ export default async function ImagePage({
 	const slug = params.slug
 	const { prev, next }: AdjacentImages = await getAdjacentImages(id, slug)
 
-	const prevUrl =
-		prev && generateUrl([routes.ITEMS, slug, prev._id], searchParams)
-
-	const nextUrl =
-		next && generateUrl([routes.ITEMS, slug, next._id], searchParams)
-
+	const prevUrl =	prev && generateUrl([routes.ITEMS, slug, prev._id], searchParams)
+	const nextUrl =	next && generateUrl([routes.ITEMS, slug, next._id], searchParams)
 	const backUrl = generateUrl([routes.ITEMS, slug], searchParams)
 
 	return (

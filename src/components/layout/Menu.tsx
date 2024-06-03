@@ -17,7 +17,7 @@ const MenuItem = ({
 }) => {
 	const pathname = usePathname()
 	const isMobile = useMediaQuery({ maxWidth: 768 })
-	const isActive = link.route === pathname
+	const isActive = link.route.split('?')[0] === pathname
 	const handleClick = () => {
 		if (isMobile) {
 			setOpen(false)

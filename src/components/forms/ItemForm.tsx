@@ -115,7 +115,7 @@ export default function ItemForm({
 			</ArwFlex>
 			<ArwFlex>
 				<Button variant="accent">
-					{item ? "Update item" : "Add new item"}
+					{item ? "Update item" : "Add item"}
 				</Button>
 			</ArwFlex>
 		</ArwForm>

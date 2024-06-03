@@ -14,6 +14,7 @@ import { IItem } from '@/lib/models/item.model'
 
 import { routes } from '@/navigation'
 import { useState } from 'react'
+import { generateUrl } from '@/lib/utils'
 
 export default function SearchForm({
 	item,
@@ -32,7 +33,7 @@ export default function SearchForm({
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const url = qs.stringifyUrl({ url: routes.START, query: { title } })
+		const url = generateUrl([routes.ITEMS], { title })
 
 		router.push(url)
 	}

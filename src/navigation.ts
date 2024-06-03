@@ -4,6 +4,7 @@ export const routes = {
 	ITEMS: '/items',
 	SEARCH: '/search',
 	SETTINGS: '/settings',
+	MYITEMS: '/items?user=current',
 	START: '/',
 }
 
@@ -28,7 +29,7 @@ export const nav = [
 		label: 'Home',
 	},
 	{
-		route: routes.ITEMS,
+		route: routes.MYITEMS,
 		icon: icons.ITEMS,
 		label: 'My items',
 	},

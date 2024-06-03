@@ -1,5 +1,5 @@
-import HomePage from '@/components/pages/HomePage'
+import ItemsListPage from '@/components/pages/ItemsListPage'
 
 export default function Page({ searchParams }: { searchParams: any }) {
-	return <HomePage searchParams={searchParams} />
+	return <ItemsListPage searchParams={searchParams} />
 }

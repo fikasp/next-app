@@ -10,7 +10,7 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { AdjacentItems } from '@/lib/types'
 import { getAdjacentItems } from '@/lib/actions/item.action'
-import { generateUrl } from '@/lib/utils'
+import { checkUserMode, generateUrl } from '@/lib/utils'
 import { routes } from '@/navigation'
 
 export default async function ItemPage({
@@ -20,19 +20,15 @@ export default async function ItemPage({
 	params: any
 	searchParams: any
 }) {
-	const title = searchParams.title || ''
-	const userMode = searchParams.user == 'current'
-
 	const { prev, current, next }: AdjacentItems = await getAdjacentItems({
 		slug: params.slug,
-		userMode,
-		title,
+		searchParams,
 	})
 
 	const prevUrl = prev && generateUrl([routes.ITEMS, prev.slug], searchParams)
 	const nextUrl = next && generateUrl([routes.ITEMS, next.slug], searchParams)
 	const backUrl = generateUrl(
-		[userMode ? routes.ITEMS : routes.START],
+		[checkUserMode(searchParams) ? routes.ITEMS : routes.START],
 		searchParams
 	)
 
@@ -44,11 +40,7 @@ export default async function ItemPage({
 						<ArwTitle>{current.title}</ArwTitle>
 						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 					</ArwFlex>
-					<Gallery
-						item={current}
-						searchParams={searchParams}
-						userMode={userMode}
-					/>
+					<Gallery searchParams={searchParams} item={current} />
 				</ArwPaper>
 			</ArwContainer>
 		)

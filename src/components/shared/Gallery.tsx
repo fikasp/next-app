@@ -8,16 +8,14 @@ import ImageCard from '@/components/cards/ImageCard'
 // lib
 import { addImageToItem, removeImageFromItem } from '@/lib/actions/item.action'
 import { IItem } from '@/lib/models/item.model'
-import { handleError } from '@/lib/utils'
+import { checkUserMode, handleError } from '@/lib/utils'
 
 export default function Gallery({
+	searchParams,
 	item,
-	userMode,
-	searchParams
 }: {
-	item: IItem
-	userMode: boolean
 	searchParams: any
+	item: IItem
 }) {
 	const { toast } = useToast()
 
@@ -63,13 +61,12 @@ export default function Gallery({
 						key={index}
 						image={image}
 						handleRemove={handleRemoveImage}
-						userMode={userMode}
 						searchParams={searchParams}
 						slug={item.slug}
 					/>
 				))}
 			</When>
-			<When condition={userMode}>
+			<When condition={checkUserMode(searchParams)}>
 				<Button
 					variant="outline"
 					onClick={handleAddImage}

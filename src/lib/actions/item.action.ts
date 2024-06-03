@@ -3,14 +3,13 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import { AdjacentImages, AdjacentItems, ItemFormData } from '@/lib/types'
-import { connectToDatabase } from '@/lib/utils/mongoose'
-import { generateUniqueSlug, handleError } from '@/lib/utils'
-import { getUser } from '@/lib/actions/user.action'
 import { routes } from '@/navigation'
+import { AdjacentImages, AdjacentItems, ItemFormData } from '@/lib/types'
+import { checkUserMode, generateUniqueSlug, handleError } from '@/lib/utils'
+import { connectToDatabase } from '@/lib/utils/mongoose'
+import { getUser } from '@/lib/actions/user.action'
 import ImageModel, { IImage } from '@/lib/models/image.model'
 import ItemModel from '@/lib/models/item.model'
-import { Title } from '@radix-ui/react-toast'
 
 // CREATE
 export async function createItem(itemData: ItemFormData) {
@@ -32,35 +31,29 @@ export async function createItem(itemData: ItemFormData) {
 }
 
 // READ
-export async function getAllItems(title: string) {
+export async function getItems(searchParams: any) {
 	try {
 		await connectToDatabase()
 
-		const items = await ItemModel.find({
-			title: { $regex: title, $options: 'i' },
-		}).populate('user', '_id username photo')
+		if (checkUserMode(searchParams)) {
+			const { userId } = auth()
+			const currentUser = await getUser(userId)
 
-		console.log('*** getAllItems:', items)
-		return JSON.parse(JSON.stringify(items))
-	} catch (error) {
-		handleError(error)
-	}
-}
+			const items = await ItemModel.find({ user: currentUser._id }).populate(
+				'user',
+				'_id username photo'
+			)
 
-export async function getItemsByUser() {
-	try {
-		await connectToDatabase()
+			console.log('*** getItems:', items)
+			return JSON.parse(JSON.stringify(items))
+		} else {
+			const items = await ItemModel.find({
+				title: { $regex: searchParams.title || '', $options: 'i' },
+			}).populate('user', '_id username photo')
 
-		const { userId } = auth()
-		const user = await getUser(userId)
-
-		const items = await ItemModel.find({ user: user._id }).populate(
-			'user',
-			'_id username photo'
-		)
-
-		console.log('*** getItemsByUser:', items)
-		return JSON.parse(JSON.stringify(items))
+			console.log('*** getItems:', items)
+			return JSON.parse(JSON.stringify(items))
+		}
 	} catch (error) {
 		handleError(error)
 	}
@@ -81,12 +74,10 @@ export async function getItemBySlug(slug: string) {
 
 export async function getAdjacentItems({
 	slug,
-	userMode,
-	title,
+	searchParams,
 }: {
 	slug: string
-	userMode: boolean
-	title: string
+	searchParams: any
 }): Promise<AdjacentItems> {
 	try {
 		await connectToDatabase()
@@ -94,15 +85,15 @@ export async function getAdjacentItems({
 		const userFilter: any = {}
 		const itemQuery: any = { slug }
 
-		if (title) {
-			itemQuery.title = { $regex: title, $options: 'i' }
+		if (searchParams.title) {
+			itemQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
 
-		if (userMode) {
+		if (checkUserMode(searchParams)) {
 			const { userId } = auth()
 			const user = await getUser(userId)
-			userFilter.user = user._id // { user: user._id }
-			itemQuery.user = user._id // { slug, user: user._id }
+			userFilter.user = user._id
+			itemQuery.user = user._id
 		}
 
 		const currentItem = await ItemModel.findOne(itemQuery).populate('images')
@@ -120,9 +111,9 @@ export async function getAdjacentItems({
 			_id: { $gt: currentItem._id },
 		}
 
-		if (title) {
-			prevItemQuery.title = { $regex: title, $options: 'i' }
-			nextItemQuery.title = { $regex: title, $options: 'i' }
+		if (searchParams.title) {
+			prevItemQuery.title = { $regex: searchParams.title, $options: 'i' }
+			nextItemQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
 
 		const prevItem = await ItemModel.findOne(prevItemQuery).sort({ _id: -1 })

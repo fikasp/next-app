@@ -59,3 +59,8 @@ export function generateUrl(
 		query: queryParams,
 	})
 }
+
+// Check user mode
+export function checkUserMode(searchParams: any) {
+	return searchParams?.user == 'current'
+}
