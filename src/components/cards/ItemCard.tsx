@@ -1,6 +1,5 @@
 // modules
 import Link from 'next/link'
-import qs from 'query-string'
 import { If, Then, Else, When } from 'react-if'
 // components
 import { Avatar, AvatarImage } from '@/components/ui/avatar'

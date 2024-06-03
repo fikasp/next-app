@@ -1,57 +1,82 @@
 'use client'
 // modules
-import qs from 'query-string'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 // components
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
-
 import ArwFlex from '@/components/arw/ArwFlex'
-
+import ArwForm from '@/components/arw/ArwForm'
+import ArwFormField from '@/components/arw/ArwFormField'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { IItem } from '@/lib/models/item.model'
-
-import { routes } from '@/navigation'
-import { useState } from 'react'
 import { generateUrl } from '@/lib/utils'
+import { SearchFormData } from '@/lib/types'
+import { searchSchema } from '@/lib/zod'
+import { routes } from '@/navigation'
+import { FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 
-export default function SearchForm({
-	item,
-	close,
-}: {
-	item?: IItem
-	close?: () => void
-}) {
+export default function SearchForm() {
 	const router = useRouter()
-	const [title, setTitle] = useState('')
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value)
-	}
+	const form = useForm<SearchFormData>({
+		resolver: zodResolver(searchSchema),
+		defaultValues: {
+			title: '',
+			userMode: false,
+		},
+	})
 
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const onSubmit = (searchFormData: SearchFormData) => {
+		const queryParams = {
+			title: searchFormData.title,
+			...(searchFormData.userMode ? { user: 'current' } : {}),
+		}
 
-		const url = generateUrl([routes.ITEMS], { title })
-
+		const url = generateUrl([routes.ITEMS], queryParams)
 		router.push(url)
 	}
 
 	return (
-		<form className="flex flex-col justify-between grow" onSubmit={onSubmit}>
+		<ArwForm
+			form={form}
+			onSubmit={onSubmit}
+			className="grow justify-between gap-8"
+		>
 			<ArwTitle center accent>
-				Search item
+				Search items
 			</ArwTitle>
-			<Input
-				placeholder="Title"
-				className="text-center"
-				onChange={onChange}
-				value={title}
-			/>
+
+			<ArwFlex>
+				<ArwFormField
+					control={form.control}
+					name="title"
+					className="justify-center"
+					render={({ field }) => (
+						<Input placeholder="Title" className="text-center" {...field} />
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="userMode"
+					render={({ field }) => (
+						<FormItem className="flex-center items-start gap-2 rounded-md border border-base-100 dark:border-base-600 p-4">
+							<FormControl>
+								<Checkbox
+									checked={field.value}
+									onCheckedChange={field.onChange}
+								/>
+							</FormControl>
+							<FormLabel>Search only in my items</FormLabel>
+						</FormItem>
+					)}
+				/>
+			</ArwFlex>
 			<ArwFlex>
 				<Button variant="accent">Search</Button>
 			</ArwFlex>
-		</form>
+		</ArwForm>
 	)
 }

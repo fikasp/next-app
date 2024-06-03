@@ -1,5 +1,3 @@
-// modules
-import qs from 'query-string'
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
 import ArwFlex from '@/components/arw/ArwFlex'

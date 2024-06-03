@@ -29,7 +29,10 @@ const MenuItem = ({
 			className={`${isActive && 'text-accent'} hover:text-accent transition`}
 			onClick={handleClick}
 		>
-			<Link className="flex-center" href={link.route}>
+			<Link
+				className="flex items-center justify-center max-md:justify-start max-md:gap-2"
+				href={link.route}
+			>
 				<ArwIcon className="w-[35px] flex-center" src={link.icon} />
 				{link.label}
 			</Link>

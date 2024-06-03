@@ -35,25 +35,25 @@ export async function getItems(searchParams: any) {
 	try {
 		await connectToDatabase()
 
+		const itemQuery: any = {}
+
 		if (checkUserMode(searchParams)) {
 			const { userId } = auth()
 			const currentUser = await getUser(userId)
-
-			const items = await ItemModel.find({ user: currentUser._id }).populate(
-				'user',
-				'_id username photo'
-			)
-
-			console.log('*** getItems:', items)
-			return JSON.parse(JSON.stringify(items))
-		} else {
-			const items = await ItemModel.find({
-				title: { $regex: searchParams.title || '', $options: 'i' },
-			}).populate('user', '_id username photo')
-
-			console.log('*** getItems:', items)
-			return JSON.parse(JSON.stringify(items))
+			itemQuery.user = currentUser._id
 		}
+
+		if (searchParams.title) {
+			itemQuery.title = { $regex: searchParams.title, $options: 'i' }
+		}
+
+		const items = await ItemModel.find(itemQuery).populate(
+			'user',
+			'_id username photo'
+		)
+
+		console.log('*** getItems:', items)
+		return JSON.parse(JSON.stringify(items))
 	} catch (error) {
 		handleError(error)
 	}
@@ -82,20 +82,19 @@ export async function getAdjacentItems({
 	try {
 		await connectToDatabase()
 
-		const userFilter: any = {}
 		const itemQuery: any = { slug }
+		const userFilter: any = {}
+
+		if (checkUserMode(searchParams)) {
+			const { userId } = auth()
+			const currentUser = await getUser(userId)
+			userFilter.user = currentUser._id
+			itemQuery.user = currentUser._id
+		}
 
 		if (searchParams.title) {
 			itemQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
-
-		if (checkUserMode(searchParams)) {
-			const { userId } = auth()
-			const user = await getUser(userId)
-			userFilter.user = user._id
-			itemQuery.user = user._id
-		}
-
 		const currentItem = await ItemModel.findOne(itemQuery).populate('images')
 		if (!currentItem) {
 			return { prev: null, current: null, next: null }
