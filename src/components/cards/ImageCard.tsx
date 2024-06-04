@@ -12,11 +12,13 @@ import { checkUserMode, generateUrl } from '@/lib/utils'
 export default function ImageCard({
 	slug,
 	image,
+	userMode,
 	searchParams,
 	handleRemove,
 }: {
 	slug: string
 	image: IImage
+	userMode: boolean
 	searchParams: any
 	// eslint-disable-next-line no-unused-vars
 	handleRemove: (imageId: string) => MouseEventHandler<HTMLButtonElement>
@@ -27,7 +29,7 @@ export default function ImageCard({
 		<div className="group relative flex-center rounded-md h-[150px] bg-accent">
 			<Link href={url} className="absolute inset-0 z-20" />
 			<div className="group-hover:text-accent-400 transition">Image</div>
-			<When condition={checkUserMode(searchParams)}>
+			<When condition={userMode}>
 				<div className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						onClick={handleRemove(image._id)}

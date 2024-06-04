@@ -71,7 +71,7 @@ export default function ItemForm({
 		} catch (err) {
 			console.error(err)
 		}
-		router.push(routes.ITEMS)
+		router.push(routes.MYITEMS)
 	}
 
 	return (

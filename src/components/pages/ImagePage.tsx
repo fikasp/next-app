@@ -6,7 +6,7 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { AdjacentImages } from '@/lib/types'
-import { getAdjacentImages } from '@/lib/actions/item.action'
+import { getImageById } from '@/lib/actions/item.action'
 import { routes } from '@/navigation'
 
 export default async function ImagePage({
@@ -18,7 +18,7 @@ export default async function ImagePage({
 }) {
 	const id = params.id
 	const slug = params.slug
-	const { prev, next }: AdjacentImages = await getAdjacentImages(id, slug)
+	const { prev, next }: AdjacentImages = await getImageById(id, slug)
 
 	const prevUrl =	prev && generateUrl([routes.ITEMS, slug, prev._id], searchParams)
 	const nextUrl =	next && generateUrl([routes.ITEMS, slug, next._id], searchParams)

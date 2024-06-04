@@ -7,17 +7,23 @@ import { useToast } from '@/components/ui/use-toast'
 import ImageCard from '@/components/cards/ImageCard'
 // lib
 import { addImageToItem, removeImageFromItem } from '@/lib/actions/item.action'
-import { IItem } from '@/lib/models/item.model'
 import { checkUserMode, handleError } from '@/lib/utils'
+import { IItem } from '@/lib/models/item.model'
+import { IUser } from '@/lib/models/user.model'
 
 export default function Gallery({
 	searchParams,
+	currentUser,
 	item,
 }: {
 	searchParams: any
+	currentUser: IUser
 	item: IItem
 }) {
 	const { toast } = useToast()
+
+	const userMode =
+		checkUserMode(searchParams) && item.user.toString() === currentUser._id
 
 	const handleAddImage = async () => {
 		try {
@@ -62,11 +68,12 @@ export default function Gallery({
 						image={image}
 						handleRemove={handleRemoveImage}
 						searchParams={searchParams}
+						userMode={userMode}
 						slug={item.slug}
 					/>
 				))}
 			</When>
-			<When condition={checkUserMode(searchParams)}>
+			<When condition={userMode}>
 				<Button
 					variant="outline"
 					onClick={handleAddImage}

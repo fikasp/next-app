@@ -2,12 +2,13 @@
 import ArwContainer from '@/components/arw/ArwContainer'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwPaper from '@/components/arw/ArwPaper'
+import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Gallery from '@/components/shared/Gallery'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { AdjacentItems } from '@/lib/types'
-import { getAdjacentItems } from '@/lib/actions/item.action'
+import { getCurrentUser, getItemBySlug } from '@/lib/actions/item.action'
 import { checkUserMode, generateUrl } from '@/lib/utils'
 import { routes } from '@/navigation'
 
@@ -18,7 +19,8 @@ export default async function ItemPage({
 	params: any
 	searchParams: any
 }) {
-	const { prev, current, next }: AdjacentItems = await getAdjacentItems({
+	const currentUser = await getCurrentUser()
+	const { prev, current, next }: AdjacentItems = await getItemBySlug({
 		slug: params.slug,
 		searchParams,
 	})
@@ -38,7 +40,8 @@ export default async function ItemPage({
 						<ArwTitle>{current.title}</ArwTitle>
 						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 					</ArwFlex>
-					<Gallery searchParams={searchParams} item={current} />
+					<Gallery searchParams={searchParams} currentUser={currentUser} item={current} />
+					<ArwText>{current.info}</ArwText>
 				</ArwPaper>
 			</ArwContainer>
 		)

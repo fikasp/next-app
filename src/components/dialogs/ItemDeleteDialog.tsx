@@ -36,7 +36,7 @@ export default function ItemDeleteDialog({
 			title: 'Item deleted!',
 			description: `${deletedItem.title} is successfully deleted`,
 		})
-		router.push(routes.ITEMS)
+		router.push(routes.MYITEMS)
 		close()
 	}
 

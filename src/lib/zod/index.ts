@@ -1,6 +1,7 @@
 // modules
 import { z } from 'zod'
 // lib
+import { SortOptions } from '@/lib/types/enums'
 import { msg } from '@/lib/constants'
 
 export const itemSchema = z.object({
@@ -9,6 +10,7 @@ export const itemSchema = z.object({
 })
 
 export const searchSchema = z.object({
-	title: z.string().min(1, { message: msg.MIN_LENGTH(1) }),
+	title: z.string(),
+	sort: z.nativeEnum(SortOptions),
 	userMode: z.boolean(),
 })
