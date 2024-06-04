@@ -30,7 +30,7 @@ export default function Gallery({
 			if (item) {
 				const updatedItem = await addImageToItem(
 					item.slug,
-					'https://via.placeholder.com/150',
+					'https://image.com',
 					'placeholder'
 				)
 				if (updatedItem) {
@@ -65,6 +65,7 @@ export default function Gallery({
 				{item?.images?.map((image, index) => (
 					<ImageCard
 						key={index}
+						index={index}
 						image={image}
 						handleRemove={handleRemoveImage}
 						searchParams={searchParams}
@@ -79,7 +80,7 @@ export default function Gallery({
 					onClick={handleAddImage}
 					className="h-[150px] w-full"
 				>
-					Add image
+					Add item
 				</Button>
 			</When>
 		</div>

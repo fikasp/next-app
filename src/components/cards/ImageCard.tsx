@@ -10,6 +10,7 @@ import { icons, routes } from '@/navigation'
 import { checkUserMode, generateUrl } from '@/lib/utils'
 
 export default function ImageCard({
+	index,
 	slug,
 	image,
 	userMode,
@@ -17,6 +18,7 @@ export default function ImageCard({
 	handleRemove,
 }: {
 	slug: string
+	index: number
 	image: IImage
 	userMode: boolean
 	searchParams: any
@@ -28,7 +30,7 @@ export default function ImageCard({
 	return (
 		<div className="group relative flex-center rounded-md h-[150px] bg-accent">
 			<Link href={url} className="absolute inset-0 z-20" />
-			<div className="group-hover:text-accent-400 transition">Image</div>
+			<div className="group-hover:text-accent-400 transition">Item {index+1}</div>
 			<When condition={userMode}>
 				<div className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton

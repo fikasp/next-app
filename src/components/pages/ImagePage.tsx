@@ -30,7 +30,7 @@ export default async function ImagePage({
 				grow
 				className="p-5 bg-accent dark:bg-accent relative flex-center text-center"
 			>
-				Image {id}
+				Item {id}
 				<Navigation
 					back={backUrl}
 					prev={prevUrl}
