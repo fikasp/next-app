@@ -1,9 +1,9 @@
 export const routes = {
 	ADD: '/add',
 	HOME: '/home',
+	PROFILE: '/projects?user=current',
 	PROJECTS: '/projects',
 	SEARCH: '/search',
-	PROFILE: '/projects?user=current',
 	START: '/',
 }
 

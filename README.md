@@ -31,12 +31,12 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
 
 - **Clerk Authentication**: Incorporating Clerk for user authentication, the project offers robust and secure authentication mechanisms, including login, registration, password reset, and account management functionalities.
 
-
 ## Structure
 
 - `/public` - Static files
   - `/assets` - Images, fonts etc.
 - `/src` - Source files of the application
+
   - `/app` - Application routing
     - `/(auth)` - Routes for authentication
     - `/(root)` - Routes for core application
@@ -44,21 +44,29 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `favicon.ico` - Icon displayed in the browser
     - `layout.tsx` - Root application layout
   - `/components` - Reusable UI components
-    - `/layout` - Layout-related UI components
+    - `/arw` - ARW components
+    - `/cards` - Cards components
+    - `/dialogs` - Dialogs components
+    - `/forms` - Forms components
+    - `/layout` - Layout-related components
+    - `/loadings` - Components used in loadings
+    - `/pages` - Components used in pages
     - `/shared` - Components used across multiple parts of the app
     - `/ui` - Components specific to the Shadcn library
   - `/lib` - Shared library
-    - `/actions` - Server actions to manage database
+    - `/actions` - Server actions
     - `/constants` - Constant values
+    - `/context` - Context for app
     - `/models` - Database schemas
     - `/styles` - Global CSS and Tailwind styles
     - `/types` - TypeScript type definitions
     - `/utils` - Utility functions
+    - `/zod` - ZOD schemas
   - `middleware.ts` - Authentication middleware for the Clerk
   - `navigation.ts` - Managing navigation routes and links
 
 - `/` - Configurations files in root directory:
-  
+
   - `.gitignore` - List of files to ignore by git
   - `components.json` - Shadcn components configuration
   - `next.config.js` - Configuration file for Next.js
@@ -129,10 +137,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## Usage
 
-This template serves as a scalable starting point for your web applications. 
+This template serves as a scalable starting point for your web applications.
 
 Customize the components, pages, and styles to your project's requirements. Implement custom authentication flows with Clerk and manage data efficiently with MongoDB and Uploadthing.
 
-
 ## More
+
 For more information please contact [fikasp@gmail.com](mailto:fikasp@gmail.com).
