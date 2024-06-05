@@ -1,9 +1,9 @@
 export const routes = {
 	ADD: '/add',
 	HOME: '/home',
-	ITEMS: '/items',
+	PROJECTS: '/projects',
 	SEARCH: '/search',
-	MYITEMS: '/items?user=current',
+	PROFILE: '/projects?user=current',
 	START: '/',
 }
 
@@ -27,14 +27,14 @@ export const nav = [
 		label: 'Home',
 	},
 	{
-		route: routes.MYITEMS,
+		route: routes.PROFILE,
 		icon: icons.ITEMS,
-		label: 'My items',
+		label: 'My projects',
 	},
 	{
 		route: routes.ADD,
 		icon: icons.ADD,
-		label: 'Add item',
+		label: 'Add project',
 	},
 	{
 		route: routes.SEARCH,

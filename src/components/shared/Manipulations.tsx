@@ -4,18 +4,18 @@ import { useState } from 'react'
 // components
 import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'
-import ItemDeleteDialog from '@/components/dialogs/ItemDeleteDialog'
-import ItemUpdateDialog from '@/components/dialogs/ItemUpdateDialog'
+import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
+import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 
 // lib
-import { IItem } from '@/lib/models/item.model'
+import { IProject } from '@/lib/models/project.model'
 import { icons } from '@/navigation'
 
 export default function Manipulations({
-	item,
+	project,
 	className,
 }: {
-	item: IItem
+	project: IProject
 	className?: string
 }) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
@@ -34,13 +34,13 @@ export default function Manipulations({
 				<ArwButton onClick={openDeleteDialog} src={icons.DELETE} />
 			</ArwFlex>
 
-			<ItemDeleteDialog
-				item={item}
+			<ProjectDeleteDialog
+				project={project}
 				open={isDeleteDialogOpen}
 				close={closeDeleteDialog}
 			/>
-			<ItemUpdateDialog
-				item={item}
+			<ProjectUpdateDialog
+				project={project}
 				open={isUpdateDialogOpen}
 				close={closeUpdateDialog}
 			/>

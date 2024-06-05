@@ -40,7 +40,7 @@ export default function SearchForm() {
 		}
 
 		const url = generateUrl(
-			searchFormData.userMode ? [routes.ITEMS] : [routes.START],
+			searchFormData.userMode ? [routes.PROJECTS] : [routes.START],
 			queryParams
 		)
 		router.push(url)
@@ -53,7 +53,7 @@ export default function SearchForm() {
 			className="grow justify-between gap-8"
 		>
 			<ArwTitle center accent>
-				Search items
+				Search projects
 			</ArwTitle>
 
 			<ArwFlex className="gap-6">
@@ -71,7 +71,7 @@ export default function SearchForm() {
 						<ArwCheckbox
 							checked={field.value}
 							onCheckedChange={field.onChange}
-							label="Search only in my items"
+							label="Search only in my projects"
 						/>
 					)}
 				/>

@@ -42,17 +42,16 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `/(root)` - Routes for core application
     - `/api` - API routes
     - `favicon.ico` - Icon displayed in the browser
-    - `globals.css` - Global CSS and Tailwind styles
     - `layout.tsx` - Root application layout
   - `/components` - Reusable UI components
     - `/layout` - Layout-related UI components
     - `/shared` - Components used across multiple parts of the app
     - `/ui` - Components specific to the Shadcn library
-  - `/database` - Database-related files for MongoDB
-    - `/actions` - Server actions to manage database
-    - `/models` - Database schemas
   - `/lib` - Shared library
+    - `/actions` - Server actions to manage database
     - `/constants` - Constant values
+    - `/models` - Database schemas
+    - `/styles` - Global CSS and Tailwind styles
     - `/types` - TypeScript type definitions
     - `/utils` - Utility functions
   - `middleware.ts` - Authentication middleware for the Clerk

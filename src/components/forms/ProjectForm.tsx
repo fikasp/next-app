@@ -1,8 +1,8 @@
 'use client'
 // modules
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,48 +10,46 @@ import { useToast } from '@/components/ui/use-toast'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwForm from '@/components/arw/ArwForm'
 import ArwFormField from '@/components/arw/ArwFormField'
-import ArwGrid from '@/components/arw/ArwGrid'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { createItem, updateItem } from '@/lib/actions/item.action'
-import { IItem } from '@/lib/models/item.model'
-import { itemSchema } from '@/lib/zod'
-import { ItemFormData } from '@/lib/types'
+import { createProject, updateProject } from '@/lib/actions/project.action'
+import { IProject } from '@/lib/models/project.model'
+import { ProjectFormData } from '@/lib/types'
+import { projectSchema } from '@/lib/zod'
 import { routes } from '@/navigation'
 
-export default function ItemForm({
-	item,
+export default function ProjectForm({
+	project,
 	close,
 }: {
-	item?: IItem
+	project?: IProject
 	close?: () => void
 }) {
 	const { toast } = useToast()
 	const router = useRouter()
 
-	const defaultValues: ItemFormData = {
+	const defaultValues: ProjectFormData = {
 		title: '',
 		info: '',
 	}
 
-	const initialValues: ItemFormData = item
-		? { title: item.title, info: item.info }
+	const initialValues: ProjectFormData = project
+		? { title: project.title, info: project.info }
 		: defaultValues
 	// Form
-	const form = useForm<ItemFormData>({
-		resolver: zodResolver(itemSchema),
+	const form = useForm<ProjectFormData>({
+		resolver: zodResolver(projectSchema),
 		defaultValues: initialValues,
 	})
 
-	// Action
-	const onSubmit = async (itemFormData: ItemFormData) => {
+	const onSubmit = async (itemFormData: ProjectFormData) => {
 		try {
-			if (item) {
-				// Update item
-				const updatedItem = await updateItem(item.slug, itemFormData)
+			if (project) {
+				// Update project
+				const updatedItem = await updateProject(project.slug, itemFormData)
 				if (updatedItem) {
 					toast({
-						title: 'Item updated!',
+						title: 'Project updated!',
 						description: `${itemFormData.title} is successfully updated`,
 					})
 				}
@@ -59,11 +57,11 @@ export default function ItemForm({
 					close()
 				}
 			} else {
-				// Create item
-				const newItem = await createItem(itemFormData)
+				// Create project
+				const newItem = await createProject(itemFormData)
 				if (newItem) {
 					toast({
-						title: 'Item added!',
+						title: 'Project added!',
 						description: `${itemFormData.title} is successfully added`,
 					})
 				}
@@ -71,7 +69,7 @@ export default function ItemForm({
 		} catch (err) {
 			console.error(err)
 		}
-		router.push(routes.MYITEMS)
+		router.push(routes.PROFILE)
 	}
 
 	return (
@@ -82,7 +80,7 @@ export default function ItemForm({
 			className="grow justify-between gap-8"
 		>
 			<ArwTitle center accent>
-				{item ? "Update item" : "Add new item"}
+				{project ? "Update project" : "Add new project"}
 			</ArwTitle>
 			
 			<ArwFlex>
@@ -115,7 +113,7 @@ export default function ItemForm({
 			</ArwFlex>
 			<ArwFlex>
 				<Button variant="accent">
-					{item ? "Update item" : "Add item"}
+					{project ? "Update project" : "Add project"}
 				</Button>
 			</ArwFlex>
 		</ArwForm>

@@ -14,7 +14,7 @@ export async function createUser(user: CreateUserData) {
 		await connectToDatabase()
 
 		const newUser = await UserModel.create(user)
-		revalidatePath(routes.ITEMS)
+		revalidatePath(routes.PROJECTS)
 
 		return JSON.parse(JSON.stringify(newUser))
 	} catch (error) {

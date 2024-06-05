@@ -14,16 +14,16 @@ import {
 import { useToast } from '@/components/ui/use-toast'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { deleteItem } from '@/lib/actions/item.action'
-import { IItem } from '@/lib/models/item.model'
+import { deleteProject } from '@/lib/actions/project.action'
+import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
 
-export default function ItemDeleteDialog({
-	item,
+export default function ProjectDeleteDialog({
+	project,
 	open,
 	close,
 }: {
-	item: IItem
+	project: IProject
 	open: boolean
 	close: () => void
 }) {
@@ -31,12 +31,12 @@ export default function ItemDeleteDialog({
 	const router = useRouter()
 
 	const handleDelete = async () => {
-		const deletedItem = await deleteItem(item._id)
+		const deletedProject = await deleteProject(project._id)
 		toast({
-			title: 'Item deleted!',
-			description: `${deletedItem.title} is successfully deleted`,
+			title: 'Project deleted!',
+			description: `${deletedProject.title} is successfully deleted`,
 		})
-		router.push(routes.MYITEMS)
+		router.push(routes.PROFILE)
 		close()
 	}
 
@@ -45,10 +45,10 @@ export default function ItemDeleteDialog({
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
-						<ArwTitle accent>Delete item</ArwTitle>
+						<ArwTitle accent>Delete project</ArwTitle>
 					</AlertDialogTitle>
 					<AlertDialogDescription>
-						<p>Are you sure to delete this item?</p>
+						<p>Are you sure to delete this project?</p>
 						<p>This action cannot be undone.</p>
 					</AlertDialogDescription>
 				</AlertDialogHeader>

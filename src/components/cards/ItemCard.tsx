@@ -1,62 +1,49 @@
 // modules
+import { MouseEventHandler } from 'react'
+import { When } from 'react-if'
 import Link from 'next/link'
-import { If, Then, Else, When } from 'react-if'
 // components
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'
-import ArwLink from '@/components/arw/ArwLink'
-import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
-import Manipulations from '@/components/shared/Manipulations'
 // lib
-import { checkUserMode, generateUrl } from '@/lib/utils'
 import { IItem } from '@/lib/models/item.model'
-import { routes } from '@/navigation'
+import { generateUrl } from '@/lib/utils'
+import { icons, routes } from '@/navigation'
 
 export default function ItemCard({
+	index,
+	slug,
 	item,
+	userMode,
 	searchParams,
+	handleRemove,
 }: {
+	slug: string
+	index: number
 	item: IItem
-	searchParams?: any
+	userMode: boolean
+	searchParams: any
+	handleRemove: (itemId: string) => MouseEventHandler<HTMLButtonElement>
 }) {
-	const userMode = checkUserMode(searchParams)
-	const queryParams = { ...searchParams, user: item.user._id }
+	// Generate URL
+	const url = generateUrl([routes.PROJECTS, slug, item._id], searchParams)
 
 	return (
-		<ArwPaper
-			accent
-			square
-			className="relative justify-between px-5 py-4 group max-lg:aspect-video"
-		>
-			<Link
-				href={generateUrl([routes.ITEMS, item.slug], searchParams)}
-				className="absolute inset-0 z-20"
-			/>
-			<ArwFlex row between className="relative">
-				<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
-					{item.title}
-				</ArwTitle>
-				<When condition={userMode}>
-					<Manipulations item={item} className="relative z-30" />
-				</When>
-			</ArwFlex>
-			<If condition={userMode}>
-				<Then>
-					<ArwText className="relative z-10">{item.info}</ArwText>
-				</Then>
-				<Else>
-					<ArwLink href={generateUrl([routes.START], queryParams)}>
-						<ArwFlex row className="items-center gap-2 relative z-30">
-							<Avatar>
-								<AvatarImage src={item.user.photo} />
-							</Avatar>
-							<ArwText>{item.user.username}</ArwText>
-						</ArwFlex>
-					</ArwLink>
-				</Else>
-			</If>
-		</ArwPaper>
+		<ArwFlex center className="group relative rounded-md h-[150px] bg-accent">
+			<Link href={url} className="absolute inset-0 z-20" />
+			<ArwText className="group-hover:text-accent-400 transition">
+				Item {index + 1}
+			</ArwText>
+			<When condition={userMode}>
+				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
+					<ArwButton
+						onClick={handleRemove(item._id)}
+						src={icons.DELETE}
+						className="hover:text-accent-400 transition"
+					/>
+				</ArwFlex>
+			</When>
+		</ArwFlex>
 	)
 }

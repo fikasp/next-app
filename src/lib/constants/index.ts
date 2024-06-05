@@ -9,7 +9,7 @@ export const msg = {
 }
 
 export const sortOptions = [
-	{ label: 'Sort by title', value: SortOptions.TITLE },
-	{ label: 'Sort by user', value: SortOptions.USER },
-	{ label: 'Sort by date', value: SortOptions.DATE },
+	{ label: 'Sort projects by title', value: SortOptions.TITLE },
+	{ label: 'Sort projects by user', value: SortOptions.USER },
+	{ label: 'Sort projects by date', value: SortOptions.DATE },
 ]

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import ArwFlex from '@/components/arw/ArwFlex'
 import { icons } from '@/navigation'
 import ArwButton from '../arw/ArwButton'
+import { debug } from '@/lib/utils'
 
 export default function Navigation({
 	back,
@@ -20,21 +21,22 @@ export default function Navigation({
 }) {
 	const router = useRouter()
 
-	const handlePrevClick = () => {
-		console.log('handleprevclick')
-
+	// Navigation handlers
+	const handlePrev = () => {
+		debug(0)
 		if (prev) {
 			router.push(prev)
 		}
 	}
-	const handleNextClick = () => {
-		console.log('handlenextclick')
+	const handleNext = () => {
+		debug(0)
 		if (next) {
 			router.push(next)
 		}
 	}
-	const handleBackClick = () => {
+	const handleBack = () => {
 		if (back) {
+			debug(0)
 			router.push(back)
 		} else {
 			router.back()
@@ -42,10 +44,11 @@ export default function Navigation({
 	}
 
 	useEffect(() => {
+		// Keybord navigation
 		const keyMap: { [key: string]: () => void } = {
-			ArrowLeft: handlePrevClick,
-			ArrowRight: handleNextClick,
-			ArrowUp: handleBackClick,
+			ArrowLeft: handlePrev,
+			ArrowRight: handleNext,
+			ArrowUp: handleBack,
 		}
 
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -55,6 +58,7 @@ export default function Navigation({
 			}
 		}
 
+		// Touch navigation
 		let touchStartX = 0
 		let touchEndX = 0
 
@@ -68,12 +72,13 @@ export default function Navigation({
 			const swipeDistance = touchStartX - touchEndX
 
 			if (swipeDistance > 50) {
-				handleNextClick()
+				handleNext()
 			} else if (swipeDistance < -50) {
-				handlePrevClick()
+				handlePrev()
 			}
 		}
 
+		// Event listeners
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)
@@ -87,9 +92,9 @@ export default function Navigation({
 
 	return (
 		<ArwFlex between row className={className}>
-			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrevClick} />
-			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNextClick} />
-			<ArwButton src={icons.CLOSE} onClick={handleBackClick} />
+			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrev} />
+			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNext} />
+			<ArwButton src={icons.CLOSE} onClick={handleBack} />
 		</ArwFlex>
 	)
 }

@@ -26,7 +26,7 @@ const roboto = Roboto({
 // metadata
 export const metadata: Metadata = {
 	title: 'ARW Next App Template',
-	description: 'Items list with CRUD',
+	description: 'Projects CRUD',
 }
 
 export default function RootLayout({

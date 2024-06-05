@@ -1,15 +1,13 @@
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
-import ArwFlex from '@/components/arw/ArwFlex'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
-import Gallery from '@/components/shared/Gallery'
 import Navigation from '@/components/shared/Navigation'
 // lib
-import { AdjacentItems } from '@/lib/types'
-import { getCurrentUser, getItemBySlug } from '@/lib/actions/item.action'
-import { checkUserMode, generateUrl } from '@/lib/utils'
+import { Adjacent } from '@/lib/types'
+import { generateUrl } from '@/lib/utils'
+import { getItemById } from '@/lib/actions/project.action'
+import { IItem } from '@/lib/models/item.model'
 import { routes } from '@/navigation'
 
 export default async function ItemPage({
@@ -19,31 +17,34 @@ export default async function ItemPage({
 	params: any
 	searchParams: any
 }) {
-	const currentUser = await getCurrentUser()
-	const { prev, current, next }: AdjacentItems = await getItemBySlug({
-		slug: params.slug,
-		searchParams,
-	})
+	// Get the item ID and project slug
+	const slug = params.slug
+	const id = params.id
 
-	const prevUrl = prev && generateUrl([routes.ITEMS, prev.slug], searchParams)
-	const nextUrl = next && generateUrl([routes.ITEMS, next.slug], searchParams)
-	const backUrl = generateUrl(
-		[checkUserMode(searchParams) ? routes.ITEMS : routes.START],
-		searchParams
-	)
+	// Get the current and adjacent items
+	const { prev, current, next }: Adjacent<IItem> = await getItemById(id, slug)
+
+	// Generate URLs
+	const prevUrl =
+		prev && generateUrl([routes.PROJECTS, slug, prev._id], searchParams)
+	const nextUrl =
+		next && generateUrl([routes.PROJECTS, slug, next._id], searchParams)
+	const backUrl = generateUrl([routes.PROJECTS, slug], searchParams)
 
 	return (
-		current && (
-			<ArwContainer>
-				<ArwPaper grow accent className="px-5 pb-5">
-					<ArwFlex row between>
-						<ArwTitle>{current.title}</ArwTitle>
-						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
-					</ArwFlex>
-					<Gallery searchParams={searchParams} currentUser={currentUser} item={current} />
-					<ArwText>{current.info}</ArwText>
-				</ArwPaper>
-			</ArwContainer>
-		)
+		<ArwContainer>
+			<ArwPaper
+				grow
+				className="p-5 bg-accent dark:bg-accent relative flex-center text-center"
+			>
+				<ArwText>Item {current?._id}</ArwText>
+				<Navigation
+					className="absolute top-5 right-5"
+					back={backUrl}
+					prev={prevUrl}
+					next={nextUrl}
+				/>
+			</ArwPaper>
+		</ArwContainer>
 	)
 }

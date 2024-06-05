@@ -1,5 +1,5 @@
-import ItemsListPage from '@/components/pages/ItemsListPage'
+import ProjectsListPage from '@/components/pages/ProjectsListPage'
 
 export default function Page({ searchParams }: { searchParams: any }) {
-	return <ItemsListPage searchParams={searchParams} />
+	return <ProjectsListPage searchParams={searchParams} />
 }
