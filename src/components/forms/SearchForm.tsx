@@ -70,7 +70,7 @@ export default function SearchForm() {
 						<ArwCheckbox
 							checked={field.value}
 							onCheckedChange={field.onChange}
-							label="Find only my projects"
+							label="Show only my projects"
 						/>
 					)}
 				/>
