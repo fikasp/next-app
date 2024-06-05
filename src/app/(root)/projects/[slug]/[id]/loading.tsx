@@ -1,6 +1,6 @@
 // components
-import ItemLoading from '@/components/loadings/ItemLoading'
+import ImageLoading from '@/components/loadings/ImageLoading'
 
 export default function Loading() {
-	return <ItemLoading />
+	return <ImageLoading />
 }

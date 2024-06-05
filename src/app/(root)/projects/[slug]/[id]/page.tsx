@@ -1,4 +1,4 @@
-import ItemPage from '@/components/pages/ItemPage'
+import ImagePage from '@/components/pages/ImagePage'
 
 export default function Page({
 	params,
@@ -7,5 +7,5 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
-	return <ItemPage params={params} searchParams={searchParams} />
+	return <ImagePage params={params} searchParams={searchParams} />
 }

@@ -4,7 +4,7 @@ import ArwFlex from '@/components/arw/ArwFlex'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
-import Items from '@/components/shared/Items'
+import Gallery from '@/components/shared/Gallery'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
@@ -47,7 +47,7 @@ export default async function ProjectPage({
 						<ArwTitle>{current.title}</ArwTitle>
 						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 					</ArwFlex>
-					<Items
+					<Gallery
 						searchParams={searchParams}
 						currentUser={currentUser}
 						project={current}

@@ -7,39 +7,39 @@ import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwText from '@/components/arw/ArwText'
 // lib
-import { IItem } from '@/lib/models/item.model'
 import { generateUrl } from '@/lib/utils'
+import { IImage } from '@/lib/models/image.model'
 import { icons, routes } from '@/navigation'
 
-export default function ItemCard({
+export default function ImageCard({
 	index,
 	slug,
-	item,
+	image,
 	userMode,
 	searchParams,
 	handleRemove,
 }: {
 	slug: string
 	index: number
-	item: IItem
+	image: IImage
 	userMode: boolean
 	searchParams: any
-	handleRemove: (itemId: string) => MouseEventHandler<HTMLButtonElement>
+	handleRemove: (imageId: string) => MouseEventHandler<HTMLButtonElement>
 }) {
 	// Generate URL
-	const url = generateUrl([routes.PROJECTS, slug, item._id], searchParams)
+	const url = generateUrl([routes.PROJECTS, slug, image._id], searchParams)
 
 	return (
 		<ArwFlex center className="group relative rounded-md h-[150px] bg-accent">
 			<Link href={url} className="absolute inset-0 z-20" />
 			<ArwText className="group-hover:text-accent-400 transition">
-				Item {index + 1}
+				Image {index + 1}
 			</ArwText>
 			<When condition={userMode}>
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
-						onClick={handleRemove(item._id)}
 						src={icons.DELETE}
+						onClick={handleRemove(image._id)}
 						className="hover:text-accent-400 transition"
 					/>
 				</ArwFlex>

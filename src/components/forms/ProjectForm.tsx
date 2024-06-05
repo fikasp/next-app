@@ -41,15 +41,15 @@ export default function ProjectForm({
 		defaultValues: initialValues,
 	})
 
-	const onSubmit = async (itemFormData: ProjectFormData) => {
+	const onSubmit = async (projectFormData: ProjectFormData) => {
 		try {
 			if (project) {
 				// Update project
-				const updatedItem = await updateProject(project.slug, itemFormData)
-				if (updatedItem) {
+				const updatedProject = await updateProject(project.slug, projectFormData)
+				if (updatedProject) {
 					toast({
 						title: 'Project updated!',
-						description: `${itemFormData.title} is successfully updated`,
+						description: `${projectFormData.title} is successfully updated`,
 					})
 				}
 				if (close) {
@@ -57,11 +57,11 @@ export default function ProjectForm({
 				}
 			} else {
 				// Create project
-				const newItem = await createProject(itemFormData)
-				if (newItem) {
+				const newProject = await createProject(projectFormData)
+				if (newProject) {
 					toast({
 						title: 'Project added!',
-						description: `${itemFormData.title} is successfully added`,
+						description: `${projectFormData.title} is successfully added`,
 					})
 				}
 			}

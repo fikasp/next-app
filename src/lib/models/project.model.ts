@@ -2,7 +2,7 @@
 import { Schema, model, models } from 'mongoose'
 // lib
 import { IUser } from '@/lib/models/user.model'
-import { IItem } from '@/lib/models/item.model'
+import { IImage } from '@/lib/models/image.model'
 import { Document } from 'mongoose'
 
 export interface IProject extends Document {
@@ -11,7 +11,7 @@ export interface IProject extends Document {
 	slug: string
 	title: string
 	info: string
-	items: IItem[]
+	images: IImage[]
 }
 
 const ProjectSchema = new Schema({
@@ -33,11 +33,11 @@ const ProjectSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	items: {
+	images: {
 		type: [
 			{
 				type: Schema.Types.ObjectId,
-				ref: 'Item',
+				ref: 'Image',
 			},
 		],
 		default: [],

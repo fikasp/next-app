@@ -6,23 +6,23 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
 import { generateUrl } from '@/lib/utils'
-import { getItemById } from '@/lib/actions/project.action'
-import { IItem } from '@/lib/models/item.model'
+import { getImageById } from '@/lib/actions/project.action'
+import { IImage } from '@/lib/models/image.model'
 import { routes } from '@/navigation'
 
-export default async function ItemPage({
+export default async function ImagePage({
 	params,
 	searchParams,
 }: {
 	params: any
 	searchParams: any
 }) {
-	// Get the item ID and project slug
+	// Get the image ID and project slug
 	const slug = params.slug
 	const id = params.id
 
-	// Get the current and adjacent items
-	const { prev, current, next }: Adjacent<IItem> = await getItemById(id, slug)
+	// Get the current and adjacent images
+	const { prev, current, next }: Adjacent<IImage> = await getImageById(id, slug)
 
 	// Generate URLs
 	const prevUrl =
@@ -37,7 +37,7 @@ export default async function ItemPage({
 				grow
 				className="p-5 bg-accent dark:bg-accent relative flex-center text-center"
 			>
-				<ArwText>Item {current?._id}</ArwText>
+				<ArwText>Image {current?._id}</ArwText>
 				<Navigation
 					className="absolute top-5 right-5"
 					back={backUrl}

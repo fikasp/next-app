@@ -4,7 +4,7 @@ import ArwPaper from '@/components/arw/ArwPaper'
 import ArwSpinner from '@/components/arw/ArwSpinner'
 import Navigation from '@/components/shared/Navigation'
 
-export default async function ItemLoading() {
+export default async function ImageLoading() {
 	return (
 		<ArwContainer>
 			<ArwPaper grow className="p-5 bg-accent dark:bg-accent relative">

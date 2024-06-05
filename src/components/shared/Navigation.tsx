@@ -4,9 +4,10 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
 import ArwFlex from '@/components/arw/ArwFlex'
+import ArwButton from '@/components/arw/ArwButton'
+// lib
+import { debug } from '@/lib/utils/dev'
 import { icons } from '@/navigation'
-import ArwButton from '../arw/ArwButton'
-import { debug } from '@/lib/utils'
 
 export default function Navigation({
 	back,

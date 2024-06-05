@@ -3,23 +3,18 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import {
-	checkUserMode,
-	debug,
-	deepClone,
-	generateUniqueSlug,
-	handleError,
-} from '@/lib/utils'
 import { Adjacent } from '@/lib/types'
+import { checkUserMode, deepClone, generateUniqueSlug } from '@/lib/utils'
 import { connectToDatabase } from '@/lib/utils/mongoose'
+import { debug, handleError } from '@/lib/utils/dev'
 import { findPrev, findNext } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
-import { IItem, ItemModel } from '@/lib/models/item.model'
+import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
 import { IUser } from '@/lib/models/user.model'
 import { ProjectFormData } from '@/lib/zod'
-import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
+import { SortOptions } from '@/lib/types/enums'
 
 // CREATE
 // Create project
@@ -108,7 +103,7 @@ export async function getProjectBySlug({
 			(project: IProject) => project.slug === slug
 		)
 		const currentProject = await ProjectModel.findOne({ slug }).populate(
-			'items'
+			'images'
 		)
 		const prevProject = findPrev<IProject>(projects, currentIndex)
 		const nextProject = findNext<IProject>(projects, currentIndex)
@@ -127,38 +122,38 @@ export async function getProjectBySlug({
 	}
 }
 
-// Get item by id
-export async function getItemById(
+// Get image by id
+export async function getImageById(
 	id: string,
 	slug: string
-): Promise<Adjacent<IItem>> {
+): Promise<Adjacent<IImage>> {
 	try {
 		await connectToDatabase()
 
 		const currentProject = await ProjectModel.findOne({ slug }).populate(
-			'items'
+			'images'
 		)
 
-		const sortedItems = currentProject.items.sort((a: IItem, b: IItem) =>
+		const sortedImages = currentProject.images.sort((a: IImage, b: IImage) =>
 			a._id.toString().localeCompare(b._id.toString())
 		)
 
-		const currentItemIndex = sortedItems.findIndex(
-			(item: IItem) => item._id.toString() === id
+		const currentImageIndex = sortedImages.findIndex(
+			(image: IImage) => image._id.toString() === id
 		)
 
-		const currentItem = sortedItems[currentItemIndex]
-		const prevItem = findPrev<IItem>(sortedItems, currentItemIndex)
-		const nextItem = findNext<IItem>(sortedItems, currentItemIndex)
+		const currentImage = sortedImages[currentImageIndex]
+		const prevImage = findPrev<IImage>(sortedImages, currentImageIndex)
+		const nextImage = findNext<IImage>(sortedImages, currentImageIndex)
 
-		const items = {
-			prev: deepClone(prevItem),
-			current: deepClone(currentItem),
-			next: deepClone(nextItem),
+		const images = {
+			prev: deepClone(prevImage),
+			current: deepClone(currentImage),
+			next: deepClone(nextImage),
 		}
 
-		debug(1, items)
-		return items
+		debug(1, images)
+		return images
 	} catch (error) {
 		handleError(error)
 		return { prev: null, current: null, next: null }
@@ -195,8 +190,8 @@ export async function updateProject(
 	}
 }
 
-// Add item to project
-export async function addItemToProject(
+// Add image to project
+export async function addImageToProject(
 	slug: string,
 	url?: string,
 	caption?: string
@@ -204,11 +199,11 @@ export async function addItemToProject(
 	try {
 		await connectToDatabase()
 
-		const item = await ItemModel.create({ url, caption })
+		const image = await ImageModel.create({ url, caption })
 
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
-			{ $push: { items: item._id } }
+			{ $push: { images: image._id } }
 		)
 
 		debug(2, updatedProject)
@@ -219,18 +214,18 @@ export async function addItemToProject(
 	}
 }
 
-// Remove item from project
-export async function removeItemFromProject(slug: string, itemId: string) {
+// Remove image from project
+export async function removeImageFromProject(slug: string, imageId: string) {
 	try {
 		await connectToDatabase()
 
-		const deletedItem = await ItemModel.findByIdAndDelete(itemId)
-		if (!deletedItem) {
-			throw new Error('Item not found')
+		const deletedImage = await ImageModel.findByIdAndDelete(imageId)
+		if (!deletedImage) {
+			throw new Error('Image not found')
 		}
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
-			{ $pull: { items: itemId } }
+			{ $pull: { images: imageId } }
 		)
 
 		debug(3, updatedProject)
@@ -247,10 +242,10 @@ export async function deleteProject(projectId: string) {
 	try {
 		await connectToDatabase()
 
-		const project = await ProjectModel.findById(projectId).populate('items')
+		const project = await ProjectModel.findById(projectId).populate('images')
 
-		const itemIds = project.items.map((item: IItem) => item._id)
-		await ItemModel.deleteMany({ _id: { $in: itemIds } })
+		const imagesIds = project.images.map((image: IImage) => image._id)
+		await ImageModel.deleteMany({ _id: { $in: imagesIds } })
 
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
 		revalidatePath(routes.PROJECTS)

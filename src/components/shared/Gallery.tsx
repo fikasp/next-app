@@ -4,17 +4,18 @@ import { When } from 'react-if'
 // components
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import ItemCard from '@/components/cards/ItemCard'
+import ImageCard from '@/components/cards/ImageCard'
 // lib
 import {
-	addItemToProject,
-	removeItemFromProject,
+	addImageToProject,
+	removeImageFromProject,
 } from '@/lib/actions/project.action'
-import { checkUserMode, handleError } from '@/lib/utils'
+import { checkUserMode } from '@/lib/utils'
+import { handleError } from '@/lib/utils/dev'
 import { IProject } from '@/lib/models/project.model'
 import { IUser } from '@/lib/models/user.model'
 
-export default function Items({
+export default function Gallery({
 	searchParams,
 	currentUser,
 	project,
@@ -28,14 +29,14 @@ export default function Items({
 	const userMode =
 		checkUserMode(searchParams) && project.user.toString() === currentUser._id
 
-	const handleAddItem = async () => {
+	const handleAddImage = async () => {
 		try {
 			if (project) {
-				const updatedItem = await addItemToProject(project.slug)
-				if (updatedItem) {
+				const updatedProject = await addImageToProject(project.slug)
+				if (updatedProject) {
 					toast({
-						title: 'Item added!',
-						description: 'New item is successfully added',
+						title: 'Image added!',
+						description: 'New image is successfully added',
 					})
 				}
 			}
@@ -44,13 +45,13 @@ export default function Items({
 		}
 	}
 
-	const handleRemoveItem = (itemId: string) => async () => {
+	const handleRemoveImage = (imageId: string) => async () => {
 		try {
-			const updatedItem = await removeItemFromProject(project.slug, itemId)
-			if (updatedItem) {
+			const updatedProject = await removeImageFromProject(project.slug, imageId)
+			if (updatedProject) {
 				toast({
-					title: 'Item removed!',
-					description: 'The item has been successfully removed',
+					title: 'Image removed!',
+					description: 'The image has been successfully removed',
 				})
 			}
 		} catch (error) {
@@ -60,13 +61,13 @@ export default function Items({
 
 	return (
 		<div className="grow grid arw-grid-auto-150 w-full content-start gap-3">
-			<When condition={project?.items.length !== 0}>
-				{project?.items?.map((item, index) => (
-					<ItemCard
+			<When condition={project?.images.length !== 0}>
+				{project?.images?.map((image, index) => (
+					<ImageCard
 						key={index}
 						index={index}
-						item={item}
-						handleRemove={handleRemoveItem}
+						image={image}
+						handleRemove={handleRemoveImage}
 						searchParams={searchParams}
 						userMode={userMode}
 						slug={project.slug}
@@ -76,10 +77,10 @@ export default function Items({
 			<When condition={userMode}>
 				<Button
 					variant="outline"
-					onClick={handleAddItem}
+					onClick={handleAddImage}
 					className="h-[150px] w-full"
 				>
-					Add item
+					Add image
 				</Button>
 			</When>
 		</div>

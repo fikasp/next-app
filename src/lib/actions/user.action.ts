@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import UserModel from '@/lib/models/user.model'
 import { CreateUserData, UpdateUserData } from '@/lib/types'
 import { connectToDatabase } from '@/lib/utils/mongoose'
-import { handleError } from '@/lib/utils'
+import { handleError } from '@/lib/utils/dev'
 import { routes } from '@/navigation'
 
 // CREATE
