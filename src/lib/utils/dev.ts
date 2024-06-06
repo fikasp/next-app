@@ -1,24 +1,37 @@
 import chalk, { ChalkInstance } from 'chalk'
 
-// Debug log
-export function debug(mode: number, data?: any) {
-	const activeData = true
-	const activeModes = [1, 2, 3]
-	const modes: { [key: number]: ChalkInstance } = {
-		0: chalk.gray,
-		1: chalk.cyan,
-		2: chalk.yellow,
-		3: chalk.red,
+// Debugging settings
+const debugActive = true
+const debugActiveModes = [1, 2, 3, 4, 9]
+const debugModes: { [key: number]: ChalkInstance } = {
+	0: chalk.gray,
+	1: chalk.gray,
+	2: chalk.cyan,
+	3: chalk.yellow,
+	4: chalk.red,
+}
+
+// Debugging function
+export function debug(logMode: number, dataMode?: number, data?: any) {
+	if (!debugActive) return
+
+	// Log function
+	if (debugActiveModes.includes(logMode as number)) {
+		const stack = new Error().stack
+		const callerFunction = stack?.split('\n')[2].trim().split(' ')[1]
+		const chalkLog: ChalkInstance = debugModes[logMode] || chalk.white
+		console.log(chalkLog(`<!-- ${callerFunction} -->`))
 	}
-	if (!activeModes.includes(mode)) return
 
-	const stack = new Error().stack
-	const callerFunction = stack?.split('\n')[2].trim().split(' ')[1]
-	const logFunction: ChalkInstance = modes[mode] || chalk.white
-	console.log(logFunction(`<!-- ${callerFunction} -->`))
-
-	if (data && activeData) {
-		console.log(data)
+	// Log data
+	if (debugActiveModes.includes(dataMode as number) && data) {
+		if (dataMode === 9) {
+			console.log(data)
+		} else {
+			const chalkLog: ChalkInstance =
+				debugModes[dataMode as number] || chalk.white
+			console.log(chalkLog(data))
+		}
 	}
 }
 

@@ -26,11 +26,10 @@ export async function createProject(projectData: ProjectFormData) {
 		const slug = await generateUniqueSlug(ProjectModel, projectData.title)
 
 		const newProject = await ProjectModel.create({ user, slug, ...projectData })
-		revalidatePath(routes.PROJECTS)
 
-		debug(2, newProject)
-		// console.log('*** createProject:', newProject)
-		return JSON.parse(JSON.stringify(newProject))
+		debug(3, 0, newProject)
+		revalidatePath(routes.PROJECTS)
+		return deepClone(newProject)
 	} catch (error) {
 		handleError(error)
 	}
@@ -44,7 +43,7 @@ export async function getCurrentUser() {
 		const currentUser: IUser = await getUser(userId)
 
 		debug(0)
-		return JSON.parse(JSON.stringify(currentUser))
+		return deepClone(currentUser)
 	} catch (error) {
 		handleError(error)
 	}
@@ -81,8 +80,8 @@ export async function getProjects(searchParams: any) {
 			.populate('user', '_id username photo')
 			.sort(sort)
 
-		debug(0, projects)
-		return JSON.parse(JSON.stringify(projects))
+		debug(0, 0, projects)
+		return deepClone(projects)
 	} catch (error) {
 		handleError(error)
 	}
@@ -109,12 +108,12 @@ export async function getProjectBySlug({
 		const nextProject = findNext<IProject>(projects, currentIndex)
 
 		const adjacentProjects = {
-			prev: JSON.parse(JSON.stringify(prevProject)),
-			current: JSON.parse(JSON.stringify(currentProject)),
-			next: JSON.parse(JSON.stringify(nextProject)),
+			prev: deepClone(prevProject),
+			current: deepClone(currentProject),
+			next: deepClone(nextProject),
 		}
 
-		debug(1, adjacentProjects)
+		debug(2, 0, adjacentProjects)
 		return adjacentProjects
 	} catch (error) {
 		handleError(error)
@@ -152,7 +151,7 @@ export async function getImageById(
 			next: deepClone(nextImage),
 		}
 
-		debug(1, images)
+		debug(2, 9, images)
 		return images
 	} catch (error) {
 		handleError(error)
@@ -181,10 +180,9 @@ export async function updateProject(
 			{ new: true }
 		)
 
+		debug(3, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
-
-		debug(2, updatedProject)
-		return JSON.parse(JSON.stringify(updatedProject))
+		return deepClone(updatedProject)
 	} catch (error) {
 		handleError(error)
 	}
@@ -206,9 +204,9 @@ export async function addImageToProject(
 			{ $push: { images: image._id } }
 		)
 
-		debug(2, updatedProject)
+		debug(3, 1, updatedProject)
 		revalidatePath(routes.PROJECTS)
-		return JSON.parse(JSON.stringify(updatedProject))
+		return deepClone(updatedProject)
 	} catch (error) {
 		handleError(error)
 	}
@@ -228,7 +226,7 @@ export async function removeImageFromProject(slug: string, imageId: string) {
 			{ $pull: { images: imageId } }
 		)
 
-		debug(3, updatedProject)
+		debug(4, 1, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {
@@ -248,10 +246,10 @@ export async function deleteProject(projectId: string) {
 		await ImageModel.deleteMany({ _id: { $in: imagesIds } })
 
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
-		revalidatePath(routes.PROJECTS)
 
-		debug(3, deletedProject)
-		return JSON.parse(JSON.stringify(deletedProject))
+		debug(4, 0, deletedProject)
+		revalidatePath(routes.PROJECTS)
+		return deepClone(deletedProject)
 	} catch (error) {
 		handleError(error)
 	}

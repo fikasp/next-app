@@ -37,7 +37,7 @@ export default function Navigation({
 	}
 	const handleBack = () => {
 		if (back) {
-			debug(0)
+			debug(0, 0, back)
 			router.push(back)
 		} else {
 			router.back()

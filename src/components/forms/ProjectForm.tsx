@@ -45,7 +45,10 @@ export default function ProjectForm({
 		try {
 			if (project) {
 				// Update project
-				const updatedProject = await updateProject(project.slug, projectFormData)
+				const updatedProject = await updateProject(
+					project.slug,
+					projectFormData
+				)
 				if (updatedProject) {
 					toast({
 						title: 'Project updated!',
