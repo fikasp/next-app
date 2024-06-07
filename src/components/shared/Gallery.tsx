@@ -5,6 +5,7 @@ import { When } from 'react-if'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import ImageCard from '@/components/cards/ImageCard'
+import ImageForm from '@/components/forms/ImageForm'
 // lib
 import {
 	addImageToProject,
@@ -29,13 +30,13 @@ export default function Gallery({
 	const userMode =
 		checkUserMode(searchParams) && project.user.toString() === currentUser._id
 
-	const handleAddImage = async () => {
+	const handleAddImage = async (url: string) => {
 		try {
 			if (project) {
-				const updatedProject = await addImageToProject(project.slug)
+				const updatedProject = await addImageToProject(project.slug, url)
 				if (updatedProject) {
 					toast({
-						title: 'Image added!',
+						title: 'Image uploaded!',
 						description: 'New image is successfully added',
 					})
 				}
@@ -75,13 +76,14 @@ export default function Gallery({
 				))}
 			</When>
 			<When condition={userMode}>
-				<Button
+				{/* <Button
 					variant="outline"
 					onClick={handleAddImage}
 					className="h-[150px] w-full"
 				>
 					Add image
-				</Button>
+				</Button> */}
+				<ImageForm handleAddImage={handleAddImage} />
 			</When>
 		</div>
 	)

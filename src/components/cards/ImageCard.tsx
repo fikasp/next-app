@@ -1,6 +1,7 @@
 // modules
 import { MouseEventHandler } from 'react'
 import { When } from 'react-if'
+import Image from 'next/image'
 import Link from 'next/link'
 // components
 import ArwButton from '@/components/arw/ArwButton'
@@ -30,11 +31,17 @@ export default function ImageCard({
 	const url = generateUrl([routes.PROJECTS, slug, image._id], searchParams)
 
 	return (
-		<ArwFlex center className="group relative rounded-md h-[150px] bg-accent">
+		<ArwFlex center className="group relative rounded-md h-[150px] bg-accent overflow-hidden">
 			<Link href={url} className="absolute inset-0 z-20" />
-			<ArwText className="group-hover:text-accent-400 transition">
-				Image {index + 1}
-			</ArwText>
+			<div className="flex h-full w-full transition duration-300 ease-in-out gap-0 overflow-hidden">
+				<Image
+					src={image.url}
+					height={300}
+					width={300}
+					alt={'Image'}
+					className="w-full object-cover object-center rounded-md transition duration-300 ease-in-out group-hover:opacity-80"
+				></Image>
+			</div>
 			<When condition={userMode}>
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton

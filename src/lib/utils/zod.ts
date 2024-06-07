@@ -15,5 +15,10 @@ export const searchSchema = z.object({
 	userMode: z.boolean(),
 })
 
+export const imageSchema = z.object({
+	url: z.string(),
+})
+
 export type SearchFormData = z.infer<typeof searchSchema>
 export type ProjectFormData = z.infer<typeof projectSchema>
+export type ImageFormData = z.infer<typeof imageSchema>

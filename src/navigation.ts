@@ -8,16 +8,21 @@ export const routes = {
 }
 
 export const icons = {
-	ADD: '/assets/icons/add.svg',
-	BACK: '/assets/icons/back.svg',
-	CLOSE: '/assets/icons/close.svg',
-	DELETE: '/assets/icons/delete.svg',
-	EDIT: '/assets/icons/edit.svg',
-	HOME: '/assets/icons/home.svg',
-	ITEMS: '/assets/icons/items.svg',
-	MENU: '/assets/icons/menu.svg',
-	NEXT: '/assets/icons/next.svg',
-	SEARCH: '/assets/icons/search.svg',
+	ADD: '/icons/add.svg',
+	BACK: '/icons/back.svg',
+	CLOSE: '/icons/close.svg',
+	DELETE: '/icons/delete.svg',
+	EDIT: '/icons/edit.svg',
+	HOME: '/icons/home.svg',
+	UPLOAD: '/icons/upload.svg',
+	ITEMS: '/icons/items.svg',
+	MENU: '/icons/menu.svg',
+	NEXT: '/icons/next.svg',
+	SEARCH: '/icons/search.svg',
+}
+
+export const images = {
+	IMAGE: '/images/image.png',
 }
 
 export const nav = [

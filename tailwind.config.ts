@@ -67,6 +67,10 @@ const config = {
 			},
 			width: {
 				'full-4': 'calc(100% - 32px)',
+				'full-2': 'calc(100% - 16px)',
+			},
+			maxHeight: {
+				'screen-4': 'calc(100vh - 32px)',
 			},
 		},
 	},

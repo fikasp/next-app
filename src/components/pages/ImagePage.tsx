@@ -1,7 +1,8 @@
+// modules
+import Image from 'next/image'
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
 import ArwPaper from '@/components/arw/ArwPaper'
-import ArwText from '@/components/arw/ArwText'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
@@ -32,19 +33,24 @@ export default async function ImagePage({
 	const backUrl = generateUrl([routes.PROJECTS, slug], searchParams)
 
 	return (
-		<ArwContainer>
-			<ArwPaper
-				grow
-				className="p-5 bg-accent dark:bg-accent relative flex-center text-center"
+		<div className="fixed flex-center p-4 h-screen w-screen top-0 left-0 z-50 backdrop-blur-md">
+			<div
+				className="relative inline-block rounded-md overflow-hidden bg-accent"
 			>
-				<ArwText>Image {current?._id}</ArwText>
+				<Image
+					src={current!.url}
+					width={1400}
+					height={1400}
+					alt="Image"
+					className="w-auto h-auto max-h-screen-4 object-contain"
+				/>
 				<Navigation
-					className="absolute top-5 right-5"
+					className="absolute top-4 right-4"
 					back={backUrl}
 					prev={prevUrl}
 					next={nextUrl}
 				/>
-			</ArwPaper>
-		</ArwContainer>
+			</div>
+		</div>
 	)
 }

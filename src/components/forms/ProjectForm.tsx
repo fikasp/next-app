@@ -14,7 +14,7 @@ import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { createProject, updateProject } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
-import { projectSchema, ProjectFormData } from '@/lib/zod'
+import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
 import { routes } from '@/navigation'
 
 export default function ProjectForm({

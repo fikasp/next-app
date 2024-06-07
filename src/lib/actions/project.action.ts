@@ -12,7 +12,7 @@ import { getUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
 import { IUser } from '@/lib/models/user.model'
-import { ProjectFormData } from '@/lib/zod'
+import { ProjectFormData } from '@/lib/utils/zod'
 import { routes } from '@/navigation'
 import { SortOptions } from '@/lib/types/enums'
 
@@ -191,7 +191,7 @@ export async function updateProject(
 // Add image to project
 export async function addImageToProject(
 	slug: string,
-	url?: string,
+	url: string,
 	caption?: string
 ) {
 	try {
