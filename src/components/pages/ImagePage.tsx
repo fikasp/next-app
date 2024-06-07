@@ -33,7 +33,7 @@ export default async function ImagePage({
 	const backUrl = generateUrl([routes.PROJECTS, slug], searchParams)
 
 	return (
-		<div className="fixed flex-center p-4 h-screen w-screen top-0 left-0 z-50 backdrop-blur-md">
+		<div className="fixed flex-center p-4 max-sm:p-0 h-screen w-screen top-0 left-0 z-50 backdrop-blur-md">
 			<div
 				className="relative inline-block rounded-md overflow-hidden bg-accent"
 			>
