@@ -41,6 +41,8 @@ export default async function ImagePage({
 					src={current!.url}
 					width={1400}
 					height={1400}
+					loading={"eager"}
+					priority={true}
 					alt="Image"
 					className="w-auto h-auto max-h-screen-4 object-contain"
 				/>
