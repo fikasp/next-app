@@ -52,7 +52,7 @@ export default async function ProjectPage({
 						currentUser={currentUser}
 						project={current}
 					/>
-					<ArwText>{current.info}</ArwText>
+					<ArwText className="max-sm:text-center">{current.info}</ArwText>
 				</ArwPaper>
 			</ArwContainer>
 		)
