@@ -11,12 +11,10 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { useToast } from '@/components/ui/use-toast'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { deleteProject } from '@/lib/actions/project.action'
+import { handleDelete } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/navigation'
 
 export default function ProjectDeleteDialog({
 	project,
@@ -27,18 +25,7 @@ export default function ProjectDeleteDialog({
 	open: boolean
 	close: () => void
 }) {
-	const { toast } = useToast()
 	const router = useRouter()
-
-	const handleDelete = async () => {
-		const deletedProject = await deleteProject(project._id)
-		toast({
-			title: 'Project deleted!',
-			description: `${deletedProject.title} is successfully deleted`,
-		})
-		router.push(routes.PROFILE)
-		close()
-	}
 
 	return (
 		<AlertDialog open={open} onOpenChange={close}>
@@ -54,7 +41,9 @@ export default function ProjectDeleteDialog({
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel onClick={close}>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+					<AlertDialogAction onClick={handleDelete(router, project, close)}>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

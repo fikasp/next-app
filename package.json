@@ -20,7 +20,6 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
-    "@types/react-dropzone": "^5.1.0",
     "@uploadthing/react": "^6.6.0",
     "aws4": "^1.12.0",
     "class-variance-authority": "^0.7.0",

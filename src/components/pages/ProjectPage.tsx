@@ -1,10 +1,14 @@
+// modules
+import { When } from 'react-if'
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
 import ArwFlex from '@/components/arw/ArwFlex'
+import ArwGrid from '@/components/arw/ArwGrid'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
-import Gallery from '@/components/shared/Gallery'
+import ImageCard from '@/components/cards/ImageCard'
+import ImageForm from '@/components/forms/ImageForm'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
@@ -22,12 +26,14 @@ export default async function ProjectPage({
 }) {
 	// Get current user
 	const currentUser = await getCurrentUser()
-	
 	// Get adjacent projects
 	const { prev, current, next }: Adjacent<IProject> = await getProjectBySlug({
 		slug: params.slug,
 		searchParams,
 	})
+	// Check if user mode
+	const userMode =
+		checkUserMode(searchParams) && current?.user.toString() === currentUser._id
 
 	// Generate URLs
 	const prevUrl =
@@ -47,11 +53,22 @@ export default async function ProjectPage({
 						<ArwTitle>{current.title}</ArwTitle>
 						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
 					</ArwFlex>
-					<Gallery
-						searchParams={searchParams}
-						currentUser={currentUser}
-						project={current}
-					/>
+					<ArwGrid className="grow arw-grid-auto-150 content-start gap-3">
+						<When condition={current?.images.length !== 0}>
+							{current?.images?.map((image, index) => (
+								<ImageCard
+									key={index}
+									image={image}
+									project={current}
+									userMode={userMode}
+									searchParams={searchParams}
+								/>
+							))}
+						</When>
+						<When condition={userMode}>
+							<ImageForm project={current} />
+						</When>
+					</ArwGrid>
 					<ArwText className="max-sm:text-center">{current.info}</ArwText>
 				</ArwPaper>
 			</ArwContainer>

@@ -6,18 +6,22 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import { Button } from '@/components/ui/button'
 import { FormField } from '@/components/ui/form'
+import { toast } from '@/components/ui/use-toast'
 import ArwForm from '@/components/arw/ArwForm'
 import Uploader from '@/components/shared/Uploader'
 // lib
-import { useUploadThing } from '@/lib/utils/uploadthing'
-import { imageSchema, ImageFormData } from '@/lib/utils/zod'
 import { debug } from '@/lib/utils/dev'
+import { handleAddImage } from '@/lib/handlers/project.handlers'
+import { imageSchema, ImageFormData } from '@/lib/utils/zod'
+import { IProject } from '@/lib/models/project.model'
+import { useUploadThing } from '@/lib/utils/uploadthing'
 import { images } from '@/navigation'
 
-export default function ImageForm({ handleAddImage }: { handleAddImage: any }) {
+export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])
 	const [isUploading, setIsUploading] = useState(false)
 	const { startUpload } = useUploadThing('imageUploader')
+	debug(0, 0, 'Files', files)
 
 	const form = useForm<ImageFormData>({
 		resolver: zodResolver(imageSchema),
@@ -26,31 +30,34 @@ export default function ImageForm({ handleAddImage }: { handleAddImage: any }) {
 		},
 	})
 
-	const onSubmit = async (imageFormData: ImageFormData) => {
+	const handleSubmit = async () => {
 		setIsUploading(true)
-		let uploadedImageUrl = imageFormData.url
 
-		if (files.length > 0) {
+		if (files.length === 0) {
+			handleAddImage(project, images.IMAGE)
+		} else if (files.length === 1) {
 			const uploadedImages = await startUpload(files)
-			if (!uploadedImages) {
-				return
+			if (uploadedImages) {
+				const { url, key, name } = uploadedImages[0]
+				handleAddImage(project, url, key, name)
+				debug(0, 0, uploadedImages)
 			}
-			uploadedImageUrl = uploadedImages[0].url
 		} else {
-			uploadedImageUrl = images.IMAGE
+			toast({
+				title: 'Warning!',
+				description: 'Invalid number of files.',
+				variant: 'destructive',
+			})
 		}
-
 		form.reset()
-		setFiles([])
 		setIsUploading(false)
-		handleAddImage(uploadedImageUrl)
-		debug(2, 2, uploadedImageUrl)
+		setFiles([])
 	}
 
 	return (
 		<ArwForm
 			form={form}
-			onSubmit={onSubmit}
+			onSubmit={handleSubmit}
 			className="h-[150px] w-full relative"
 		>
 			<FormField

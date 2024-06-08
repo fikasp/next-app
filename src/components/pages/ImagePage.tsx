@@ -35,16 +35,15 @@ export default async function ImagePage({
 	return (
 		<div className="fixed flex-center md:p-4 h-screen w-screen top-0 left-0 z-50 backdrop-blur-md">
 			<div
-				className="relative inline-block md:rounded-md overflow-hidden bg-accent"
+				className="relative inline-block md:rounded-md overflow-hidden"
 			>
 				<Image
 					src={current!.url}
 					width={1400}
 					height={1400}
-					loading={"eager"}
-					priority={true}
+					loading={"lazy"}
 					alt="Image"
-					className="w-auto h-auto max-h-screen-4 object-contain"
+					className="w-auto h-auto max-h-screen md:max-h-screen-4 object-contain"
 				/>
 				<Navigation
 					className="absolute top-4 right-4"

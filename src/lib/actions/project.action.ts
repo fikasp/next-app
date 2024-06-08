@@ -192,19 +192,20 @@ export async function updateProject(
 export async function addImageToProject(
 	slug: string,
 	url: string,
-	caption?: string
+	key?: string,
+	name?: string
 ) {
 	try {
 		await connectToDatabase()
 
-		const image = await ImageModel.create({ url, caption })
+		const image = await ImageModel.create({ url, key, name })
 
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
 			{ $push: { images: image._id } }
 		)
 
-		debug(3, 1, updatedProject)
+		debug(3, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {

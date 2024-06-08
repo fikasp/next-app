@@ -6,16 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useToast } from '@/components/ui/use-toast'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwForm from '@/components/arw/ArwForm'
 import ArwFormField from '@/components/arw/ArwFormField'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { createProject, updateProject } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
 import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
-import { routes } from '@/navigation'
+import { handleSubmit } from '@/lib/handlers/project.handlers'
 
 export default function ProjectForm({
 	project,
@@ -24,61 +22,22 @@ export default function ProjectForm({
 	project?: IProject
 	close?: () => void
 }) {
-	const { toast } = useToast()
 	const router = useRouter()
 
-	const defaultValues: ProjectFormData = {
-		title: '',
-		info: '',
-	}
-
-	const initialValues: ProjectFormData = project
+	const defaultValues: ProjectFormData = project
 		? { title: project.title, info: project.info }
-		: defaultValues
-	// Form
+		: { title: '', info: '' }
+
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
-		defaultValues: initialValues,
+		defaultValues,
 	})
-
-	const onSubmit = async (projectFormData: ProjectFormData) => {
-		try {
-			if (project) {
-				// Update project
-				const updatedProject = await updateProject(
-					project.slug,
-					projectFormData
-				)
-				if (updatedProject) {
-					toast({
-						title: 'Project updated!',
-						description: `${projectFormData.title} is successfully updated`,
-					})
-				}
-				if (close) {
-					close()
-				}
-			} else {
-				// Create project
-				const newProject = await createProject(projectFormData)
-				if (newProject) {
-					toast({
-						title: 'Project added!',
-						description: `${projectFormData.title} is successfully added`,
-					})
-				}
-			}
-		} catch (err) {
-			console.error(err)
-		}
-		router.push(routes.PROFILE)
-	}
 
 	return (
 		// prettier-ignore
 		<ArwForm 
 			form={form} 
-			onSubmit={onSubmit} 
+			onSubmit={handleSubmit(router, project, close)} 
 			className="grow justify-between gap-8"
 		>
 			<ArwTitle center accent>

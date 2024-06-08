@@ -31,7 +31,7 @@ export default function SearchForm() {
 		},
 	})
 
-	const onSubmit = (searchFormData: SearchFormData) => {
+	const handleSubmit = (searchFormData: SearchFormData) => {
 		const queryParams = {
 			...(searchFormData.title ? { title: searchFormData.title } : {}),
 			...(searchFormData.userMode ? { user: 'current' } : {}),
@@ -48,7 +48,7 @@ export default function SearchForm() {
 	return (
 		<ArwForm
 			form={form}
-			onSubmit={onSubmit}
+			onSubmit={handleSubmit}
 			className="grow justify-between gap-8"
 		>
 			<ArwTitle center accent>

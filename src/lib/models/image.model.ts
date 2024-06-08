@@ -4,7 +4,8 @@ import { Schema, model, models } from 'mongoose'
 export interface IImage extends Document {
 	_id: string
 	url: string
-	caption: string
+	key: string
+	name: string
 }
 
 const ImageSchema = new Schema({
@@ -12,7 +13,11 @@ const ImageSchema = new Schema({
 		type: String,
 		default: '',
 	},
-	caption: {
+	key: {
+		type: String,
+		default: '',
+	},
+	name: {
 		type: String,
 		default: '',
 	},

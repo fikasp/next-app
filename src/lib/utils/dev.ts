@@ -2,17 +2,18 @@ import chalk, { ChalkInstance } from 'chalk'
 
 // Debugging settings
 const debugActive = true
-const debugActiveModes = [1, 2, 3, 4, 9]
+const debugActiveModes = [2, 3, 4, 9]
 const debugModes: { [key: number]: ChalkInstance } = {
 	0: chalk.gray,
 	1: chalk.gray,
 	2: chalk.cyan,
 	3: chalk.yellow,
 	4: chalk.red,
+	9: chalk.bgWhite.black,
 }
 
 // Debugging function
-export function debug(logMode: number, dataMode?: number, data?: any) {
+export function debug(logMode: number, dataMode?: number, ...data: any) {
 	if (!debugActive) return
 
 	// Log function
@@ -26,11 +27,15 @@ export function debug(logMode: number, dataMode?: number, data?: any) {
 	// Log data
 	if (debugActiveModes.includes(dataMode as number) && data) {
 		if (dataMode === 9) {
-			console.log(data)
+			data.forEach((item: any) => {
+				console.log(item)
+			})
 		} else {
 			const chalkLog: ChalkInstance =
 				debugModes[dataMode as number] || chalk.white
-			console.log(chalkLog(data))
+			data.forEach((data: any) => {
+				console.log(chalkLog(data))
+			})
 		}
 	}
 }
