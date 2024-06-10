@@ -60,7 +60,7 @@ export default function SearchForm() {
 					name="title"
 					control={form.control}
 					render={({ field }) => (
-						<Input placeholder="Title" className="text-center" {...field} />
+						<Input placeholder="Enter a title" className="text-center" {...field} />
 					)}
 				/>
 				<FormField

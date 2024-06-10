@@ -16,27 +16,29 @@ import { IProject } from '@/lib/models/project.model'
 
 export default function ImageCard({
 	image,
+	index,
 	project,
 	userMode,
 	searchParams,
 }: {
 	image: IImage
+	index: number
 	project: IProject
 	userMode: boolean
 	searchParams: any
 }) {
 	// Generate URL
-	const url = generateUrl(
-		[routes.PROJECTS, project.slug, image._id],
-		searchParams
-	)
+	const url = generateUrl([routes.PROJECTS, project.slug], {
+		...searchParams,
+		img: index,
+	})
 
 	return (
 		<ArwFlex
 			center
 			className="group relative rounded-md h-[150px] bg-transparent border border-accent overflow-hidden"
 		>
-			<Link href={url} className="absolute inset-0 z-20" />
+			{/* <Link href={url} className="absolute inset-0 z-20" /> */}
 			<div className="flex h-full w-full transition duration-300 ease-in-out gap-0 overflow-hidden">
 				<Image
 					src={image.url}
@@ -52,7 +54,7 @@ export default function ImageCard({
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						src={icons.DELETE}
-						onClick={handleRemoveImage(project, image._id, image.key)}
+						onClick={handleRemoveImage(project, image)}
 						className="hover:text-accent-400 transition"
 					/>
 				</ArwFlex>

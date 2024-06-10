@@ -7,7 +7,6 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
 import { generateUrl } from '@/lib/utils'
-import { getImageById } from '@/lib/actions/project.action'
 import { IImage } from '@/lib/models/image.model'
 import { routes } from '@/navigation'
 
@@ -55,3 +54,23 @@ export default async function ImagePage({
 		</div>
 	)
 }
+
+
+<Image
+src={images[selectedIndex]?.url}
+alt={images[selectedIndex]?.name}
+width={600}
+height={400}
+className="w-full h-full object-contain"
+/>
+
+<ArwButton
+src={icons.BACK}
+onClick={handlePrevClick}
+className="text-white"
+/>
+<ArwButton
+src={icons.NEXT}
+onClick={handleNextClick}
+className="text-white"
+/>

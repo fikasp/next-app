@@ -15,6 +15,7 @@ import { IUser } from '@/lib/models/user.model'
 import { ProjectFormData } from '@/lib/utils/zod'
 import { routes } from '@/navigation'
 import { SortOptions } from '@/lib/types/enums'
+import { deleteFiles } from './image.action'
 
 // CREATE
 // Create project
@@ -78,6 +79,7 @@ export async function getProjects(searchParams: any) {
 
 		const projects = await ProjectModel.find(projectQuery)
 			.populate('user', '_id username photo')
+			.collation({ locale: 'pl', strength: 1 })
 			.sort(sort)
 
 		debug(0, 0, projects)
@@ -113,7 +115,7 @@ export async function getProjectBySlug({
 			next: deepClone(nextProject),
 		}
 
-		debug(2, 0, adjacentProjects)
+		debug(2, 9, adjacentProjects)
 		return adjacentProjects
 	} catch (error) {
 		handleError(error)
@@ -121,43 +123,43 @@ export async function getProjectBySlug({
 	}
 }
 
-// Get image by id
-export async function getImageById(
-	id: string,
-	slug: string
-): Promise<Adjacent<IImage>> {
-	try {
-		await connectToDatabase()
+// // Get image by id
+// export async function getImageById(
+// 	id: string,
+// 	slug: string
+// ): Promise<Adjacent<IImage>> {
+// 	try {
+// 		await connectToDatabase()
 
-		const currentProject = await ProjectModel.findOne({ slug }).populate(
-			'images'
-		)
+// 		const currentProject = await ProjectModel.findOne({ slug }).populate(
+// 			'images'
+// 		)
 
-		const sortedImages = currentProject.images.sort((a: IImage, b: IImage) =>
-			a._id.toString().localeCompare(b._id.toString())
-		)
+// 		const sortedImages = currentProject.images.sort((a: IImage, b: IImage) =>
+// 			a._id.toString().localeCompare(b._id.toString())
+// 		)
 
-		const currentImageIndex = sortedImages.findIndex(
-			(image: IImage) => image._id.toString() === id
-		)
+// 		const currentImageIndex = sortedImages.findIndex(
+// 			(image: IImage) => image._id.toString() === id
+// 		)
 
-		const currentImage = sortedImages[currentImageIndex]
-		const prevImage = findPrev<IImage>(sortedImages, currentImageIndex)
-		const nextImage = findNext<IImage>(sortedImages, currentImageIndex)
+// 		const currentImage = sortedImages[currentImageIndex]
+// 		const prevImage = findPrev<IImage>(sortedImages, currentImageIndex)
+// 		const nextImage = findNext<IImage>(sortedImages, currentImageIndex)
 
-		const images = {
-			prev: deepClone(prevImage),
-			current: deepClone(currentImage),
-			next: deepClone(nextImage),
-		}
+// 		const images = {
+// 			prev: deepClone(prevImage),
+// 			current: deepClone(currentImage),
+// 			next: deepClone(nextImage),
+// 		}
 
-		debug(2, 9, images)
-		return images
-	} catch (error) {
-		handleError(error)
-		return { prev: null, current: null, next: null }
-	}
-}
+// 		debug(2, 9, images)
+// 		return images
+// 	} catch (error) {
+// 		handleError(error)
+// 		return { prev: null, current: null, next: null }
+// 	}
+// }
 
 // UPDATE
 // Update project
@@ -214,7 +216,11 @@ export async function addImageToProject(
 }
 
 // Remove image from project
-export async function removeImageFromProject(slug: string, imageId: string) {
+export async function removeImageFromProject(
+	slug: string,
+	imageId: string,
+	imageKey: string
+) {
 	try {
 		await connectToDatabase()
 
@@ -226,6 +232,10 @@ export async function removeImageFromProject(slug: string, imageId: string) {
 			{ slug },
 			{ $pull: { images: imageId } }
 		)
+		if (imageKey) {
+			const deletedFile = await deleteFiles([imageKey])
+			debug(0, 0, deletedFile)
+		}
 
 		debug(4, 1, updatedProject)
 		revalidatePath(routes.PROJECTS)
@@ -243,9 +253,24 @@ export async function deleteProject(projectId: string) {
 
 		const project = await ProjectModel.findById(projectId).populate('images')
 
+		if (!project) {
+			throw new Error('Project not found')
+		}
+
+		// Extract image IDs and keys
 		const imagesIds = project.images.map((image: IImage) => image._id)
+		const imagesKeys = project.images.map((image: IImage) => image.key)
+
+		// Delete images from the database
 		await ImageModel.deleteMany({ _id: { $in: imagesIds } })
 
+		// Delete image files from storage if they exist
+		if (imagesKeys.length > 0) {
+			const deletedFiles = await deleteFiles(imagesKeys)
+			debug(0, 0, deletedFiles)
+		}
+
+		// Delete the project
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
 
 		debug(4, 0, deletedProject)

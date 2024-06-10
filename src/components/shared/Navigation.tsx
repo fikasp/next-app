@@ -14,11 +14,17 @@ export default function Navigation({
 	prev,
 	next,
 	className,
+	prevButtonClass,
+	nextButtonClass,
+	backButtonClass,
 }: {
 	back?: string | undefined | null
 	prev?: string | undefined | null
 	next?: string | undefined | null
 	className?: string
+	prevButtonClass?: string
+	nextButtonClass?: string
+	backButtonClass?: string
 }) {
 	const router = useRouter()
 
@@ -93,9 +99,23 @@ export default function Navigation({
 
 	return (
 		<ArwFlex between row className={className}>
-			<ArwButton src={icons.BACK} disabled={!prev} onClick={handlePrev} />
-			<ArwButton src={icons.NEXT} disabled={!next} onClick={handleNext} />
-			<ArwButton src={icons.CLOSE} onClick={handleBack} />
+			<ArwButton
+				src={icons.BACK}
+				disabled={!prev}
+				onClick={handlePrev}
+				className={prevButtonClass}
+			/>
+			<ArwButton
+				src={icons.NEXT}
+				disabled={!next}
+				onClick={handleNext}
+				className={nextButtonClass}
+			/>
+			<ArwButton
+				src={icons.CLOSE}
+				onClick={handleBack}
+				className={backButtonClass}
+			/>
 		</ArwFlex>
 	)
 }

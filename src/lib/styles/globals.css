@@ -5,17 +5,16 @@
 @layer utilities {
 	/* forms */
 	.arw-input {
-		@apply bg-base-50 
+		@apply bg-white
 		placeholder:text-base-300 
 		focus-visible:ring-base-900 
 		ring-offset-white
 		border-base-200
-		dark:text-black
-		dark:bg-base-400
+		dark:bg-transparent
 		dark:placeholder:text-base-500 
 		dark:focus-visible:ring-base-400 
 		dark:ring-offset-base-950 
-		dark:border-base-800 
+		dark:border-base-700 
 		rounded-md
 		text-lg
 		border;

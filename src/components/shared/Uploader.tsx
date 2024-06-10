@@ -22,7 +22,7 @@ export default function Uploader({
 	const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
 		onFieldChange(URL.createObjectURL(acceptedFiles[0]))
 		setFiles(acceptedFiles)
-	}, [])
+	}, [onFieldChange, setFiles])
 
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,

@@ -12,6 +12,7 @@ import {
 } from '@/lib/actions/project.action'
 import { deleteFiles } from '@/lib/actions/image.action'
 import { debug, handleError } from '@/lib/utils/dev'
+import { IImage } from '../models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/utils/zod'
 import { routes } from '@/navigation'
@@ -97,19 +98,18 @@ export const handleAddImage = async (
 
 // Remove image from project
 export const handleRemoveImage =
-	(project: IProject, imageId: string, imageKey: string) => async () => {
+	(project: IProject, image: IImage) => async () => {
 		try {
-			const updatedProject = await removeImageFromProject(project.slug, imageId)
-
+			const updatedProject = await removeImageFromProject(
+				project.slug,
+				image._id,
+				image.key
+			)
 			if (updatedProject) {
 				toast({
 					title: 'Image removed!',
 					description: 'The image has been successfully removed',
 				})
-			}
-			if (imageKey) {
-				const deletedFile = await deleteFiles([imageKey])
-				debug(0, 9, deletedFile)
 			}
 		} catch (error) {
 			handleError(error)
