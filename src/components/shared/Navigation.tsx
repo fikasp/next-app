@@ -99,16 +99,27 @@ export default function Navigation({
 			}
 		}
 
+		// Mouse wheel navigation
+		const handleWheel = (event: WheelEvent) => {
+			if (event.deltaY > 0) {
+				handleNext()
+			} else if (event.deltaY < 0) {
+				handlePrev()
+			}
+		}
+
 		// Event listeners
 		if (!listeners) return
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)
+		document.addEventListener('wheel', handleWheel)
 
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
 			document.removeEventListener('touchstart', handleTouchStart)
 			document.removeEventListener('touchend', handleTouchEnd)
+			document.removeEventListener('wheel', handleWheel)
 		}
 	})
 
@@ -117,19 +128,19 @@ export default function Navigation({
 			<ArwButton
 				src={icons.PREV}
 				disabled={!urlPrev && !prev}
-				onClick={handlePrev}
 				className={classNamePrev}
+				onClick={handlePrev}
 			/>
 			<ArwButton
 				src={icons.NEXT}
 				disabled={!urlNext && !next}
-				onClick={handleNext}
 				className={classNameNext}
+				onClick={handleNext}
 			/>
 			<ArwButton
 				src={icons.CLOSE}
-				onClick={handleBack}
 				className={classNameBack}
+				onClick={handleBack}
 			/>
 		</ArwFlex>
 	)
