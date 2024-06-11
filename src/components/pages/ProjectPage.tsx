@@ -12,6 +12,8 @@ import { checkUserMode, generateUrl } from '@/lib/utils'
 import { getCurrentUser, getProjectBySlug } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
+import { When } from 'react-if'
+import Manipulations from '../shared/Manipulations'
 
 export default async function ProjectPage({
 	params,
@@ -46,7 +48,12 @@ export default async function ProjectPage({
 			<ArwContainer>
 				<ArwPaper grow accent className="px-5 pb-5">
 					<ArwFlex row between>
-						<ArwTitle>{current.title}</ArwTitle>
+						<ArwFlex row>
+							<ArwTitle>{current.title}</ArwTitle>
+							<When condition={userMode}>
+								<Manipulations project={current} className="relative z-30" />
+							</When>
+						</ArwFlex>
 						<Navigation urlBack={urlBack} urlPrev={urlPrev} urlNext={urlNext} />
 					</ArwFlex>
 					<Gallery

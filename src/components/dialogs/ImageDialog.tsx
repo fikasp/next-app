@@ -40,14 +40,14 @@ export default function ImageDialog({
 							listeners
 						/>
 						<Image
-							src={image.url}
-							alt={image.name}
+							src={image?.url}
+							alt={image?.name}
 							width={1400}
 							height={1400}
 							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-contain border border-base-900"
 						/>
 						<ArwText className="absolute bottom-4 text-white shadow">
-							{image.name}
+							{image?.name}
 						</ArwText>
 					</div>
 				</div>
