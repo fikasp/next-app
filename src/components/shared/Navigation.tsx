@@ -13,38 +13,52 @@ export default function Navigation({
 	back,
 	prev,
 	next,
+	urlBack,
+	urlPrev,
+	urlNext,
+	classNameBack,
+	classNamePrev,
+	classNameNext,
 	className,
-	prevButtonClass,
-	nextButtonClass,
-	backButtonClass,
+	listeners,
 }: {
-	back?: string | undefined | null
-	prev?: string | undefined | null
-	next?: string | undefined | null
+	back?: () => void
+	prev?: () => void
+	next?: () => void
+	urlBack?: string | undefined | null
+	urlPrev?: string | undefined | null
+	urlNext?: string | undefined | null
+	classNameBack?: string
+	classNamePrev?: string
+	classNameNext?: string
 	className?: string
-	prevButtonClass?: string
-	nextButtonClass?: string
-	backButtonClass?: string
+	listeners?: boolean
 }) {
 	const router = useRouter()
 
 	// Navigation handlers
 	const handlePrev = () => {
-		debug(0)
+		debug(9)
 		if (prev) {
-			router.push(prev)
+			prev()
+		} else if (urlPrev) {
+			router.push(urlPrev)
 		}
 	}
 	const handleNext = () => {
-		debug(0)
+		debug(9)
 		if (next) {
-			router.push(next)
+			next()
+		} else if (urlNext) {
+			router.push(urlNext)
 		}
 	}
 	const handleBack = () => {
+		debug(9)
 		if (back) {
-			debug(0, 0, back)
-			router.push(back)
+			back()
+		} else if (urlBack) {
+			router.push(urlBack)
 		} else {
 			router.back()
 		}
@@ -85,6 +99,7 @@ export default function Navigation({
 			}
 		}
 
+		if (!listeners) return
 		// Event listeners
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
@@ -100,21 +115,21 @@ export default function Navigation({
 	return (
 		<ArwFlex between row className={className}>
 			<ArwButton
-				src={icons.BACK}
-				disabled={!prev}
+				src={icons.PREV}
+				disabled={!urlPrev && !prev}
 				onClick={handlePrev}
-				className={prevButtonClass}
+				className={classNamePrev}
 			/>
 			<ArwButton
 				src={icons.NEXT}
-				disabled={!next}
+				disabled={!urlNext && !next}
 				onClick={handleNext}
-				className={nextButtonClass}
+				className={classNameNext}
 			/>
 			<ArwButton
 				src={icons.CLOSE}
 				onClick={handleBack}
-				className={backButtonClass}
+				className={classNameBack}
 			/>
 		</ArwFlex>
 	)

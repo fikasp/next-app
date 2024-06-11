@@ -32,11 +32,11 @@ export default async function ProjectPage({
 		checkUserMode(searchParams) && current?.user.toString() === currentUser._id
 
 	// Generate URLs
-	const prevUrl =
+	const urlPrev =
 		prev && generateUrl([routes.PROJECTS, prev.slug], searchParams)
-	const nextUrl =
+	const urlNext =
 		next && generateUrl([routes.PROJECTS, next.slug], searchParams)
-	const backUrl = generateUrl(
+	const urlBack = generateUrl(
 		[checkUserMode(searchParams) ? routes.PROJECTS : routes.START],
 		searchParams
 	)
@@ -47,7 +47,7 @@ export default async function ProjectPage({
 				<ArwPaper grow accent className="px-5 pb-5">
 					<ArwFlex row between>
 						<ArwTitle>{current.title}</ArwTitle>
-						<Navigation back={backUrl} prev={prevUrl} next={nextUrl} />
+						<Navigation urlBack={urlBack} urlPrev={urlPrev} urlNext={urlNext} />
 					</ArwFlex>
 					<Gallery
 						project={current}

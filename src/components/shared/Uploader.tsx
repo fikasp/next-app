@@ -33,7 +33,7 @@ export default function Uploader({
 	return (
 		<div
 			{...getRootProps()}
-			className="grow flex items-end w-full cursor-pointer overflow-hidden rounded-md border border-blue"
+			className="grow flex items-end w-full cursor-pointer overflow-hidden rounded-md border border-base dark:border-base-900"
 		>
 			<input {...getInputProps()} className="cursor-pointer" />
 

@@ -9,16 +9,16 @@ export const routes = {
 
 export const icons = {
 	ADD: '/icons/add.svg',
-	BACK: '/icons/back.svg',
 	CLOSE: '/icons/close.svg',
 	DELETE: '/icons/delete.svg',
 	EDIT: '/icons/edit.svg',
 	HOME: '/icons/home.svg',
-	UPLOAD: '/icons/upload.svg',
 	ITEMS: '/icons/items.svg',
 	MENU: '/icons/menu.svg',
 	NEXT: '/icons/next.svg',
+	PREV: '/icons/prev.svg',
 	SEARCH: '/icons/search.svg',
+	UPLOAD: '/icons/upload.svg',
 }
 
 export const images = {
