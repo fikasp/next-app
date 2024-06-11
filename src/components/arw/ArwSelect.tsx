@@ -18,7 +18,7 @@ export default function ArwSelect({
 }) {
 	return (
 		<Select onValueChange={onValueChange} defaultValue={defaultValue}>
-			<SelectTrigger className="flex-center gap-2 p-6 pl-10 font-medium">
+			<SelectTrigger className="flex-center gap-2 p-6 pl-10 font-medium text-sm">
 				<SelectValue placeholder="Select a value" />
 			</SelectTrigger>
 			<SelectContent>

@@ -38,7 +38,7 @@ export default function Navigation({
 
 	// Navigation handlers
 	const handlePrev = () => {
-		debug(9)
+		debug(0)
 		if (prev) {
 			prev()
 		} else if (urlPrev) {
@@ -46,7 +46,7 @@ export default function Navigation({
 		}
 	}
 	const handleNext = () => {
-		debug(9)
+		debug(0)
 		if (next) {
 			next()
 		} else if (urlNext) {
@@ -54,7 +54,7 @@ export default function Navigation({
 		}
 	}
 	const handleBack = () => {
-		debug(9)
+		debug(0)
 		if (back) {
 			back()
 		} else if (urlBack) {
