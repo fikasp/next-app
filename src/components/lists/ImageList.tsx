@@ -11,7 +11,7 @@ import ImageForm from '@/components/forms/ImageForm'
 import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
 
-export default function Gallery({
+export default function ImageList({
 	project,
 	userMode,
 	searchParams,

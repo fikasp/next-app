@@ -3,7 +3,6 @@
 import { MouseEventHandler } from 'react'
 import { When } from 'react-if'
 import Image from 'next/image'
-import Link from 'next/link'
 // components
 import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'

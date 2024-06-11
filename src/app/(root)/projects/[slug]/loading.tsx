@@ -1,5 +1,5 @@
 // components
-import ProjectLoading from '@/components/loadings/ProjectLoading'
+import ProjectLoading from '@/components/pages/ProjectLoading'
 
 export default function Loading() {
 	return <ProjectLoading />

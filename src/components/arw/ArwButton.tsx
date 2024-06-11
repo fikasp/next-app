@@ -11,17 +11,16 @@ export default function ArwButton({
 	label,
 	src,
 }: {
-	onClick: MouseEventHandler<HTMLButtonElement>
+	onClick: () => void
 	className?: string
 	disabled?: boolean
 	label?: string
 	src?: string
 }) {
 	return (
-		<button
+		<div
 			onClick={onClick}
 			aria-label={label}
-			disabled={disabled}
 			className={cn(
 				disabled ? 'text-gray-400' : 'hover:text-accent-400',
 				'flex-center gap-2',
@@ -30,6 +29,6 @@ export default function ArwButton({
 		>
 			{src && <ArwIcon src={src} />}
 			{label}
-		</button>
+		</div>
 	)
 }

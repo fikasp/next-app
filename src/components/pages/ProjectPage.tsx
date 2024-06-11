@@ -4,7 +4,7 @@ import ArwFlex from '@/components/arw/ArwFlex'
 import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
-import Gallery from '@/components/shared/Gallery'
+import ImageList from '@/components/lists/ImageList'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
@@ -47,16 +47,16 @@ export default async function ProjectPage({
 		current && (
 			<ArwContainer>
 				<ArwPaper grow accent className="px-5 pb-5">
-					<ArwFlex row between>
+					<ArwFlex row className="justify-between items-start">
 						<ArwFlex row>
 							<ArwTitle>{current.title}</ArwTitle>
 							<When condition={userMode}>
 								<Manipulations project={current} className="relative z-30" />
 							</When>
 						</ArwFlex>
-						<Navigation urlBack={urlBack} urlPrev={urlPrev} urlNext={urlNext} />
+						<Navigation urlBack={urlBack} urlPrev={urlPrev} urlNext={urlNext} className='mt-1'/>
 					</ArwFlex>
-					<Gallery
+					<ImageList
 						project={current}
 						userMode={userMode}
 						searchParams={searchParams}

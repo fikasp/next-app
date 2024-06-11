@@ -99,8 +99,8 @@ export default function Navigation({
 			}
 		}
 
-		if (!listeners) return
 		// Event listeners
+		if (!listeners) return
 		document.addEventListener('keydown', handleKeyPress)
 		document.addEventListener('touchstart', handleTouchStart)
 		document.addEventListener('touchend', handleTouchEnd)
