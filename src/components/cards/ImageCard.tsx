@@ -38,7 +38,7 @@ export default function ImageCard({
 	return (
 		<ArwFlex
 			center
-			className="group relative rounded-md h-[150px] bg-transparent border border-base-500 dark:border-base-900 overflow-hidden"
+			className="group relative rounded-md h-[150px] bg-transparent border border-base-400 dark:border-base-800 overflow-hidden"
 		>
 			<div onClick={handleOpen} className="absolute inset-0 z-20" />
 			<div className="flex h-full w-full transition duration-300 ease-in-out gap-0 overflow-hidden">
