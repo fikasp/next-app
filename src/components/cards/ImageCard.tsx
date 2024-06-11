@@ -49,7 +49,7 @@ export default function ImageCard({
 					alt={'Image'}
 					loading={'eager'}
 					priority={true}
-					className="w-full object-cover object-center rounded-md transition duration-300 ease-in-out group-hover:opacity-80"
+					className="w-full object-cover object-center transition duration-300 ease-in-out group-hover:opacity-80"
 				></Image>
 			</div>
 			<When condition={userMode}>
