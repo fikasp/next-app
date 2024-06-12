@@ -1,3 +1,5 @@
+// modules
+import { When } from 'react-if'
 // components
 import ArwContainer from '@/components/arw/ArwContainer'
 import ArwFlex from '@/components/arw/ArwFlex'
@@ -5,15 +7,15 @@ import ArwPaper from '@/components/arw/ArwPaper'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 import ImageList from '@/components/lists/ImageList'
+import Manipulations from '@/components/shared/Manipulations'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
 import { checkUserMode, generateUrl } from '@/lib/utils'
+import { debug } from '@/lib/utils/dev'
 import { getCurrentUser, getProjectBySlug } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
-import { When } from 'react-if'
-import Manipulations from '../shared/Manipulations'
 
 export default async function ProjectPage({
 	params,
@@ -22,6 +24,7 @@ export default async function ProjectPage({
 	params: any
 	searchParams: any
 }) {
+	debug(9, 9, searchParams)
 	// Get current user
 	const currentUser = await getCurrentUser()
 	// Get adjacent projects
@@ -54,7 +57,12 @@ export default async function ProjectPage({
 								<Manipulations project={current} className="relative z-30" />
 							</When>
 						</ArwFlex>
-						<Navigation urlBack={urlBack} urlPrev={urlPrev} urlNext={urlNext} className='mt-1'/>
+						<Navigation
+							urlBack={urlBack}
+							urlPrev={urlPrev}
+							urlNext={urlNext}
+							className="mt-1"
+						/>
 					</ArwFlex>
 					<ImageList
 						project={current}

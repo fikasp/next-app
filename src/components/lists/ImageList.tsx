@@ -9,10 +9,9 @@ import ImageCard from '@/components/cards/ImageCard'
 import ImageDialog from '@/components/dialogs/ImageDialog'
 import ImageForm from '@/components/forms/ImageForm'
 // lib
-import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
-import { generateUrl } from '@/lib/utils'
-import { routes } from '@/navigation'
+import { IProject } from '@/lib/models/project.model'
+import { updateUrlParams } from '@/lib/utils'
 
 export default function ImageList({
 	project,
@@ -23,23 +22,10 @@ export default function ImageList({
 	userMode: boolean
 	searchParams: any
 }) {
-
-	const router = useRouter()
 	// State of the modal
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	// State of the selected image index
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-
-	// Function to generate image URL
-	const generateImageUrl = useMemo(
-		() => (imgIndex: number | undefined) => {
-			return generateUrl([routes.PROJECTS, project.slug], {
-				...searchParams,
-				img: imgIndex,
-			})
-		},
-		[project.slug, searchParams]
-	)
 
 	// Initialize state
 	useEffect(() => {
@@ -53,17 +39,16 @@ export default function ImageList({
 	}, [searchParams, project.images.length])
 
 	// Update URL
-
 	useEffect(() => {
 		if (isDialogOpen) {
-			router.push(generateImageUrl(selectedImageIndex))
+			updateUrlParams({ img: selectedImageIndex })
 		}
-	}, [selectedImageIndex]) // eslint-disable-line react-hooks/exhaustive-deps
+	}, [selectedImageIndex, isDialogOpen])
 
 	// Handlers for the modal
-	const handleOpen = (index: number) => () => {
+	const handleOpen = (index: number) => {
 		debug(2)
-		router.push(generateImageUrl(index))
+		updateUrlParams({ img: index })
 		setSelectedImageIndex(index)
 		setIsDialogOpen(true)
 	}
@@ -84,7 +69,7 @@ export default function ImageList({
 
 	const handleClose = () => {
 		debug(4)
-		router.push(generateImageUrl(undefined))
+		updateUrlParams({ img: null })
 		setIsDialogOpen(false)
 	}
 
@@ -100,7 +85,7 @@ export default function ImageList({
 							project={project}
 							userMode={userMode}
 							searchParams={searchParams}
-							handleOpen={handleOpen(index)}
+							handleOpen={() => handleOpen(index)}
 						/>
 					))}
 				</When>

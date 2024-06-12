@@ -48,6 +48,23 @@ export function generateUrl(
 	})
 }
 
+// URL search parameters update
+export function updateUrlParams(params: Record<string, any>) {
+	const url = new URL(window.location.toString())
+
+	// Set new search parameters
+	Object.keys(params).forEach((key) => {
+		if (params[key] === undefined || params[key] === null) {
+			url.searchParams.delete(key)
+		} else {
+			url.searchParams.set(key, String(params[key]))
+		}
+	})
+
+	// Push new state to history
+	window.history.pushState({}, '', url)
+}
+
 // Find prev
 export function findPrev<T>(array: T[], currentIndex: number) {
 	return currentIndex > 0 ? array[currentIndex - 1] : null
