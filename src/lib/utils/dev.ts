@@ -2,7 +2,7 @@ import chalk, { ChalkInstance } from 'chalk'
 
 // Debugging settings
 const debugActive = true
-const debugActiveModes = [2, 3, 4, 9]
+const debugActiveModes = [1, 2, 3, 4, 9]
 const debugModes: { [key: number]: ChalkInstance } = {
 	0: chalk.gray,
 	1: chalk.gray,

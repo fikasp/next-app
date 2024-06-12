@@ -1,13 +1,16 @@
 'use client'
 // modules
-import Image from 'next/image'
+import { Else, If, Then } from 'react-if'
 import { FileWithPath } from 'react-dropzone'
-import { useDropzone } from '@uploadthing/react/hooks'
 import { generateClientDropzoneAccept } from 'uploadthing/client'
 import { useCallback, Dispatch, SetStateAction } from 'react'
+import { useDropzone } from '@uploadthing/react/hooks'
+import Image from 'next/image'
 // components
 import { Button } from '@/components/ui/button'
 import ArwIcon from '@/components/arw/ArwIcon'
+import ArwText from '@/components/arw/ArwText'
+// lib
 import { icons } from '@/navigation'
 
 export default function Uploader({
@@ -19,10 +22,13 @@ export default function Uploader({
 	onFieldChange: (url: string) => void
 	setFiles: Dispatch<SetStateAction<File[]>>
 }) {
-	const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-		onFieldChange(URL.createObjectURL(acceptedFiles[0]))
-		setFiles(acceptedFiles)
-	}, [onFieldChange, setFiles])
+	const onDrop = useCallback(
+		(acceptedFiles: FileWithPath[]) => {
+			onFieldChange(URL.createObjectURL(acceptedFiles[0]))
+			setFiles(acceptedFiles)
+		},
+		[onFieldChange, setFiles]
+	)
 
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,
@@ -33,33 +39,31 @@ export default function Uploader({
 	return (
 		<div
 			{...getRootProps()}
-			className="grow flex items-end w-full cursor-pointer overflow-hidden rounded-md border border-base-400 dark:border-base-800"
+			className="grow cursor-pointer overflow-hidden rounded-md border border-base-400 dark:border-base-800"
 		>
 			<input {...getInputProps()} className="cursor-pointer" />
-
-			{imageUrl ? (
-				<div className="flex h-full w-full justify-center">
-					<Image
-						src={imageUrl}
-						alt="image"
-						width={100}
-						height={100}
-						className="w-full object-cover object-center"
-					/>
-				</div>
-			) : (
-				<div className="w-full flex flex-col items-center p-2">
-					<Image
-						src={icons.UPLOAD}
-						width={50}
-						height={50}
-						alt="file upload"
-					/>
-					<Button type="button" className="w-full">
-						Select image
-					</Button>
-				</div>
-			)}
+			<If condition={imageUrl}>
+				<Then>
+					<div className="flex h-full w-full justify-center">
+						<Image
+							src={imageUrl}
+							alt="image"
+							width={100}
+							height={100}
+							className="w-full object-cover object-center"
+						/>
+					</div>
+				</Then>
+				<Else>
+					<div className="h-full flex flex-col items-center justify-between p-3 bg-blue">
+						<ArwIcon src={icons.UPLOAD} size={50} />
+						<ArwText className="text-sm">Drag and drop or</ArwText>
+						<Button type="button" className="w-full">
+							Select image
+						</Button>
+					</div>
+				</Else>
+			</If>
 		</div>
 	)
 }

@@ -30,10 +30,10 @@ export default function ImageDialog({
 
 	useEffect(() => {
 		setIsImageLoaded(false)
-	}, [image])
+	}, [selectedIndex])
 
 	const handleImageLoad = () => {
-		debug(9)
+		debug(1)
 		setIsImageLoaded(true)
 	}
 
@@ -59,6 +59,7 @@ export default function ImageDialog({
 							height={1400}
 							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-cover"
 							onLoad={handleImageLoad}
+							priority
 						/>
 						<ArwText className="absolute bottom-4 text-white drop-shadow-lg">
 							{isImageLoaded ? `${image?.name}` : 'Loading...'}

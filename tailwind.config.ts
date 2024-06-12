@@ -66,8 +66,10 @@ const config = {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
 			width: {
-				'full-4': 'calc(100% - 32px)',
+				'full-1': 'calc(100% - 8px)',
 				'full-2': 'calc(100% - 16px)',
+				'full-3': 'calc(100% - 24px)',
+				'full-4': 'calc(100% - 32px)',
 			},
 			maxHeight: {
 				'screen-4': 'calc(100vh - 32px)',

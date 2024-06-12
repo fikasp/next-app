@@ -9,9 +9,9 @@ import ArwFlex from '@/components/arw/ArwFlex'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { handleRemoveImage } from '@/lib/handlers/project.handlers'
-import { icons, routes } from '@/navigation'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
+import { icons, routes } from '@/navigation'
 
 export default function ImageCard({
 	image,

@@ -1,14 +1,15 @@
 'use client'
 // modules
+import { When } from 'react-if'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
-import { Button } from '@/components/ui/button'
-import { FormField } from '@/components/ui/form'
-import { toast } from '@/components/ui/use-toast'
-import ArwForm from '@/components/arw/ArwForm'
 import Uploader from '@/components/shared/Uploader'
+import ArwForm from '@/components/arw/ArwForm'
+import { toast } from '@/components/ui/use-toast'
+import { FormField } from '@/components/ui/form'
+import { Button } from '@/components/ui/button'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { handleAddImage } from '@/lib/handlers/project.handlers'
@@ -71,9 +72,11 @@ export default function ImageForm({ project }: { project: IProject }) {
 					/>
 				)}
 			/>
-			<Button className="absolute w-full-2 left-2 top-2 bg-black/50 dark:bg-white/50">
-				{isUploading ? 'Uploading...' : 'Upload image'}
-			</Button>
+			<When condition={files.length > 0}>
+				<Button variant="accent" className="absolute left-3 bottom-3 w-full-3">
+					{isUploading ? 'Uploading...' : 'Upload image'}
+				</Button>
+			</When>
 		</ArwForm>
 	)
 }
