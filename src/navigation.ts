@@ -34,7 +34,7 @@ export const nav = [
 	{
 		route: routes.PROFILE,
 		icon: icons.ITEMS,
-		label: 'My projects',
+		label: 'My profile',
 	},
 	{
 		route: routes.ADD,

@@ -18,6 +18,7 @@ import { searchSchema, SearchFormData } from '@/lib/utils/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
+import { profile } from 'console'
 
 export default function SearchForm() {
 	const router = useRouter()
@@ -26,18 +27,18 @@ export default function SearchForm() {
 		resolver: zodResolver(searchSchema),
 		defaultValues: {
 			title: '',
-			userMode: false,
+			profile: false,
 			sort: SortOptions.TITLE,
 		},
 	})
 
-	const handleSubmit = ({ title, sort, userMode }: SearchFormData) => {
+	const handleSubmit = ({ title, sort, profile }: SearchFormData) => {
 		const queryParams: { [key: string]: string | undefined } = {}
 
 		if (title) queryParams.title = title
 		if (sort !== SortOptions.TITLE) queryParams.sort = sort
 
-		const route = userMode ? routes.PROFILE : routes.PROJECTS
+		const route = profile ? routes.PROFILE : routes.PROJECTS
 		const url = generateUrl([route], queryParams)
 		router.push(url)
 	}
@@ -65,7 +66,7 @@ export default function SearchForm() {
 					)}
 				/>
 				<FormField
-					name="userMode"
+					name="profile"
 					control={form.control}
 					render={({ field }) => (
 						<ArwCheckbox

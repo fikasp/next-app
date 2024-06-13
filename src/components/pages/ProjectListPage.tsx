@@ -10,13 +10,13 @@ import { debug } from '@/lib/utils/dev'
 
 export default async function ProjectsListPage({
 	searchParams,
-	userMode = false,
+	profile = false,
 }: {
 	searchParams: any
-	userMode?: boolean
+	profile?: boolean
 }) {
 	debug(9, 9, searchParams)
-	const projects: IProject[] = await getProjects(searchParams, userMode)
+	const projects: IProject[] = await getProjects(searchParams, profile)
 
 	return (
 		<If condition={projects.length === 0}>
@@ -28,7 +28,7 @@ export default async function ProjectsListPage({
 					<ProjectsList
 						projects={projects}
 						searchParams={searchParams}
-						userMode={userMode}
+						profile={profile}
 					/>
 				</ArwContainer>
 			</Else>

@@ -14,11 +14,11 @@ import { updateUrlParams } from '@/lib/utils'
 
 export default function ImageList({
 	project,
-	userMode,
+	profile,
 	searchParams,
 }: {
 	project: IProject
-	userMode: boolean
+	profile: boolean
 	searchParams: any
 }) {
 	// State of the modal
@@ -82,13 +82,13 @@ export default function ImageList({
 							index={index}
 							image={image}
 							project={project}
-							userMode={userMode}
+							profile={profile}
 							searchParams={searchParams}
 							handleOpen={() => handleOpen(index)}
 						/>
 					))}
 				</When>
-				<When condition={userMode}>
+				<When condition={profile}>
 					<ImageForm project={project} />
 				</When>
 			</ArwGrid>

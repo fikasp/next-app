@@ -7,5 +7,5 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
-	return <ProjectPage params={params} searchParams={searchParams} userMode/>
+	return <ProjectPage params={params} searchParams={searchParams} profile />
 }

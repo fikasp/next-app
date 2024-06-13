@@ -3,7 +3,7 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import UserModel, { IUser } from '@/lib/models/user.model'
+import profilel, { IUser } from '@/lib/models/user.model'
 import { deepClone, generateUniqueSlug } from '@/lib/utils'
 import { Adjacent } from '@/lib/types'
 import { connectToDatabase } from '@/lib/utils/mongoose'
@@ -51,17 +51,17 @@ export async function getCurrentUser() {
 }
 
 // Get projects
-export async function getProjects(searchParams: any, userMode: boolean) {
+export async function getProjects(searchParams: any, profile: boolean) {
 	try {
 		await connectToDatabase()
 
 		const projectQuery: any = {}
 
-		if (userMode) {
+		if (profile) {
 			const user: IUser = await getCurrentUser()
 			projectQuery.user = user._id
 		} else if (searchParams.user) {
-			const user = await UserModel.findOne({ username: searchParams.user })
+			const user = await profilel.findOne({ username: searchParams.user })
 			if (user) {
 				projectQuery.user = user._id
 			}
@@ -96,18 +96,21 @@ export async function getProjects(searchParams: any, userMode: boolean) {
 export async function getProjectBySlug({
 	slug,
 	searchParams,
-	userMode,
+	profile,
 }: {
 	slug: string
 	searchParams: any
-	userMode: boolean
+	profile: boolean
 }): Promise<Adjacent<IProject>> {
 	try {
-		const projects: IProject[] = await getProjects(searchParams, userMode)
+		const projects: IProject[] = await getProjects(searchParams, profile)
 
 		const currentIndex = projects.findIndex(
 			(project: IProject) => project.slug === slug
 		)
+		if (currentIndex === -1) {
+			throw new Error('Unauthorized access to this project.')
+		}
 		const currentProject = await ProjectModel.findOne({ slug }).populate(
 			'images'
 		)

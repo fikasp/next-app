@@ -11,30 +11,30 @@ import Manipulations from '@/components/shared/Manipulations'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types'
-import { checkUserMode, generateUrl } from '@/lib/utils'
+import { generateUrl } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
-import { getCurrentUser, getProjectBySlug } from '@/lib/actions/project.action'
+import { getProjectBySlug } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
 
 export default async function ProjectPage({
 	params,
 	searchParams,
-	userMode = false,
+	profile = false,
 }: {
 	params: any
 	searchParams: any
-	userMode?: boolean
+	profile?: boolean
 }) {
 	debug(9, 9, searchParams)
 	const { prev, current, next }: Adjacent<IProject> = await getProjectBySlug({
 		slug: params.slug,
 		searchParams,
-		userMode,
+		profile,
 	})
 
 	// Generate URLs
-	const route = userMode ? routes.PROFILE : routes.PROJECTS
+	const route = profile ? routes.PROFILE : routes.PROJECTS
 	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
 	const urlNext = next && generateUrl([route, next.slug], searchParams)
 	const urlBack = generateUrl([route], searchParams)
@@ -46,7 +46,7 @@ export default async function ProjectPage({
 					<ArwFlex row className="justify-between items-start">
 						<ArwFlex row>
 							<ArwTitle>{current.title}</ArwTitle>
-							<When condition={userMode}>
+							<When condition={profile}>
 								<Manipulations project={current} className="relative z-30" />
 							</When>
 						</ArwFlex>
@@ -59,7 +59,7 @@ export default async function ProjectPage({
 					</ArwFlex>
 					<ImageList
 						project={current}
-						userMode={userMode}
+						profile={profile}
 						searchParams={searchParams}
 					/>
 					<ArwText className="max-sm:text-center">{current.info}</ArwText>

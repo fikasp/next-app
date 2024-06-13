@@ -17,14 +17,14 @@ export default function ImageCard({
 	image,
 	index,
 	project,
-	userMode,
+	profile,
 	searchParams,
 	handleOpen,
 }: {
 	image: IImage
 	index: number
 	project: IProject
-	userMode: boolean
+	profile: boolean
 	searchParams: any
 	handleOpen: MouseEventHandler<HTMLDivElement>
 }) {
@@ -51,7 +51,7 @@ export default function ImageCard({
 					className="w-full object-cover object-center transition duration-300 ease-in-out group-hover:opacity-80"
 				></Image>
 			</div>
-			<When condition={userMode}>
+			<When condition={profile}>
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						src={icons.DELETE}

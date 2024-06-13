@@ -10,18 +10,18 @@ import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Manipulations from '@/components/shared/Manipulations'
 // lib
-import { checkUserMode, generateUrl } from '@/lib/utils'
+import { generateUrl } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
 
 export default function ProjectCard({
 	project,
 	searchParams,
-	userMode,
+	profile,
 }: {
 	project: IProject
 	searchParams?: any
-	userMode?: boolean
+	profile?: boolean
 }) {
 	const queryParams = { ...searchParams, user: project.user.username }
 
@@ -33,7 +33,7 @@ export default function ProjectCard({
 		>
 			<Link
 				href={generateUrl(
-					[userMode ? routes.PROFILE : routes.PROJECTS, project.slug],
+					[profile ? routes.PROFILE : routes.PROJECTS, project.slug],
 					searchParams
 				)}
 				className="absolute inset-0 z-20"
@@ -42,11 +42,11 @@ export default function ProjectCard({
 				<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
 					{project.title}
 				</ArwTitle>
-				<When condition={userMode}>
+				<When condition={profile}>
 					<Manipulations project={project} className="relative z-30" />
 				</When>
 			</ArwFlex>
-			<If condition={userMode}>
+			<If condition={profile}>
 				<Then>
 					<ArwText className="relative z-10">{project.info}</ArwText>
 				</Then>

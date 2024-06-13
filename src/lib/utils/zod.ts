@@ -12,7 +12,7 @@ export const projectSchema = z.object({
 export const searchSchema = z.object({
 	title: z.string(),
 	sort: z.nativeEnum(SortOptions),
-	userMode: z.boolean(),
+	profile: z.boolean(),
 })
 
 export const imageSchema = z.object({

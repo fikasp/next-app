@@ -10,11 +10,6 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-// Check user mode
-export function checkUserMode(searchParams: any) {
-	return searchParams?.user == 'current'
-}
-
 // Slug generator
 export async function generateUniqueSlug(
 	Model: mongoose.Model<any>,
