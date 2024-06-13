@@ -55,7 +55,6 @@ export default async function ProjectPage({
 							urlPrev={urlPrev}
 							urlNext={urlNext}
 							className="mt-1"
-							listenersTouch
 							listenersKey
 						/>
 					</ArwFlex>
