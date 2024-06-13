@@ -50,7 +50,9 @@ export default function ImageDialog({
 							classNamePrev="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-2 text-white drop-shadow-lg"
 							classNameNext="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-2 text-white drop-shadow-lg"
 							classNameBack="absolute top-2 right-2 z-50 text-white drop-shadow-lg"
-							listeners
+							listenersKey
+							listenersScroll
+							listenersTouch
 						/>
 						<Image
 							src={image?.url}

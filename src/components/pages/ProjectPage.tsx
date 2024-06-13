@@ -55,12 +55,14 @@ export default async function ProjectPage({
 							urlPrev={urlPrev}
 							urlNext={urlNext}
 							className="mt-1"
+							listenersTouch
+							listenersKey
 						/>
 					</ArwFlex>
 					<ImageList
 						project={current}
-						profile={profile}
 						searchParams={searchParams}
+						profile={profile}
 					/>
 					<ArwText className="max-sm:text-center">{current.info}</ArwText>
 				</ArwPaper>

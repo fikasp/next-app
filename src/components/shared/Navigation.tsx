@@ -20,7 +20,9 @@ export default function Navigation({
 	classNamePrev,
 	classNameNext,
 	className,
-	listeners,
+	listenersKey,
+	listenersScroll,
+	listenersTouch,
 }: {
 	back?: () => void
 	prev?: () => void
@@ -32,7 +34,9 @@ export default function Navigation({
 	classNamePrev?: string
 	classNameNext?: string
 	className?: string
-	listeners?: boolean
+	listenersKey?: boolean
+	listenersScroll?: boolean
+	listenersTouch?: boolean
 }) {
 	const router = useRouter()
 
@@ -109,12 +113,16 @@ export default function Navigation({
 		}
 
 		// Event listeners
-		if (!listeners) return
-		document.addEventListener('keydown', handleKeyPress)
-		document.addEventListener('touchstart', handleTouchStart)
-		document.addEventListener('touchend', handleTouchEnd)
-		document.addEventListener('wheel', handleWheel)
-
+		if (listenersKey) {
+			document.addEventListener('keydown', handleKeyPress)
+		}
+		if (listenersTouch) {
+			document.addEventListener('touchstart', handleTouchStart)
+			document.addEventListener('touchend', handleTouchEnd)
+		}
+		if (listenersScroll) {
+			document.addEventListener('wheel', handleWheel)
+		}
 		return () => {
 			document.removeEventListener('keydown', handleKeyPress)
 			document.removeEventListener('touchstart', handleTouchStart)
