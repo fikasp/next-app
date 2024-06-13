@@ -14,9 +14,9 @@ export default function Error({ error }: { error: Error }) {
 			<ArwText center>
 				We apologize for any inconvenience this may have caused.
 			</ArwText>
-			<ArwTitle center accent>
+			<ArwText center accent>
 				{error.message}
-			</ArwTitle>
+			</ArwText>
 		</ArwContainer>
 	)
 }
