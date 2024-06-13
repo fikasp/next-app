@@ -17,12 +17,13 @@ import { routes } from '@/navigation'
 export default function ProjectCard({
 	project,
 	searchParams,
+	userMode,
 }: {
 	project: IProject
 	searchParams?: any
+	userMode?: boolean
 }) {
-	const userMode = checkUserMode(searchParams)
-	const queryParams = { ...searchParams, user: project.user._id }
+	const queryParams = { ...searchParams, user: project.user.username }
 
 	return (
 		<ArwPaper
@@ -31,7 +32,10 @@ export default function ProjectCard({
 			className="relative justify-between px-5 py-4 group max-lg:aspect-video"
 		>
 			<Link
-				href={generateUrl([routes.PROJECTS, project.slug], searchParams)}
+				href={generateUrl(
+					[userMode ? routes.PROFILE : routes.PROJECTS, project.slug],
+					searchParams
+				)}
 				className="absolute inset-0 z-20"
 			/>
 			<ArwFlex row between className="relative">
@@ -47,7 +51,7 @@ export default function ProjectCard({
 					<ArwText className="relative z-10">{project.info}</ArwText>
 				</Then>
 				<Else>
-					<ArwLink href={generateUrl([routes.START], queryParams)}>
+					<ArwLink href={generateUrl([routes.PROJECTS], queryParams)}>
 						<ArwFlex row className="items-center gap-2 relative z-30">
 							<Avatar>
 								<AvatarImage src={project.user.photo} />

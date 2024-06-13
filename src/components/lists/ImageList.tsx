@@ -2,7 +2,6 @@
 // modules
 import { When } from 'react-if'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 // components
 import ArwGrid from '@/components/arw/ArwGrid'
 import ImageCard from '@/components/cards/ImageCard'

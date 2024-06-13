@@ -20,31 +20,24 @@ import { routes } from '@/navigation'
 export default async function ProjectPage({
 	params,
 	searchParams,
+	userMode = false,
 }: {
 	params: any
 	searchParams: any
+	userMode?: boolean
 }) {
 	debug(9, 9, searchParams)
-	// Get current user
-	const currentUser = await getCurrentUser()
-	// Get adjacent projects
 	const { prev, current, next }: Adjacent<IProject> = await getProjectBySlug({
 		slug: params.slug,
 		searchParams,
+		userMode,
 	})
-	// Check if user mode
-	const userMode =
-		checkUserMode(searchParams) && current?.user.toString() === currentUser._id
 
 	// Generate URLs
-	const urlPrev =
-		prev && generateUrl([routes.PROJECTS, prev.slug], searchParams)
-	const urlNext =
-		next && generateUrl([routes.PROJECTS, next.slug], searchParams)
-	const urlBack = generateUrl(
-		[checkUserMode(searchParams) ? routes.PROJECTS : routes.START],
-		searchParams
-	)
+	const route = userMode ? routes.PROFILE : routes.PROJECTS
+	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
+	const urlNext = next && generateUrl([route, next.slug], searchParams)
+	const urlBack = generateUrl([route], searchParams)
 
 	return (
 		current && (

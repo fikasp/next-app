@@ -36,7 +36,7 @@ export async function generateUniqueSlug(
 // URL generator
 export function generateUrl(
 	pathSegments: string[],
-	queryParams: { [key: string]: string } = {}
+	queryParams: { [key: string]: string | undefined } = {}
 ): string {
 	// Join the path segments into a single string
 	const path = pathSegments.join('/')

@@ -6,13 +6,17 @@ import ProjectsList from '@/components/lists/ProjectList'
 // lib
 import { getProjects } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
+import { debug } from '@/lib/utils/dev'
 
 export default async function ProjectsListPage({
 	searchParams,
+	userMode = false,
 }: {
 	searchParams: any
+	userMode?: boolean
 }) {
-	const projects: IProject[] = await getProjects(searchParams)
+	debug(9, 9, searchParams)
+	const projects: IProject[] = await getProjects(searchParams, userMode)
 
 	return (
 		<If condition={projects.length === 0}>
@@ -21,7 +25,11 @@ export default async function ProjectsListPage({
 			</Then>
 			<Else>
 				<ArwContainer>
-					<ProjectsList projects={projects} searchParams={searchParams} />
+					<ProjectsList
+						projects={projects}
+						searchParams={searchParams}
+						userMode={userMode}
+					/>
 				</ArwContainer>
 			</Else>
 		</If>

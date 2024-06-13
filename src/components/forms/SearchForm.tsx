@@ -31,17 +31,14 @@ export default function SearchForm() {
 		},
 	})
 
-	const handleSubmit = (searchFormData: SearchFormData) => {
-		const queryParams = {
-			...(searchFormData.title ? { title: searchFormData.title } : {}),
-			...(searchFormData.userMode ? { user: 'current' } : {}),
-			sort: searchFormData.sort,
-		}
+	const handleSubmit = ({ title, sort, userMode }: SearchFormData) => {
+		const queryParams: { [key: string]: string | undefined } = {}
 
-		const url = generateUrl(
-			searchFormData.userMode ? [routes.PROJECTS] : [routes.START],
-			queryParams
-		)
+		if (title) queryParams.title = title
+		if (sort !== SortOptions.TITLE) queryParams.sort = sort
+
+		const route = userMode ? routes.PROFILE : routes.PROJECTS
+		const url = generateUrl([route], queryParams)
 		router.push(url)
 	}
 
@@ -60,7 +57,11 @@ export default function SearchForm() {
 					name="title"
 					control={form.control}
 					render={({ field }) => (
-						<Input placeholder="Enter a title" className="text-center" {...field} />
+						<Input
+							placeholder="Enter a title"
+							className="text-center"
+							{...field}
+						/>
 					)}
 				/>
 				<FormField

@@ -3,19 +3,19 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
+import UserModel, { IUser } from '@/lib/models/user.model'
+import { deepClone, generateUniqueSlug } from '@/lib/utils'
 import { Adjacent } from '@/lib/types'
-import { checkUserMode, deepClone, generateUniqueSlug } from '@/lib/utils'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
+import { deleteFiles } from '@/lib/actions/image.action'
 import { findPrev, findNext } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
-import { IUser } from '@/lib/models/user.model'
 import { ProjectFormData } from '@/lib/utils/zod'
-import { routes } from '@/navigation'
 import { SortOptions } from '@/lib/types/enums'
-import { deleteFiles } from './image.action'
+import { routes } from '@/navigation'
 
 // CREATE
 // Create project
@@ -51,17 +51,20 @@ export async function getCurrentUser() {
 }
 
 // Get projects
-export async function getProjects(searchParams: any) {
+export async function getProjects(searchParams: any, userMode: boolean) {
 	try {
 		await connectToDatabase()
 
 		const projectQuery: any = {}
 
-		if (checkUserMode(searchParams)) {
-			const currentUser: IUser = await getCurrentUser()
-			projectQuery.user = currentUser._id
+		if (userMode) {
+			const user: IUser = await getCurrentUser()
+			projectQuery.user = user._id
 		} else if (searchParams.user) {
-			projectQuery.user = searchParams.user
+			const user = await UserModel.findOne({ username: searchParams.user })
+			if (user) {
+				projectQuery.user = user._id
+			}
 		}
 
 		if (searchParams.title) {
@@ -93,12 +96,14 @@ export async function getProjects(searchParams: any) {
 export async function getProjectBySlug({
 	slug,
 	searchParams,
+	userMode,
 }: {
 	slug: string
 	searchParams: any
+	userMode: boolean
 }): Promise<Adjacent<IProject>> {
 	try {
-		const projects: IProject[] = await getProjects(searchParams)
+		const projects: IProject[] = await getProjects(searchParams, userMode)
 
 		const currentIndex = projects.findIndex(
 			(project: IProject) => project.slug === slug
@@ -115,51 +120,13 @@ export async function getProjectBySlug({
 			next: deepClone(nextProject),
 		}
 
-		debug(2, 9, adjacentProjects)
+		debug(2, 1, adjacentProjects)
 		return adjacentProjects
 	} catch (error) {
 		handleError(error)
 		return { prev: null, current: null, next: null }
 	}
 }
-
-// // Get image by id
-// export async function getImageById(
-// 	id: string,
-// 	slug: string
-// ): Promise<Adjacent<IImage>> {
-// 	try {
-// 		await connectToDatabase()
-
-// 		const currentProject = await ProjectModel.findOne({ slug }).populate(
-// 			'images'
-// 		)
-
-// 		const sortedImages = currentProject.images.sort((a: IImage, b: IImage) =>
-// 			a._id.toString().localeCompare(b._id.toString())
-// 		)
-
-// 		const currentImageIndex = sortedImages.findIndex(
-// 			(image: IImage) => image._id.toString() === id
-// 		)
-
-// 		const currentImage = sortedImages[currentImageIndex]
-// 		const prevImage = findPrev<IImage>(sortedImages, currentImageIndex)
-// 		const nextImage = findNext<IImage>(sortedImages, currentImageIndex)
-
-// 		const images = {
-// 			prev: deepClone(prevImage),
-// 			current: deepClone(currentImage),
-// 			next: deepClone(nextImage),
-// 		}
-
-// 		debug(2, 9, images)
-// 		return images
-// 	} catch (error) {
-// 		handleError(error)
-// 		return { prev: null, current: null, next: null }
-// 	}
-// }
 
 // UPDATE
 // Update project

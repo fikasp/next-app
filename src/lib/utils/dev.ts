@@ -33,8 +33,12 @@ export function debug(logMode: number, dataMode?: number, ...data: any) {
 		} else {
 			const chalkLog: ChalkInstance =
 				debugModes[dataMode as number] || chalk.white
-			data.forEach((data: any) => {
-				console.log(chalkLog(data))
+			data.forEach((item: any) => {
+				if (typeof item === 'object') {
+					console.log(chalkLog(JSON.stringify(item, null, 2)))
+				} else {
+					console.log(chalkLog(item))
+				}
 			})
 		}
 	}

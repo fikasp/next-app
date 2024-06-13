@@ -7,9 +7,11 @@ import { IProject } from '@/lib/models/project.model'
 export default async function ProjectsList({
 	projects,
 	searchParams,
+	userMode
 }: {
 	projects: IProject[]
 	searchParams: any
+	userMode: boolean
 }) {
 	return (
 		<ArwGrid className="arw-grid-auto-300 gap-3 content-start">
@@ -18,6 +20,7 @@ export default async function ProjectsList({
 					key={project._id}
 					project={project}
 					searchParams={searchParams}
+					userMode={userMode}
 				/>
 			))}
 		</ArwGrid>
