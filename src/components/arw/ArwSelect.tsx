@@ -64,16 +64,10 @@ export default function ArwSelect({
 		debouncedHandleSearch(e.target.value)
 	}
 
-	// // Handle select change
+	// Handle select change
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
-	}
-
-	const handleKeyDown = (e: React.KeyboardEvent) => {
-		debug(9, 9, e)
-		if (isMobile) return
-		e.stopPropagation()
 	}
 
 	useEffect(() => {
@@ -107,7 +101,7 @@ export default function ArwSelect({
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={(e) => e.stopPropagation()}
-							onFocus={(e) => e.stopPropagation()}
+							onClick={(e) => e.stopPropagation()}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>
