@@ -73,3 +73,8 @@ export function findNext<T>(array: T[], currentIndex: number) {
 export function deepClone(obj: any) {
 	return JSON.parse(JSON.stringify(obj))
 }
+
+// Capitalize first letter
+export function capitalizeFirstLetter(str: string) {
+	return str.charAt(0).toUpperCase() + str.slice(1)
+}

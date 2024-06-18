@@ -19,6 +19,7 @@ export default function ArwFormField({
 	name,
 	render,
 	label,
+	center,
 	grid,
 }: {
 	className?: string
@@ -26,6 +27,7 @@ export default function ArwFormField({
 	name: string
 	render: (props: { field: any }) => React.ReactNode
 	label?: string
+	center?: boolean
 	grid?: boolean
 }) {
 	return (
@@ -38,6 +40,7 @@ export default function ArwFormField({
 						<FormLabel
 							className={cn(
 								'flex items-center bg-base-100 dark:bg-base-800 p-4 rounded-md',
+								center ? 'justify-center' : 'justify-start',
 								className
 							)}
 						>
@@ -60,7 +63,13 @@ export default function ArwFormField({
 				) : (
 					<FormItem className="flex flex-col gap-2">
 						{label && (
-							<FormLabel className={cn('flex items-center', className)}>
+							<FormLabel
+								className={cn(
+									'flex items-center',
+									center ? 'justify-center' : 'justify-start',
+									className
+								)}
+							>
 								{label}
 							</FormLabel>
 						)}

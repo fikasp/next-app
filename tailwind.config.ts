@@ -74,6 +74,9 @@ const config = {
 			maxHeight: {
 				'screen-4': 'calc(100vh - 32px)',
 			},
+			minHeight: {
+				md: '28rem',
+			},
 		},
 	},
 	plugins: [

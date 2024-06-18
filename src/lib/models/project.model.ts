@@ -11,6 +11,7 @@ export interface IProject extends Document {
 	slug: string
 	title: string
 	info: string
+	category: string
 	images: IImage[]
 }
 
@@ -32,6 +33,9 @@ const ProjectSchema = new Schema({
 	info: {
 		type: String,
 		required: true,
+	},
+	category: {
+		type: String,
 	},
 	images: {
 		type: [

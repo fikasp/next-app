@@ -7,8 +7,7 @@ export default function AddPage() {
 	return (
 		<ArwContainer center>
 			<ArwPaper
-				square
-				className="w-full-4 max-w-md border dark:border-none p-8"
+				className="w-full-4 max-w-md min-h-md border dark:border-none p-8"
 			>
 				<ProjectForm />
 			</ArwPaper>

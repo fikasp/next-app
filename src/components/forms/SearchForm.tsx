@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { searchSchema, SearchFormData } from '@/lib/utils/zod'
-import { sortOptions } from '@/lib/constants'
+import { categories, sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
 
@@ -26,15 +26,17 @@ export default function SearchForm() {
 		resolver: zodResolver(searchSchema),
 		defaultValues: {
 			title: '',
+			category: '',
 			profile: false,
 			sort: SortOptions.TITLE,
 		},
 	})
 
-	const handleSubmit = ({ title, sort, profile }: SearchFormData) => {
+	const handleSubmit = ({ title, category, sort, profile }: SearchFormData) => {
 		const queryParams: { [key: string]: string | undefined } = {}
 
 		if (title) queryParams.title = title
+		if (category) queryParams.category = category
 		if (sort !== SortOptions.TITLE) queryParams.sort = sort
 
 		const route = profile ? routes.PROFILE : routes.PROJECTS
@@ -65,13 +67,15 @@ export default function SearchForm() {
 					)}
 				/>
 				<FormField
-					name="profile"
 					control={form.control}
+					name="category"
 					render={({ field }) => (
-						<ArwCheckbox
-							checked={field.value}
-							onCheckedChange={field.onChange}
-							label="Show only my projects"
+						<ArwSelect
+							onValueChange={field.onChange}
+							placeholder="Select a category"
+							options={categories}
+							search
+							center
 						/>
 					)}
 				/>
@@ -83,8 +87,18 @@ export default function SearchForm() {
 							options={sortOptions}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
-							className="p-6"
 							center
+						/>
+					)}
+				/>
+				<FormField
+					name="profile"
+					control={form.control}
+					render={({ field }) => (
+						<ArwCheckbox
+							checked={field.value}
+							onCheckedChange={field.onChange}
+							label="Show only my projects"
 						/>
 					)}
 				/>

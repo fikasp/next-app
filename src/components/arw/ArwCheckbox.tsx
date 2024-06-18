@@ -12,11 +12,11 @@ export default function ArwCheckbox({
 	onCheckedChange: (checked: boolean) => void
 }) {
 	return (
-		<FormItem className="arw-input flex-center items-start gap-2 rounded-md p-4 ">
+		<FormItem className="arw-input flex-center items-start gap-2 rounded-md p-3">
 			<FormControl>
 				<Checkbox checked={checked} onCheckedChange={onCheckedChange} />
 			</FormControl>
-			<FormLabel>{label}</FormLabel>
+			<FormLabel className="text-md">{label}</FormLabel>
 		</FormItem>
 	)
 }

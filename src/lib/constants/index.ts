@@ -1,5 +1,5 @@
 // lib
-import { SortOptions } from "@/lib/types/enums"
+import { SortOptions } from '@/lib/types/enums'
 
 export const msg = {
 	MIN_LENGTH: (number: number) =>
@@ -12,4 +12,10 @@ export const sortOptions = [
 	{ label: 'Sort projects by title', value: SortOptions.TITLE },
 	{ label: 'Sort projects by user', value: SortOptions.USER },
 	{ label: 'Sort projects by date', value: SortOptions.DATE },
+]
+
+export const categories = [
+	{ value: 'Common', label: 'Common' },
+	{ value: 'Mountains', label: 'Mountains' },
+	{ value: 'Cities', label: 'Cities' },
 ]

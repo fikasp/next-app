@@ -9,11 +9,14 @@ import { Input } from '@/components/ui/input'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwForm from '@/components/arw/ArwForm'
 import ArwFormField from '@/components/arw/ArwFormField'
+import ArwSelect from '@/components/arw/ArwSelect'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { IProject } from '@/lib/models/project.model'
 import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
 import { handleSubmit } from '@/lib/handlers/project.handlers'
+import { categories } from '@/lib/constants'
+import ArwGrid from '../arw/ArwGrid'
 
 export default function ProjectForm({
 	project,
@@ -25,8 +28,12 @@ export default function ProjectForm({
 	const router = useRouter()
 
 	const defaultValues: ProjectFormData = project
-		? { title: project.title, info: project.info }
-		: { title: '', info: '' }
+		? {
+				title: project.title,
+				category: project.category,
+				info: project.info,
+		  }
+		: { title: '', category: '', info: '' }
 
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
@@ -52,7 +59,7 @@ export default function ProjectForm({
 					className="justify-center"
 					render={({ field }) => (
 						<Input
-							placeholder="Title"
+							placeholder="Enter a title"
 							className="text-center"
 							{...field}
 						/>
@@ -61,13 +68,30 @@ export default function ProjectForm({
 				<ArwFormField
 					control={form.control} 
 					name="info"
-					label="Info" 
+					label="Information" 
 					className="justify-center"
 					render={({ field }) => (
 						<Input
-							placeholder="Info"
+							placeholder="Enter a information"
 							className="text-center"
 							{...field}
+						/>
+					)}
+				/>
+				<ArwFormField
+					control={form.control} 
+					name="category"
+					label="Category" 
+					className="justify-center"
+					render={({ field }) => (
+						<ArwSelect
+							onValueChange={field.onChange}
+							defaultValue={field.value}
+							placeholder="Select a category"
+							options={categories}
+							search
+							custom
+							center
 						/>
 					)}
 				/>

@@ -10,7 +10,7 @@ import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Manipulations from '@/components/shared/Manipulations'
 // lib
-import { generateUrl } from '@/lib/utils'
+import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
 
@@ -23,7 +23,17 @@ export default function ProjectCard({
 	searchParams?: any
 	profile?: boolean
 }) {
-	const queryParams = { ...searchParams, user: project.user.username }
+	const userLink = generateUrl([routes.PROJECTS], {
+		...searchParams,
+		user: project.user.username,
+	})
+	const categoryLink = generateUrl(
+		[profile ? routes.PROFILE : routes.PROJECTS],
+		{
+			...searchParams,
+			category: project.category,
+		}
+	)
 
 	return (
 		<ArwPaper
@@ -46,21 +56,28 @@ export default function ProjectCard({
 					<Manipulations project={project} className="relative z-30" />
 				</When>
 			</ArwFlex>
-			<If condition={profile}>
-				<Then>
-					<ArwText className="relative z-10">{project.info}</ArwText>
-				</Then>
-				<Else>
-					<ArwLink href={generateUrl([routes.PROJECTS], queryParams)}>
-						<ArwFlex row className="items-center gap-2 relative z-30">
-							<Avatar>
-								<AvatarImage src={project.user.photo} />
-							</Avatar>
-							<ArwText>{project.user.username}</ArwText>
-						</ArwFlex>
-					</ArwLink>
-				</Else>
-			</If>
+			<ArwFlex row between>
+				<If condition={profile}>
+					<Then>
+						<ArwText className="relative z-10">{project.info}</ArwText>
+					</Then>
+					<Else>
+						<ArwLink href={userLink}>
+							<ArwFlex row className="items-center gap-2 relative z-30">
+								<Avatar>
+									<AvatarImage src={project.user.photo} />
+								</Avatar>
+								<ArwText>
+									{capitalizeFirstLetter(project.user.username)}
+								</ArwText>
+							</ArwFlex>
+						</ArwLink>
+					</Else>
+				</If>
+				<ArwLink href={categoryLink}>
+					<ArwFlex className="relative z-30">{project.category}</ArwFlex>
+				</ArwLink>
+			</ArwFlex>
 		</ArwPaper>
 	)
 }

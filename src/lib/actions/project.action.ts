@@ -70,6 +70,9 @@ export async function getProjects(searchParams: any, profile: boolean) {
 		if (searchParams.title) {
 			projectQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
+		if (searchParams.category) {
+			projectQuery.category = { $eq: searchParams.category }
+		}
 
 		const sortOptions: { [key: string]: any } = {
 			[SortOptions.TITLE]: { title: 1 },
