@@ -111,9 +111,7 @@ export default function ArwSelect({
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPrapagation}
-							onClick={handleStopPrapagation}
-							onFocus={handleStopPrapagation}
-							onTouchStart={handleStopPrapagation}
+							onPointerDown={handleStopPrapagation}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 							ref={inputRef}
