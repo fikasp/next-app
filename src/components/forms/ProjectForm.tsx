@@ -16,7 +16,6 @@ import { IProject } from '@/lib/models/project.model'
 import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
 import { handleSubmit } from '@/lib/handlers/project.handlers'
 import { categories } from '@/lib/constants'
-import ArwGrid from '../arw/ArwGrid'
 
 export default function ProjectForm({
 	project,
@@ -27,15 +26,13 @@ export default function ProjectForm({
 }) {
 	const router = useRouter()
 
-	const defaultValues: ProjectFormData = {
-		title: project?.title || '',
-		category: project?.category || '',
-		info: project?.info || '',
-	}
-
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
-		defaultValues,
+		defaultValues: {
+			title: project?.title || '',
+			category: project?.category || '',
+			info: project?.info || '',
+		},
 	})
 
 	return (
