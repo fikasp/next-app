@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive'
 import {
 	Select,
 	SelectContent,
+	SelectGroup,
 	SelectItem,
 	SelectLabel,
 	SelectTrigger,
@@ -108,18 +109,20 @@ export default function ArwSelect({
 			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
-						<SelectLabel>
-							<Input
-								type="text"
-								value={searchTerm}
-								onChange={handleSearchChange}
-								onKeyDown={handleStopPrapagation}
-								onPointerDown={handleStopPrapagation}
-								className={cn(center && 'text-center', 'w-full text-sm p-2')}
-								placeholder="Search..."
-								ref={inputRef}
-							/>
-						</SelectLabel>
+						<SelectGroup>
+							<SelectLabel>
+								<Input
+									type="text"
+									value={searchTerm}
+									onChange={handleSearchChange}
+									onKeyDown={handleStopPrapagation}
+									onPointerDown={handleStopPrapagation}
+									className={cn(center && 'text-center', 'w-full text-sm p-2')}
+									placeholder="Search..."
+									ref={inputRef}
+								/>
+							</SelectLabel>
+						</SelectGroup>
 					)}
 					<ArwFlex className="gap-0">
 						{filteredOptions.map((option) => (
