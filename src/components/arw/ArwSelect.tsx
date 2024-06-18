@@ -74,9 +74,6 @@ export default function ArwSelect({
 	const handleStopPrapagation = (e: any) => {
 		debug(9, 9, e)
 		e.stopPropagation()
-		e.stopImmediatePropagation()
-		e.nativeEvent.stopPropagation()
-		e.nativeEvent.stopImmediatePropagation()
 	}
 
 	useEffect(() => {
@@ -102,7 +99,7 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent onClick={handleStopPrapagation}>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
