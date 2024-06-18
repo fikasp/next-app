@@ -27,13 +27,11 @@ export default function ProjectForm({
 }) {
 	const router = useRouter()
 
-	const defaultValues: ProjectFormData = project
-		? {
-				title: project.title,
-				category: project.category,
-				info: project.info,
-		  }
-		: { title: '', category: '', info: '' }
+	const defaultValues: ProjectFormData = {
+		title: project?.title || '',
+		category: project?.category || '',
+		info: project?.info || '',
+	}
 
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
