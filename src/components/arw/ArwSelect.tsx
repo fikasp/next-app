@@ -72,6 +72,7 @@ export default function ArwSelect({
 	}
 
 	const handleStopPrapagation = (e: any) => {
+		debug(9, 9, e)
 		e.stopPropagation()
 	}
 
@@ -106,8 +107,7 @@ export default function ArwSelect({
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPrapagation}
-							onMouseDown={handleStopPrapagation}
-							onTouchStart={handleStopPrapagation}
+							onFocus={handleStopPrapagation}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 							ref={inputRef}
