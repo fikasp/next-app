@@ -73,6 +73,7 @@ export default function ArwSelect({
 
 	const handleStopPrapagation = (e: any) => {
 		debug(9, 9, e)
+		e.stopImmediatePropagation()
 		e.stopPropagation()
 	}
 
