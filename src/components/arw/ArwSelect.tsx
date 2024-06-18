@@ -76,6 +76,10 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
+	const handleClick = () => {
+		alert('Custom options')
+	}
+
 	useEffect(() => {
 		const selectedOption = options.find(
 			(option) => option.value === selectedValue
@@ -126,7 +130,11 @@ export default function ArwSelect({
 						))}
 					</ArwFlex>
 					{custom && (
-						<Button variant="outline" className="p-2 w-full">
+						<Button
+							variant="outline"
+							className="p-2 w-full"
+							onClick={handleClick}
+						>
 							Manage options
 						</Button>
 					)}
