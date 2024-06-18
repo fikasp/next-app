@@ -113,6 +113,7 @@ export default function ArwSelect({
 							onKeyDown={handleStopPrapagation}
 							onClick={handleStopPrapagation}
 							onFocus={handleStopPrapagation}
+							onTouchStart={handleStopPrapagation}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 							ref={inputRef}
