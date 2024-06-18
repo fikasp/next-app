@@ -18,7 +18,6 @@ import { searchSchema, SearchFormData } from '@/lib/utils/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
-import { profile } from 'console'
 
 export default function SearchForm() {
 	const router = useRouter()
@@ -84,6 +83,8 @@ export default function SearchForm() {
 							options={sortOptions}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
+							className="p-6"
+							center
 						/>
 					)}
 				/>

@@ -5,6 +5,12 @@ export type Adjacent<T> = {
 	next: T | null
 }
 
+// Option
+export type Option = {
+	value: string
+	label: string
+}
+
 // User
 export type CreateUserData = {
 	clerkId: string
