@@ -1,6 +1,7 @@
 'use client'
 // modules
 import { useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 // components
 import {
 	Select,
@@ -40,6 +41,8 @@ export default function ArwSelect({
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
 
+	const isMobile = useMediaQuery({ maxWidth: 768 })
+
 	// Handle search options
 	const handleSearch = (term: string) => {
 		if (term) {
@@ -65,6 +68,11 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
+	}
+
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (isMobile) return
+		e.stopPropagation()
 	}
 
 	useEffect(() => {
@@ -97,7 +105,7 @@ export default function ArwSelect({
 							type="text"
 							value={searchTerm}
 							onChange={handleSearchChange}
-							onKeyDown={(e) => e.stopPropagation()}
+							onKeyDown={handleKeyDown}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>
