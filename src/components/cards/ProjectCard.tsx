@@ -75,7 +75,9 @@ export default function ProjectCard({
 					</Else>
 				</If>
 				<ArwLink href={categoryLink}>
-					<ArwFlex className="relative z-30">{project.category}</ArwFlex>
+					<ArwFlex className="relative z-30">
+						{capitalizeFirstLetter(project.category)}
+					</ArwFlex>
 				</ArwLink>
 			</ArwFlex>
 		</ArwPaper>

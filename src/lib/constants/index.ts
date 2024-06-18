@@ -15,7 +15,8 @@ export const sortOptions = [
 ]
 
 export const categories = [
-	{ value: 'Common', label: 'Common' },
-	{ value: 'Mountains', label: 'Mountains' },
-	{ value: 'Cities', label: 'Cities' },
+	{ value: 'common', label: 'Common' },
+	{ value: 'mountains', label: 'Mountains' },
+	{ value: 'cities', label: 'Cities' },
+	{ value: 'other', label: 'Other' },
 ]

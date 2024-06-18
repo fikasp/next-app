@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // components
 import {
 	Select,
@@ -40,6 +40,15 @@ export default function ArwSelect({
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
 
+	useEffect(() => {
+		const selectedOption = options.find(
+			(option) => option.value === selectedValue
+		)
+		if (selectedOption && !filteredOptions.includes(selectedOption)) {
+			setFilteredOptions((prevOptions) => [...prevOptions, selectedOption])
+		}
+	}, [selectedValue, options, filteredOptions])
+
 	// Handle search options
 	const handleSearch = (term: string) => {
 		if (term) {
@@ -56,19 +65,19 @@ export default function ArwSelect({
 
 	// Handle search change
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value
-		debouncedHandleSearch(value)
-		setSearchTerm(value)
+		setSearchTerm(e.target.value)
+		debouncedHandleSearch(e.target.value)
+		e.stopPropagation()
 	}
 
-	// Handle select change
+	// // Handle select change
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
 	}
 
 	return (
-		<Select onValueChange={handleSelectChange} defaultValue={defaultValue}>
+		<Select defaultValue={defaultValue} onValueChange={handleSelectChange}>
 			<SelectTrigger
 				className={cn(
 					'text-md py-6 px-3',
@@ -88,6 +97,7 @@ export default function ArwSelect({
 							type="text"
 							value={searchTerm}
 							onChange={handleSearchChange}
+							onKeyDown={(e) => e.stopPropagation()}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>

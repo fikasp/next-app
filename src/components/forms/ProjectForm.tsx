@@ -41,21 +41,20 @@ export default function ProjectForm({
 	})
 
 	return (
-		// prettier-ignore
-		<ArwForm 
-			form={form} 
-			onSubmit={handleSubmit(router, project, close)} 
+		<ArwForm
+			form={form}
+			onSubmit={handleSubmit(router, project, close)}
 			className="grow justify-between gap-8"
 		>
 			<ArwTitle center accent>
-				{project ? "Update project" : "Add new project"}
+				{project ? 'Update project' : 'Add new project'}
 			</ArwTitle>
-			
+
 			<ArwFlex>
 				<ArwFormField
-					control={form.control} 
+					control={form.control}
 					name="title"
-					label="Title" 
+					label="Title"
 					className="justify-center"
 					render={({ field }) => (
 						<Input
@@ -66,9 +65,9 @@ export default function ProjectForm({
 					)}
 				/>
 				<ArwFormField
-					control={form.control} 
+					control={form.control}
 					name="info"
-					label="Information" 
+					label="Information"
 					className="justify-center"
 					render={({ field }) => (
 						<Input
@@ -79,9 +78,9 @@ export default function ProjectForm({
 					)}
 				/>
 				<ArwFormField
-					control={form.control} 
+					control={form.control}
 					name="category"
-					label="Category" 
+					label="Category"
 					className="justify-center"
 					render={({ field }) => (
 						<ArwSelect
@@ -98,7 +97,7 @@ export default function ProjectForm({
 			</ArwFlex>
 			<ArwFlex>
 				<Button variant="accent">
-					{project ? "Update project" : "Add project"}
+					{project ? 'Update project' : 'Add project'}
 				</Button>
 			</ArwFlex>
 		</ArwForm>
