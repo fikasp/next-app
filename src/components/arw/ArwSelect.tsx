@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, SyntheticBaseEvent } from 'react'
 import { useMediaQuery } from 'react-responsive'
 // components
 import {
@@ -71,9 +71,10 @@ export default function ArwSelect({
 		onValueChange(value)
 	}
 
-	const handleStopPrapagation = (e: any) => {
+	const handleStopPrapagation = (e: SyntheticBaseEvent) => {
 		debug(9, 9, e)
 		e.stopPropagation()
+		e.nativeEvent.stopImmediatePropagation()
 	}
 
 	const handleClick = () => {
@@ -103,7 +104,7 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent onClick={handleStopPrapagation}>
+			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
