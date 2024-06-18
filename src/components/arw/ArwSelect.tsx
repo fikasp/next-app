@@ -7,6 +7,7 @@ import {
 	Select,
 	SelectContent,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
@@ -107,16 +108,18 @@ export default function ArwSelect({
 			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
-						<Input
-							type="text"
-							value={searchTerm}
-							onChange={handleSearchChange}
-							onKeyDown={handleStopPrapagation}
-							onPointerDown={handleStopPrapagation}
-							className={cn(center && 'text-center', 'w-full text-sm p-2')}
-							placeholder="Search..."
-							ref={inputRef}
-						/>
+						<SelectLabel>
+							<Input
+								type="text"
+								value={searchTerm}
+								onChange={handleSearchChange}
+								onKeyDown={handleStopPrapagation}
+								onPointerDown={handleStopPrapagation}
+								className={cn(center && 'text-center', 'w-full text-sm p-2')}
+								placeholder="Search..."
+								ref={inputRef}
+							/>
+						</SelectLabel>
 					)}
 					<ArwFlex className="gap-0">
 						{filteredOptions.map((option) => (
