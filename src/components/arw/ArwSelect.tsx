@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 // components
 import {
@@ -43,6 +43,7 @@ export default function ArwSelect({
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
 
 	const isMobile = useMediaQuery({ maxWidth: 768 })
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	// Handle search options
 	const handleSearch = (term: string) => {
@@ -68,6 +69,10 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
+	}
+
+	const handleStopPrapagation = (e: any) => {
+		e.stopPropagation()
 	}
 
 	useEffect(() => {
@@ -100,10 +105,12 @@ export default function ArwSelect({
 							type="text"
 							value={searchTerm}
 							onChange={handleSearchChange}
-							onKeyDown={(e) => e.stopPropagation()}
-							onClick={(e) => e.stopPropagation()}
+							onKeyDown={handleStopPrapagation}
+							onMouseDown={handleStopPrapagation}
+							onTouchStart={handleStopPrapagation}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
+							ref={inputRef}
 						/>
 					)}
 					<ArwFlex className="gap-0">
