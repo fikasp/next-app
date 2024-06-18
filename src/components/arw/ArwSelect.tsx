@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import ArwFlex from '@/components/arw/ArwFlex'
 // lib
+import { debug } from '@/lib/utils/dev'
 import { useDebounce } from '@/lib/utils/hooks'
 import { Option } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -61,7 +62,6 @@ export default function ArwSelect({
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(e.target.value)
 		debouncedHandleSearch(e.target.value)
-		e.stopPropagation()
 	}
 
 	// // Handle select change
@@ -71,6 +71,7 @@ export default function ArwSelect({
 	}
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
+		debug(9, 9, e)
 		if (isMobile) return
 		e.stopPropagation()
 	}
@@ -105,7 +106,8 @@ export default function ArwSelect({
 							type="text"
 							value={searchTerm}
 							onChange={handleSearchChange}
-							onKeyDown={handleKeyDown}
+							onKeyDown={(e) => e.stopPropagation()}
+							onFocus={(e) => e.stopPropagation()}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>
