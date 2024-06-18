@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useEffect, useRef, useState, SyntheticBaseEvent } from 'react'
+import { useEffect, useRef, useState, SyntheticEvent } from 'react'
 import { useMediaQuery } from 'react-responsive'
 // components
 import {
@@ -71,7 +71,7 @@ export default function ArwSelect({
 		onValueChange(value)
 	}
 
-	const handleStopPrapagation = (e: SyntheticBaseEvent) => {
+	const handleStopPrapagation = (e: SyntheticEvent) => {
 		debug(9, 9, e)
 		e.stopPropagation()
 		e.nativeEvent.stopImmediatePropagation()
