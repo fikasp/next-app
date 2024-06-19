@@ -113,6 +113,9 @@ export default function ArwSelect({
 				/>
 			</SelectTrigger>
 			<SelectContent
+				onCloseAutoFocus={(e) => e.preventDefault()}
+				onPointerDownOutside={(e) => e.preventDefault()}
+				onEscapeKeyDown={(e) => e.preventDefault()}
 				ref={(ref) => {
 					if (!ref) return
 					ref.ontouchstart = (e) => {
