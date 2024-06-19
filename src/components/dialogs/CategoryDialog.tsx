@@ -1,17 +1,20 @@
+// modules
 import { useState } from 'react'
+// components
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import ArwTitle from '@/components/arw/ArwTitle'
+import { Input } from '@/components/ui/input'
 import ArwFlex from '@/components/arw/ArwFlex'
-import { Option } from '@/lib/types'
+import ArwText from '@/components/arw/ArwText'
+import ArwTitle from '@/components/arw/ArwTitle'
+// lib
 import {
 	createCategory,
 	deleteCategory,
 	updateCategory,
 } from '@/lib/actions/category.action'
-import { Input } from '@/components/ui/input'
 import { debug } from '@/lib/utils/dev'
-import ArwText from '../arw/ArwText'
+import { Option } from '@/lib/types'
 
 export default function OptionsDialog({
 	options,
@@ -21,31 +24,34 @@ export default function OptionsDialog({
 	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
 }) {
 	debug(9, 9, options)
-	const [newOption, setNewOption] = useState('')
-	const [editOption, setEditOption] = useState<Option | null>(null)
+	const [newLabel, setNewLabel] = useState('')
 	const [editLabel, setEditLabel] = useState('')
+	const [editOption, setEditOption] = useState<Option | null>(null)
 
-	const addOption = async () => {
+	const handleCreateCategory = async () => {
 		try {
-			debug(9, 9, newOption)
-			const response = await createCategory({ label: newOption })
+			debug(1, 9, newLabel)
+			const response = await createCategory(newLabel)
 			setOptions((prevOptions) => [
 				...prevOptions,
-				{ value: response._id, label: response.label },
+				{ value: response.label, label: response.label },
 			])
-			setNewOption('')
+			setNewLabel('')
 		} catch (error) {
 			console.error('Error adding category:', error)
 		}
 	}
 
-	const handleUpdateOption = async () => {
+	const handleUpdateCategory = async () => {
 		if (editOption) {
+			debug(3, 9, editOption)
 			try {
-				await updateCategory(editOption.value, { label: editLabel })
+				await updateCategory(editOption.label, editLabel)
 				setOptions((prevOptions) =>
-					prevOptions.map((opt) =>
-						opt.value === editOption.value ? { ...opt, label: editLabel } : opt
+					prevOptions.map((option) =>
+						option.label === editOption.label
+							? { ...option, label: editLabel }
+							: option
 					)
 				)
 				setEditOption(null)
@@ -56,11 +62,12 @@ export default function OptionsDialog({
 		}
 	}
 
-	const handleDeleteOption = async (optionValue: string) => {
+	const handleDeleteCategory = async (optionLabel: string) => {
 		try {
-			await deleteCategory(optionValue)
+			debug(4, 9, optionLabel)
+			await deleteCategory(optionLabel)
 			setOptions((prevOptions) =>
-				prevOptions.filter((opt) => opt.value !== optionValue)
+				prevOptions.filter((option) => option.label !== optionLabel)
 			)
 		} catch (error) {
 			console.error('Error deleting category:', error)
@@ -88,24 +95,29 @@ export default function OptionsDialog({
 					<ArwFlex className="gap-2 mt-4 flex-col p-2">
 						{options.map((option) => (
 							<div
-								key={option.value}
+								key={option.label}
 								className="flex justify-between items-center gap-2"
 							>
-								{editOption?.value === option.value ? (
+								{editOption?.label === option.label ? (
 									<>
 										<Input
 											type="text"
 											value={editLabel}
-											className="p-2"
+											className="p-2 w-full"
 											onChange={(e) => setEditLabel(e.target.value)}
 											onKeyDown={(e) => e.stopPropagation()}
 										/>
-										<ArwFlex row>
-											<Button variant="secondary" onClick={handleUpdateOption}>
+										<ArwFlex row className="gap-2">
+											<Button
+												variant="secondary"
+												className="w-[75px]"
+												onClick={handleUpdateCategory}
+											>
 												Save
 											</Button>
 											<Button
 												variant="destructive"
+												className="w-[75px]"
 												onClick={() => setEditOption(null)}
 											>
 												Cancel
@@ -114,17 +126,19 @@ export default function OptionsDialog({
 									</>
 								) : (
 									<>
-										<ArwText>{option.label}</ArwText>
-										<ArwFlex row>
+										<ArwText className="ml-2">{option.label}</ArwText>
+										<ArwFlex row className="gap-2">
 											<Button
 												variant="secondary"
+												className="w-[75px]"
 												onClick={() => handleEditClick(option)}
 											>
 												Edit
 											</Button>
 											<Button
 												variant="destructive"
-												onClick={() => handleDeleteOption(option.value)}
+												className="w-[75px]"
+												onClick={() => handleDeleteCategory(option.label)}
 											>
 												Delete
 											</Button>
@@ -138,13 +152,13 @@ export default function OptionsDialog({
 
 				<ArwFlex className="p-2">
 					<Input
-						value={newOption}
-						onChange={(e) => setNewOption(e.target.value)}
+						value={newLabel}
+						onChange={(e) => setNewLabel(e.target.value)}
 						onKeyDown={(e) => e.stopPropagation()}
 						placeholder="Enter new category"
 						className="p-2"
 					/>
-					<Button className="h-full" onClick={addOption}>
+					<Button className="h-full" onClick={handleCreateCategory}>
 						Add Option
 					</Button>
 				</ArwFlex>

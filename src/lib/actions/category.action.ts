@@ -5,14 +5,12 @@ import { CategoryModel } from '@/lib/models/category.model'
 import { deepClone } from '@/lib/utils'
 
 // CREATE
-export async function createCategory(categoryData: { label: string }) {
+export async function createCategory(newLabel: string) {
 	try {
 		await connectToDatabase()
-		debug(9, 9, categoryData)
+		const newCategory = await CategoryModel.create({ label: newLabel })
 
-		const newCategory = await CategoryModel.create(categoryData)
-
-		debug(9, 9, newCategory)
+		debug(1, 9, newCategory)
 		return deepClone(newCategory)
 	} catch (error) {
 		handleError(error)
@@ -23,10 +21,9 @@ export async function createCategory(categoryData: { label: string }) {
 export async function getCategories() {
 	try {
 		await connectToDatabase()
-
 		const categories = await CategoryModel.find()
 
-		debug(0, 0, categories)
+		debug(2, 9, categories)
 		return deepClone(categories)
 	} catch (error) {
 		handleError(error)
@@ -34,23 +31,20 @@ export async function getCategories() {
 }
 
 // UPDATE
-export async function updateCategory(
-	id: string,
-	categoryData: { label: string }
-) {
+export async function updateCategory(oldLabel: string, newLabel: string) {
 	try {
 		await connectToDatabase()
 
-		const updatedCategory = await CategoryModel.findByIdAndUpdate(
-			id,
-			categoryData,
+		const updatedCategory = await CategoryModel.findOneAndUpdate(
+			{ label: oldLabel },
+			{ label: newLabel },
 			{ new: true }
 		)
 		if (!updatedCategory) {
 			throw new Error('Category not found')
 		}
 
-		debug(2, 0, updatedCategory)
+		debug(3, 9, updatedCategory)
 		return deepClone(updatedCategory)
 	} catch (error) {
 		handleError(error)
@@ -58,17 +52,16 @@ export async function updateCategory(
 }
 
 // DELETE
-export async function deleteCategory(id: string) {
+export async function deleteCategory(label: string) {
 	try {
 		await connectToDatabase()
-
-		const deletedCategory = await CategoryModel.findByIdAndDelete(id)
+		const deletedCategory = await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
 			throw new Error('Category not found')
 		}
 
-		debug(4, 0, deletedCategory)
+		debug(4, 9, deletedCategory)
 		return deepClone(deletedCategory)
 	} catch (error) {
 		handleError(error)

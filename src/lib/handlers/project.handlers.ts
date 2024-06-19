@@ -10,8 +10,7 @@ import {
 	addImageToProject,
 	removeImageFromProject,
 } from '@/lib/actions/project.action'
-import { deleteFiles } from '@/lib/actions/image.action'
-import { debug, handleError } from '@/lib/utils/dev'
+import { handleError } from '@/lib/utils/dev'
 import { IImage } from '../models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/utils/zod'

@@ -5,7 +5,7 @@ const debugActive = true
 const debugActiveModes = [1, 2, 3, 4, 9]
 const debugModes: { [key: number]: ChalkInstance } = {
 	0: chalk.gray,
-	1: chalk.gray,
+	1: chalk.green,
 	2: chalk.cyan,
 	3: chalk.yellow,
 	4: chalk.red,

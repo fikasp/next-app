@@ -26,9 +26,10 @@ export async function createProject(projectData: ProjectFormData) {
 		await connectToDatabase()
 
 		const user: IUser = await getCurrentUser()
-		const category: ICategory | null = await CategoryModel.findById(
-			projectData.category
-		)
+		const category: ICategory | null = await CategoryModel.findOne({
+			label: projectData.category,
+		})
+
 		const slug = await generateUniqueSlug(ProjectModel, projectData.title)
 
 		const newProject = await ProjectModel.create({
@@ -39,7 +40,7 @@ export async function createProject(projectData: ProjectFormData) {
 			category,
 		})
 
-		debug(3, 0, newProject)
+		debug(1, 0, newProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(newProject)
 	} catch (error) {
@@ -107,7 +108,7 @@ export async function getProjects(searchParams: any, profile: boolean) {
 			.collation({ locale: 'pl', strength: 1 })
 			.sort(sort)
 
-		debug(9, 9, projects)
+		debug(2, 0, projects)
 		return deepClone(projects)
 	} catch (error) {
 		handleError(error)
@@ -145,7 +146,7 @@ export async function getProjectBySlug({
 			next: deepClone(nextProject),
 		}
 
-		debug(2, 1, adjacentProjects)
+		debug(2, 0, adjacentProjects)
 		return adjacentProjects
 	} catch (error) {
 		handleError(error)
@@ -168,9 +169,18 @@ export async function updateProject(
 			slug
 		)
 
+		const category: ICategory | null = await CategoryModel.findOne({
+			label: projectData.category,
+		})
+
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
-			{ slug: updatedSlug, ...projectData },
+			{
+				slug: updatedSlug,
+				title: projectData.title,
+				info: projectData.info,
+				category,
+			},
 			{ new: true }
 		)
 
@@ -229,7 +239,7 @@ export async function removeImageFromProject(
 			debug(0, 0, deletedFile)
 		}
 
-		debug(4, 1, updatedProject)
+		debug(4, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {

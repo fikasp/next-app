@@ -37,7 +37,7 @@ export default function ProjectForm({
 			try {
 				const categories = await getCategories()
 				const options = categories.map((category: ICategory) => ({
-					value: category._id,
+					value: category.label,
 					label: category.label,
 				}))
 				setCategoryOptions(options)
@@ -52,7 +52,7 @@ export default function ProjectForm({
 		resolver: zodResolver(projectSchema),
 		defaultValues: {
 			title: project?.title || '',
-			category: project?.category?._id || '',
+			category: project?.category?.label || '',
 			info: project?.info || '',
 		},
 	})

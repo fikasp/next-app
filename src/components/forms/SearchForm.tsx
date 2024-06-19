@@ -33,7 +33,7 @@ export default function SearchForm() {
 			try {
 				const categories = await getCategories()
 				const options = categories.map((category: ICategory) => ({
-					value: category._id,
+					value: category.label,
 					label: category.label,
 				}))
 				setOptions(options)
