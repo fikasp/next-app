@@ -84,7 +84,7 @@ export default function ProjectForm({
 							placeholder="Select a category"
 							options={categories}
 							search
-							custom
+							manage
 							center
 						/>
 					)}

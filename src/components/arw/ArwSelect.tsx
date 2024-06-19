@@ -11,7 +11,6 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import OptionsDialog from '@/components/dialogs/OptionsDialog'
 import ArwFlex from '@/components/arw/ArwFlex'
 // lib
@@ -26,7 +25,7 @@ export default function ArwSelect({
 	className,
 	placeholder,
 	options,
-	custom,
+	manage,
 	search,
 	center,
 }: {
@@ -35,15 +34,13 @@ export default function ArwSelect({
 	className?: string
 	placeholder?: string
 	options: Option[]
-	custom?: boolean
+	manage?: boolean
 	search?: boolean
 	center?: boolean
 }) {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
-
 	const isMobile = useMediaQuery({ maxWidth: 768 })
 
 	// Handle search options
@@ -75,11 +72,6 @@ export default function ArwSelect({
 	const handleStopPrapagation = (e: SyntheticEvent) => {
 		debug(9, 9, e)
 		e.stopPropagation()
-		e.nativeEvent.stopImmediatePropagation()
-	}
-
-	const handleClick = () => {
-		setIsDialogOpen(true)
 	}
 
 	useEffect(() => {
@@ -128,22 +120,9 @@ export default function ArwSelect({
 							</SelectItem>
 						))}
 					</ArwFlex>
-					{custom && (
-						<Button
-							variant="outline"
-							className="p-2 w-full"
-							onClick={handleClick}
-						>
-							Manage options
-						</Button>
-					)}
+					{manage && <OptionsDialog options={options} />}
 				</ArwFlex>
 			</SelectContent>
-			<OptionsDialog
-				isOpen={isDialogOpen}
-				handleClose={() => setIsDialogOpen(false)}
-				options={options}
-			/>
 		</Select>
 	)
 }

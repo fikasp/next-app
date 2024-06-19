@@ -1,22 +1,20 @@
 'use client'
 // components
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import ArwTitle from '@/components/arw/ArwTitle'
 import ArwFlex from '@/components/arw/ArwFlex'
 // lib
 import { Option } from '@/lib/types'
 
-export default function OptionsDialog({
-	isOpen,
-	options,
-	handleClose,
-}: {
-	isOpen: boolean
-	options: Option[]
-	handleClose: () => void
-}) {
+export default function OptionsDialog({ options }: { options: Option[] }) {
 	return (
-		<Dialog open={isOpen} onOpenChange={handleClose}>
+		<Dialog>
+			<DialogTrigger>
+				<Button variant="outline" className="p-2 w-full">
+					Manage options
+				</Button>
+			</DialogTrigger>
 			<DialogContent>
 				<ArwTitle accent>Manage options</ArwTitle>
 				<ArwFlex className="gap-2 mt-4">
