@@ -17,6 +17,8 @@ import { ProjectFormData } from '@/lib/utils/zod'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
 
+import { CategoryModel, ICategory } from '../models/category.model'
+
 // CREATE
 // Create project
 export async function createProject(projectData: ProjectFormData) {
@@ -24,9 +26,18 @@ export async function createProject(projectData: ProjectFormData) {
 		await connectToDatabase()
 
 		const user: IUser = await getCurrentUser()
+		const category: ICategory | null = await CategoryModel.findById(
+			projectData.category
+		)
 		const slug = await generateUniqueSlug(ProjectModel, projectData.title)
 
-		const newProject = await ProjectModel.create({ user, slug, ...projectData })
+		const newProject = await ProjectModel.create({
+			user,
+			slug,
+			title: projectData.title,
+			info: projectData.info,
+			category,
+		})
 
 		debug(3, 0, newProject)
 		revalidatePath(routes.PROJECTS)
@@ -71,7 +82,14 @@ export async function getProjects(searchParams: any, profile: boolean) {
 			projectQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
 		if (searchParams.category) {
-			projectQuery.category = { $eq: searchParams.category }
+			const category = await CategoryModel.findOne({
+				label: searchParams.category,
+			})
+			if (category) {
+				projectQuery.category = category._id
+			} else {
+				throw new Error('Category not found')
+			}
 		}
 
 		const sortOptions: { [key: string]: any } = {
@@ -85,10 +103,11 @@ export async function getProjects(searchParams: any, profile: boolean) {
 
 		const projects = await ProjectModel.find(projectQuery)
 			.populate('user', '_id username photo')
+			.populate('category')
 			.collation({ locale: 'pl', strength: 1 })
 			.sort(sort)
 
-		debug(0, 0, projects)
+		debug(9, 9, projects)
 		return deepClone(projects)
 	} catch (error) {
 		handleError(error)

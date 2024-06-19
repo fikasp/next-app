@@ -11,7 +11,6 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import OptionsDialog from '@/components/dialogs/OptionsDialog'
 import ArwFlex from '@/components/arw/ArwFlex'
 // lib
 import { debug } from '@/lib/utils/dev'
@@ -21,25 +20,25 @@ import { cn } from '@/lib/utils'
 
 export default function ArwSelect({
 	onValueChange,
-	setOptions,
+	children,
 	options,
 	defaultValue,
 	placeholder,
 	className,
 	center,
 	search,
-	manage,
 }: {
 	onValueChange: (value: any) => void
-	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
+	children?: React.ReactNode
 	options: Option[]
 	defaultValue?: string
 	placeholder?: string
 	className?: string
 	center?: boolean
 	search?: boolean
-	manage?: boolean
 }) {
+	debug(9, 9, options)
+
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
@@ -85,6 +84,11 @@ export default function ArwSelect({
 		}
 	}, [selectedValue, options, filteredOptions])
 
+	useEffect(() => {
+		setFilteredOptions(options)
+		setSelectedValue(defaultValue)
+	}, [options, defaultValue])
+
 	return (
 		<Select defaultValue={defaultValue} onValueChange={handleSelectChange}>
 			<SelectTrigger
@@ -122,9 +126,7 @@ export default function ArwSelect({
 							</SelectItem>
 						))}
 					</ArwFlex>
-					{manage && (
-						<OptionsDialog options={options} setOptions={setOptions} />
-					)}
+					{children}
 				</ArwFlex>
 			</SelectContent>
 		</Select>

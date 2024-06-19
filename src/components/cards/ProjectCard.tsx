@@ -31,7 +31,7 @@ export default function ProjectCard({
 		[profile ? routes.PROFILE : routes.PROJECTS],
 		{
 			...searchParams,
-			category: project.category,
+			category: project.category?.label,
 		}
 	)
 
@@ -76,7 +76,7 @@ export default function ProjectCard({
 				</If>
 				<ArwLink href={categoryLink}>
 					<ArwFlex className="relative z-30">
-						{capitalizeFirstLetter(project.category)}
+						{capitalizeFirstLetter(project.category?.label)}
 					</ArwFlex>
 				</ArwLink>
 			</ArwFlex>

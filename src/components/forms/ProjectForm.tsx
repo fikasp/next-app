@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,11 +12,15 @@ import ArwForm from '@/components/arw/ArwForm'
 import ArwFormField from '@/components/arw/ArwFormField'
 import ArwSelect from '@/components/arw/ArwSelect'
 import ArwTitle from '@/components/arw/ArwTitle'
+import CategoryDialog from '@/components/dialogs/CategoryDialog'
 // lib
-import { IProject } from '@/lib/models/project.model'
-import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
 import { handleSubmit } from '@/lib/handlers/project.handlers'
-import { categories } from '@/lib/constants'
+import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
+import { ICategory } from '@/lib/models/category.model'
+import { IProject } from '@/lib/models/project.model'
+import { Option } from '@/lib/types'
+import { getCategories } from '@/lib/actions/category.action'
+import { handleError } from '@/lib/utils/dev'
 
 export default function ProjectForm({
 	project,
@@ -25,12 +30,29 @@ export default function ProjectForm({
 	close?: () => void
 }) {
 	const router = useRouter()
+	const [categoryOptions, setCategoryOptions] = useState<Option[]>([])
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const categories = await getCategories()
+				const options = categories.map((category: ICategory) => ({
+					value: category._id,
+					label: category.label,
+				}))
+				setCategoryOptions(options)
+			} catch (error) {
+				handleError(error)
+			}
+		}
+		fetchCategories()
+	}, [])
 
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
 		defaultValues: {
 			title: project?.title || '',
-			category: project?.category || '',
+			category: project?.category?._id || '',
 			info: project?.info || '',
 		},
 	})
@@ -82,11 +104,15 @@ export default function ProjectForm({
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 							placeholder="Select a category"
-							options={categories}
+							options={categoryOptions}
 							search
-							manage
 							center
-						/>
+						>
+							<CategoryDialog
+								options={categoryOptions}
+								setOptions={setCategoryOptions}
+							/>
+						</ArwSelect>
 					)}
 				/>
 			</ArwFlex>

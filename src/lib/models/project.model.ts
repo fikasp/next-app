@@ -3,6 +3,7 @@ import { Schema, model, models } from 'mongoose'
 // lib
 import { IUser } from '@/lib/models/user.model'
 import { IImage } from '@/lib/models/image.model'
+import { ICategory } from '@/lib/models/category.model'
 import { Document } from 'mongoose'
 
 export interface IProject extends Document {
@@ -11,7 +12,7 @@ export interface IProject extends Document {
 	slug: string
 	title: string
 	info: string
-	category: string
+	category: ICategory
 	images: IImage[]
 }
 
@@ -35,7 +36,8 @@ const ProjectSchema = new Schema({
 		required: true,
 	},
 	category: {
-		type: String,
+		type: Schema.Types.ObjectId,
+		ref: 'Category',
 	},
 	images: {
 		type: [

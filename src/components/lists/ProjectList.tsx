@@ -3,12 +3,11 @@ import ArwGrid from '@/components/arw/ArwGrid'
 import ProjectCard from '@/components/cards/ProjectCard'
 // lib
 import { IProject } from '@/lib/models/project.model'
-import { profile } from 'console'
 
 export default async function ProjectsList({
 	projects,
 	searchParams,
-	profile
+	profile,
 }: {
 	projects: IProject[]
 	searchParams: any

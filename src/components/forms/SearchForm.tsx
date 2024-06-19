@@ -15,12 +15,34 @@ import { Button } from '@/components/ui/button'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { searchSchema, SearchFormData } from '@/lib/utils/zod'
-import { categories, sortOptions } from '@/lib/constants'
+import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
+import { useEffect, useState } from 'react'
+import { Option } from '@/lib/types'
+import { getCategories } from '@/lib/actions/category.action'
+import { ICategory } from '@/lib/models/category.model'
 
 export default function SearchForm() {
 	const router = useRouter()
+
+	const [options, setOptions] = useState<Option[]>([])
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const categories = await getCategories()
+				const options = categories.map((category: ICategory) => ({
+					value: category._id,
+					label: category.label,
+				}))
+				setOptions(options)
+			} catch (error) {
+				console.error('Error fetching categories:', error)
+			}
+		}
+		fetchCategories()
+	}, [])
 
 	const form = useForm<SearchFormData>({
 		resolver: zodResolver(searchSchema),
@@ -73,7 +95,7 @@ export default function SearchForm() {
 						<ArwSelect
 							onValueChange={field.onChange}
 							placeholder="Select a category"
-							options={categories}
+							options={options}
 							search
 							center
 						/>
