@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useEffect, useState, SyntheticEvent } from 'react'
+import { useEffect, useState, SyntheticEvent, useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 // components
 import {
@@ -39,6 +39,8 @@ export default function ArwSelect({
 }) {
 	debug(9, 9, options)
 
+	const inputRef = useRef<HTMLInputElement>(null)
+
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
@@ -74,9 +76,10 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
-	const handlePreventDefault = (e: SyntheticEvent) => {
-		debug(9, 9, e)
-		e.preventDefault()
+	const handleTouchStart = () => {
+		if (inputRef.current) {
+			inputRef.current.focus()
+		}
 	}
 
 	useEffect(() => {
@@ -108,21 +111,22 @@ export default function ArwSelect({
 				/>
 			</SelectTrigger>
 			<SelectContent
-				// ref={(ref) => {
-				// 	if (!ref) return
-				// 	ref.ontouchstart = (e) => {
-				// 		e.preventDefault()
-				// 	}
-				// }}
+				ref={(ref) => {
+					if (!ref) return
+					ref.ontouchstart = (e) => {
+						e.preventDefault()
+					}
+				}}
 			>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
 							type="text"
+							ref={inputRef}
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPrapagation}
-							onTouchStart={handleStopPrapagation}
+							onTouchStart={handleTouchStart}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>
