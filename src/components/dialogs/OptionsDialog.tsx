@@ -7,7 +7,13 @@ import ArwFlex from '@/components/arw/ArwFlex'
 // lib
 import { Option } from '@/lib/types'
 
-export default function OptionsDialog({ options }: { options: Option[] }) {
+export default function OptionsDialog({
+	options,
+	setOptions,
+}: {
+	options: Option[]
+	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
+}) {
 	return (
 		<Dialog>
 			<DialogTrigger>

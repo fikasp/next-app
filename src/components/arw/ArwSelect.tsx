@@ -21,22 +21,24 @@ import { cn } from '@/lib/utils'
 
 export default function ArwSelect({
 	onValueChange,
-	defaultValue,
-	className,
-	placeholder,
+	setOptions,
 	options,
-	manage,
-	search,
+	defaultValue,
+	placeholder,
+	className,
 	center,
+	search,
+	manage,
 }: {
 	onValueChange: (value: any) => void
-	defaultValue?: string
-	className?: string
-	placeholder?: string
+	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
 	options: Option[]
-	manage?: boolean
-	search?: boolean
+	defaultValue?: string
+	placeholder?: string
+	className?: string
 	center?: boolean
+	search?: boolean
+	manage?: boolean
 }) {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
@@ -120,7 +122,9 @@ export default function ArwSelect({
 							</SelectItem>
 						))}
 					</ArwFlex>
-					{manage && <OptionsDialog options={options} />}
+					{manage && (
+						<OptionsDialog options={options} setOptions={setOptions} />
+					)}
 				</ArwFlex>
 			</SelectContent>
 		</Select>
