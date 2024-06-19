@@ -58,7 +58,7 @@ export default function ArwSelect({
 			setFilteredOptions(options)
 		}
 	}
-	const debouncedHandleSearch = useDebounce(handleSearch, 300)
+	const debouncedHandleSearch = useDebounce(handleSearch, 500)
 
 	// Handle search change
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
