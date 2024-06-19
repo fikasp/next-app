@@ -42,7 +42,6 @@ export default function ArwSelect({
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
-	const isMobile = useMediaQuery({ maxWidth: 768 })
 
 	// Handle search options
 	const handleSearch = (term: string) => {
@@ -109,9 +108,12 @@ export default function ArwSelect({
 				/>
 			</SelectTrigger>
 			<SelectContent
-				onCloseAutoFocus={(e) => e.preventDefault()}
-				onPointerDownOutside={(e) => e.preventDefault()}
-				onEscapeKeyDown={(e) => e.preventDefault()}
+				ref={(ref) => {
+					if (!ref) return
+					ref.ontouchstart = (e) => {
+						e.preventDefault()
+					}
+				}}
 			>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
