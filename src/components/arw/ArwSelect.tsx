@@ -17,7 +17,6 @@ import { debug } from '@/lib/utils/dev'
 import { useDebounce } from '@/lib/utils/hooks'
 import { Option } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { AnyArray } from 'mongoose'
 
 export default function ArwSelect({
 	onValueChange,
@@ -41,7 +40,7 @@ export default function ArwSelect({
 	debug(9, 9, options)
 
 	const inputRef = useRef<HTMLInputElement>(null)
-
+	const [isOpen, setIsOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
@@ -70,15 +69,17 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
+		setIsOpen(false)
 	}
 
-	const handleStopPrapagation = (e: SyntheticEvent) => {
+	const handleStopPropagation = (e: SyntheticEvent) => {
 		debug(9, 9, e)
 		e.stopPropagation()
 	}
 
 	const handleTouchStart = (e: any) => {
 		e.stopPropagation()
+		setIsOpen(true)
 		if (inputRef.current) {
 			inputRef.current.focus()
 		}
@@ -99,7 +100,12 @@ export default function ArwSelect({
 	}, [options, defaultValue])
 
 	return (
-		<Select defaultValue={defaultValue} onValueChange={handleSelectChange}>
+		<Select
+			defaultValue={defaultValue}
+			onValueChange={handleSelectChange}
+			open={isOpen}
+			onOpenChange={setIsOpen}
+		>
 			<SelectTrigger
 				className={cn(
 					'text-md py-6 px-3',
@@ -107,6 +113,7 @@ export default function ArwSelect({
 					center && 'flex-center gap-2 pl-9',
 					className
 				)}
+				onClick={() => setIsOpen(!isOpen)}
 			>
 				<SelectValue
 					placeholder={placeholder ? placeholder : 'Select a value'}
@@ -116,12 +123,6 @@ export default function ArwSelect({
 				onCloseAutoFocus={(e) => e.preventDefault()}
 				onPointerDownOutside={(e) => e.preventDefault()}
 				onEscapeKeyDown={(e) => e.preventDefault()}
-				ref={(ref) => {
-					if (!ref) return
-					ref.ontouchstart = (e) => {
-						e.preventDefault()
-					}
-				}}
 			>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
@@ -130,7 +131,7 @@ export default function ArwSelect({
 							ref={inputRef}
 							value={searchTerm}
 							onChange={handleSearchChange}
-							onKeyDown={handleStopPrapagation}
+							onKeyDown={handleStopPropagation}
 							onTouchStart={handleTouchStart}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
