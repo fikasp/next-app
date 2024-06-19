@@ -75,6 +75,11 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
+	const handlePreventDefault = (e: SyntheticEvent) => {
+		debug(9, 9, e)
+		e.preventDefault()
+	}
+
 	useEffect(() => {
 		const selectedOption = options.find(
 			(option) => option.value === selectedValue
@@ -103,7 +108,11 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent
+				onCloseAutoFocus={(e) => e.preventDefault()}
+				onPointerDownOutside={(e) => e.preventDefault()}
+				onEscapeKeyDown={(e) => e.preventDefault()}
+			>
 				<ArwFlex className="p-2 gap-2">
 					{search && !isMobile && (
 						<Input

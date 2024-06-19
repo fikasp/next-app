@@ -31,6 +31,7 @@ export default function OptionsDialog({
 	const handleCreateCategory = async () => {
 		try {
 			debug(1, 9, newLabel)
+			if (!newLabel) return
 			const response = await createCategory(newLabel)
 			setOptions((prevOptions) => [
 				...prevOptions,
