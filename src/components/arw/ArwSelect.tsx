@@ -17,6 +17,7 @@ import { debug } from '@/lib/utils/dev'
 import { useDebounce } from '@/lib/utils/hooks'
 import { Option } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { AnyArray } from 'mongoose'
 
 export default function ArwSelect({
 	onValueChange,
@@ -76,7 +77,8 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
-	const handleTouchStart = () => {
+	const handleTouchStart = (e: any) => {
+		e.stopPropagation()
 		if (inputRef.current) {
 			inputRef.current.focus()
 		}
