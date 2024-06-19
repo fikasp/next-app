@@ -1,19 +1,18 @@
 'use client'
 // modules
-import { useEffect, useRef, useState, SyntheticEvent } from 'react'
+import { useEffect, useState, SyntheticEvent } from 'react'
 import { useMediaQuery } from 'react-responsive'
 // components
 import {
 	Select,
 	SelectContent,
-	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import OptionsDialog from '@/components/dialogs/OptionsDialog'
 import ArwFlex from '@/components/arw/ArwFlex'
 // lib
 import { debug } from '@/lib/utils/dev'
@@ -43,9 +42,9 @@ export default function ArwSelect({
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const isMobile = useMediaQuery({ maxWidth: 768 })
-	const inputRef = useRef<HTMLInputElement>(null)
 
 	// Handle search options
 	const handleSearch = (term: string) => {
@@ -80,7 +79,7 @@ export default function ArwSelect({
 	}
 
 	const handleClick = () => {
-		alert('Custom options')
+		setIsDialogOpen(true)
 	}
 
 	useEffect(() => {
@@ -108,21 +107,15 @@ export default function ArwSelect({
 			</SelectTrigger>
 			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
-					{search && (
-						<SelectGroup>
-							<SelectLabel>
-								<Input
-									type="text"
-									value={searchTerm}
-									onChange={handleSearchChange}
-									onKeyDown={handleStopPrapagation}
-									onPointerDown={handleStopPrapagation}
-									className={cn(center && 'text-center', 'w-full text-sm p-2')}
-									placeholder="Search..."
-									ref={inputRef}
-								/>
-							</SelectLabel>
-						</SelectGroup>
+					{search && !isMobile && (
+						<Input
+							type="text"
+							value={searchTerm}
+							onChange={handleSearchChange}
+							onKeyDown={handleStopPrapagation}
+							className={cn(center && 'text-center', 'w-full text-sm p-2')}
+							placeholder="Search..."
+						/>
 					)}
 					<ArwFlex className="gap-0">
 						{filteredOptions.map((option) => (
@@ -146,6 +139,11 @@ export default function ArwSelect({
 					)}
 				</ArwFlex>
 			</SelectContent>
+			<OptionsDialog
+				isOpen={isDialogOpen}
+				handleClose={() => setIsDialogOpen(false)}
+				options={options}
+			/>
 		</Select>
 	)
 }
