@@ -114,7 +114,7 @@ export default function ArwSelect({
 				onEscapeKeyDown={(e) => e.preventDefault()}
 			>
 				<ArwFlex className="p-2 gap-2">
-					{search && !isMobile && (
+					{search && (
 						<Input
 							type="text"
 							value={searchTerm}
