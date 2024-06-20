@@ -42,7 +42,6 @@ export default function ArwSelect({
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
-	const selectRef = useRef<HTMLDivElement>(null)
 
 	// Handle search options
 	const handleSearch = (term: string) => {
@@ -68,7 +67,6 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
-		// setIsOpen(false)
 	}
 
 	const handleStopPropagation = (e: SyntheticEvent) => {
@@ -94,7 +92,6 @@ export default function ArwSelect({
 		<Select
 			defaultValue={defaultValue}
 			onValueChange={handleSelectChange}
-			// onOpenChange={setIsOpen}
 			open={isOpen}
 		>
 			<SelectTrigger
@@ -118,7 +115,10 @@ export default function ArwSelect({
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPropagation}
-							className={cn(center && 'text-center', 'w-full md:w-[200px] text-sm p-2')}
+							className={cn(
+								center && 'text-center',
+								'w-full max-w-full text-sm p-2'
+							)}
 							placeholder="Search..."
 						/>
 					)}
@@ -127,6 +127,7 @@ export default function ArwSelect({
 							<SelectItem
 								key={option.value}
 								className={cn(center && 'flex-center pl-0')}
+								onClick={() => setIsOpen(!isOpen)}
 								value={option.value}
 							>
 								{option.label}
