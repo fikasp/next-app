@@ -10,7 +10,7 @@ export async function createCategory(newLabel: string) {
 		await connectToDatabase()
 		const existingCategory = await CategoryModel.findOne({ label: newLabel })
 		if (existingCategory) {
-			throw new Error('Category already exists')
+			return { error: 'Category already exists' }
 		}
 
 		const newCategory = await CategoryModel.create({ label: newLabel })
@@ -42,7 +42,7 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 
 		const existingCategory = await CategoryModel.findOne({ label: newLabel })
 		if (existingCategory) {
-			throw new Error('Category already exists')
+			return { error: 'Category already exists' }
 		}
 
 		const updatedCategory = await CategoryModel.findOneAndUpdate(
@@ -51,7 +51,7 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 			{ new: true }
 		)
 		if (!updatedCategory) {
-			throw new Error('Category not found')
+			return { error: 'Category not found' }
 		}
 
 		debug(4, 9, updatedCategory)
@@ -68,7 +68,7 @@ export async function deleteCategory(label: string) {
 		const deletedCategory = await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
-			throw new Error('Category not found')
+			return { error: 'Category not found' }
 		}
 
 		debug(5, 9, deletedCategory)

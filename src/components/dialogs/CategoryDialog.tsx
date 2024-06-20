@@ -15,7 +15,7 @@ import {
 	updateCategory,
 } from '@/lib/actions/category.action'
 import { debug, handleError } from '@/lib/utils/dev'
-import { handleToast } from '@/lib/utils/dev'
+import { handleToast } from '@/lib/utils'
 import { icons } from '@/navigation'
 import { Option } from '@/lib/types'
 
@@ -38,15 +38,19 @@ export default function CategoryDialog({
 		e.preventDefault()
 		try {
 			if (!newLabel) return
-			const newOption = await createCategory(newLabel)
-			setOptions((prevOptions) => [
-				...prevOptions,
-				{ value: newOption.label, label: newOption.label },
-			])
-			debug(2, 9, newOption)
-			setNewLabel('')
-		} catch (error: any) {
-			handleToast(error)
+			const result = await createCategory(newLabel)
+			if (result.error) {
+				handleToast(result.error)
+				return
+			} else {
+				setOptions((prevOptions) => [
+					...prevOptions,
+					{ value: result.label, label: result.label },
+				])
+				debug(2, 9, result)
+				setNewLabel('')
+			}
+		} catch (error) {
 			handleError(error)
 		}
 	}
@@ -56,18 +60,22 @@ export default function CategoryDialog({
 		if (editedOption) {
 			debug(4, 9, editedOption)
 			try {
-				await updateCategory(editedOption.label, editedLabel)
-				setOptions((prevOptions) =>
-					prevOptions.map((prevOption) =>
-						prevOption.label === editedOption.label
-							? { ...prevOption, label: editedLabel }
-							: prevOption
+				const result = await updateCategory(editedOption.label, editedLabel)
+				if (result.error) {
+					handleToast(result.error)
+					return
+				} else {
+					setOptions((prevOptions) =>
+						prevOptions.map((prevOption) =>
+							prevOption.label === editedOption.label
+								? { ...prevOption, label: editedLabel }
+								: prevOption
+						)
 					)
-				)
-				setEditedOption(null)
-				setEditedLabel('')
+					setEditedOption(null)
+					setEditedLabel('')
+				}
 			} catch (error) {
-				handleToast(error)
 				handleError(error)
 			}
 		}
@@ -77,10 +85,15 @@ export default function CategoryDialog({
 	const handleDeleteCategory = async (option: Option) => {
 		try {
 			debug(5, 9, option)
-			await deleteCategory(option.label)
-			setOptions((prevOptions) =>
-				prevOptions.filter((prevOption) => prevOption.label !== option.label)
-			)
+			const result = await deleteCategory(option.label)
+			if (result.error) {
+				handleToast(result.error)
+				return
+			} else {
+				setOptions((prevOptions) =>
+					prevOptions.filter((prevOption) => prevOption.label !== option.label)
+				)
+			}
 		} catch (error) {
 			handleError(error)
 		}

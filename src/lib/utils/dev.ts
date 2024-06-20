@@ -1,5 +1,4 @@
 import chalk, { ChalkInstance } from 'chalk'
-import { toast } from '@/components/ui/use-toast'
 
 // Settings
 const debugActive = true
@@ -66,11 +65,4 @@ export function handleError(error: any) {
 	}
 }
 
-// Handle toast
-export function handleToast(error: any) {
-	toast({
-		title: 'Error!',
-		variant: 'destructive',
-		description: error.message,
-	})
-}
+
