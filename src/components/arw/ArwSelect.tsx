@@ -110,17 +110,19 @@ export default function ArwSelect({
 			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
-						<Input
-							type="text"
-							value={searchTerm}
-							onChange={handleSearchChange}
-							onKeyDown={handleStopPropagation}
-							className={cn(
-								center && 'text-center',
-								'w-full max-w-full text-sm p-2'
-							)}
-							placeholder="Search..."
-						/>
+						<ArwFlex center>
+							<Input
+								type="text"
+								value={searchTerm}
+								onChange={handleSearchChange}
+								onKeyDown={handleStopPropagation}
+								className={cn(
+									center && 'text-center',
+									'w-full max-sm:w-[200px] text-sm p-2'
+								)}
+								placeholder="Search..."
+							/>
+						</ArwFlex>
 					)}
 					<ArwFlex className="gap-0">
 						{filteredOptions.map((option) => (
