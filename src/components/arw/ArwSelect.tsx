@@ -43,6 +43,8 @@ export default function ArwSelect({
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
 
+	const toggleOpen = () => setIsOpen(!isOpen)
+
 	// Handle search options
 	const handleSearch = (term: string) => {
 		if (term) {
@@ -65,6 +67,7 @@ export default function ArwSelect({
 
 	// Handle select change
 	const handleSelectChange = (value: string) => {
+		debug(9, 9, value)
 		setSelectedValue(value)
 		onValueChange(value)
 		setSearchTerm('')
@@ -102,13 +105,16 @@ export default function ArwSelect({
 					center && 'flex-center gap-2 pl-9',
 					className
 				)}
-				onClick={() => setIsOpen(!isOpen)}
+				onClick={toggleOpen}
 			>
 				<SelectValue
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent
+				onEscapeKeyDown={toggleOpen}
+				onPointerDownOutside={toggleOpen}
+			>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<ArwFlex center>
@@ -130,7 +136,7 @@ export default function ArwSelect({
 							<SelectItem
 								key={option.value}
 								className={cn(center && 'flex-center pl-0')}
-								onClick={() => setIsOpen(!isOpen)}
+								onClick={toggleOpen}
 								value={option.value}
 							>
 								{option.label}

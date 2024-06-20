@@ -18,14 +18,14 @@ import { Option } from '@/lib/types'
 import ArwButton from '../arw/ArwButton'
 import { icons } from '@/navigation'
 
-export default function OptionsDialog({
+export default function CategoryDialog({
 	options,
 	setOptions,
 }: {
 	options: Option[]
 	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
 }) {
-	debug(9, 9, options)
+	debug(0, 0, options)
 	const [newLabel, setNewLabel] = useState('')
 	const [editedLabel, setEditedLabel] = useState('')
 	const [editedOption, setEditedOption] = useState<Option | null>(null)
