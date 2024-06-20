@@ -110,14 +110,7 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent
-				ref={(ref) => {
-					if (!ref) return
-					ref.ontouchstart = (e) => {
-						e.preventDefault()
-					}
-				}}
-			>
+			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
@@ -125,7 +118,7 @@ export default function ArwSelect({
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPropagation}
-							className={cn(center && 'text-center', 'w-full text-sm p-2')}
+							className={cn(center && 'text-center', 'w-full md:w-[200px] text-sm p-2')}
 							placeholder="Search..."
 						/>
 					)}
