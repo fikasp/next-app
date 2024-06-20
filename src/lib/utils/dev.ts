@@ -1,6 +1,7 @@
 import chalk, { ChalkInstance } from 'chalk'
+import { toast } from '@/components/ui/use-toast'
 
-// Debugging settings
+// Settings
 const debugActive = true
 const debugActiveModes = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const debugModes: { [key: number]: ChalkInstance } = {
@@ -49,7 +50,7 @@ export function debug(logMode: number, dataMode?: number, ...data: any) {
 }
 
 // Error handler
-export const handleError = (error: unknown) => {
+export function handleError(error: any) {
 	if (error instanceof Error) {
 		// This is a native JavaScript error
 		console.error(error.message)
@@ -63,4 +64,13 @@ export const handleError = (error: unknown) => {
 		console.error(error)
 		throw new Error(`Unknown error: ${JSON.stringify(error)}`)
 	}
+}
+
+// Handle toast
+export function handleToast(error: any) {
+	toast({
+		title: 'Error!',
+		variant: 'destructive',
+		description: error.message,
+	})
 }

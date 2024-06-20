@@ -8,6 +8,11 @@ import { deepClone } from '@/lib/utils'
 export async function createCategory(newLabel: string) {
 	try {
 		await connectToDatabase()
+		const existingCategory = await CategoryModel.findOne({ label: newLabel })
+		if (existingCategory) {
+			throw new Error('Category already exists')
+		}
+
 		const newCategory = await CategoryModel.create({ label: newLabel })
 
 		debug(2, 9, newCategory)
@@ -34,6 +39,11 @@ export async function getCategories() {
 export async function updateCategory(oldLabel: string, newLabel: string) {
 	try {
 		await connectToDatabase()
+
+		const existingCategory = await CategoryModel.findOne({ label: newLabel })
+		if (existingCategory) {
+			throw new Error('Category already exists')
+		}
 
 		const updatedCategory = await CategoryModel.findOneAndUpdate(
 			{ label: oldLabel },

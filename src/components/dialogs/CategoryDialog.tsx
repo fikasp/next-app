@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import ArwButton from '@/components/arw/ArwButton'
 import ArwFlex from '@/components/arw/ArwFlex'
 import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
@@ -14,9 +15,9 @@ import {
 	updateCategory,
 } from '@/lib/actions/category.action'
 import { debug, handleError } from '@/lib/utils/dev'
-import { Option } from '@/lib/types'
-import ArwButton from '../arw/ArwButton'
+import { handleToast } from '@/lib/utils/dev'
 import { icons } from '@/navigation'
+import { Option } from '@/lib/types'
 
 export default function CategoryDialog({
 	options,
@@ -44,7 +45,8 @@ export default function CategoryDialog({
 			])
 			debug(2, 9, newOption)
 			setNewLabel('')
-		} catch (error) {
+		} catch (error: any) {
+			handleToast(error)
 			handleError(error)
 		}
 	}
@@ -65,6 +67,7 @@ export default function CategoryDialog({
 				setEditedOption(null)
 				setEditedLabel('')
 			} catch (error) {
+				handleToast(error)
 				handleError(error)
 			}
 		}
