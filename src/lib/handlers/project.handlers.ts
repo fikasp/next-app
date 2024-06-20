@@ -15,6 +15,7 @@ import { IImage } from '../models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/utils/zod'
 import { routes } from '@/navigation'
+import { toastArw } from '@/lib/utils/toasts'
 
 export const handleSubmit =
 	(router: AppRouterInstance, project?: IProject, close?: () => void) =>
@@ -27,10 +28,7 @@ export const handleSubmit =
 					projectFormData
 				)
 				if (updatedProject) {
-					toast({
-						title: 'Project updated!',
-						description: `${projectFormData.title} is successfully updated`,
-					})
+					toastArw(`${projectFormData.title} is successfully updated`)
 				}
 				if (close) {
 					close()
@@ -39,10 +37,7 @@ export const handleSubmit =
 				// Create project
 				const newProject = await createProject(projectFormData)
 				if (newProject) {
-					toast({
-						title: 'Project added!',
-						description: `${projectFormData.title} is successfully added`,
-					})
+					toastArw(`${projectFormData.title} is successfully added`)
 				}
 			}
 		} catch (err) {
@@ -57,10 +52,7 @@ export const handleDelete =
 	async () => {
 		try {
 			const deletedProject = await deleteProject(project._id)
-			toast({
-				title: 'Project deleted!',
-				description: `${deletedProject.title} is successfully deleted`,
-			})
+			toastArw(`${deletedProject.title} is successfully deleted`)
 			close()
 		} catch (err) {
 			handleError(err)
@@ -84,10 +76,7 @@ export const handleAddImage = async (
 				name
 			)
 			if (updatedProject) {
-				toast({
-					title: 'Image uploaded!',
-					description: 'New image is successfully added',
-				})
+				toastArw('New image is successfully added')
 			}
 		}
 	} catch (error) {
@@ -105,10 +94,7 @@ export const handleRemoveImage =
 				image.key
 			)
 			if (updatedProject) {
-				toast({
-					title: 'Image removed!',
-					description: 'The image has been successfully removed',
-				})
+				toastArw('The image has been successfully removed')
 			}
 		} catch (error) {
 			handleError(error)

@@ -1,14 +1,17 @@
 'use server'
+import { CategoryModel } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
-import { CategoryModel } from '@/lib/models/category.model'
+import { ProjectModel } from '@/lib/models/project.model'
 import { deepClone } from '@/lib/utils'
 
 // CREATE
 export async function createCategory(newLabel: string) {
 	try {
 		await connectToDatabase()
-		const existingCategory = await CategoryModel.findOne({ label: newLabel })
+		const existingCategory = await CategoryModel.findOne({
+			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
+		})
 		if (existingCategory) {
 			return { error: 'Category already exists' }
 		}
@@ -26,7 +29,7 @@ export async function createCategory(newLabel: string) {
 export async function getCategories() {
 	try {
 		await connectToDatabase()
-		const categories = await CategoryModel.find()
+		const categories = await CategoryModel.find().sort({ label: 1 })
 
 		debug(3, 9, categories)
 		return deepClone(categories)
@@ -40,7 +43,9 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 	try {
 		await connectToDatabase()
 
-		const existingCategory = await CategoryModel.findOne({ label: newLabel })
+		const existingCategory = await CategoryModel.findOne({
+			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
+		})
 		if (existingCategory) {
 			return { error: 'Category already exists' }
 		}
@@ -65,6 +70,16 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 export async function deleteCategory(label: string) {
 	try {
 		await connectToDatabase()
+
+		const existingCategory = await CategoryModel.findOne({ label })
+		const projectsUsingCategory = await ProjectModel.findOne({
+			category: existingCategory,
+		})
+
+		if (projectsUsingCategory) {
+			return { error: 'Category is used in projects, cannot delete' }
+		}
+
 		const deletedCategory = await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {

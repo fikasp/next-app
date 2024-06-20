@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
 // components
-import { toast } from '@/components/ui/use-toast'
+
 
 // Tailwind classNames
 export function cn(...inputs: ClassValue[]) {
@@ -84,11 +84,3 @@ export function capitalizeFirstLetter(str: string) {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-// Handle toast
-export function handleToast(error: string) {
-	toast({
-		title: 'Error!',
-		variant: 'destructive',
-		description: error,
-	})
-}

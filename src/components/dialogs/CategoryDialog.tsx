@@ -15,9 +15,9 @@ import {
 	updateCategory,
 } from '@/lib/actions/category.action'
 import { debug, handleError } from '@/lib/utils/dev'
-import { handleToast } from '@/lib/utils'
-import { icons } from '@/navigation'
+import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { Option } from '@/lib/types'
+import { icons } from '@/navigation'
 
 export default function CategoryDialog({
 	options,
@@ -40,7 +40,7 @@ export default function CategoryDialog({
 			if (!newLabel) return
 			const result = await createCategory(newLabel)
 			if (result.error) {
-				handleToast(result.error)
+				toastError(result.error)
 				return
 			} else {
 				setOptions((prevOptions) => [
@@ -48,6 +48,7 @@ export default function CategoryDialog({
 					{ value: result.label, label: result.label },
 				])
 				debug(2, 9, result)
+				toastSuccess('Category added')
 				setNewLabel('')
 			}
 		} catch (error) {
@@ -62,7 +63,7 @@ export default function CategoryDialog({
 			try {
 				const result = await updateCategory(editedOption.label, editedLabel)
 				if (result.error) {
-					handleToast(result.error)
+					toastError(result.error)
 					return
 				} else {
 					setOptions((prevOptions) =>
@@ -72,6 +73,7 @@ export default function CategoryDialog({
 								: prevOption
 						)
 					)
+					toastSuccess('Category updated')
 					setEditedOption(null)
 					setEditedLabel('')
 				}
@@ -87,12 +89,13 @@ export default function CategoryDialog({
 			debug(5, 9, option)
 			const result = await deleteCategory(option.label)
 			if (result.error) {
-				handleToast(result.error)
+				toastError(result.error)
 				return
 			} else {
 				setOptions((prevOptions) =>
 					prevOptions.filter((prevOption) => prevOption.label !== option.label)
 				)
+				toastSuccess('Category deleted')
 			}
 		} catch (error) {
 			handleError(error)
