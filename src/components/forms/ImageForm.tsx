@@ -47,7 +47,7 @@ export default function ImageForm({ project }: { project: IProject }) {
 			toast({
 				title: 'Warning!',
 				description: 'Invalid number of files.',
-				variant: 'destructive',
+				variant: 'error',
 			})
 		}
 		form.reset()
