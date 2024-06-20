@@ -42,6 +42,7 @@ export default function ArwSelect({
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
+	const selectRef = useRef<HTMLDivElement>(null)
 
 	// Handle search options
 	const handleSearch = (term: string) => {
@@ -67,7 +68,7 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
-		setIsOpen(false)
+		// setIsOpen(false)
 	}
 
 	const handleStopPropagation = (e: SyntheticEvent) => {
