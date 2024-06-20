@@ -58,69 +58,73 @@ export default function ProjectForm({
 	})
 
 	return (
-		<ArwForm
-			form={form}
-			onSubmit={handleSubmit(router, project, close)}
-			className="grow justify-between gap-8"
-		>
-			<ArwTitle center accent>
-				{project ? 'Update project' : 'Add new project'}
-			</ArwTitle>
+		<>
+			<ArwForm
+				form={form}
+				onSubmit={handleSubmit(router, project, close)}
+				className="grow justify-between gap-8"
+			>
+				<ArwTitle center accent>
+					{project ? 'Update project' : 'Add new project'}
+				</ArwTitle>
 
-			<ArwFlex>
-				<ArwFormField
-					control={form.control}
-					name="title"
-					label="Title"
-					className="justify-center"
-					render={({ field }) => (
-						<Input
-							placeholder="Enter a title"
-							className="text-center"
-							{...field}
-						/>
-					)}
-				/>
-				<ArwFormField
-					control={form.control}
-					name="info"
-					label="Information"
-					className="justify-center"
-					render={({ field }) => (
-						<Input
-							placeholder="Enter a information"
-							className="text-center"
-							{...field}
-						/>
-					)}
-				/>
-				<ArwFormField
-					control={form.control}
-					name="category"
-					label="Category"
-					className="justify-center"
-					render={({ field }) => (
-						<ArwSelect
-							onValueChange={field.onChange}
-							defaultValue={field.value}
-							placeholder="Select a category"
-							options={categoryOptions}
-							search
-							center
-						>
-							<CategoryDialog
-								options={categoryOptions}
-								setOptions={setCategoryOptions}
+				<ArwFlex>
+					<ArwFormField
+						control={form.control}
+						name="title"
+						label="Title"
+						className="justify-center"
+						render={({ field }) => (
+							<Input
+								placeholder="Enter a title"
+								className="text-center"
+								{...field}
 							/>
-						</ArwSelect>
-					)}
-				/>
-			</ArwFlex>
-			<ArwFlex>
-				<Button variant="accent">
-					{project ? 'Update project' : 'Add project'}
-				</Button>
-			</ArwFlex>
-		</ArwForm>
+						)}
+					/>
+					<ArwFormField
+						control={form.control}
+						name="info"
+						label="Information"
+						className="justify-center"
+						render={({ field }) => (
+							<Input
+								placeholder="Enter a information"
+								className="text-center"
+								{...field}
+							/>
+						)}
+					/>
+					<ArwFormField
+						control={form.control}
+						name="category"
+						label="Category"
+						className="justify-center"
+						render={({ field }) => (
+							<>
+								<ArwSelect
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+									placeholder="Select a category"
+									options={categoryOptions}
+									search
+									center
+								>
+									<CategoryDialog
+										options={categoryOptions}
+										setOptions={setCategoryOptions}
+									/>
+								</ArwSelect>
+							</>
+						)}
+					/>
+				</ArwFlex>
+				<ArwFlex>
+					<Button variant="accent">
+						{project ? 'Update project' : 'Add project'}
+					</Button>
+				</ArwFlex>
+			</ArwForm>
+		</>
 	)
 }

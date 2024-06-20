@@ -1,7 +1,6 @@
 'use client'
 // modules
 import { useEffect, useState, SyntheticEvent, useRef } from 'react'
-import { useMediaQuery } from 'react-responsive'
 // components
 import {
 	Select,
@@ -119,11 +118,7 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent
-				onCloseAutoFocus={(e) => e.preventDefault()}
-				onPointerDownOutside={(e) => e.preventDefault()}
-				onEscapeKeyDown={(e) => e.preventDefault()}
-			>
+			<SelectContent>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
