@@ -67,6 +67,7 @@ export default function ArwSelect({
 	const handleSelectChange = (value: string) => {
 		setSelectedValue(value)
 		onValueChange(value)
+		setSearchTerm('')
 	}
 
 	const handleStopPropagation = (e: SyntheticEvent) => {
