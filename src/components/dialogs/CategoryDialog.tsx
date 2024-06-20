@@ -36,13 +36,13 @@ export default function CategoryDialog({
 		e.stopPropagation()
 		e.preventDefault()
 		try {
-			debug(1, 9, newLabel)
 			if (!newLabel) return
 			const newOption = await createCategory(newLabel)
 			setOptions((prevOptions) => [
 				...prevOptions,
 				{ value: newOption.label, label: newOption.label },
 			])
+			debug(2, 9, newOption)
 			setNewLabel('')
 		} catch (error) {
 			handleError(error)
@@ -52,7 +52,7 @@ export default function CategoryDialog({
 	// UPDATE
 	const handleUpdateCategory = async () => {
 		if (editedOption) {
-			debug(3, 9, editedOption)
+			debug(4, 9, editedOption)
 			try {
 				await updateCategory(editedOption.label, editedLabel)
 				setOptions((prevOptions) =>
@@ -71,9 +71,9 @@ export default function CategoryDialog({
 	}
 
 	// DELETE
-	const handleDeleteCategory = (option: Option) => async () => {
+	const handleDeleteCategory = async (option: Option) => {
 		try {
-			debug(4, 9, option)
+			debug(5, 9, option)
 			await deleteCategory(option.label)
 			setOptions((prevOptions) =>
 				prevOptions.filter((prevOption) => prevOption.label !== option.label)
@@ -83,7 +83,7 @@ export default function CategoryDialog({
 		}
 	}
 
-	const handleEditClick = (option: Option) => () => {
+	const handleEditClick = (option: Option) => {
 		setEditedOption(option)
 		setEditedLabel(option.label)
 	}
@@ -138,11 +138,11 @@ export default function CategoryDialog({
 										<ArwText>{option.label}</ArwText>
 										<ArwFlex row>
 											<ArwButton
-												onClick={handleEditClick(option)}
+												onClick={() => handleEditClick(option)}
 												src={icons.EDIT}
 											/>
 											<ArwButton
-												onClick={handleDeleteCategory(option)}
+												onClick={() => handleDeleteCategory(option)}
 												src={icons.DELETE}
 											/>
 										</ArwFlex>

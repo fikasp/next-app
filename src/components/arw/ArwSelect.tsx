@@ -36,7 +36,7 @@ export default function ArwSelect({
 	center?: boolean
 	search?: boolean
 }) {
-	debug(9, 9, options)
+	debug(1, 0, options)
 
 	const [isOpen, setIsOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')

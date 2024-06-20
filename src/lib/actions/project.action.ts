@@ -108,7 +108,7 @@ export async function getProjects(searchParams: any, profile: boolean) {
 			.collation({ locale: 'pl', strength: 1 })
 			.sort(sort)
 
-		debug(2, 0, projects)
+		debug(3, 0, projects)
 		return deepClone(projects)
 	} catch (error) {
 		handleError(error)
@@ -146,7 +146,7 @@ export async function getProjectBySlug({
 			next: deepClone(nextProject),
 		}
 
-		debug(2, 0, adjacentProjects)
+		debug(3, 0, adjacentProjects)
 		return adjacentProjects
 	} catch (error) {
 		handleError(error)
@@ -184,7 +184,7 @@ export async function updateProject(
 			{ new: true }
 		)
 
-		debug(3, 0, updatedProject)
+		debug(4, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {
@@ -209,7 +209,7 @@ export async function addImageToProject(
 			{ $push: { images: image._id } }
 		)
 
-		debug(3, 9, updatedProject)
+		debug(4, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {
@@ -239,7 +239,7 @@ export async function removeImageFromProject(
 			debug(0, 0, deletedFile)
 		}
 
-		debug(4, 0, updatedProject)
+		debug(5, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
 	} catch (error) {
@@ -275,7 +275,7 @@ export async function deleteProject(projectId: string) {
 		// Delete the project
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
 
-		debug(4, 0, deletedProject)
+		debug(5, 0, deletedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(deletedProject)
 	} catch (error) {

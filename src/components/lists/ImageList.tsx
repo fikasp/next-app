@@ -46,28 +46,28 @@ export default function ImageList({
 
 	// Handlers for the modal
 	const handleOpen = (index: number) => {
-		debug(2)
+		debug(3)
 		updateUrlParams({ img: index })
 		setSelectedImageIndex(index)
 		setIsDialogOpen(true)
 	}
 
 	const handlePrev = () => {
-		debug(3)
+		debug(4)
 		setSelectedImageIndex((prevIndex) =>
 			prevIndex === 0 ? project.images.length - 1 : prevIndex - 1
 		)
 	}
 
 	const handleNext = () => {
-		debug(3)
+		debug(4)
 		setSelectedImageIndex((prevIndex) =>
 			prevIndex === project.images.length - 1 ? 0 : prevIndex + 1
 		)
 	}
 
 	const handleClose = () => {
-		debug(4)
+		debug(5)
 		updateUrlParams({ img: null })
 		setIsDialogOpen(false)
 	}

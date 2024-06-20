@@ -2,13 +2,17 @@ import chalk, { ChalkInstance } from 'chalk'
 
 // Debugging settings
 const debugActive = true
-const debugActiveModes = [1, 2, 3, 4, 9]
+const debugActiveModes = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const debugModes: { [key: number]: ChalkInstance } = {
 	0: chalk.gray,
-	1: chalk.green,
-	2: chalk.cyan,
-	3: chalk.yellow,
-	4: chalk.red,
+	1: chalk.gray,
+	2: chalk.green,
+	3: chalk.cyan,
+	4: chalk.yellow,
+	5: chalk.red,
+	6: chalk.bgRed.black,
+	7: chalk.bgYellow.black,
+	8: chalk.bgCyan.black,
 	9: chalk.bgWhite.black,
 }
 

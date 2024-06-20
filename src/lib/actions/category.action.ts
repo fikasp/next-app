@@ -10,7 +10,7 @@ export async function createCategory(newLabel: string) {
 		await connectToDatabase()
 		const newCategory = await CategoryModel.create({ label: newLabel })
 
-		debug(1, 9, newCategory)
+		debug(2, 9, newCategory)
 		return deepClone(newCategory)
 	} catch (error) {
 		handleError(error)
@@ -23,7 +23,7 @@ export async function getCategories() {
 		await connectToDatabase()
 		const categories = await CategoryModel.find()
 
-		debug(2, 9, categories)
+		debug(3, 9, categories)
 		return deepClone(categories)
 	} catch (error) {
 		handleError(error)
@@ -44,7 +44,7 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 			throw new Error('Category not found')
 		}
 
-		debug(3, 9, updatedCategory)
+		debug(4, 9, updatedCategory)
 		return deepClone(updatedCategory)
 	} catch (error) {
 		handleError(error)
@@ -61,7 +61,7 @@ export async function deleteCategory(label: string) {
 			throw new Error('Category not found')
 		}
 
-		debug(4, 9, deletedCategory)
+		debug(5, 9, deletedCategory)
 		return deepClone(deletedCategory)
 	} catch (error) {
 		handleError(error)
