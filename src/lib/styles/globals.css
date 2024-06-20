@@ -21,7 +21,7 @@
 		border-base-200
 		dark:border-base-700
 
-		rounded-md
+		rounded-md;
 	}
 
 	/* layout */
@@ -31,9 +31,21 @@
 	.arw-grid-auto-150 {
 		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	}
+
 	/* scrollbar */
 	::-webkit-scrollbar {
-		width: 0px;
-		height: 0px;
+		width: 2px;
+		height: 2px;
+	}
+	::-webkit-scrollbar-track {
+		background: #666;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #444;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #222;
 	}
 }

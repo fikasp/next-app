@@ -9,6 +9,7 @@ export const routes = {
 
 export const icons = {
 	ADD: '/icons/add.svg',
+	CANCEL: '/icons/cancel.svg',
 	CLOSE: '/icons/close.svg',
 	DELETE: '/icons/delete.svg',
 	EDIT: '/icons/edit.svg',
@@ -17,6 +18,7 @@ export const icons = {
 	MENU: '/icons/menu.svg',
 	NEXT: '/icons/next.svg',
 	PREV: '/icons/prev.svg',
+	SAVE: '/icons/save.svg',
 	SEARCH: '/icons/search.svg',
 	UPLOAD: '/icons/upload.svg',
 }
