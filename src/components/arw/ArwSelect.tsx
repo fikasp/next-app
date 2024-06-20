@@ -38,7 +38,6 @@ export default function ArwSelect({
 }) {
 	debug(9, 9, options)
 
-	const inputRef = useRef<HTMLInputElement>(null)
 	const [isOpen, setIsOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
@@ -76,14 +75,6 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
-	const handleTouchStart = (e: any) => {
-		e.stopPropagation()
-		setIsOpen(true)
-		if (inputRef.current) {
-			inputRef.current.focus()
-		}
-	}
-
 	useEffect(() => {
 		const selectedOption = options.find(
 			(option) => option.value === selectedValue
@@ -102,8 +93,8 @@ export default function ArwSelect({
 		<Select
 			defaultValue={defaultValue}
 			onValueChange={handleSelectChange}
+			// onOpenChange={setIsOpen}
 			open={isOpen}
-			onOpenChange={setIsOpen}
 		>
 			<SelectTrigger
 				className={cn(
@@ -118,16 +109,21 @@ export default function ArwSelect({
 					placeholder={placeholder ? placeholder : 'Select a value'}
 				/>
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent
+				ref={(ref) => {
+					if (!ref) return
+					ref.ontouchstart = (e) => {
+						e.preventDefault()
+					}
+				}}
+			>
 				<ArwFlex className="p-2 gap-2">
 					{search && (
 						<Input
 							type="text"
-							ref={inputRef}
 							value={searchTerm}
 							onChange={handleSearchChange}
 							onKeyDown={handleStopPropagation}
-							onTouchStart={handleTouchStart}
 							className={cn(center && 'text-center', 'w-full text-sm p-2')}
 							placeholder="Search..."
 						/>
