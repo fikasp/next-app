@@ -6,7 +6,6 @@ import qs from 'query-string'
 import slugify from 'slugify'
 // components
 
-
 // Tailwind classNames
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -46,20 +45,20 @@ export function generateUrl(
 }
 
 // URL search parameters update
-export function updateUrlParams(params: Record<string, any>) {
+export function updateUrlParams(
+	params: Record<string, string | undefined | null>
+) {
 	const url = new URL(window.location.toString())
 
-	// Set new search parameters
-	Object.keys(params).forEach((key) => {
-		if (params[key] === undefined || params[key] === null) {
+	Object.entries(params).forEach(([key, value]) => {
+		if (value === undefined || value === null) {
 			url.searchParams.delete(key)
 		} else {
-			url.searchParams.set(key, String(params[key]))
+			url.searchParams.set(key, value)
 		}
 	})
 
-	// Push new state to history
-	window.history.pushState({}, '', url)
+	window.history.pushState({}, '', url.toString())
 }
 
 // Find prev
@@ -83,4 +82,3 @@ export function capitalizeFirstLetter(str: string) {
 	}
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
-

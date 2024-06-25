@@ -1,10 +1,9 @@
 export const routes = {
 	ADD: '/add',
-	HOME: '/home',
 	PROFILE: '/profile',
 	PROJECTS: '/projects',
 	SEARCH: '/search',
-	START: '/',
+	HOME: '/',
 }
 
 export const icons = {
@@ -14,10 +13,10 @@ export const icons = {
 	DELETE: '/icons/delete.svg',
 	EDIT: '/icons/edit.svg',
 	HOME: '/icons/home.svg',
-	ITEMS: '/icons/items.svg',
 	MENU: '/icons/menu.svg',
 	NEXT: '/icons/next.svg',
 	PREV: '/icons/prev.svg',
+	PROFILE: '/icons/profile.svg',
 	SAVE: '/icons/save.svg',
 	SEARCH: '/icons/search.svg',
 	UPLOAD: '/icons/upload.svg',
@@ -29,13 +28,13 @@ export const images = {
 
 export const nav = [
 	{
-		route: routes.START,
+		route: routes.HOME,
 		icon: icons.HOME,
 		label: 'Home',
 	},
 	{
 		route: routes.PROFILE,
-		icon: icons.ITEMS,
+		icon: icons.PROFILE,
 		label: 'My profile',
 	},
 	{
