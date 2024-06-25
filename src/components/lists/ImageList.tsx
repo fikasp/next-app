@@ -40,14 +40,14 @@ export default function ImageList({
 	// Update URL
 	useEffect(() => {
 		if (isDialogOpen) {
-			updateUrlParams({ img: selectedImageIndex })
+			updateUrlParams({ img: String(selectedImageIndex) })
 		}
 	}, [selectedImageIndex, isDialogOpen])
 
 	// Handlers for the modal
 	const handleOpen = (index: number) => {
 		debug(3)
-		updateUrlParams({ img: index })
+		updateUrlParams({ img: String(index) })
 		setSelectedImageIndex(index)
 		setIsDialogOpen(true)
 	}
