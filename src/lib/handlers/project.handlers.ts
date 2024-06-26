@@ -1,7 +1,5 @@
 // modules
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-// components
-import { toast } from '@/components/ui/use-toast'
 // lib
 import {
 	createProject,
@@ -10,12 +8,13 @@ import {
 	addImageToProject,
 	removeImageFromProject,
 } from '@/lib/actions/project.action'
-import { handleError } from '@/lib/utils/dev'
-import { IImage } from '../models/image.model'
+import { debug, handleError } from '@/lib/utils/dev'
+import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/utils/zod'
+import { Result } from '@/lib/types'
+import { toastArw, toastErrors, toastSuccess } from '@/lib/utils/toasts'
 import { routes } from '@/navigation'
-import { toastArw } from '@/lib/utils/toasts'
 
 export const handleSubmit =
 	(router: AppRouterInstance, project?: IProject, close?: () => void) =>
@@ -29,21 +28,27 @@ export const handleSubmit =
 				)
 				if (updatedProject) {
 					toastArw(`${projectFormData.title} is successfully updated`)
+					router.push(routes.PROFILE)
 				}
 				if (close) {
 					close()
 				}
 			} else {
 				// Create project
-				const newProject = await createProject(projectFormData)
-				if (newProject) {
-					toastArw(`${projectFormData.title} is successfully added`)
+				const { errors, data }: Result<IProject> = await createProject(
+					projectFormData
+				)
+				if (errors) {
+					toastErrors(errors)
+				} else if (data) {
+					debug(9, 9, data)
+					toastSuccess(`${data.title} is successfully added`)
+					router.push(routes.PROFILE)
 				}
 			}
 		} catch (err) {
 			handleError(err)
 		}
-		router.push(routes.PROFILE)
 	}
 
 // Delete project
@@ -63,17 +68,15 @@ export const handleDelete =
 // Add image to project
 export const handleAddImage = async (
 	project: IProject,
-	url: string,
-	key?: string,
-	name?: string
+	imageUrl: string,
+	imageName: string
 ) => {
 	try {
 		if (project) {
 			const updatedProject = await addImageToProject(
 				project.slug,
-				url,
-				key,
-				name
+				imageUrl,
+				imageName
 			)
 			if (updatedProject) {
 				toastArw('New image is successfully added')
@@ -91,7 +94,6 @@ export const handleRemoveImage =
 			const updatedProject = await removeImageFromProject(
 				project.slug,
 				image._id,
-				image.key
 			)
 			if (updatedProject) {
 				toastArw('The image has been successfully removed')

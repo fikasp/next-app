@@ -4,16 +4,11 @@ import { Schema, model, models } from 'mongoose'
 export interface IImage extends Document {
 	_id: string
 	url: string
-	key: string
 	name: string
 }
 
 const ImageSchema = new Schema({
 	url: {
-		type: String,
-		default: '',
-	},
-	key: {
 		type: String,
 		default: '',
 	},

@@ -15,9 +15,10 @@ import {
 	updateCategory,
 } from '@/lib/actions/category.action'
 import { debug, handleError } from '@/lib/utils/dev'
-import { toastError, toastSuccess } from '@/lib/utils/toasts'
-import { Option } from '@/lib/types'
+import { ICategory } from '@/lib/models/category.model'
 import { icons } from '@/navigation'
+import { Option, Result } from '@/lib/types'
+import { toastErrors, toastSuccess } from '@/lib/utils/toasts'
 
 export default function CategoryDialog({
 	options,
@@ -37,17 +38,17 @@ export default function CategoryDialog({
 		e.stopPropagation()
 		e.preventDefault()
 		try {
-			if (!newLabel) return
-			const result = await createCategory(newLabel)
-			if (result.error) {
-				toastError(result.error)
-				return
-			} else {
+			debug(3, 9)
+			const { errors, success }: Result<ICategory> = await createCategory(
+				newLabel
+			)
+			if (errors) {
+				toastErrors(errors)
+			} else if (success) {
 				setOptions((prevOptions) => [
 					...prevOptions,
-					{ value: result.label, label: result.label },
+					{ value: newLabel, label: newLabel },
 				])
-				debug(2, 9, result)
 				toastSuccess('Category added')
 				setNewLabel('')
 			}
@@ -59,13 +60,15 @@ export default function CategoryDialog({
 	// UPDATE
 	const handleUpdateCategory = async () => {
 		if (editedOption) {
-			debug(4, 9, editedOption)
+			debug(4, 9)
 			try {
-				const result = await updateCategory(editedOption.label, editedLabel)
-				if (result.error) {
-					toastError(result.error)
-					return
-				} else {
+				const { errors, success }: Result<ICategory> = await updateCategory(
+					editedOption.label,
+					editedLabel
+				)
+				if (errors) {
+					toastErrors(errors)
+				} else if (success) {
 					setOptions((prevOptions) =>
 						prevOptions.map((prevOption) =>
 							prevOption.label === editedOption.label
@@ -86,12 +89,13 @@ export default function CategoryDialog({
 	// DELETE
 	const handleDeleteCategory = async (option: Option) => {
 		try {
-			debug(5, 9, option)
-			const result = await deleteCategory(option.label)
-			if (result.error) {
-				toastError(result.error)
-				return
-			} else {
+			debug(5, 9)
+			const { errors, success }: Result<ICategory> = await deleteCategory(
+				option.label
+			)
+			if (errors) {
+				toastErrors(errors)
+			} else if (success) {
 				setOptions((prevOptions) =>
 					prevOptions.filter((prevOption) => prevOption.label !== option.label)
 				)

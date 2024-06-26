@@ -37,8 +37,4 @@ const UserSchema = new Schema({
 	},
 })
 
-const profilel = models?.User || model('User', UserSchema)
-
-export default profilel
-
-
+export const UserModel = models?.User || model('User', UserSchema)

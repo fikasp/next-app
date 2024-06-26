@@ -4,14 +4,37 @@ import { type ClassValue, clsx } from 'clsx'
 import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
+import { ZodSchema } from 'zod'
 // components
 
-// Tailwind classNames
+// Capitalize first letter
+export function capitalizeFirstLetter(str: string) {
+	if (!str) {
+		return str
+	}
+	return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+// Class names merge with tailwind
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-// Slug generator
+// Deep clone
+export function deepClone(obj: any) {
+	return JSON.parse(JSON.stringify(obj))
+}
+
+// Find prev element
+export function findPrev<T>(array: T[], currentIndex: number) {
+	return currentIndex > 0 ? array[currentIndex - 1] : null
+}
+// Find next element
+export function findNext<T>(array: T[], currentIndex: number) {
+	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
+}
+
+// Generate unique slug
 export async function generateUniqueSlug(
 	Model: mongoose.Model<any>,
 	text: string,
@@ -29,7 +52,7 @@ export async function generateUniqueSlug(
 	return newSlug
 }
 
-// URL generator
+// Generate URL
 export function generateUrl(
 	pathSegments: string[],
 	queryParams: { [key: string]: string | undefined } = {}
@@ -44,7 +67,21 @@ export function generateUrl(
 	})
 }
 
-// URL search parameters update
+// Parse with zod schema
+export function validateData(
+	schema: ZodSchema,
+	data: any
+): string[] | null {
+	const result = schema.safeParse(data)
+
+	if (!result.success) {
+		const errors = result.error.errors.map((error) => `${error.message}`)
+		return errors
+	}
+	return null
+}
+
+// Update URL params
 export function updateUrlParams(
 	params: Record<string, string | undefined | null>
 ) {
@@ -59,26 +96,4 @@ export function updateUrlParams(
 	})
 
 	window.history.pushState({}, '', url.toString())
-}
-
-// Find prev
-export function findPrev<T>(array: T[], currentIndex: number) {
-	return currentIndex > 0 ? array[currentIndex - 1] : null
-}
-// Find next
-export function findNext<T>(array: T[], currentIndex: number) {
-	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
-}
-
-// Deep clone
-export function deepClone(obj: any) {
-	return JSON.parse(JSON.stringify(obj))
-}
-
-// Capitalize first letter
-export function capitalizeFirstLetter(str: string) {
-	if (!str) {
-		return str
-	}
-	return str.charAt(0).toUpperCase() + str.slice(1)
 }

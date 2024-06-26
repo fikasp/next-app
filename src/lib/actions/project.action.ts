@@ -3,27 +3,36 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import profilel, { IUser } from '@/lib/models/user.model'
-import { deepClone, generateUniqueSlug } from '@/lib/utils'
-import { Adjacent } from '@/lib/types'
+import { Adjacent, Result } from '@/lib/types'
+import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
-import { deleteFiles } from '@/lib/actions/image.action'
+import { deepClone, generateUniqueSlug, validateData } from '@/lib/utils'
+// import { deleteFiles } from '@/lib/actions/image.action'
 import { findPrev, findNext } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
-import { ProjectFormData } from '@/lib/utils/zod'
+import { ProjectFormData, projectSchema } from '@/lib/utils/zod'
 import { SortOptions } from '@/lib/types/enums'
+import { UserModel, IUser } from '@/lib/models/user.model'
 import { routes } from '@/navigation'
-
-import { CategoryModel, ICategory } from '../models/category.model'
 
 // CREATE
 // Create project
-export async function createProject(projectData: ProjectFormData) {
+export async function createProject(
+	projectData: ProjectFormData
+): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
+
+		const validationErrors = validateData(projectSchema, projectData)
+		if (validationErrors) {
+			return {
+				success: false,
+				errors: validationErrors,
+			}
+		}
 
 		const user: IUser = await getCurrentUser()
 		const category: ICategory | null = await CategoryModel.findOne({
@@ -32,7 +41,7 @@ export async function createProject(projectData: ProjectFormData) {
 
 		const slug = await generateUniqueSlug(ProjectModel, projectData.title)
 
-		const newProject = await ProjectModel.create({
+		const newProject: IProject = await ProjectModel.create({
 			user,
 			slug,
 			title: projectData.title,
@@ -42,9 +51,10 @@ export async function createProject(projectData: ProjectFormData) {
 
 		debug(1, 0, newProject)
 		revalidatePath(routes.PROJECTS)
-		return deepClone(newProject)
+		return { success: true, data: deepClone(newProject) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, errors: ['An error occurred'] }
 	}
 }
 
@@ -73,7 +83,7 @@ export async function getProjects(searchParams: any, profile: boolean) {
 			const user: IUser = await getCurrentUser()
 			projectQuery.user = user._id
 		} else if (searchParams.user) {
-			const user = await profilel.findOne({ username: searchParams.user })
+			const user = await UserModel.findOne({ username: searchParams.user })
 			if (user) {
 				projectQuery.user = user._id
 			}
@@ -196,13 +206,11 @@ export async function updateProject(
 export async function addImageToProject(
 	slug: string,
 	url: string,
-	key?: string,
-	name?: string
+	name: string
 ) {
 	try {
 		await connectToDatabase()
-
-		const image = await ImageModel.create({ url, key, name })
+		const image = await ImageModel.create({ url, name })
 
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
@@ -218,11 +226,7 @@ export async function addImageToProject(
 }
 
 // Remove image from project
-export async function removeImageFromProject(
-	slug: string,
-	imageId: string,
-	imageKey: string
-) {
+export async function removeImageFromProject(slug: string, imageId: string) {
 	try {
 		await connectToDatabase()
 
@@ -234,11 +238,6 @@ export async function removeImageFromProject(
 			{ slug },
 			{ $pull: { images: imageId } }
 		)
-		if (imageKey) {
-			const deletedFile = await deleteFiles([imageKey])
-			debug(0, 0, deletedFile)
-		}
-
 		debug(5, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return deepClone(updatedProject)
@@ -261,16 +260,16 @@ export async function deleteProject(projectId: string) {
 
 		// Extract image IDs and keys
 		const imagesIds = project.images.map((image: IImage) => image._id)
-		const imagesKeys = project.images.map((image: IImage) => image.key)
+		// const imagesKeys = project.images.map((image: IImage) => image.key)
 
 		// Delete images from the database
 		await ImageModel.deleteMany({ _id: { $in: imagesIds } })
 
-		// Delete image files from storage if they exist
-		if (imagesKeys.length > 0) {
-			const deletedFiles = await deleteFiles(imagesKeys)
-			debug(0, 0, deletedFiles)
-		}
+		// // Delete image files from storage if they exist
+		// if (imagesKeys.length > 0) {
+		// 	const deletedFiles = await deleteFiles(imagesKeys)
+		// 	debug(0, 0, deletedFiles)
+		// }
 
 		// Delete the project
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)

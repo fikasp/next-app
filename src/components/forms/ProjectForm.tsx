@@ -18,9 +18,9 @@ import { handleSubmit } from '@/lib/handlers/project.handlers'
 import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { Option } from '@/lib/types'
+import { Option, Result } from '@/lib/types'
 import { getCategories } from '@/lib/actions/category.action'
-import { handleError } from '@/lib/utils/dev'
+import { debug, handleError } from '@/lib/utils/dev'
 
 export default function ProjectForm({
 	project,
@@ -29,18 +29,21 @@ export default function ProjectForm({
 	project?: IProject
 	close?: () => void
 }) {
+	debug(9)
 	const router = useRouter()
 	const [categoryOptions, setCategoryOptions] = useState<Option[]>([])
 
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
-				const categories = await getCategories()
-				const options = categories.map((category: ICategory) => ({
-					value: category.label,
-					label: category.label,
-				}))
-				setCategoryOptions(options)
+				const { data }: Result<ICategory[]> = await getCategories()
+				if (data) {
+					const options = data.map((category: ICategory) => ({
+						value: category.label,
+						label: category.label,
+					}))
+					setCategoryOptions(options)
+				}
 			} catch (error) {
 				handleError(error)
 			}

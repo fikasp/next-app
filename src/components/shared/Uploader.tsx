@@ -1,10 +1,10 @@
 'use client'
 // modules
 import { Else, If, Then } from 'react-if'
-import { FileWithPath } from 'react-dropzone'
+import { FileWithPath, useDropzone } from 'react-dropzone'
 import { generateClientDropzoneAccept } from 'uploadthing/client'
 import { useCallback, Dispatch, SetStateAction } from 'react'
-import { useDropzone } from '@uploadthing/react/hooks'
+
 import Image from 'next/image'
 // components
 import { Button } from '@/components/ui/button'

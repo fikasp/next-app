@@ -19,7 +19,7 @@ import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'
 import { useEffect, useState } from 'react'
-import { Option } from '@/lib/types'
+import { Option, Result } from '@/lib/types'
 import { getCategories } from '@/lib/actions/category.action'
 import { ICategory } from '@/lib/models/category.model'
 
@@ -31,12 +31,14 @@ export default function SearchForm() {
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
-				const categories = await getCategories()
-				const options = categories.map((category: ICategory) => ({
-					value: category.label,
-					label: category.label,
-				}))
-				setOptions(options)
+				const { data }: Result<ICategory[]> = await getCategories()
+				if (data) {
+					const options: Option[] = data.map((category: ICategory) => ({
+						value: category.label,
+						label: category.label,
+					}))
+					setOptions(options)
+				}
 			} catch (error) {
 				console.error('Error fetching categories:', error)
 			}

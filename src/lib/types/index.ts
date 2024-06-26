@@ -5,6 +5,12 @@ export type Adjacent<T> = {
 	next: T | null
 }
 
+export type Result<T> = {
+	success: boolean
+	errors?: string[] | undefined
+	data?: T | undefined
+}
+
 // Option
 export type Option = {
 	value: string

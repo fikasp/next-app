@@ -1,4 +1,5 @@
 import { toast } from '@/components/ui/use-toast'
+import { msg } from '../constants'
 
 export function toastArw(message: string) {
 	toast({
@@ -11,6 +12,16 @@ export function toastError(message: string) {
 		title: 'Error!',
 		variant: 'error',
 		description: message,
+	})
+}
+
+export function toastErrors(messages: string[]) {
+	messages.forEach((message) => {
+		toast({
+			title: 'Error!',
+			variant: 'error',
+			description: message,
+		})
 	})
 }
 

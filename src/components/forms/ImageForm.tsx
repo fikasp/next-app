@@ -5,23 +5,21 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
-import Uploader from '@/components/shared/Uploader'
-import ArwForm from '@/components/arw/ArwForm'
-import { toast } from '@/components/ui/use-toast'
-import { FormField } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
+import { FormField } from '@/components/ui/form'
+import { toast } from '@/components/ui/use-toast'
+import ArwForm from '@/components/arw/ArwForm'
+import Uploader from '@/components/shared/Uploader'
 // lib
 import { debug } from '@/lib/utils/dev'
-import { handleAddImage } from '@/lib/handlers/project.handlers'
 import { imageSchema, ImageFormData } from '@/lib/utils/zod'
 import { IProject } from '@/lib/models/project.model'
-import { useUploadThing } from '@/lib/utils/uploadthing'
-import { images } from '@/navigation'
+import { uploadImage } from '@/lib/actions/image.action'
+import { handleAddImage } from '@/lib/handlers/project.handlers'
 
 export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])
 	const [isUploading, setIsUploading] = useState(false)
-	const { startUpload } = useUploadThing('imageUploader')
 	debug(0, 0, 'Files', files)
 
 	const form = useForm<ImageFormData>({
@@ -32,17 +30,20 @@ export default function ImageForm({ project }: { project: IProject }) {
 	})
 
 	const handleSubmit = async () => {
+		debug(9)
 		setIsUploading(true)
 
-		if (files.length === 0) {
-			handleAddImage(project, images.IMAGE)
-		} else if (files.length === 1) {
-			const uploadedImages = await startUpload(files)
-			if (uploadedImages) {
-				const { url, key, name } = uploadedImages[0]
-				handleAddImage(project, url, key, name)
-				debug(0, 0, uploadedImages)
-			}
+		const formData = new FormData()
+		files.forEach((file) => {
+			formData.append('file', file)
+		})
+		const imageUrl = await uploadImage(formData)
+		const imageName = files[0].name
+		debug(0, 9, 'imageUrl:', imageUrl)
+		debug(0, 9, 'imageName:', imageName)
+
+		if (files.length === 1) {
+			handleAddImage(project, imageUrl, imageName)
 		} else {
 			toast({
 				title: 'Warning!',

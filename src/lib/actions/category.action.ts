@@ -1,45 +1,61 @@
 'use server'
-import { CategoryModel } from '@/lib/models/category.model'
+import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
 import { ProjectModel } from '@/lib/models/project.model'
 import { deepClone } from '@/lib/utils'
+import { Result } from '@/lib/types'
 
 // CREATE
-export async function createCategory(newLabel: string) {
+export async function createCategory(
+	newLabel: string
+): Promise<Result<ICategory>> {
 	try {
+		if (!newLabel) {
+			return { success: false, errors: ['Label is required'] }
+		}
+
 		await connectToDatabase()
 		const existingCategory = await CategoryModel.findOne({
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { error: 'Category already exists' }
+			return { success: false, errors: ['Category already exists'] }
 		}
 
-		const newCategory = await CategoryModel.create({ label: newLabel })
+		const newCategory: ICategory = await CategoryModel.create({
+			label: newLabel,
+		})
 
 		debug(2, 9, newCategory)
-		return deepClone(newCategory)
+		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, errors: ['Error creating category'] }
 	}
 }
 
 // READ
-export async function getCategories() {
+export async function getCategories(): Promise<Result<ICategory[]>> {
 	try {
 		await connectToDatabase()
-		const categories = await CategoryModel.find().sort({ label: 1 })
+		const categories: ICategory[] = await CategoryModel.find().sort({
+			label: 1,
+		})
 
 		debug(3, 9, categories)
-		return deepClone(categories)
+		return { success: true, data: deepClone(categories) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, errors: ['Error fetching categories'] }
 	}
 }
 
 // UPDATE
-export async function updateCategory(oldLabel: string, newLabel: string) {
+export async function updateCategory(
+	oldLabel: string,
+	newLabel: string
+): Promise<Result<ICategory>> {
 	try {
 		await connectToDatabase()
 
@@ -47,27 +63,31 @@ export async function updateCategory(oldLabel: string, newLabel: string) {
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { error: 'Category already exists' }
+			return { success: false, errors: ['Category already exists'] }
 		}
 
-		const updatedCategory = await CategoryModel.findOneAndUpdate(
-			{ label: oldLabel },
-			{ label: newLabel },
-			{ new: true }
-		)
+		const updatedCategory: ICategory | null =
+			await CategoryModel.findOneAndUpdate(
+				{ label: oldLabel },
+				{ label: newLabel },
+				{ new: true }
+			)
 		if (!updatedCategory) {
-			return { error: 'Category not found' }
+			return { success: false, errors: ['Category not found'] }
 		}
 
 		debug(4, 9, updatedCategory)
-		return deepClone(updatedCategory)
+		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, errors: ['Error updating category'] }
 	}
 }
 
 // DELETE
-export async function deleteCategory(label: string) {
+export async function deleteCategory(
+	label: string
+): Promise<Result<ICategory>> {
 	try {
 		await connectToDatabase()
 
@@ -77,18 +97,23 @@ export async function deleteCategory(label: string) {
 		})
 
 		if (projectsUsingCategory) {
-			return { error: 'Category is used in projects, cannot delete' }
+			return {
+				success: false,
+				errors: ['Category is used in projects, cannot delete'],
+			}
 		}
 
-		const deletedCategory = await CategoryModel.findOneAndDelete({ label })
+		const deletedCategory: ICategory | null =
+			await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
-			return { error: 'Category not found' }
+			return { success: false, errors: ['Category not found'] }
 		}
 
 		debug(5, 9, deletedCategory)
-		return deepClone(deletedCategory)
+		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, errors: ['Error deleting category'] }
 	}
 }
