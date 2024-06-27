@@ -14,7 +14,7 @@ import { FormField } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 // lib
 import { generateUrl } from '@/lib/utils'
-import { searchSchema, SearchFormData } from '@/lib/utils/zod'
+import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { routes } from '@/navigation'

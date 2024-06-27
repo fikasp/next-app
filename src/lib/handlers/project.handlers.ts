@@ -11,7 +11,7 @@ import {
 import { debug, handleError } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
-import { ProjectFormData } from '@/lib/utils/zod'
+import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types'
 import { toastArw, toastErrors, toastSuccess } from '@/lib/utils/toasts'
 import { routes } from '@/navigation'

@@ -15,41 +15,29 @@ import ArwTitle from '@/components/arw/ArwTitle'
 import CategoryDialog from '@/components/dialogs/CategoryDialog'
 // lib
 import { handleSubmit } from '@/lib/handlers/project.handlers'
-import { projectSchema, ProjectFormData } from '@/lib/utils/zod'
+import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { Option, Result } from '@/lib/types'
-import { getCategories } from '@/lib/actions/category.action'
-import { debug, handleError } from '@/lib/utils/dev'
+import { debug } from '@/lib/utils/dev'
+import { Option } from '@/lib/types'
 
 export default function ProjectForm({
 	project,
+	categories,
 	close,
 }: {
 	project?: IProject
+	categories: ICategory[] | undefined
 	close?: () => void
 }) {
-	debug(9)
+	debug(9,9, project)
 	const router = useRouter()
-	const [categoryOptions, setCategoryOptions] = useState<Option[]>([])
-
-	useEffect(() => {
-		const fetchCategories = async () => {
-			try {
-				const { data }: Result<ICategory[]> = await getCategories()
-				if (data) {
-					const options = data.map((category: ICategory) => ({
-						value: category.label,
-						label: category.label,
-					}))
-					setCategoryOptions(options)
-				}
-			} catch (error) {
-				handleError(error)
-			}
-		}
-		fetchCategories()
-	}, [])
+	const categoryOptions: Option[] = categories
+		? categories.map((category: ICategory) => ({
+				value: category.label,
+				label: category.label,
+		  }))
+		: []
 
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
@@ -113,10 +101,7 @@ export default function ProjectForm({
 									search
 									center
 								>
-									<CategoryDialog
-										options={categoryOptions}
-										setOptions={setCategoryOptions}
-									/>
+									<CategoryDialog options={categoryOptions} />
 								</ArwSelect>
 							</>
 						)}

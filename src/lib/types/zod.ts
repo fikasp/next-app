@@ -2,7 +2,6 @@
 import { z } from 'zod'
 // lib
 import { SortOptions } from '@/lib/types/enums'
-import { categories, msg } from '@/lib/constants'
 
 export const projectSchema = z.object({
 	title: z

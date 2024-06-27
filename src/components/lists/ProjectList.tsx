@@ -1,15 +1,18 @@
 // components
 import ArwGrid from '@/components/arw/ArwGrid'
 import ProjectCard from '@/components/cards/ProjectCard'
+import { ICategory } from '@/lib/models/category.model'
 // lib
 import { IProject } from '@/lib/models/project.model'
 
 export default async function ProjectsList({
 	projects,
+	categories,
 	searchParams,
 	profile,
 }: {
 	projects: IProject[]
+	categories: ICategory[]
 	searchParams: any
 	profile: boolean
 }) {
@@ -19,6 +22,7 @@ export default async function ProjectsList({
 				<ProjectCard
 					key={project._id}
 					project={project}
+					categories={categories}
 					searchParams={searchParams}
 					profile={profile}
 				/>

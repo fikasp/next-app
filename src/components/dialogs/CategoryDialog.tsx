@@ -10,101 +10,20 @@ import ArwText from '@/components/arw/ArwText'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import {
-	createCategory,
-	deleteCategory,
-	updateCategory,
-} from '@/lib/actions/category.action'
-import { debug, handleError } from '@/lib/utils/dev'
-import { ICategory } from '@/lib/models/category.model'
+	handleCreateCategory,
+	handleDeleteCategory,
+	handleUpdateCategory,
+} from '@/lib/handlers/category.handlers'
+import { debug } from '@/lib/utils/dev'
 import { icons } from '@/navigation'
-import { Option, Result } from '@/lib/types'
-import { toastErrors, toastSuccess } from '@/lib/utils/toasts'
+import { Option } from '@/lib/types'
 
-export default function CategoryDialog({
-	options,
-	setOptions,
-}: {
-	options: Option[]
-	setOptions: React.Dispatch<React.SetStateAction<Option[]>>
-}) {
+export default function CategoryDialog({ options }: { options: Option[] }) {
 	debug(0, 0, options)
 	const [newLabel, setNewLabel] = useState('')
 	const [editedLabel, setEditedLabel] = useState('')
 	const [editedOption, setEditedOption] = useState<Option | null>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
-
-	// CREATE
-	const handleCreateCategory = async (e: any) => {
-		e.stopPropagation()
-		e.preventDefault()
-		try {
-			debug(3, 9)
-			const { errors, success }: Result<ICategory> = await createCategory(
-				newLabel
-			)
-			if (errors) {
-				toastErrors(errors)
-			} else if (success) {
-				setOptions((prevOptions) => [
-					...prevOptions,
-					{ value: newLabel, label: newLabel },
-				])
-				toastSuccess('Category added')
-				setNewLabel('')
-			}
-		} catch (error) {
-			handleError(error)
-		}
-	}
-
-	// UPDATE
-	const handleUpdateCategory = async () => {
-		if (editedOption) {
-			debug(4, 9)
-			try {
-				const { errors, success }: Result<ICategory> = await updateCategory(
-					editedOption.label,
-					editedLabel
-				)
-				if (errors) {
-					toastErrors(errors)
-				} else if (success) {
-					setOptions((prevOptions) =>
-						prevOptions.map((prevOption) =>
-							prevOption.label === editedOption.label
-								? { ...prevOption, label: editedLabel }
-								: prevOption
-						)
-					)
-					toastSuccess('Category updated')
-					setEditedOption(null)
-					setEditedLabel('')
-				}
-			} catch (error) {
-				handleError(error)
-			}
-		}
-	}
-
-	// DELETE
-	const handleDeleteCategory = async (option: Option) => {
-		try {
-			debug(5, 9)
-			const { errors, success }: Result<ICategory> = await deleteCategory(
-				option.label
-			)
-			if (errors) {
-				toastErrors(errors)
-			} else if (success) {
-				setOptions((prevOptions) =>
-					prevOptions.filter((prevOption) => prevOption.label !== option.label)
-				)
-				toastSuccess('Category deleted')
-			}
-		} catch (error) {
-			handleError(error)
-		}
-	}
 
 	const handleEditClick = (option: Option) => {
 		setEditedOption(option)
@@ -147,7 +66,9 @@ export default function CategoryDialog({
 										/>
 										<ArwFlex row>
 											<ArwButton
-												onClick={handleUpdateCategory}
+												onClick={() =>
+													handleUpdateCategory(editedLabel, editedOption)
+												}
 												src={icons.SAVE}
 											/>
 											<ArwButton
@@ -177,7 +98,7 @@ export default function CategoryDialog({
 				</ArwFlex>
 
 				<form
-					onSubmit={handleCreateCategory}
+					onSubmit={(e) => handleCreateCategory(e, newLabel, setNewLabel)}
 					className="w-full flex flex-col gap-3"
 				>
 					<Input

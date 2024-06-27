@@ -13,13 +13,16 @@ import Manipulations from '@/components/shared/Manipulations'
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/navigation'
+import { ICategory } from '@/lib/models/category.model'
 
 export default function ProjectCard({
 	project,
+	categories,
 	searchParams,
 	profile,
 }: {
 	project: IProject
+	categories: ICategory[]
 	searchParams?: any
 	profile?: boolean
 }) {
@@ -53,7 +56,7 @@ export default function ProjectCard({
 					{project.title}
 				</ArwTitle>
 				<When condition={profile}>
-					<Manipulations project={project} className="relative z-30" />
+					<Manipulations project={project} categories={categories} className="relative z-30" />
 				</When>
 			</ArwFlex>
 			<ArwFlex row between>

@@ -12,7 +12,7 @@ import ArwForm from '@/components/arw/ArwForm'
 import Uploader from '@/components/shared/Uploader'
 // lib
 import { debug } from '@/lib/utils/dev'
-import { imageSchema, ImageFormData } from '@/lib/utils/zod'
+import { imageSchema, ImageFormData } from '@/lib/types/zod'
 import { IProject } from '@/lib/models/project.model'
 import { uploadImage } from '@/lib/actions/image.action'
 import { handleAddImage } from '@/lib/handlers/project.handlers'

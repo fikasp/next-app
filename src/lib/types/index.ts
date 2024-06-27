@@ -7,8 +7,8 @@ export type Adjacent<T> = {
 
 export type Result<T> = {
 	success: boolean
-	errors?: string[] | undefined
-	data?: T | undefined
+	errors?: string[]
+	data?: T
 }
 
 // Option

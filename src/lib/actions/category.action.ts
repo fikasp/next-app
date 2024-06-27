@@ -1,10 +1,14 @@
 'use server'
+// modules
+import { revalidatePath } from 'next/cache'
+// lib
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
 import { ProjectModel } from '@/lib/models/project.model'
 import { deepClone } from '@/lib/utils'
 import { Result } from '@/lib/types'
+import { routes } from '@/navigation'
 
 // CREATE
 export async function createCategory(
@@ -28,6 +32,7 @@ export async function createCategory(
 		})
 
 		debug(2, 9, newCategory)
+		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
 		handleError(error)
@@ -43,7 +48,7 @@ export async function getCategories(): Promise<Result<ICategory[]>> {
 			label: 1,
 		})
 
-		debug(3, 9, categories)
+		debug(3, 0, categories)
 		return { success: true, data: deepClone(categories) }
 	} catch (error) {
 		handleError(error)
@@ -77,6 +82,7 @@ export async function updateCategory(
 		}
 
 		debug(4, 9, updatedCategory)
+		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
 		handleError(error)
@@ -111,6 +117,7 @@ export async function deleteCategory(
 		}
 
 		debug(5, 9, deletedCategory)
+		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
 		handleError(error)

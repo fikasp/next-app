@@ -13,7 +13,7 @@ import { findPrev, findNext } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
-import { ProjectFormData, projectSchema } from '@/lib/utils/zod'
+import { ProjectFormData, projectSchema } from '@/lib/types/zod'
 import { SortOptions } from '@/lib/types/enums'
 import { UserModel, IUser } from '@/lib/models/user.model'
 import { routes } from '@/navigation'
@@ -144,9 +144,9 @@ export async function getProjectBySlug({
 		if (currentIndex === -1) {
 			throw new Error('Unauthorized access to this project.')
 		}
-		const currentProject = await ProjectModel.findOne({ slug }).populate(
-			'images'
-		)
+		const currentProject = await ProjectModel.findOne({ slug })
+			.populate('category')
+			.populate('images')
 		const prevProject = findPrev<IProject>(projects, currentIndex)
 		const nextProject = findNext<IProject>(projects, currentIndex)
 
