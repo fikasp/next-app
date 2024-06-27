@@ -12,7 +12,7 @@ export default async function ProjectsList({
 	profile,
 }: {
 	projects: IProject[]
-	categories: ICategory[]
+	categories: ICategory[] | undefined
 	searchParams: any
 	profile: boolean
 }) {

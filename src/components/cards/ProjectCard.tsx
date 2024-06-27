@@ -22,7 +22,7 @@ export default function ProjectCard({
 	profile,
 }: {
 	project: IProject
-	categories: ICategory[]
+	categories: ICategory[] | undefined
 	searchParams?: any
 	profile?: boolean
 }) {
