@@ -10,7 +10,8 @@ import ImageList from '@/components/lists/ImageList'
 import Manipulations from '@/components/shared/Manipulations'
 import Navigation from '@/components/shared/Navigation'
 // lib
-import { Adjacent, Result } from '@/lib/types'
+import { Adjacent } from '@/lib/types'
+import { DataResult, Result } from '@/lib/types/results'
 import { generateUrl } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
 import { getProjectBySlug } from '@/lib/actions/project.action'
@@ -29,8 +30,10 @@ export default async function ProjectPage({
 	profile?: boolean
 }) {
 	debug(7, 9, searchParams)
-	const { data: categories }: Result<ICategory[]> = await getCategories()
-	const { prev, current, next }: Adjacent<IProject> = await getProjectBySlug({
+	const { data: categories }: DataResult<ICategory[]> = await getCategories()
+	const {
+		data: { prev, current, next },
+	}: DataResult<Adjacent<IProject>> = await getProjectBySlug({
 		slug: params.slug,
 		searchParams,
 		profile,

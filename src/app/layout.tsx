@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/layout/Provider'
 import { Toaster } from '@/components/ui/toaster'
 // lib
 import { cn } from '@/lib/utils/'
+import { AppProvider } from '@/lib/context'
 import '@/lib/styles/globals.css'
 
 // fonts
@@ -48,15 +49,17 @@ export default function RootLayout({
 						roboto.variable
 					)}
 				>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						disableTransitionOnChange
-						enableSystem
-					>
-						{children}
-						<Toaster />
-					</ThemeProvider>
+					<AppProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							disableTransitionOnChange
+							enableSystem
+						>
+							{children}
+							<Toaster />
+						</ThemeProvider>
+					</AppProvider>
 				</body>
 			</html>
 		</ClerkProvider>

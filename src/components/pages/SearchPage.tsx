@@ -6,7 +6,7 @@ import SearchForm from '@/components/forms/SearchForm'
 import { debug } from '@/lib/utils/dev'
 import { getCategories } from '@/lib/actions/category.action'
 import { ICategory } from '@/lib/models/category.model'
-import { Result } from '@/lib/types'
+import { Result } from '@/lib/types/results'
 
 export default async function SearchPage() {
 	debug(7)

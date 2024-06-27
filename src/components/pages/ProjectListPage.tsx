@@ -7,7 +7,7 @@ import ProjectsList from '@/components/lists/ProjectList'
 import { getProjects } from '@/lib/actions/project.action'
 import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
-import { Result } from '@/lib/types'
+import { DataResult, Result } from '@/lib/types/results'
 import { ICategory } from '@/lib/models/category.model'
 import { getCategories } from '@/lib/actions/category.action'
 
@@ -19,21 +19,21 @@ export default async function ProjectsListPage({
 	profile?: boolean
 }) {
 	debug(7, 9, searchParams)
-	const { data: projects }: Result<IProject[]> = await getProjects(
+	const { data: projects }: DataResult<IProject[]> = await getProjects(
 		searchParams,
 		profile
 	)
-	const { data: categories }: Result<ICategory[]> = await getCategories()
+	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 
 	return (
-		<If condition={projects?.length === 0}>
+		<If condition={projects.length === 0}>
 			<Then>
 				<ArwContainer center>No projects</ArwContainer>
 			</Then>
 			<Else>
 				<ArwContainer>
 					<ProjectsList
-						projects={projects!}
+						projects={projects}
 						categories={categories}
 						searchParams={searchParams}
 						profile={profile}

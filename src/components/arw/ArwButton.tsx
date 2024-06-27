@@ -1,6 +1,7 @@
 // components
+import { ArwIcon } from '@/components/arw'
+// lib
 import { cn } from '@/lib/utils'
-import ArwIcon from './ArwIcon'
 
 export default function ArwButton({
 	onClick,

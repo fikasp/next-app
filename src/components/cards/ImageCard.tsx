@@ -1,11 +1,10 @@
 'use client'
 // modules
+import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import { When } from 'react-if'
-import Image from 'next/image'
 // components
-import ArwButton from '@/components/arw/ArwButton'
-import ArwFlex from '@/components/arw/ArwFlex'
+import { ArwButton, ArwFlex } from '@/components/arw'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { handleRemoveImage } from '@/lib/handlers/project.handlers'

@@ -7,7 +7,7 @@ import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
 import { ProjectModel } from '@/lib/models/project.model'
 import { deepClone } from '@/lib/utils'
-import { Result } from '@/lib/types'
+import { DataResult, Result } from '@/lib/types/results'
 import { routes } from '@/navigation'
 
 // CREATE
@@ -16,7 +16,7 @@ export async function createCategory(
 ): Promise<Result<ICategory>> {
 	try {
 		if (!newLabel) {
-			return { success: false, errors: ['Label is required'] }
+			return { success: false, errors: { error: 'Category name is required' } }
 		}
 
 		await connectToDatabase()
@@ -24,7 +24,7 @@ export async function createCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, errors: ['Category already exists'] }
+			return { success: false, errors: { error: 'Category already exists' } }
 		}
 
 		const newCategory: ICategory = await CategoryModel.create({
@@ -36,12 +36,12 @@ export async function createCategory(
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['Error creating category'] }
+		return { success: false, errors: { error: 'Error creating category' } }
 	}
 }
 
 // READ
-export async function getCategories(): Promise<Result<ICategory[]>> {
+export async function getCategories(): Promise<DataResult<ICategory[]>> {
 	try {
 		await connectToDatabase()
 		const categories: ICategory[] = await CategoryModel.find().sort({
@@ -52,7 +52,11 @@ export async function getCategories(): Promise<Result<ICategory[]>> {
 		return { success: true, data: deepClone(categories) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['Error fetching categories'], data: [] }
+		return {
+			success: false,
+			errors: { error: 'Error fetching categories' },
+			data: [],
+		}
 	}
 }
 
@@ -68,7 +72,7 @@ export async function updateCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, errors: ['Category already exists'] }
+			return { success: false, errors: { error: 'Category already exists' } }
 		}
 
 		const updatedCategory: ICategory | null =
@@ -78,7 +82,7 @@ export async function updateCategory(
 				{ new: true }
 			)
 		if (!updatedCategory) {
-			return { success: false, errors: ['Category not found'] }
+			return { success: false, errors: { error: 'Category not found' } }
 		}
 
 		debug(4, 0, updatedCategory)
@@ -86,7 +90,7 @@ export async function updateCategory(
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['Error updating category'] }
+		return { success: false, errors: { error: 'Error updating category' } }
 	}
 }
 
@@ -105,7 +109,7 @@ export async function deleteCategory(
 		if (projectsUsingCategory) {
 			return {
 				success: false,
-				errors: ['Category is used in projects, cannot delete'],
+				errors: { error: 'Category is used in projects, cannot delete' },
 			}
 		}
 
@@ -113,7 +117,7 @@ export async function deleteCategory(
 			await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
-			return { success: false, errors: ['Category not found'] }
+			return { success: false, errors: { error: 'Category not found' } }
 		}
 
 		debug(5, 0, deletedCategory)
@@ -121,6 +125,6 @@ export async function deleteCategory(
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['Error deleting category'] }
+		return { success: false, errors: { error: 'Error deleting category' } }
 	}
 }

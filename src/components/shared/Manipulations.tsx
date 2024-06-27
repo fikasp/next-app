@@ -18,7 +18,7 @@ export default function Manipulations({
 	className,
 }: {
 	project: IProject
-	categories: ICategory[] | undefined
+	categories: ICategory[] 
 	className?: string
 }) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)

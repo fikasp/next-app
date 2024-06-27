@@ -70,11 +70,21 @@ export function generateUrl(
 }
 
 // Parse with zod schema
-export function validateData(schema: ZodSchema, data: any): string[] | null {
+export function validateData(
+	schema: ZodSchema,
+	data: any
+): Record<string, string> | null {
 	const result = schema.safeParse(data)
 
 	if (!result.success) {
-		const errors = result.error.errors.map((error) => `${error.message}`)
+		const errors = result.error.errors.reduce(
+			(acc: Record<string, string>, error) => {
+				const key = error.path.join('.')
+				acc[key] = error.message
+				return acc
+			},
+			{}
+		)
 		return errors
 	}
 	return null

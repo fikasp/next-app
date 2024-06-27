@@ -2,18 +2,14 @@
 import Link from 'next/link'
 import { If, Then, Else, When } from 'react-if'
 // components
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import ArwFlex from '@/components/arw/ArwFlex'
-import ArwLink from '@/components/arw/ArwLink'
-import ArwPaper from '@/components/arw/ArwPaper'
-import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
 import Manipulations from '@/components/shared/Manipulations'
+import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 // lib
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/navigation'
 import { ICategory } from '@/lib/models/category.model'
+import { routes } from '@/navigation'
 
 export default function ProjectCard({
 	project,
@@ -22,7 +18,7 @@ export default function ProjectCard({
 	profile,
 }: {
 	project: IProject
-	categories: ICategory[] | undefined
+	categories: ICategory[]
 	searchParams?: any
 	profile?: boolean
 }) {
@@ -56,7 +52,11 @@ export default function ProjectCard({
 					{project.title}
 				</ArwTitle>
 				<When condition={profile}>
-					<Manipulations project={project} categories={categories} className="relative z-30" />
+					<Manipulations
+						project={project}
+						categories={categories}
+						className="relative z-30"
+					/>
 				</When>
 			</ArwFlex>
 			<ArwFlex row between>

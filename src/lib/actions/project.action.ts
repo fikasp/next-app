@@ -3,12 +3,12 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import { Adjacent, Result } from '@/lib/types'
+import { Adjacent } from '@/lib/types'
+import { DataResult, Result } from '@/lib/types/results'
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone, generateUniqueSlug, validateData } from '@/lib/utils'
-// import { deleteFiles } from '@/lib/actions/image.action'
 import { findPrev, findNext } from '@/lib/utils'
 import { getUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
@@ -54,7 +54,7 @@ export async function createProject(
 		return { success: true, data: deepClone(newProject) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['An error occurred'] }
+		return { success: false, errors: { error: 'An error occurred' } }
 	}
 }
 
@@ -76,7 +76,7 @@ export async function getCurrentUser() {
 export async function getProjects(
 	searchParams: any,
 	profile: boolean
-): Promise<Result<IProject[]>> {
+): Promise<DataResult<IProject[]>> {
 	try {
 		await connectToDatabase()
 
@@ -125,7 +125,7 @@ export async function getProjects(
 		return { success: true, data: deepClone(projects) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, data: [] }
+		return { success: false, data: [], errors: { error: 'An error occurred' } }
 	}
 }
 
@@ -138,15 +138,15 @@ export async function getProjectBySlug({
 	slug: string
 	searchParams: any
 	profile: boolean
-}): Promise<Adjacent<IProject>> {
+}): Promise<DataResult<Adjacent<IProject>>> {
 	try {
-		const { data: projects }: Result<IProject[]> = await getProjects(
+		const { data: projects }: DataResult<IProject[]> = await getProjects(
 			searchParams,
 			profile
 		)
 
 		if (!projects) {
-			return { prev: null, current: null, next: null }
+			return { success: true, data: { prev: null, current: null, next: null } }
 		}
 
 		const currentIndex = projects.findIndex(
@@ -168,10 +168,14 @@ export async function getProjectBySlug({
 		}
 
 		debug(3, 0, adjacentProjects)
-		return adjacentProjects
+		return { success: true, data: adjacentProjects }
 	} catch (error) {
 		handleError(error)
-		return { prev: null, current: null, next: null }
+		return {
+			success: false,
+			data: { prev: null, current: null, next: null },
+			errors: { error: 'An error occurred' },
+		}
 	}
 }
 
@@ -210,7 +214,7 @@ export async function updateProject(
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
-		return { success: false }
+		return { success: false, errors: { error: 'An error occurred' } }
 	}
 }
 
@@ -234,7 +238,7 @@ export async function addImageToProject(
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
-		return { success: false }
+		return { success: false, errors: { error: 'An error occurred' } }
 	}
 }
 
@@ -259,7 +263,7 @@ export async function removeImageFromProject(
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
-		return { success: false }
+		return { success: false, errors: { error: 'An error occurred' } }
 	}
 }
 
@@ -298,6 +302,6 @@ export async function deleteProject(
 		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
 		handleError(error)
-		return { success: false }
+		return { success: false, errors: { error: 'An error occurred' } }
 	}
 }

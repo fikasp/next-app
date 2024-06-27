@@ -19,7 +19,7 @@ export default function ImageDialog({
 	handleNext,
 }: {
 	isOpen: boolean
-	images: IImage[]
+	images: Image[]
 	selectedIndex: number
 	handleClose: () => void
 	handlePrev: () => void

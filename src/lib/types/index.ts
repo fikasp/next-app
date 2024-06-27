@@ -1,14 +1,7 @@
-// Adjacent
 export type Adjacent<T> = {
 	prev: T | null
 	current: T | null
 	next: T | null
-}
-
-export type Result<T> = {
-	success: boolean
-	errors?: string[]
-	data?: T
 }
 
 // Option

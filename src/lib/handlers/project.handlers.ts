@@ -12,7 +12,7 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
-import { Result } from '@/lib/types'
+import { Result } from '@/lib/types/results'
 import { toastErrors, toastSuccess } from '@/lib/utils/toasts'
 import { routes } from '@/navigation'
 
@@ -38,7 +38,7 @@ export const handleSubmit =
 				const { errors, data: createdProject }: Result<IProject> =
 					await createProject(projectFormData)
 				if (errors) {
-					toastErrors(errors)
+					toastErrors(Object.keys(errors))
 				} else if (createdProject) {
 					debug(9, 9, createdProject)
 					toastSuccess(`${createdProject.title} is successfully added`)

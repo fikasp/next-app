@@ -12,7 +12,7 @@ export default function ProjectUpdateDialog({
 	close,
 }: {
 	project: IProject
-	categories: ICategory[] | undefined
+	categories: ICategory[]
 	open: boolean
 	close: () => void
 }) {

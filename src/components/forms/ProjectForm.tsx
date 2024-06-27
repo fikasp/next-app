@@ -26,17 +26,15 @@ export default function ProjectForm({
 	close,
 }: {
 	project?: IProject
-	categories: ICategory[] | undefined
+	categories: ICategory[]
 	close?: () => void
 }) {
 	debug(8, 9, project)
 	const router = useRouter()
-	const categoryOptions: Option[] = categories
-		? categories.map((category: ICategory) => ({
-				value: category.label,
-				label: category.label,
-		  }))
-		: []
+	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
+		value: category.label,
+		label: category.label,
+	}))
 
 	const form = useForm<ProjectFormData>({
 		resolver: zodResolver(projectSchema),
