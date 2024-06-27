@@ -77,13 +77,8 @@ export function validateData(
 	const result = schema.safeParse(data)
 
 	if (!result.success) {
-		const errors = result.error.errors.reduce(
-			(acc: Record<string, string>, error) => {
-				const key = error.path.join('.')
-				acc[key] = error.message
-				return acc
-			},
-			{}
+		const errors = Object.fromEntries(
+			result.error.errors.map((error) => [error.path, error.message])
 		)
 		return errors
 	}

@@ -36,9 +36,9 @@ export const handleSubmit =
 			} else {
 				// Create project
 				const { errors, data: createdProject }: Result<IProject> =
-					await createProject(projectFormData)
+					await createProject({ title: '', info: '', category: '' })
 				if (errors) {
-					toastErrors(Object.keys(errors))
+					toastErrors(Object.values(errors))
 				} else if (createdProject) {
 					debug(9, 9, createdProject)
 					toastSuccess(`${createdProject.title} is successfully added`)
