@@ -52,7 +52,7 @@ export async function getCategories(): Promise<Result<ICategory[]>> {
 		return { success: true, data: deepClone(categories) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: ['Error fetching categories'] }
+		return { success: false, errors: ['Error fetching categories'], data: [] }
 	}
 }
 
@@ -116,7 +116,7 @@ export async function deleteCategory(
 			return { success: false, errors: ['Category not found'] }
 		}
 
-		debug(5, 9, deletedCategory)
+		debug(5, 0, deletedCategory)
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {

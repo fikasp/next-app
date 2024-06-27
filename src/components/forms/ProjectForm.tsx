@@ -29,7 +29,7 @@ export default function ProjectForm({
 	categories: ICategory[] | undefined
 	close?: () => void
 }) {
-	debug(9, 9, project)
+	debug(8, 9, project)
 	const router = useRouter()
 	const categoryOptions: Option[] = categories
 		? categories.map((category: ICategory) => ({

@@ -67,30 +67,15 @@ export default function ArwSelect({
 
 	// Handle select change
 	const handleSelectChange = (value: string) => {
-		debug(9, 9, value)
+		debug(0, 9, value)
 		setSelectedValue(value)
 		onValueChange(value)
-		setSearchTerm('')
 	}
 
 	const handleStopPropagation = (e: SyntheticEvent) => {
-		debug(9, 9, e)
+		debug(0, 9, e)
 		e.stopPropagation()
 	}
-
-	useEffect(() => {
-		const selectedOption = options.find(
-			(option) => option.value === selectedValue
-		)
-		if (selectedOption && !filteredOptions.includes(selectedOption)) {
-			setFilteredOptions((prevOptions) => [...prevOptions, selectedOption])
-		}
-	}, [selectedValue, options, filteredOptions])
-
-	useEffect(() => {
-		setFilteredOptions(options)
-		setSelectedValue(defaultValue)
-	}, [options, defaultValue])
 
 	return (
 		<Select

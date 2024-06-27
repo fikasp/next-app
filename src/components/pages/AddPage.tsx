@@ -9,8 +9,8 @@ import { ICategory } from '@/lib/models/category.model'
 import { Result } from '@/lib/types'
 
 export default async function AddPage() {
+	debug(7)
 	const { data: categories }: Result<ICategory[]> = await getCategories()
-	debug(8, 9, categories)
 	return (
 		<ArwContainer center>
 			<ArwPaper className="w-full-4 max-w-md min-h-md border dark:border-none p-8">

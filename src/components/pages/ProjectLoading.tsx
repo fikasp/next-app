@@ -5,14 +5,17 @@ import ArwPaper from '@/components/arw/ArwPaper'
 import ArwSpinner from '@/components/arw/ArwSpinner'
 import ArwTitle from '@/components/arw/ArwTitle'
 import Navigation from '@/components/shared/Navigation'
+// lib
+import { debug } from '@/lib/utils/dev'
 
 export default function ProjectLoading() {
+	debug(4)
 	return (
 		<ArwContainer>
 			<ArwPaper grow accent className="px-5 pb-5">
 				<ArwFlex row className="justify-between items-start">
 					<ArwTitle>Loading...</ArwTitle>
-					<Navigation className='mt-1' />
+					<Navigation className="mt-1" />
 				</ArwFlex>
 				<ArwSpinner accent />
 			</ArwPaper>

@@ -4,6 +4,7 @@ import ProjectCard from '@/components/cards/ProjectCard'
 import { ICategory } from '@/lib/models/category.model'
 // lib
 import { IProject } from '@/lib/models/project.model'
+import { debug } from '@/lib/utils/dev'
 
 export default async function ProjectsList({
 	projects,
@@ -16,6 +17,7 @@ export default async function ProjectsList({
 	searchParams: any
 	profile: boolean
 }) {
+	debug(8)
 	return (
 		<ArwGrid className="arw-grid-auto-300 gap-3 content-start">
 			{projects.map((project: IProject) => (

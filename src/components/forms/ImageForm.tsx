@@ -20,7 +20,7 @@ import { handleAddImage } from '@/lib/handlers/project.handlers'
 export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])
 	const [isUploading, setIsUploading] = useState(false)
-	debug(9)
+	debug(8)
 
 	const form = useForm<ImageFormData>({
 		resolver: zodResolver(imageSchema),

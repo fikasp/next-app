@@ -73,7 +73,10 @@ export async function getCurrentUser() {
 }
 
 // Get projects
-export async function getProjects(searchParams: any, profile: boolean) {
+export async function getProjects(
+	searchParams: any,
+	profile: boolean
+): Promise<Result<IProject[]>> {
 	try {
 		await connectToDatabase()
 
@@ -119,9 +122,10 @@ export async function getProjects(searchParams: any, profile: boolean) {
 			.sort(sort)
 
 		debug(3, 0, projects)
-		return deepClone(projects)
+		return { success: true, data: deepClone(projects) }
 	} catch (error) {
 		handleError(error)
+		return { success: false, data: [] }
 	}
 }
 
@@ -136,7 +140,14 @@ export async function getProjectBySlug({
 	profile: boolean
 }): Promise<Adjacent<IProject>> {
 	try {
-		const projects: IProject[] = await getProjects(searchParams, profile)
+		const { data: projects }: Result<IProject[]> = await getProjects(
+			searchParams,
+			profile
+		)
+
+		if (!projects) {
+			return { prev: null, current: null, next: null }
+		}
 
 		const currentIndex = projects.findIndex(
 			(project: IProject) => project.slug === slug
@@ -169,7 +180,7 @@ export async function getProjectBySlug({
 export async function updateProject(
 	slug: string,
 	projectData: ProjectFormData
-) {
+): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
@@ -196,9 +207,10 @@ export async function updateProject(
 
 		debug(4, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
-		return deepClone(updatedProject)
+		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
+		return { success: false }
 	}
 }
 
@@ -207,7 +219,7 @@ export async function addImageToProject(
 	slug: string,
 	url: string,
 	name: string
-) {
+): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 		const image = await ImageModel.create({ url, name })
@@ -219,14 +231,18 @@ export async function addImageToProject(
 
 		debug(4, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
-		return deepClone(updatedProject)
+		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
+		return { success: false }
 	}
 }
 
 // Remove image from project
-export async function removeImageFromProject(slug: string, imageId: string) {
+export async function removeImageFromProject(
+	slug: string,
+	imageId: string
+): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
@@ -240,15 +256,18 @@ export async function removeImageFromProject(slug: string, imageId: string) {
 		)
 		debug(5, 0, updatedProject)
 		revalidatePath(routes.PROJECTS)
-		return deepClone(updatedProject)
+		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
+		return { success: false }
 	}
 }
 
 // DELETE
 // Delete project
-export async function deleteProject(projectId: string) {
+export async function deleteProject(
+	projectId: string
+): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
@@ -276,8 +295,9 @@ export async function deleteProject(projectId: string) {
 
 		debug(5, 0, deletedProject)
 		revalidatePath(routes.PROJECTS)
-		return deepClone(deletedProject)
+		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
 		handleError(error)
+		return { success: false }
 	}
 }

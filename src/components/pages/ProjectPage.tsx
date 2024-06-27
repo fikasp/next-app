@@ -28,7 +28,7 @@ export default async function ProjectPage({
 	searchParams: any
 	profile?: boolean
 }) {
-	debug(9, 9, searchParams)
+	debug(7, 9, searchParams)
 	const { data: categories }: Result<ICategory[]> = await getCategories()
 	const { prev, current, next }: Adjacent<IProject> = await getProjectBySlug({
 		slug: params.slug,

@@ -5,6 +5,8 @@ import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
 import { ZodSchema } from 'zod'
+import { Option } from '../types'
+import { ICategory } from '../models/category.model'
 // components
 
 // Capitalize first letter
@@ -68,10 +70,7 @@ export function generateUrl(
 }
 
 // Parse with zod schema
-export function validateData(
-	schema: ZodSchema,
-	data: any
-): string[] | null {
+export function validateData(schema: ZodSchema, data: any): string[] | null {
 	const result = schema.safeParse(data)
 
 	if (!result.success) {
@@ -79,6 +78,18 @@ export function validateData(
 		return errors
 	}
 	return null
+}
+
+// Prepare category options
+export function prepareCategoryOptions(categories: ICategory[] | undefined) {
+	const categoryOptions: Option[] = categories
+		? categories.map((category: ICategory) => ({
+				value: category.label,
+				label: category.label,
+		  }))
+		: []
+
+	return categoryOptions
 }
 
 // Update URL params

@@ -13,38 +13,22 @@ import { Input } from '@/components/ui/input'
 import { FormField } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 // lib
-import { generateUrl } from '@/lib/utils'
+import { generateUrl, prepareCategoryOptions } from '@/lib/utils'
+import { ICategory } from '@/lib/models/category.model'
+import { routes } from '@/navigation'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
-import { routes } from '@/navigation'
-import { useEffect, useState } from 'react'
-import { Option, Result } from '@/lib/types'
-import { getCategories } from '@/lib/actions/category.action'
-import { ICategory } from '@/lib/models/category.model'
+import { debug } from '@/lib/utils/dev'
 
-export default function SearchForm() {
+export default function SearchForm({
+	categories,
+}: {
+	categories: ICategory[] | undefined
+}) {
+	debug(8)
 	const router = useRouter()
-
-	const [options, setOptions] = useState<Option[]>([])
-
-	useEffect(() => {
-		const fetchCategories = async () => {
-			try {
-				const { data }: Result<ICategory[]> = await getCategories()
-				if (data) {
-					const options: Option[] = data.map((category: ICategory) => ({
-						value: category.label,
-						label: category.label,
-					}))
-					setOptions(options)
-				}
-			} catch (error) {
-				console.error('Error fetching categories:', error)
-			}
-		}
-		fetchCategories()
-	}, [])
+	const categoryOptions = prepareCategoryOptions(categories)
 
 	const form = useForm<SearchFormData>({
 		resolver: zodResolver(searchSchema),
@@ -97,7 +81,7 @@ export default function SearchForm() {
 						<ArwSelect
 							onValueChange={field.onChange}
 							placeholder="Select a category"
-							options={options}
+							options={categoryOptions}
 							search
 							center
 						/>

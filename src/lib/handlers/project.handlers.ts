@@ -13,7 +13,7 @@ import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types'
-import { toastArw, toastErrors, toastSuccess } from '@/lib/utils/toasts'
+import { toastErrors, toastSuccess } from '@/lib/utils/toasts'
 import { routes } from '@/navigation'
 
 export const handleSubmit =
@@ -22,12 +22,12 @@ export const handleSubmit =
 		try {
 			if (project) {
 				// Update project
-				const updatedProject = await updateProject(
+				const { data: updatedProject } = await updateProject(
 					project.slug,
 					projectFormData
 				)
 				if (updatedProject) {
-					toastArw(`${projectFormData.title} is successfully updated`)
+					toastSuccess(`${projectFormData.title} is successfully updated`)
 					router.push(routes.PROFILE)
 				}
 				if (close) {
@@ -35,14 +35,13 @@ export const handleSubmit =
 				}
 			} else {
 				// Create project
-				const { errors, data }: Result<IProject> = await createProject(
-					projectFormData
-				)
+				const { errors, data: createdProject }: Result<IProject> =
+					await createProject(projectFormData)
 				if (errors) {
 					toastErrors(errors)
-				} else if (data) {
-					debug(9, 9, data)
-					toastSuccess(`${data.title} is successfully added`)
+				} else if (createdProject) {
+					debug(9, 9, createdProject)
+					toastSuccess(`${createdProject.title} is successfully added`)
 					router.push(routes.PROFILE)
 				}
 			}
@@ -56,9 +55,11 @@ export const handleDelete =
 	(router: AppRouterInstance, project: IProject, close: () => void) =>
 	async () => {
 		try {
-			const deletedProject = await deleteProject(project._id)
-			toastArw(`${deletedProject.title} is successfully deleted`)
-			close()
+			const { data: deletedProject } = await deleteProject(project._id)
+			if (deletedProject) {
+				toastSuccess(`${deletedProject.title} is successfully deleted`)
+				close()
+			}
 		} catch (err) {
 			handleError(err)
 		}
@@ -73,13 +74,13 @@ export const handleAddImage = async (
 ) => {
 	try {
 		if (project) {
-			const updatedProject = await addImageToProject(
+			const { data: updatedProject } = await addImageToProject(
 				project.slug,
 				imageUrl,
 				imageName
 			)
 			if (updatedProject) {
-				toastArw('New image is successfully added')
+				toastSuccess('New image is successfully added')
 			}
 		}
 	} catch (error) {
@@ -91,12 +92,12 @@ export const handleAddImage = async (
 export const handleRemoveImage =
 	(project: IProject, image: IImage) => async () => {
 		try {
-			const updatedProject = await removeImageFromProject(
+			const { data: updatedProject } = await removeImageFromProject(
 				project.slug,
-				image._id,
+				image._id
 			)
 			if (updatedProject) {
-				toastArw('The image has been successfully removed')
+				toastSuccess('The image has been successfully removed')
 			}
 		} catch (error) {
 			handleError(error)

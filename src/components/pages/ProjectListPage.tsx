@@ -18,19 +18,22 @@ export default async function ProjectsListPage({
 	searchParams: any
 	profile?: boolean
 }) {
-	debug(0, 0, searchParams)
-	const projects: IProject[] = await getProjects(searchParams, profile)
+	debug(7, 9, searchParams)
+	const { data: projects }: Result<IProject[]> = await getProjects(
+		searchParams,
+		profile
+	)
 	const { data: categories }: Result<ICategory[]> = await getCategories()
 
 	return (
-		<If condition={projects.length === 0}>
+		<If condition={projects?.length === 0}>
 			<Then>
 				<ArwContainer center>No projects</ArwContainer>
 			</Then>
 			<Else>
 				<ArwContainer>
 					<ProjectsList
-						projects={projects}
+						projects={projects!}
 						categories={categories}
 						searchParams={searchParams}
 						profile={profile}
