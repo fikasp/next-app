@@ -4,6 +4,7 @@
 		"React": "writable"
 	},
 	"rules": {
+		"no-mixed-spaces-and-tabs": "off",
 		"no-unused-vars": "off"
 	}
 }

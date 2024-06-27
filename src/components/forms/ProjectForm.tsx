@@ -1,6 +1,5 @@
 'use client'
 // modules
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -30,7 +29,7 @@ export default function ProjectForm({
 	categories: ICategory[] | undefined
 	close?: () => void
 }) {
-	debug(9,9, project)
+	debug(9, 9, project)
 	const router = useRouter()
 	const categoryOptions: Option[] = categories
 		? categories.map((category: ICategory) => ({

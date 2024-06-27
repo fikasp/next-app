@@ -31,7 +31,7 @@ export async function createCategory(
 			label: newLabel,
 		})
 
-		debug(2, 9, newCategory)
+		debug(2, 0, newCategory)
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
@@ -81,7 +81,7 @@ export async function updateCategory(
 			return { success: false, errors: ['Category not found'] }
 		}
 
-		debug(4, 9, updatedCategory)
+		debug(4, 0, updatedCategory)
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
