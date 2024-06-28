@@ -243,6 +243,7 @@ export async function addImageToProject({
 
 		debug(2, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
+		revalidatePath(routes.PROFILE)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)

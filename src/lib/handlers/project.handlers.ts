@@ -14,8 +14,9 @@ import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types/results'
 import { toastError, toastSuccess, toastWarning } from '@/lib/utils/toasts'
+import { uploadImage } from '@/lib/actions/image.action'
+import { UploadedImage } from '@/lib/types'
 import { routes } from '@/navigation'
-import { UploadedImage } from '../types'
 
 export const handleSubmit =
 	(router: AppRouterInstance, project?: IProject, close?: () => void) =>
@@ -71,28 +72,13 @@ export const handleDelete = async (
 }
 
 // Add images to project
-export const handleAddImages = async (
-	uploadedImages: UploadedImage[],
-	slug: string
-) => {
-	debug(2, 9, uploadedImages)
+export const handleAddImage = async (formData: FormData, slug: string) => {
+	debug(2, 9, formData)
 	try {
-		const promises = uploadedImages.map((image) =>
-			addImageToProject({ slug, ...image })
-		)
-		const results = await Promise.all(promises)
-
-		const successCount = results.filter((result) => result.success).length
-		if (successCount === uploadedImages.length) {
-			toastSuccess('All images have been added successfully.')
-		} else {
-			toastWarning(
-				`${successCount} out of ${uploadedImages.length} images were added successfully.`
-			)
-		}
+		const uploadedImage: UploadedImage = await uploadImage(formData)
+		await addImageToProject({ slug, ...uploadedImage })
 	} catch (error) {
 		handleError(error)
-		toastError('An error occurred while adding the images.')
 	}
 }
 

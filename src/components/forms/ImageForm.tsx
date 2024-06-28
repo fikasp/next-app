@@ -7,11 +7,9 @@ import { Button } from '@/components/ui/button'
 import Uploader from '@/components/shared/Uploader'
 // lib
 import { debug, handleError } from '@/lib/utils/dev'
+import { handleAddImage } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
-import { uploadImage } from '@/lib/actions/image.action'
-import { handleAddImages } from '@/lib/handlers/project.handlers'
-
-import { UploadedImage } from '@/lib/types'
+import { toastError, toastSuccess } from '@/lib/utils/toasts'
 
 export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])
@@ -19,34 +17,29 @@ export default function ImageForm({ project }: { project: IProject }) {
 	debug(8, 9, files)
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
-		e.preventDefault()
 		debug(1)
 		setIsUploading(true)
+		e.preventDefault()
 
 		try {
-			// Prepare form data list
-			const formDataList = files.map((file) => {
+			for (const file of files) {
 				const formData = new FormData()
 				formData.append('file', file)
 				formData.append('name', file.name)
-				return formData
-			})
-
-			// Upload images
-			const uploadedImages: UploadedImage[] = await Promise.all(
-				formDataList.map(uploadImage)
-			)
-			// Add images to project
-			await handleAddImages(uploadedImages, project.slug)
+				await handleAddImage(formData, project.slug)
+			}
+			toastSuccess('All images have been added successfully.')
 		} catch (error) {
 			handleError(error)
+			toastError('An error occurred while adding the images.')
 		}
+
 		setIsUploading(false)
 		setFiles([])
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="relative">
+		<form onSubmit={handleSubmit} className="relative h-[150px]">
 			<Uploader files={files} setFiles={setFiles} />
 			<When condition={files.length > 0}>
 				<Button variant="accent" className="absolute left-3 bottom-3 w-full-3">
