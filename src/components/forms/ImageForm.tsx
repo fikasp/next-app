@@ -46,7 +46,7 @@ export default function ImageForm({ project }: { project: IProject }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="h-[150px] w-full relative">
+		<form onSubmit={handleSubmit} className="relative">
 			<Uploader files={files} setFiles={setFiles} />
 			<When condition={files.length > 0}>
 				<Button variant="accent" className="absolute left-3 bottom-3 w-full-3">
