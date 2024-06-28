@@ -10,6 +10,13 @@ export type Option = {
 	label: string
 }
 
+// Uploaded image
+export type UploadedImage = {
+	publicID: string
+	name: string
+	url: string
+}
+
 // User
 export type CreateUserData = {
 	clerkId: string

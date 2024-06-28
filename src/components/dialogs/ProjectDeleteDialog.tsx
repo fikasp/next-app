@@ -41,7 +41,9 @@ export default function ProjectDeleteDialog({
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel onClick={close}>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDelete(router, project, close)}>
+					<AlertDialogAction
+						onClick={() => handleDelete(router, project, close)}
+					>
 						Continue
 					</AlertDialogAction>
 				</AlertDialogFooter>

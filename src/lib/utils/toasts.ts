@@ -7,22 +7,22 @@ export function toastArw(message: string) {
 	})
 }
 
-export function toastError(message: string) {
-	toast({
-		title: 'Error!',
-		variant: 'error',
-		description: message,
-	})
-}
-
-export function toastErrors(messages: string[]) {
-	messages.forEach((message) => {
+export function toastError(messageOrMessages: string | string[]) {
+	if (Array.isArray(messageOrMessages)) {
+		messageOrMessages.forEach((message) => {
+			toast({
+				title: 'Error!',
+				variant: 'error',
+				description: message,
+			})
+		})
+	} else {
 		toast({
 			title: 'Error!',
 			variant: 'error',
-			description: message,
+			description: messageOrMessages,
 		})
-	})
+	}
 }
 
 export function toastWarning(message: string) {

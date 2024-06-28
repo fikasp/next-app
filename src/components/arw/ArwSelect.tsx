@@ -77,6 +77,10 @@ export default function ArwSelect({
 		e.stopPropagation()
 	}
 
+	useEffect(() => {
+		setFilteredOptions(options)
+	}, [options])
+
 	return (
 		<Select
 			defaultValue={defaultValue}

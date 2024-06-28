@@ -39,7 +39,7 @@ export default function ImageDialog({
 
 	return (
 		<Dialog open={isOpen} onOpenChange={handleClose}>
-			<DialogContent className="flex-center w-full h-full p-0 bg-transparent dark:bg-transparent">
+			<DialogContent className="flex-center w-full h-full p-0 bg-transparent dark:bg-transparent close-button-hidden">
 				<div className="w-full h-full md:w-full-4 flex-center">
 					<div onClick={handleClose} className="absolute inset-0 z-20" />
 					<div className="relative flex-center md:rounded-lg overflow-hidden">

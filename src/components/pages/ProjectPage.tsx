@@ -33,11 +33,11 @@ export default async function ProjectPage({
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 	const {
 		data: { prev, current, next },
-	}: DataResult<Adjacent<IProject>> = await getProjectBySlug({
-		slug: params.slug,
+	}: DataResult<Adjacent<IProject>> = await getProjectBySlug(
+		params.slug,
 		searchParams,
-		profile,
-	})
+		profile
+	)
 
 	// Generate URLs
 	const route = profile ? routes.PROFILE : routes.PROJECTS

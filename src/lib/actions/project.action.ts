@@ -17,6 +17,7 @@ import { ProjectFormData, projectSchema } from '@/lib/types/zod'
 import { SortOptions } from '@/lib/types/enums'
 import { UserModel, IUser } from '@/lib/models/user.model'
 import { routes } from '@/navigation'
+import { removeImage, removeImages } from './image.action'
 
 // CREATE
 // Create project
@@ -130,15 +131,11 @@ export async function getProjects(
 }
 
 // Get project by slug
-export async function getProjectBySlug({
-	slug,
-	searchParams,
-	profile,
-}: {
-	slug: string
-	searchParams: any
+export async function getProjectBySlug(
+	slug: string,
+	searchParams: any,
 	profile: boolean
-}): Promise<DataResult<Adjacent<IProject>>> {
+): Promise<DataResult<Adjacent<IProject>>> {
 	try {
 		const { data: projects }: DataResult<IProject[]> = await getProjects(
 			searchParams,
@@ -153,7 +150,11 @@ export async function getProjectBySlug({
 			(project: IProject) => project.slug === slug
 		)
 		if (currentIndex === -1) {
-			throw new Error('Unauthorized access to this project.')
+			return {
+				success: false,
+				data: { prev: null, current: null, next: null },
+				errors: { error: 'Unauthorized access to this project' },
+			}
 		}
 		const currentProject = await ProjectModel.findOne({ slug })
 			.populate('category')
@@ -219,21 +220,28 @@ export async function updateProject(
 }
 
 // Add image to project
-export async function addImageToProject(
-	slug: string,
-	url: string,
+export async function addImageToProject({
+	slug,
+	publicID,
+	name,
+	url,
+}: {
+	slug: string
+	publicID: string
 	name: string
-): Promise<Result<IProject>> {
+	url: string
+}): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
-		const image = await ImageModel.create({ url, name })
+		const image = await ImageModel.create({ publicID, name, url })
 
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
-			{ $push: { images: image._id } }
+			{ $push: { images: image._id } },
+			{ new: true }
 		)
 
-		debug(4, 9, updatedProject)
+		debug(2, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
@@ -245,20 +253,23 @@ export async function addImageToProject(
 // Remove image from project
 export async function removeImageFromProject(
 	slug: string,
-	imageId: string
+	image: IImage
 ): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
-		const deletedImage = await ImageModel.findByIdAndDelete(imageId)
+		const deletedImage = await ImageModel.findByIdAndDelete(image._id)
 		if (!deletedImage) {
-			throw new Error('Image not found')
+			return { success: false, errors: { error: 'Image not found' } }
 		}
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
-			{ $pull: { images: imageId } }
+			{ $pull: { images: image._id } },
+			{ new: true }
 		)
-		debug(5, 0, updatedProject)
+
+		await removeImage(image.publicID)
+		debug(5, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
@@ -281,24 +292,25 @@ export async function deleteProject(
 			throw new Error('Project not found')
 		}
 
-		// Extract image IDs and keys
+		// Extract image IDs
 		const imagesIds = project.images.map((image: IImage) => image._id)
-		// const imagesKeys = project.images.map((image: IImage) => image.key)
+		const imagesPublicIds = project.images.map(
+			(image: IImage) => image.publicID
+		)
 
 		// Delete images from the database
 		await ImageModel.deleteMany({ _id: { $in: imagesIds } })
 
-		// // Delete image files from storage if they exist
-		// if (imagesKeys.length > 0) {
-		// 	const deletedFiles = await deleteFiles(imagesKeys)
-		// 	debug(0, 0, deletedFiles)
-		// }
+		// Delete image files from storage
+		if (imagesPublicIds.length > 0) {
+			await removeImages(imagesPublicIds)
+		}
 
 		// Delete the project
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
 
 		debug(5, 0, deletedProject)
-		revalidatePath(routes.PROJECTS)
+		revalidatePath(routes.PROFILE)
 		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
 		handleError(error)

@@ -54,7 +54,7 @@ export default function ImageCard({
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						src={icons.DELETE}
-						onClick={handleRemoveImage(project, image)}
+						onClick={() => handleRemoveImage(project, image)}
 						className="hover:text-accent-400 transition"
 					/>
 				</ArwFlex>
