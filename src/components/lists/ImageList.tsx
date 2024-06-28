@@ -79,7 +79,7 @@ export default function ImageList({
 				<When condition={project?.images.length !== 0}>
 					{project?.images?.map((image, index) => (
 						<ImageCard
-							key={index}
+							key={image._id}
 							index={index}
 							image={image}
 							project={project}
