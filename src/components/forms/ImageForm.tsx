@@ -28,7 +28,7 @@ export default function ImageForm({ project }: { project: IProject }) {
 				formData.append('name', file.name)
 				await handleAddImage(formData, project.slug)
 			}
-			toastSuccess('All images have been added successfully.')
+			toastSuccess('Images have been added successfully.')
 		} catch (error) {
 			handleError(error)
 			toastError('An error occurred while adding the images.')

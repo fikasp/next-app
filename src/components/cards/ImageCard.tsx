@@ -45,7 +45,6 @@ export default function ImageCard({
 					height={300}
 					width={300}
 					alt={'Image'}
-					loading={'eager'}
 					priority={true}
 					className="w-full object-cover object-center transition duration-300 ease-in-out group-hover:opacity-80"
 				></Image>
