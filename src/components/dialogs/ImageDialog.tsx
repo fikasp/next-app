@@ -26,6 +26,7 @@ export default function ImageDialog({
 	handlePrev: () => void
 	handleNext: () => void
 }) {
+	debug(8)
 	const image = images[selectedIndex]
 	const [isImageLoaded, setIsImageLoaded] = useState(false)
 
@@ -61,8 +62,8 @@ export default function ImageDialog({
 							width={1400}
 							height={1400}
 							loader={loadImage('q_50')}
-							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-cover"
 							onLoad={handleImageLoad}
+							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-cover"
 							priority
 						/>
 						<ArwText className="absolute bottom-4 text-white drop-shadow-lg">

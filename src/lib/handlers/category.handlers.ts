@@ -25,7 +25,7 @@ export const handleCreateCategory = async (
 		if (errors) {
 			toastError(Object.values(errors))
 		} else if (success) {
-			toastSuccess('Category added')
+			toastSuccess('Category added.')
 			setNewLabel('')
 		}
 	} catch (error) {
@@ -48,7 +48,7 @@ export const handleUpdateCategory = async (
 			if (errors) {
 				toastError(Object.values(errors))
 			} else if (success) {
-				toastSuccess('Category updated')
+				toastSuccess('Category updated.')
 			}
 		} catch (error) {
 			handleError(error)
@@ -66,7 +66,7 @@ export const handleDeleteCategory = async (option: Option) => {
 		if (errors) {
 			toastError(Object.values(errors))
 		} else if (success) {
-			toastSuccess('Category deleted')
+			toastSuccess('Category deleted.')
 		}
 	} catch (error) {
 		handleError(error)

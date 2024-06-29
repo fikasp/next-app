@@ -7,19 +7,11 @@ import { When } from 'react-if'
 import { ArwButton, ArwFlex } from '@/components/arw'
 // lib
 import { generateUrl, loadImage } from '@/lib/utils'
-import { handleRemoveImage } from '@/lib/handlers/project.handlers'
+import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { icons, routes } from '@/navigation'
-
-function imageLoader(config: any) {
-	const urlStart = config.src.split('upload')[0]
-	const urlEnd = config.src.split('upload')[1]
-	const transformations = 'w_200,q_50'
-	const url = `${urlStart}upload/${transformations}/${urlEnd}`
-	console.log(url)
-	return url
-}
+import { debug } from '@/lib/utils/dev'
 
 export default function ImageCard({
 	image,
@@ -36,6 +28,7 @@ export default function ImageCard({
 	searchParams: any
 	handleOpen: MouseEventHandler<HTMLDivElement>
 }) {
+	debug(8)
 	// Generate URL
 	const url = generateUrl([routes.PROJECTS, project.slug], {
 		...searchParams,
@@ -56,13 +49,14 @@ export default function ImageCard({
 					width={300}
 					alt={'Image'}
 					className="w-full object-cover object-center transition duration-300 ease-in-out group-hover:opacity-80"
+					priority
 				></Image>
 			</div>
 			<When condition={profile}>
 				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
 					<ArwButton
 						src={icons.DELETE}
-						onClick={() => handleRemoveImage(project, image)}
+						onClick={() => handleRemoveImageFromProject(project, image)}
 						className="hover:text-accent-400 transition"
 					/>
 				</ArwFlex>

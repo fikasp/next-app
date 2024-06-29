@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import Uploader from '@/components/shared/Uploader'
 // lib
 import { debug, handleError } from '@/lib/utils/dev'
-import { handleAddImage } from '@/lib/handlers/project.handlers'
+import { handleAddImageToProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 
@@ -26,12 +26,12 @@ export default function ImageForm({ project }: { project: IProject }) {
 				const formData = new FormData()
 				formData.append('file', file)
 				formData.append('name', file.name)
-				await handleAddImage(formData, project.slug)
+				await handleAddImageToProject(formData, project.slug)
 			}
-			toastSuccess('Images have been added successfully.')
+			toastSuccess('Images successfully added.')
 		} catch (error) {
 			handleError(error)
-			toastError('An error occurred while adding the images.')
+			toastError('An error occurred.')
 		}
 
 		setIsUploading(false)

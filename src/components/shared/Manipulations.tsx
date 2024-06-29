@@ -18,35 +18,35 @@ export default function Manipulations({
 	className,
 }: {
 	project: IProject
-	categories: ICategory[] 
+	categories: ICategory[]
 	className?: string
 }) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 
-	const openDeleteDialog = () => setIsDeleteDialogOpen(true)
-	const closeDeleteDialog = () => setIsDeleteDialogOpen(false)
-
-	const openUpdateDialog = () => setIsUpdateDialogOpen(true)
-	const closeUpdateDialog = () => setIsUpdateDialogOpen(false)
-
 	return (
 		<>
 			<ArwFlex row className={className}>
-				<ArwButton onClick={openUpdateDialog} src={icons.EDIT} />
-				<ArwButton onClick={openDeleteDialog} src={icons.DELETE} />
+				<ArwButton
+					onClick={() => setIsUpdateDialogOpen(true)}
+					src={icons.EDIT}
+				/>
+				<ArwButton
+					onClick={() => setIsDeleteDialogOpen(true)}
+					src={icons.DELETE}
+				/>
 			</ArwFlex>
 
 			<ProjectDeleteDialog
 				project={project}
 				open={isDeleteDialogOpen}
-				close={closeDeleteDialog}
+				close={() => setIsDeleteDialogOpen(false)}
 			/>
 			<ProjectUpdateDialog
 				project={project}
 				categories={categories}
 				open={isUpdateDialogOpen}
-				close={closeUpdateDialog}
+				close={() => setIsUpdateDialogOpen(false)}
 			/>
 		</>
 	)

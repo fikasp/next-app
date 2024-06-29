@@ -13,12 +13,13 @@ import ArwSelect from '@/components/arw/ArwSelect'
 import ArwTitle from '@/components/arw/ArwTitle'
 import CategoryDialog from '@/components/dialogs/CategoryDialog'
 // lib
-import { handleSubmit } from '@/lib/handlers/project.handlers'
+import { handleCreateProject, handleUpdateProject } from '@/lib/handlers/project.handlers'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { debug } from '@/lib/utils/dev'
+import { debug, handleError } from '@/lib/utils/dev'
 import { Option } from '@/lib/types'
+import { routes } from '@/navigation'
 
 export default function ProjectForm({
 	project,
@@ -45,11 +46,30 @@ export default function ProjectForm({
 		},
 	})
 
+	const handleSubmit = async (projectFormData: ProjectFormData) => {
+		debug(1, 9, projectFormData)
+		try {
+			if (project) {
+				// Update project
+				await handleUpdateProject(projectFormData, project)
+			} else {
+				// Create project
+				await handleCreateProject(projectFormData)
+			}
+			router.push(routes.PROFILE)
+			if (close) {
+				close()
+			}
+		} catch (err) {
+			handleError(err)
+		}
+	}
+
 	return (
 		<>
 			<ArwForm
 				form={form}
-				onSubmit={handleSubmit(router, project, close)}
+				onSubmit={handleSubmit}
 				className="grow justify-between gap-8"
 			>
 				<ArwTitle center accent>

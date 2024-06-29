@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import ArwTitle from '@/components/arw/ArwTitle'
 // lib
-import { handleDelete } from '@/lib/handlers/project.handlers'
+import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
 
 export default function ProjectDeleteDialog({
@@ -42,7 +42,7 @@ export default function ProjectDeleteDialog({
 				<AlertDialogFooter>
 					<AlertDialogCancel onClick={close}>Cancel</AlertDialogCancel>
 					<AlertDialogAction
-						onClick={() => handleDelete(router, project, close)}
+						onClick={() => handleDeleteProject(router, project, close)}
 					>
 						Continue
 					</AlertDialogAction>

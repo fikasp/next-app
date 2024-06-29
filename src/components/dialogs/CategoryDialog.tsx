@@ -20,6 +20,7 @@ import { Option } from '@/lib/types'
 
 export default function CategoryDialog({ options }: { options: Option[] }) {
 	debug(0, 0, options)
+	const [isOpen, setIsOpen] = useState(true)
 	const [newLabel, setNewLabel] = useState('')
 	const [editedLabel, setEditedLabel] = useState('')
 	const [editedOption, setEditedOption] = useState<Option | null>(null)
@@ -110,6 +111,11 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 					/>
 					<Button className="w-full">Add Option</Button>
 				</form>
+				<DialogTrigger>
+					<Button variant="accent" className="w-full">
+						Close options
+					</Button>
+				</DialogTrigger>
 			</DialogContent>
 		</Dialog>
 	)
