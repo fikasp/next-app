@@ -13,22 +13,26 @@ import { Input } from '@/components/ui/input'
 import { FormField } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 // lib
-import { generateUrl, prepareCategoryOptions } from '@/lib/utils'
+import { generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { routes } from '@/navigation'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { debug } from '@/lib/utils/dev'
+import { Option } from '@/lib/types'
 
 export default function SearchForm({
 	categories,
 }: {
-	categories: ICategory[] | undefined
+	categories: ICategory[]
 }) {
-	debug(8)
+	debug(7)
 	const router = useRouter()
-	const categoryOptions = prepareCategoryOptions(categories)
+	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
+		value: category.label,
+		label: category.label,
+	}))
 
 	const form = useForm<SearchFormData>({
 		resolver: zodResolver(searchSchema),

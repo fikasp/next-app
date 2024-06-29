@@ -6,11 +6,11 @@ import SearchForm from '@/components/forms/SearchForm'
 import { debug } from '@/lib/utils/dev'
 import { getCategories } from '@/lib/actions/category.action'
 import { ICategory } from '@/lib/models/category.model'
-import { Result } from '@/lib/types/results'
+import { DataResult } from '@/lib/types/results'
 
 export default async function SearchPage() {
-	debug(7)
-	const { data: categories }: Result<ICategory[]> = await getCategories()
+	debug(6)
+	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 	return (
 		<ArwContainer center>
 			<ArwPaper className="w-full-4 max-w-md min-h-md border dark:border-none p-8">

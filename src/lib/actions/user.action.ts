@@ -1,11 +1,13 @@
 'use server'
 // modules
+import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import { UserModel } from '@/lib/models/user.model'
+import { IUser, UserModel } from '@/lib/models/user.model'
 import { CreateUserData, UpdateUserData } from '@/lib/types'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { handleError } from '@/lib/utils/dev'
+import { deepClone } from '@/lib/utils'
 import { routes } from '@/navigation'
 
 // CREATE
@@ -16,7 +18,7 @@ export async function createUser(user: CreateUserData) {
 		const newUser = await UserModel.create(user)
 		revalidatePath(routes.PROJECTS)
 
-		return JSON.parse(JSON.stringify(newUser))
+		return deepClone(newUser)
 	} catch (error) {
 		handleError(error)
 	}
@@ -31,7 +33,18 @@ export async function getUser(clerkId: string | null) {
 
 		if (!user) throw new Error('User not found')
 
-		return JSON.parse(JSON.stringify(user))
+		return deepClone(user)
+	} catch (error) {
+		handleError(error)
+	}
+}
+
+export async function getCurrentUser() {
+	try {
+		const { userId } = auth()
+		const currentUser: IUser = await getUser(userId)
+
+		return deepClone(currentUser)
 	} catch (error) {
 		handleError(error)
 	}
@@ -48,7 +61,7 @@ export async function updateUser(clerkId: string, user: UpdateUserData) {
 
 		if (!updatedUser) throw new Error('User update failed')
 
-		return JSON.parse(JSON.stringify(updatedUser))
+		return deepClone(updatedUser)
 	} catch (error) {
 		handleError(error)
 	}
@@ -67,7 +80,7 @@ export async function deleteUser(clerkId: string) {
 
 		const deletedUser = await UserModel.findByIdAndDelete(userToDelete._id)
 
-		return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null
+		return deletedUser ? deepClone(deletedUser) : null
 	} catch (error) {
 		handleError(error)
 	}

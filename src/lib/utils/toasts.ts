@@ -1,5 +1,4 @@
 import { toast } from '@/components/ui/use-toast'
-import { msg } from '../constants'
 
 export function toastArw(message: string) {
 	toast({

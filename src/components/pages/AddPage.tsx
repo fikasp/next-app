@@ -9,7 +9,7 @@ import { ICategory } from '@/lib/models/category.model'
 import { DataResult } from '@/lib/types/results'
 
 export default async function AddPage() {
-	debug(7)
+	debug(6)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 	return (
 		<ArwContainer center>

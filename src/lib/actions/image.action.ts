@@ -3,7 +3,7 @@
 import { v2 as cloudinary } from 'cloudinary'
 // lib
 import { debug } from '@/lib/utils/dev'
-import { UploadedImage } from '../types'
+import { UploadedImage } from '@/lib/types'
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

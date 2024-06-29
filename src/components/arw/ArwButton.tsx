@@ -9,12 +9,14 @@ export default function ArwButton({
 	disabled,
 	label,
 	src,
+	size,
 }: {
 	onClick: () => void
 	className?: string
 	disabled?: boolean
 	label?: string
 	src?: string
+	size?: number
 }) {
 	return (
 		<div
@@ -26,7 +28,7 @@ export default function ArwButton({
 				className
 			)}
 		>
-			{src && <ArwIcon src={src}/>}
+			{src && <ArwIcon src={src} size={size} />}
 			{label}
 		</div>
 	)

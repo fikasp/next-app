@@ -93,18 +93,6 @@ export function validateData(
 	return null
 }
 
-// Prepare category options
-export function prepareCategoryOptions(categories: ICategory[] | undefined) {
-	const categoryOptions: Option[] = categories
-		? categories.map((category: ICategory) => ({
-				value: category.label,
-				label: category.label,
-		  }))
-		: []
-
-	return categoryOptions
-}
-
 // Update URL params
 export function updateUrlParams(
 	params: Record<string, string | undefined | null>

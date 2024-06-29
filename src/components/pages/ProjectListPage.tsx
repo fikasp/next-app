@@ -18,7 +18,7 @@ export default async function ProjectsListPage({
 	searchParams: any
 	profile?: boolean
 }) {
-	debug(7, 9, searchParams)
+	debug(6, 9, searchParams)
 	const { data: projects }: DataResult<IProject[]> = await getProjects(
 		searchParams,
 		profile

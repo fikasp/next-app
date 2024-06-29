@@ -10,6 +10,7 @@ import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
 import { ICategory } from '@/lib/models/category.model'
 import { routes } from '@/navigation'
+import { debug } from '@/lib/utils/dev'
 
 export default function ProjectCard({
 	project,
@@ -22,6 +23,7 @@ export default function ProjectCard({
 	searchParams?: any
 	profile?: boolean
 }) {
+	debug(8)
 	const userLink = generateUrl([routes.PROJECTS], {
 		...searchParams,
 		user: project.user.username,

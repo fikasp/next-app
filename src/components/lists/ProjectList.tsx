@@ -17,7 +17,7 @@ export default async function ProjectsList({
 	searchParams: any
 	profile: boolean
 }) {
-	debug(8)
+	debug(7)
 	return (
 		<ArwGrid className="arw-grid-auto-300 gap-3 content-start">
 			{projects.map((project: IProject) => (

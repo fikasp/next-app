@@ -18,7 +18,7 @@ export const handleCreateCategory = async (
 	e.stopPropagation()
 	e.preventDefault()
 	try {
-		debug(3)
+		debug(2)
 		const { errors, success }: Result<ICategory> = await createCategory(
 			newLabel
 		)

@@ -35,7 +35,6 @@ export default function ImageDialog({
 	}, [selectedIndex])
 
 	const handleImageLoad = () => {
-		debug(1)
 		setIsImageLoaded(true)
 	}
 
@@ -48,13 +47,14 @@ export default function ImageDialog({
 						<Navigation
 							prev={handlePrev}
 							next={handleNext}
-							back={handleClose}
+							close={handleClose}
 							classNamePrev="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-2 text-white drop-shadow-lg"
 							classNameNext="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-2 text-white drop-shadow-lg"
-							classNameBack="absolute top-2 right-2 z-50 text-white drop-shadow-lg"
+							classNameClose="absolute top-2 right-2 z-50 text-white drop-shadow-lg"
 							listenersKey
 							listenersScroll
 							listenersTouch
+							size={30}
 						/>
 						<Image
 							src={image?.url}

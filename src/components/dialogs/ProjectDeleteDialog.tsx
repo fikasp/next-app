@@ -15,6 +15,8 @@ import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
+import { debug } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 export default function ProjectDeleteDialog({
 	project,
@@ -25,7 +27,14 @@ export default function ProjectDeleteDialog({
 	open: boolean
 	close: () => void
 }) {
+	debug(8, 0, project)
 	const router = useRouter()
+
+	const handleAction = async () => {
+		await handleDeleteProject(project)
+		router.push(routes.PROFILE)
+		close()
+	}
 
 	return (
 		<AlertDialog open={open} onOpenChange={close}>
@@ -41,11 +50,7 @@ export default function ProjectDeleteDialog({
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel onClick={close}>Cancel</AlertDialogCancel>
-					<AlertDialogAction
-						onClick={() => handleDeleteProject(router, project, close)}
-					>
-						Continue
-					</AlertDialogAction>
+					<AlertDialogAction onClick={handleAction}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

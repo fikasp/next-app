@@ -19,8 +19,7 @@ import { icons } from '@/navigation'
 import { Option } from '@/lib/types'
 
 export default function CategoryDialog({ options }: { options: Option[] }) {
-	debug(0, 0, options)
-	const [isOpen, setIsOpen] = useState(true)
+	debug(8, 0, options)
 	const [newLabel, setNewLabel] = useState('')
 	const [editedLabel, setEditedLabel] = useState('')
 	const [editedOption, setEditedOption] = useState<Option | null>(null)

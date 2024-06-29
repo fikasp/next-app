@@ -1,7 +1,7 @@
 'use client'
 // modules
 import { When } from 'react-if'
-import { FormEventHandler, useState } from 'react'
+import { useState } from 'react'
 // components
 import { Button } from '@/components/ui/button'
 import Uploader from '@/components/shared/Uploader'
@@ -14,7 +14,7 @@ import { toastError, toastSuccess } from '@/lib/utils/toasts'
 export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])
 	const [isUploading, setIsUploading] = useState(false)
-	debug(8, 9, files)
+	debug(7, 9, files)
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		debug(1)

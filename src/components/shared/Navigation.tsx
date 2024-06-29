@@ -10,33 +10,35 @@ import { debug } from '@/lib/utils/dev'
 import { icons } from '@/navigation'
 
 export default function Navigation({
-	back,
+	close,
 	prev,
 	next,
-	urlBack,
+	urlClose,
 	urlPrev,
 	urlNext,
-	classNameBack,
+	classNameClose,
 	classNamePrev,
 	classNameNext,
 	className,
 	listenersKey,
 	listenersScroll,
 	listenersTouch,
+	size,
 }: {
-	back?: () => void
+	close?: () => void
 	prev?: () => void
 	next?: () => void
-	urlBack?: string | undefined | null
+	urlClose?: string | undefined | null
 	urlPrev?: string | undefined | null
 	urlNext?: string | undefined | null
-	classNameBack?: string
+	classNameClose?: string
 	classNamePrev?: string
 	classNameNext?: string
 	className?: string
 	listenersKey?: boolean
 	listenersScroll?: boolean
 	listenersTouch?: boolean
+	size?: number
 }) {
 	const router = useRouter()
 
@@ -57,12 +59,12 @@ export default function Navigation({
 			router.push(urlNext)
 		}
 	}
-	const handleBack = () => {
+	const handleClose = () => {
 		debug(0)
-		if (back) {
-			back()
-		} else if (urlBack) {
-			router.push(urlBack)
+		if (close) {
+			close()
+		} else if (urlClose) {
+			router.push(urlClose)
 		} else {
 			router.back()
 		}
@@ -73,7 +75,7 @@ export default function Navigation({
 		const keyMap: { [key: string]: () => void } = {
 			ArrowLeft: handlePrev,
 			ArrowRight: handleNext,
-			ArrowUp: handleBack,
+			ArrowUp: handleClose,
 		}
 
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -135,20 +137,23 @@ export default function Navigation({
 		<ArwFlex between row className={className}>
 			<ArwButton
 				src={icons.PREV}
+				size={size}
 				disabled={!urlPrev && !prev}
 				className={classNamePrev}
 				onClick={handlePrev}
 			/>
 			<ArwButton
 				src={icons.NEXT}
+				size={size}
 				disabled={!urlNext && !next}
 				className={classNameNext}
 				onClick={handleNext}
 			/>
 			<ArwButton
 				src={icons.CLOSE}
-				className={classNameBack}
-				onClick={handleBack}
+				size={size}
+				className={classNameClose}
+				onClick={handleClose}
 			/>
 		</ArwFlex>
 	)

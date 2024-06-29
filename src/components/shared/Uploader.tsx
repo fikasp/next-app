@@ -1,11 +1,13 @@
+// modules
+import Image from 'next/image'
 import { Else, If, Then } from 'react-if'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 import { useCallback } from 'react'
-
-import Image from 'next/image'
+// components
 import { Button } from '@/components/ui/button'
 import ArwIcon from '@/components/arw/ArwIcon'
 import ArwText from '@/components/arw/ArwText'
+// lib
 import { icons } from '@/navigation'
 
 export default function Uploader({

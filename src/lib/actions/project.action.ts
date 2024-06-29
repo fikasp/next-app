@@ -1,23 +1,22 @@
 'use server'
 // modules
-import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
 import { Adjacent } from '@/lib/types'
-import { DataResult, Result } from '@/lib/types/results'
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
+import { DataResult, Result } from '@/lib/types/results'
 import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone, generateUniqueSlug, validateData } from '@/lib/utils'
 import { findPrev, findNext } from '@/lib/utils'
-import { getUser } from '@/lib/actions/user.action'
+import { getCurrentUser } from '@/lib/actions/user.action'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
 import { ProjectFormData, projectSchema } from '@/lib/types/zod'
+import { removeImage, removeImages } from './image.action'
 import { SortOptions } from '@/lib/types/enums'
 import { UserModel, IUser } from '@/lib/models/user.model'
 import { routes } from '@/navigation'
-import { removeImage, removeImages } from './image.action'
 
 // CREATE
 // Create project
@@ -60,19 +59,6 @@ export async function createProject(
 }
 
 // READ
-// Get current user
-export async function getCurrentUser() {
-	try {
-		const { userId } = auth()
-		const currentUser: IUser = await getUser(userId)
-
-		debug(0)
-		return deepClone(currentUser)
-	} catch (error) {
-		handleError(error)
-	}
-}
-
 // Get projects
 export async function getProjects(
 	searchParams: any,

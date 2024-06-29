@@ -4,6 +4,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { ICategory } from '@/lib/models/category.model'
 // database
 import { IProject } from '@/lib/models/project.model'
+import { debug } from '@/lib/utils/dev'
 
 export default function ProjectUpdateDialog({
 	project,
@@ -16,6 +17,7 @@ export default function ProjectUpdateDialog({
 	open: boolean
 	close: () => void
 }) {
+	debug(8, 0, project)
 	return (
 		<Dialog open={open} onOpenChange={close}>
 			<DialogContent className="flex flex-col aspect-square w-full-4 max-h-full max-w-md">

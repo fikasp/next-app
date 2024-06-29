@@ -21,7 +21,7 @@ export default function ImageList({
 	profile: boolean
 	searchParams: any
 }) {
-	debug(8)
+	debug(7)
 	// State of the modal
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	// State of the selected image index
@@ -47,7 +47,7 @@ export default function ImageList({
 
 	// Handlers for the modal
 	const handleOpen = (index: number) => {
-		debug(3)
+		debug(2)
 		updateUrlParams({ img: String(index) })
 		setSelectedImageIndex(index)
 		setIsDialogOpen(true)

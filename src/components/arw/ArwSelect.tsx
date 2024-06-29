@@ -67,13 +67,13 @@ export default function ArwSelect({
 
 	// Handle select change
 	const handleSelectChange = (value: string) => {
-		debug(0, 9, value)
+		debug(0, 0, value)
 		setSelectedValue(value)
 		onValueChange(value)
 	}
 
 	const handleStopPropagation = (e: SyntheticEvent) => {
-		debug(0, 9, e)
+		debug(0, 0, e)
 		e.stopPropagation()
 	}
 
