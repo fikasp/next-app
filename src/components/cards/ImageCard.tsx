@@ -6,11 +6,20 @@ import { When } from 'react-if'
 // components
 import { ArwButton, ArwFlex } from '@/components/arw'
 // lib
-import { generateUrl } from '@/lib/utils'
+import { generateUrl, loadImage } from '@/lib/utils'
 import { handleRemoveImage } from '@/lib/handlers/project.handlers'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { icons, routes } from '@/navigation'
+
+function imageLoader(config: any) {
+	const urlStart = config.src.split('upload')[0]
+	const urlEnd = config.src.split('upload')[1]
+	const transformations = 'w_200,q_50'
+	const url = `${urlStart}upload/${transformations}/${urlEnd}`
+	console.log(url)
+	return url
+}
 
 export default function ImageCard({
 	image,
@@ -41,11 +50,11 @@ export default function ImageCard({
 			<div onClick={handleOpen} className="absolute inset-0 z-20" />
 			<div className="flex h-full w-full transition duration-300 ease-in-out gap-0 overflow-hidden">
 				<Image
+					loader={loadImage('w_200,q_20')}
 					src={image.url}
 					height={300}
 					width={300}
 					alt={'Image'}
-					priority={true}
 					className="w-full object-cover object-center transition duration-300 ease-in-out group-hover:opacity-80"
 				></Image>
 			</div>

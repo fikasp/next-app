@@ -69,6 +69,14 @@ export function generateUrl(
 	})
 }
 
+// Load image
+export function loadImage(transformations: string) {
+	return function (config: any) {
+		const [urlStart, urlEnd] = config.src.split('upload')
+		return `${urlStart}upload/${transformations}/${urlEnd}`
+	}
+}
+
 // Parse with zod schema
 export function validateData(
 	schema: ZodSchema,

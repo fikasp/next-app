@@ -9,6 +9,7 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { IImage } from '@/lib/models/image.model'
 import { debug } from '@/lib/utils/dev'
+import { loadImage } from '@/lib/utils'
 
 export default function ImageDialog({
 	isOpen,
@@ -55,6 +56,7 @@ export default function ImageDialog({
 							listenersTouch
 						/>
 						<Image
+							loader={loadImage('q_50')}
 							src={image?.url}
 							alt={image?.name}
 							width={1400}
