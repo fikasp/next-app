@@ -29,7 +29,7 @@
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	}
 	.arw-grid-auto-140 {
-		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 	}
 
 	/* scrollbar */
