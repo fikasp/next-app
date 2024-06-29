@@ -54,7 +54,7 @@ export default function Uploader({
 				</Then>
 				<Else>
 					<div className="h-full flex flex-col items-center justify-between p-3 bg-blue">
-						<ArwIcon src={icons.UPLOAD} size={50} />
+						<ArwIcon src={icons.UPLOAD} size={40} />
 						<ArwText className="text-xs">Drag and drop or</ArwText>
 						<Button type="button" className="w-full text-xs">
 							Select image(s)
