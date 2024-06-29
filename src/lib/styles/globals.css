@@ -28,8 +28,8 @@
 	.arw-grid-auto-300 {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	}
-	.arw-grid-auto-150 {
-		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	.arw-grid-auto-140 {
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 	}
 
 	/* scrollbar */
