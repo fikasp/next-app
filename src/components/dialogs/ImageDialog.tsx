@@ -56,11 +56,11 @@ export default function ImageDialog({
 							listenersTouch
 						/>
 						<Image
-							loader={loadImage('q_50')}
 							src={image?.url}
 							alt={image?.name}
 							width={1400}
 							height={1400}
+							loader={loadImage('q_50')}
 							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-cover"
 							onLoad={handleImageLoad}
 							priority

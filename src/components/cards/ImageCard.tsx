@@ -50,7 +50,7 @@ export default function ImageCard({
 			<div onClick={handleOpen} className="absolute inset-0 z-20" />
 			<div className="flex h-full w-full transition duration-300 ease-in-out gap-0 overflow-hidden">
 				<Image
-					loader={loadImage('w_200,q_20')}
+					loader={loadImage('w_300,q_30')}
 					src={image.url}
 					height={300}
 					width={300}
