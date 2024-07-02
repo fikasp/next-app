@@ -3,11 +3,10 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
+import { navigation } from '@/navigation'
 // components
 import Theme from './Theme'
 import { ArwIcon } from '@/components/arw'
-// lib
-import { nav } from '@/navigation'
 
 const MenuItem = ({
 	link,
@@ -49,7 +48,7 @@ export default function Menu({
 	return (
 		<nav className="flex-center">
 			<ul className="flex max-md:flex-col md:items-center gap-6">
-				{nav.map((link) => {
+				{navigation.map((link) => {
 					return <MenuItem key={link.route} link={link} setOpen={setOpen} />
 				})}
 				<li className="flex-center">

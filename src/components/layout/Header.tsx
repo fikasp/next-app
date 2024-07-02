@@ -8,7 +8,7 @@ import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import Menu from '@/components/layout/Menu'
 // lib
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/paths'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)

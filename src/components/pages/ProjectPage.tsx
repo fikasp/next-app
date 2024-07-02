@@ -14,13 +14,13 @@ import Navigation from '@/components/shared/Navigation'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import { DataResult } from '@/lib/types/results'
+import { debug } from '@/lib/utils/dev'
 import { generateUrl } from '@/lib/utils'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { debug } from '@/lib/utils/dev'
-import { routes } from '@/navigation'
+import { routes } from '@/lib/constants/paths'
 
 export default async function ProjectPage({
 	params,

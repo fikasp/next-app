@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation'
 // components
 import { ArwFlex, ArwButton } from '@/components/arw'
 // lib
+import { icons } from '@/lib/constants/paths'
 import { debug } from '@/lib/utils/dev'
-import { icons } from '@/navigation'
 
 export default function Navigation({
 	close,

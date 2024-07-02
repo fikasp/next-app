@@ -6,9 +6,9 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/utils/mongoose'
 import { CreateUserData, UpdateUserData } from '@/lib/types/shared'
 import { deepClone } from '@/lib/utils'
-import { IUser, UserModel } from '@/lib/models/user.model'
 import { handleError } from '@/lib/utils/dev'
-import { routes } from '@/navigation'
+import { IUser, UserModel } from '@/lib/models/user.model'
+import { routes } from '@/lib/constants/paths'
 
 // CREATE
 export async function createUser(user: CreateUserData) {

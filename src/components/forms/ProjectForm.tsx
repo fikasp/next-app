@@ -19,12 +19,12 @@ import {
 	handleCreateProject,
 	handleUpdateProject,
 } from '@/lib/handlers/project.handlers'
+import { debug, handleError } from '@/lib/utils/dev'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types/shared'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
-import { debug, handleError } from '@/lib/utils/dev'
-import { routes } from '@/navigation'
+import { routes } from '@/lib/constants/paths'
 
 export default function ProjectForm({
 	project,

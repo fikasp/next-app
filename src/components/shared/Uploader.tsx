@@ -7,7 +7,7 @@ import { useCallback } from 'react'
 import { ArwIcon, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/paths'
 
 export default function Uploader({
 	files,

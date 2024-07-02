@@ -9,7 +9,7 @@ import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 // lib
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/paths'
 
 export default function Manipulations({
 	project,

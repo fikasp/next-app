@@ -8,7 +8,7 @@ import { DataResult, Result } from '@/lib/types/results'
 import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone } from '@/lib/utils'
 import { ProjectModel } from '@/lib/models/project.model'
-import { routes } from '@/navigation'
+import { routes } from '@/lib/constants/paths'
 
 // CREATE
 export async function createCategory(

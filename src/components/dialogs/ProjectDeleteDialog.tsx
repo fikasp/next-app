@@ -15,8 +15,8 @@ import { ArwTitle } from '@/components/arw'
 // lib
 import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
+import { routes } from '@/lib/constants/paths'
 import { debug } from '@/lib/utils/dev'
-import { routes } from '@/navigation'
 
 export default function ProjectDeleteDialog({
 	project,

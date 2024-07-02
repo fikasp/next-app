@@ -11,7 +11,7 @@ import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { loadImage } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/paths'
 
 export default function ImageCard({
 	image,

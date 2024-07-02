@@ -10,7 +10,7 @@ import { debug } from '@/lib/utils/dev'
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/navigation'
+import { routes } from '@/lib/constants/paths'
 
 export default function ProjectCard({
 	project,
