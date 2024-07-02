@@ -21,7 +21,7 @@ export async function uploadImage(formData: FormData) {
 	const base64Data = Buffer.from(imageData).toString(encoding)
 	const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
 	const result = await cloudinary.uploader.upload(fileUri, {
-		folder: 'next-app',
+		folder: process.env.CLOUDINARY_FOLDER_NAME,
 	})
 	const uploadedImage: UploadedImage = {
 		name: imageName,
