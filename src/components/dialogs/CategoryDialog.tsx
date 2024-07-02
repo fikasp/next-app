@@ -11,9 +11,9 @@ import {
 	handleDeleteCategory,
 	handleUpdateCategory,
 } from '@/lib/handlers/category.handlers'
-import { icons } from '@/lib/constants/navigation'
 import { Option } from '@/lib/types/shared'
 import { debug } from '@/lib/utils/dev'
+import { icons } from '@/navigation'
 
 export default function CategoryDialog({ options }: { options: Option[] }) {
 	debug(8, 0, options)

@@ -6,11 +6,11 @@ import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import Manipulations from '@/components/shared/Manipulations'
 // lib
+import { debug } from '@/lib/utils/dev'
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/lib/constants/navigation'
-import { debug } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 export default function ProjectCard({
 	project,

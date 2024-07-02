@@ -18,11 +18,11 @@ import { Input } from '@/components/ui/input'
 import { generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { Option } from '@/lib/types/shared'
-import { routes } from '@/lib/constants/navigation'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { sortOptions } from '@/lib/constants'
 import { SortOptions } from '@/lib/types/enums'
 import { debug } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 export default function SearchForm({
 	categories,

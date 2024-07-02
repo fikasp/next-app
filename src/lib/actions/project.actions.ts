@@ -13,10 +13,10 @@ import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
 import { ProjectFormData, projectSchema } from '@/lib/types/zod'
 import { removeImage, removeImages } from '@/lib/actions/image.actions'
-import { routes } from '@/lib/constants/navigation'
 import { SortOptions } from '@/lib/types/enums'
 import { UserModel, IUser } from '@/lib/models/user.model'
 import { debug, handleError } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 // CREATE
 // Create project

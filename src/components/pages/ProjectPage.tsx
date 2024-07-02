@@ -19,8 +19,8 @@ import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/lib/constants/navigation'
 import { debug } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 export default async function ProjectPage({
 	params,

@@ -49,7 +49,7 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `/dialogs` - Dialogs components
     - `/forms` - Forms components
     - `/layout` - Layout-related components
-    - `/loadings` - Components used in loadings
+    - `/lists` - Lists components
     - `/pages` - Components used in pages
     - `/shared` - Components used across multiple parts of the app
     - `/ui` - Components specific to the Shadcn library
@@ -57,11 +57,11 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `/actions` - Server actions
     - `/constants` - Constant values
     - `/context` - Context for app
+    - `/handlers` - Event handlers
     - `/models` - Database schemas
     - `/styles` - Global CSS and Tailwind styles
     - `/types` - TypeScript type definitions
     - `/utils` - Utility functions
-    - `/zod` - ZOD schemas
   - `middleware.ts` - Authentication middleware for the Clerk
   - `navigation.ts` - Managing navigation routes and links
 

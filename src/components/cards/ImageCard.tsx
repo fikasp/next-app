@@ -7,11 +7,11 @@ import { When } from 'react-if'
 import { ArwButton, ArwFlex } from '@/components/arw'
 // lib
 import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
-import { icons } from '@/lib/constants/navigation'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { loadImage } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
+import { icons } from '@/navigation'
 
 export default function ImageCard({
 	image,

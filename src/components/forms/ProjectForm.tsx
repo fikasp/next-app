@@ -23,8 +23,8 @@ import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types/shared'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
-import { routes } from '@/lib/constants/navigation'
 import { debug, handleError } from '@/lib/utils/dev'
+import { routes } from '@/navigation'
 
 export default function ProjectForm({
 	project,
