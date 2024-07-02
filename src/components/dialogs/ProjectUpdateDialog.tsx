@@ -1,8 +1,8 @@
 // components
 import ProjectForm from '@/components/forms/ProjectForm'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { ICategory } from '@/lib/models/category.model'
 // database
+import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
 

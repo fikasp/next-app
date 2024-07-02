@@ -1,15 +1,15 @@
 // modules
 import { Else, If, Then } from 'react-if'
 // components
-import ArwContainer from '@/components/arw/ArwContainer'
+import { ArwContainer } from '@/components/arw'
 import ProjectsList from '@/components/lists/ProjectList'
 // lib
-import { getProjects } from '@/lib/actions/project.action'
+import { DataResult } from '@/lib/types/results'
+import { getCategories } from '@/lib/actions/category.actions'
+import { getProjects } from '@/lib/actions/project.actions'
+import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
-import { DataResult, Result } from '@/lib/types/results'
-import { ICategory } from '@/lib/models/category.model'
-import { getCategories } from '@/lib/actions/category.action'
 
 export default async function ProjectsListPage({
 	searchParams,

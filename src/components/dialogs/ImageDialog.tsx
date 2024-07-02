@@ -3,13 +3,13 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 // components
-import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog'
-import ArwText from '@/components/arw/ArwText'
+import { ArwText } from '@/components/arw'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { IImage } from '@/lib/models/image.model'
-import { debug } from '@/lib/utils/dev'
 import { loadImage } from '@/lib/utils'
+import { debug } from '@/lib/utils/dev'
 
 export default function ImageDialog({
 	isOpen,

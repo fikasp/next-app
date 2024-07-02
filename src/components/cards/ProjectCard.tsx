@@ -2,14 +2,14 @@
 import Link from 'next/link'
 import { If, Then, Else, When } from 'react-if'
 // components
-import Manipulations from '@/components/shared/Manipulations'
 import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import Manipulations from '@/components/shared/Manipulations'
 // lib
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
-import { IProject } from '@/lib/models/project.model'
 import { ICategory } from '@/lib/models/category.model'
-import { routes } from '@/navigation'
+import { IProject } from '@/lib/models/project.model'
+import { routes } from '@/lib/constants/navigation'
 import { debug } from '@/lib/utils/dev'
 
 export default function ProjectCard({

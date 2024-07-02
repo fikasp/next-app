@@ -1,10 +1,10 @@
 // components
-import ArwGrid from '@/components/arw/ArwGrid'
+import { ArwGrid } from '@/components/arw'
 import ProjectCard from '@/components/cards/ProjectCard'
-import { ICategory } from '@/lib/models/category.model'
 // lib
-import { IProject } from '@/lib/models/project.model'
 import { debug } from '@/lib/utils/dev'
+import { ICategory } from '@/lib/models/category.model'
+import { IProject } from '@/lib/models/project.model'
 
 export default async function ProjectsList({
 	projects,

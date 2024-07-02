@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useEffect, useState, SyntheticEvent, useRef } from 'react'
+import { useEffect, useState, SyntheticEvent } from 'react'
 // components
 import {
 	Select,
@@ -10,12 +10,12 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import ArwFlex from '@/components/arw/ArwFlex'
+import { ArwFlex } from '@/components/arw'
 // lib
-import { debug } from '@/lib/utils/dev'
-import { useDebounce } from '@/lib/utils/hooks'
-import { Option } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { debug } from '@/lib/utils/dev'
+import { Option } from '@/lib/types/shared'
+import { useDebounce } from '@/lib/utils/hooks'
 
 export default function ArwSelect({
 	onValueChange,
@@ -27,6 +27,7 @@ export default function ArwSelect({
 	center,
 	search,
 }: {
+	// eslint-disable-next-line no-unused-vars
 	onValueChange: (value: any) => void
 	children?: React.ReactNode
 	options: Option[]

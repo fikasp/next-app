@@ -1,9 +1,11 @@
-// loadings
-import ArwContainer from '@/components/arw/ArwContainer'
-import ArwFlex from '@/components/arw/ArwFlex'
-import ArwPaper from '@/components/arw/ArwPaper'
-import ArwSpinner from '@/components/arw/ArwSpinner'
-import ArwTitle from '@/components/arw/ArwTitle'
+// components
+import {
+	ArwContainer,
+	ArwFlex,
+	ArwPaper,
+	ArwSpinner,
+	ArwTitle,
+} from '@/components/arw'
 import Navigation from '@/components/shared/Navigation'
 // lib
 import { debug } from '@/lib/utils/dev'

@@ -1,22 +1,19 @@
 // modules
 import { useEffect, useRef, useState } from 'react'
 // components
+import { ArwButton, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import ArwButton from '@/components/arw/ArwButton'
-import ArwFlex from '@/components/arw/ArwFlex'
-import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
 // lib
 import {
 	handleCreateCategory,
 	handleDeleteCategory,
 	handleUpdateCategory,
 } from '@/lib/handlers/category.handlers'
+import { icons } from '@/lib/constants/navigation'
+import { Option } from '@/lib/types/shared'
 import { debug } from '@/lib/utils/dev'
-import { icons } from '@/navigation'
-import { Option } from '@/lib/types'
 
 export default function CategoryDialog({ options }: { options: Option[] }) {
 	debug(8, 0, options)

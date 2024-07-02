@@ -1,31 +1,14 @@
-import ArwButton from './ArwButton'
-import ArwCheckbox from './ArwCheckbox'
-import ArwContainer from './ArwContainer'
-import ArwFlex from './ArwFlex'
-import ArwForm from './ArwForm'
-import ArwFormField from './ArwFormField'
-import ArwGrid from './ArwGrid'
-import ArwIcon from './ArwIcon'
-import ArwLink from './ArwLink'
-import ArwPaper from './ArwPaper'
-import ArwSelect from './ArwSelect'
-import ArwSpinner from './ArwSpinner'
-import ArwText from './ArwText'
-import ArwTitle from './ArwTitle'
-
-export {
-	ArwButton,
-	ArwCheckbox,
-	ArwContainer,
-	ArwFlex,
-	ArwForm,
-	ArwFormField,
-	ArwGrid,
-	ArwIcon,
-	ArwLink,
-	ArwPaper,
-	ArwSelect,
-	ArwSpinner,
-	ArwText,
-	ArwTitle,
-}
+export { default as ArwButton } from './ArwButton'
+export { default as ArwCheckbox } from './ArwCheckbox'
+export { default as ArwContainer } from './ArwContainer'
+export { default as ArwFlex } from './ArwFlex'
+export { default as ArwForm } from './ArwForm'
+export { default as ArwFormField } from './ArwFormField'
+export { default as ArwGrid } from './ArwGrid'
+export { default as ArwIcon } from './ArwIcon'
+export { default as ArwLink } from './ArwLink'
+export { default as ArwPaper } from './ArwPaper'
+export { default as ArwSelect } from './ArwSelect'
+export { default as ArwSpinner } from './ArwSpinner'
+export { default as ArwText } from './ArwText'
+export { default as ArwTitle } from './ArwTitle'

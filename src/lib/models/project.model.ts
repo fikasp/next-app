@@ -1,10 +1,10 @@
 // modules
+import { Document } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 // lib
-import { IUser } from '@/lib/models/user.model'
-import { IImage } from '@/lib/models/image.model'
 import { ICategory } from '@/lib/models/category.model'
-import { Document } from 'mongoose'
+import { IImage } from '@/lib/models/image.model'
+import { IUser } from '@/lib/models/user.model'
 
 export interface IProject extends Document {
 	_id: string

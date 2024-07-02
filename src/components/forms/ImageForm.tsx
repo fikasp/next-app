@@ -6,10 +6,10 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Uploader from '@/components/shared/Uploader'
 // lib
-import { debug, handleError } from '@/lib/utils/dev'
-import { handleAddImageToProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
+import { handleAddImageToProject } from '@/lib/handlers/project.handlers'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
+import { debug, handleError } from '@/lib/utils/dev'
 
 export default function ImageForm({ project }: { project: IProject }) {
 	const [files, setFiles] = useState<File[]>([])

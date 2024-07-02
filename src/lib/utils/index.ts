@@ -1,13 +1,11 @@
 // modules
 import { twMerge } from 'tailwind-merge'
 import { type ClassValue, clsx } from 'clsx'
+import { ZodSchema } from 'zod'
 import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
-import { ZodSchema } from 'zod'
-import { Option } from '../types'
-import { ICategory } from '../models/category.model'
-// components
+
 
 // Capitalize first letter
 export function capitalizeFirstLetter(str: string) {

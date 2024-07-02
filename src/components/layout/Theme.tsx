@@ -1,8 +1,8 @@
 'use client'
 // modules
-import { useTheme } from 'next-themes'
-import { useMediaQuery } from 'react-responsive'
 import { Moon, Sun } from 'lucide-react'
+import { useMediaQuery } from 'react-responsive'
+import { useTheme } from 'next-themes'
 // components
 import { Button } from '@/components/ui/button'
 import {

@@ -6,34 +6,25 @@ import { When } from 'react-if'
 // components
 import { ArwButton, ArwFlex } from '@/components/arw'
 // lib
-import { generateUrl, loadImage } from '@/lib/utils'
 import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
+import { icons } from '@/lib/constants/navigation'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
-import { icons, routes } from '@/navigation'
+import { loadImage } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
 
 export default function ImageCard({
 	image,
-	index,
 	project,
 	profile,
-	searchParams,
 	handleOpen,
 }: {
 	image: IImage
-	index: number
 	project: IProject
 	profile: boolean
-	searchParams: any
 	handleOpen: MouseEventHandler<HTMLDivElement>
 }) {
 	debug(8)
-	// Generate URL
-	const url = generateUrl([routes.PROJECTS, project.slug], {
-		...searchParams,
-		img: index,
-	})
 
 	return (
 		<ArwFlex

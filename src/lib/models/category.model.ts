@@ -1,4 +1,4 @@
-// lib/models/category.model.ts
+// modules
 import { Schema, model, models, Document } from 'mongoose'
 
 export interface ICategory extends Document {

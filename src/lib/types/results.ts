@@ -9,3 +9,9 @@ export interface DataResult<T> {
 	errors?: { [key: string]: string }
 	data: T
 }
+
+export type Adjacent<T> = {
+	prev: T | null
+	current: T | null
+	next: T | null
+}

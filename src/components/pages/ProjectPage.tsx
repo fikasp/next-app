@@ -1,24 +1,26 @@
 // modules
 import { When } from 'react-if'
 // components
-import ArwContainer from '@/components/arw/ArwContainer'
-import ArwFlex from '@/components/arw/ArwFlex'
-import ArwPaper from '@/components/arw/ArwPaper'
-import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
+import {
+	ArwContainer,
+	ArwFlex,
+	ArwPaper,
+	ArwText,
+	ArwTitle,
+} from '@/components/arw'
 import ImageList from '@/components/lists/ImageList'
 import Manipulations from '@/components/shared/Manipulations'
 import Navigation from '@/components/shared/Navigation'
 // lib
-import { Adjacent } from '@/lib/types'
-import { DataResult, Result } from '@/lib/types/results'
+import { Adjacent } from '@/lib/types/results'
+import { DataResult } from '@/lib/types/results'
 import { generateUrl } from '@/lib/utils'
-import { debug } from '@/lib/utils/dev'
-import { getProjectBySlug } from '@/lib/actions/project.action'
-import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/navigation'
-import { getCategories } from '@/lib/actions/category.action'
+import { getCategories } from '@/lib/actions/category.actions'
+import { getProjectBySlug } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
+import { IProject } from '@/lib/models/project.model'
+import { routes } from '@/lib/constants/navigation'
+import { debug } from '@/lib/utils/dev'
 
 export default async function ProjectPage({
 	params,

@@ -1,3 +1,4 @@
+// modules
 import chalk, { ChalkInstance } from 'chalk'
 
 // Settings

@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
-import { nav } from '@/navigation'
+import { nav } from '@/lib/constants/navigation'
 // components
-import ArwIcon from '@/components/arw/ArwIcon'
+import { ArwIcon } from '@/components/arw'
 import Theme from './Theme'
 
 const MenuItem = ({

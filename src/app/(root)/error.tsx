@@ -1,7 +1,5 @@
 'use client'
-import ArwContainer from '@/components/arw/ArwContainer'
-import ArwText from '@/components/arw/ArwText'
-import ArwTitle from '@/components/arw/ArwTitle'
+import { ArwContainer, ArwText, ArwTitle } from '@/components/arw'
 
 export default function Error({ error }: { error: Error }) {
 	return (

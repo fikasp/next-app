@@ -1,16 +1,16 @@
 'use client'
 // modules
 import { When } from 'react-if'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 // components
-import ArwGrid from '@/components/arw/ArwGrid'
+import { ArwGrid } from '@/components/arw'
 import ImageCard from '@/components/cards/ImageCard'
 import ImageDialog from '@/components/dialogs/ImageDialog'
 import ImageForm from '@/components/forms/ImageForm'
 // lib
-import { debug } from '@/lib/utils/dev'
 import { IProject } from '@/lib/models/project.model'
 import { updateUrlParams } from '@/lib/utils'
+import { debug } from '@/lib/utils/dev'
 
 export default function ImageList({
 	project,
@@ -80,11 +80,9 @@ export default function ImageList({
 					{project?.images?.map((image, index) => (
 						<ImageCard
 							key={image._id}
-							index={index}
 							image={image}
 							project={project}
 							profile={profile}
-							searchParams={searchParams}
 							handleOpen={() => handleOpen(index)}
 						/>
 					))}

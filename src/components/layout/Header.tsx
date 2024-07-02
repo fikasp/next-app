@@ -4,12 +4,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 // components
+import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import ArwLink from '@/components/arw/ArwLink'
-import ArwIcon from '@/components/arw/ArwIcon'
 import Menu from '@/components/layout/Menu'
 // lib
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/navigation'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)

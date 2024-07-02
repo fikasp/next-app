@@ -1,6 +1,5 @@
 'use client'
 // modules
-import { When } from 'react-if'
 import { Control } from 'react-hook-form'
 // components
 import {
@@ -25,6 +24,7 @@ export default function ArwFormField({
 	className?: string
 	control: Control<any>
 	name: string
+	// eslint-disable-next-line no-unused-vars
 	render: (props: { field: any }) => React.ReactNode
 	label?: string
 	center?: boolean

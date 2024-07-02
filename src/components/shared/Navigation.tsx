@@ -3,11 +3,10 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
-import ArwFlex from '@/components/arw/ArwFlex'
-import ArwButton from '@/components/arw/ArwButton'
+import { ArwFlex, ArwButton } from '@/components/arw'
 // lib
+import { icons } from '@/lib/constants/navigation'
 import { debug } from '@/lib/utils/dev'
-import { icons } from '@/navigation'
 
 export default function Navigation({
 	close,

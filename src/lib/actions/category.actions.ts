@@ -4,11 +4,11 @@ import { revalidatePath } from 'next/cache'
 // lib
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/mongoose'
-import { debug, handleError } from '@/lib/utils/dev'
-import { ProjectModel } from '@/lib/models/project.model'
-import { deepClone } from '@/lib/utils'
 import { DataResult, Result } from '@/lib/types/results'
-import { routes } from '@/navigation'
+import { debug, handleError } from '@/lib/utils/dev'
+import { deepClone } from '@/lib/utils'
+import { ProjectModel } from '@/lib/models/project.model'
+import { routes } from '@/lib/constants/navigation'
 
 // CREATE
 export async function createCategory(

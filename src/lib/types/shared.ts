@@ -1,9 +1,3 @@
-export type Adjacent<T> = {
-	prev: T | null
-	current: T | null
-	next: T | null
-}
-
 // Option
 export type Option = {
 	value: string

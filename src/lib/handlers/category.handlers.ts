@@ -2,12 +2,12 @@ import {
 	createCategory,
 	deleteCategory,
 	updateCategory,
-} from '@/lib/actions/category.action'
-import { debug, handleError } from '@/lib/utils/dev'
+} from '@/lib/actions/category.actions'
 import { ICategory } from '@/lib/models/category.model'
-import { toastError, toastSuccess } from '@/lib/utils/toasts'
+import { Option } from '@/lib/types/shared'
 import { Result } from '@/lib/types/results'
-import { Option } from '@/lib/types'
+import { toastError, toastSuccess } from '@/lib/utils/toasts'
+import { debug, handleError } from '@/lib/utils/dev'
 
 // CREATE
 export const handleCreateCategory = async (

@@ -1,12 +1,11 @@
 // components
-import ArwContainer from '@/components/arw/ArwContainer'
-import ArwPaper from '@/components/arw/ArwPaper'
+import { ArwContainer, ArwPaper } from '@/components/arw'
 import ProjectForm from '@/components/forms/ProjectForm'
 // lib
-import { debug } from '@/lib/utils/dev'
-import { getCategories } from '@/lib/actions/category.action'
-import { ICategory } from '@/lib/models/category.model'
 import { DataResult } from '@/lib/types/results'
+import { getCategories } from '@/lib/actions/category.actions'
+import { ICategory } from '@/lib/models/category.model'
+import { debug } from '@/lib/utils/dev'
 
 export default async function AddPage() {
 	debug(6)

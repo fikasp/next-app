@@ -9,6 +9,7 @@ export default function ArwCheckbox({
 }: {
 	label: string
 	checked: boolean
+	// eslint-disable-next-line no-unused-vars
 	onCheckedChange: (checked: boolean) => void
 }) {
 	return (

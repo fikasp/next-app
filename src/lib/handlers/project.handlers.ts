@@ -5,15 +5,15 @@ import {
 	updateProject,
 	addImageToProject,
 	removeImageFromProject,
-} from '@/lib/actions/project.action'
-import { debug, handleError } from '@/lib/utils/dev'
+} from '@/lib/actions/project.actions'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types/results'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
-import { uploadImage } from '@/lib/actions/image.action'
-import { UploadedImage } from '@/lib/types'
+import { UploadedImage } from '@/lib/types/shared'
+import { uploadImage } from '@/lib/actions/image.actions'
+import { debug, handleError } from '@/lib/utils/dev'
 
 // CREATE
 // Create new project

@@ -2,15 +2,14 @@
 // modules
 import { useState } from 'react'
 // components
-import ArwButton from '@/components/arw/ArwButton'
-import ArwFlex from '@/components/arw/ArwFlex'
+import { ArwButton, ArwFlex } from '@/components/arw'
 import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
 import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 
 // lib
-import { IProject } from '@/lib/models/project.model'
-import { icons } from '@/navigation'
 import { ICategory } from '@/lib/models/category.model'
+import { IProject } from '@/lib/models/project.model'
+import { icons } from '@/lib/constants/navigation'
 
 export default function Manipulations({
 	project,

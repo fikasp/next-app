@@ -4,17 +4,17 @@ import { Else, If, Then } from 'react-if'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 import { useCallback } from 'react'
 // components
+import { ArwIcon, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import ArwIcon from '@/components/arw/ArwIcon'
-import ArwText from '@/components/arw/ArwText'
 // lib
-import { icons } from '@/navigation'
+import { icons } from '@/lib/constants/navigation'
 
 export default function Uploader({
 	files,
 	setFiles,
 }: {
 	files: FileWithPath[]
+	// eslint-disable-next-line no-unused-vars
 	setFiles: (files: FileWithPath[]) => void
 }) {
 	const onDrop = useCallback(
