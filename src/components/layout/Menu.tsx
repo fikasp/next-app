@@ -1,6 +1,7 @@
 'use client'
 // modules
 import Link from 'next/link'
+import { useAuth } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import { navigation } from '@/navigation'
@@ -11,18 +12,22 @@ import { ArwIcon } from '@/components/arw'
 const MenuItem = ({
 	link,
 	setOpen,
+	publicRoute,
 }: {
 	link: any
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
+	publicRoute: boolean
 }) => {
 	const pathname = usePathname()
 	const isMobile = useMediaQuery({ maxWidth: 768 })
+	const { isSignedIn } = useAuth()
 	const isActive = link.route.split('?')[0] === pathname
 	const handleClick = () => {
 		if (isMobile) {
 			setOpen(false)
 		}
 	}
+	if (!publicRoute && !isSignedIn) return null
 
 	return (
 		<li
@@ -49,7 +54,14 @@ export default function Menu({
 		<nav className="flex-center">
 			<ul className="flex max-md:flex-col md:items-center gap-6">
 				{navigation.map((link) => {
-					return <MenuItem key={link.route} link={link} setOpen={setOpen} />
+					return (
+						<MenuItem
+							key={link.route}
+							publicRoute={link.public}
+							setOpen={setOpen}
+							link={link}
+						/>
+					)
 				})}
 				<li className="flex-center">
 					<Theme setOpen={setOpen} />

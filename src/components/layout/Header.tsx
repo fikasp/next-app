@@ -24,26 +24,20 @@ export default function Header() {
 
 				{/* center */}
 				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center">
-					<SignedIn>
-						<Sheet
-							open={isSheetOpen}
-							onOpenChange={setIsSheetOpen}
-							modal={false}
+					<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal={false}>
+						<SheetTrigger>
+							<ArwIcon
+								src={icons.MENU}
+								className="hover:text-accent transtion"
+							/>
+						</SheetTrigger>
+						<SheetContent
+							side="top"
+							className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
 						>
-							<SheetTrigger>
-								<ArwIcon
-									src={icons.MENU}
-									className="hover:text-accent transtion"
-								/>
-							</SheetTrigger>
-							<SheetContent
-								side="top"
-								className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
-							>
-								<Menu setOpen={setIsSheetOpen} />
-							</SheetContent>
-						</Sheet>
-					</SignedIn>
+							<Menu setOpen={setIsSheetOpen} />
+						</SheetContent>
+					</Sheet>
 				</div>
 
 				{/* right */}

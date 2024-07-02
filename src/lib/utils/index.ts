@@ -6,7 +6,6 @@ import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
 
-
 // Capitalize first letter
 export function capitalizeFirstLetter(str: string) {
 	if (!str) {
@@ -70,8 +69,7 @@ export function generateUrl(
 // Load image
 export function loadImage(transformations: string) {
 	return function (config: any) {
-		const [urlStart, urlEnd] = config.src.split('upload')
-		return `${urlStart}upload/${transformations}/${urlEnd}`
+		return transformImageUrl(config.src, transformations)
 	}
 }
 
@@ -89,6 +87,12 @@ export function validateData(
 		return errors
 	}
 	return null
+}
+
+// Transform image URL
+export function transformImageUrl(url: string, transformations: string) {
+	const [urlStart, urlEnd] = url.split('upload')
+	return `${urlStart}upload/${transformations}/${urlEnd}`
 }
 
 // Update URL params
