@@ -1,5 +1,6 @@
 // modules
 import { useRef, useCallback } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 // Use debounce to delay the execution of a function
 export function useDebounce(
@@ -22,4 +23,10 @@ export function useDebounce(
 		[func, wait]
 	)
 	return debouncedFunc
+}
+
+// Use mobile to check if the screen is mobile
+export function useMobile() {
+	const isMobile = useMediaQuery({ maxWidth: 768 })
+	return isMobile
 }

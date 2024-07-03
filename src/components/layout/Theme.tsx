@@ -1,7 +1,6 @@
 'use client'
 // modules
 import { Moon, Sun } from 'lucide-react'
-import { useMediaQuery } from 'react-responsive'
 import { useTheme } from 'next-themes'
 // components
 import { Button } from '@/components/ui/button'
@@ -11,6 +10,8 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+// lib
+import { useMobile } from '@/lib/utils/hooks'
 
 export default function Theme({
 	setOpen,
@@ -18,7 +19,7 @@ export default function Theme({
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 	const { setTheme } = useTheme()
-	const isMobile = useMediaQuery({ maxWidth: 768 })
+	const isMobile = useMobile()
 
 	const handleClick = (theme: string) => () => {
 		setTheme(theme)

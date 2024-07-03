@@ -3,11 +3,12 @@
 import Link from 'next/link'
 import { useAuth } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
-import { useMediaQuery } from 'react-responsive'
 import { navigation } from '@/navigation'
 // components
 import Theme from './Theme'
 import { ArwIcon } from '@/components/arw'
+// lib
+import { useMobile } from '@/lib/utils/hooks'
 
 const MenuItem = ({
 	link,
@@ -19,7 +20,7 @@ const MenuItem = ({
 	publicRoute: boolean
 }) => {
 	const pathname = usePathname()
-	const isMobile = useMediaQuery({ maxWidth: 768 })
+	const isMobile = useMobile()
 	const { isSignedIn } = useAuth()
 	const isActive = link.route.split('?')[0] === pathname
 	const handleClick = () => {
