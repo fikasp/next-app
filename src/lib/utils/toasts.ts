@@ -1,42 +1,39 @@
 // components
 import { toast } from '@/components/ui/use-toast'
+import { toStringArray } from '@/lib/utils'
 
-export function toastArw(message: string) {
-	toast({
-		description: message,
-	})
-}
-
-export function toastError(messages: string | string[]) {
-	if (Array.isArray(messages)) {
-		messages.forEach((message) => {
-			toast({
-				title: 'Error!',
-				variant: 'error',
-				description: message,
-			})
-		})
-	} else {
+export function toastError(
+	data: string | string[] | { [key: string]: string }
+) {
+	toStringArray(data).forEach((msg) => {
 		toast({
 			title: 'Error!',
 			variant: 'error',
-			description: messages,
+			description: msg,
 		})
-	}
-}
-
-export function toastWarning(message: string) {
-	toast({
-		title: 'Warning!',
-		variant: 'warning',
-		description: message,
 	})
 }
 
-export function toastSuccess(message: string) {
-	toast({
-		title: 'Success!',
-		variant: 'success',
-		description: message,
+export function toastWarning(
+	data: string | string[] | { [key: string]: string }
+) {
+	toStringArray(data).forEach((msg) => {
+		toast({
+			title: 'Warning!',
+			variant: 'warning',
+			description: msg,
+		})
+	})
+}
+
+export function toastSuccess(
+	data: string | string[] | { [key: string]: string }
+) {
+	toStringArray(data).forEach((msg) => {
+		toast({
+			title: 'Success!',
+			variant: 'success',
+			description: msg,
+		})
 	})
 }

@@ -22,7 +22,7 @@ export const handleCreateProject = async (projectFormData: ProjectFormData) => {
 		const { error, data: createdProject }: Result<IProject> =
 			await createProject(projectFormData)
 		if (error) {
-			toastError(Object.values(error))
+			toastError(error)
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
 			toastSuccess(`${createdProject.title} is successfully added.`)
@@ -42,7 +42,7 @@ export const handleUpdateProject = async (
 		const { error, data: updatedProject }: Result<IProject> =
 			await updateProject(project.slug, projectFormData)
 		if (error) {
-			toastError(Object.values(error))
+			toastError(error)
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
 			toastSuccess(`${projectFormData.title} is successfully updated.`)

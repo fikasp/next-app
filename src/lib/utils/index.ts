@@ -73,6 +73,23 @@ export function loadImage(transformations: string) {
 	}
 }
 
+// To string array
+export function toStringArray(data: string | string[] | { [key: string]: string }) {
+	if (typeof data === 'string') {
+		return [data]
+	} else if (Array.isArray(data)) {
+		return data
+	} else if (
+		typeof data === 'object' &&
+		data !== null &&
+		Object.keys(data).length > 0
+	) {
+		return Object.values(data).map((value) => value.toString())
+	} else {
+		return []
+	}
+}
+
 // Parse with zod schema
 export function validateData(
 	schema: ZodSchema,
