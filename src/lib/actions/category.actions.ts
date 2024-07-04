@@ -16,7 +16,7 @@ export async function createCategory(
 ): Promise<Result<ICategory>> {
 	try {
 		if (!newLabel) {
-			return { success: false, errors: { error: 'Category name is required.' } }
+			return { success: false, error: { category: 'Category name is required.' } }
 		}
 
 		await connectToDatabase()
@@ -24,7 +24,7 @@ export async function createCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, errors: { error: 'Category already exists.' } }
+			return { success: false, error: { category: 'Category already exists.' } }
 		}
 
 		const newCategory: ICategory = await CategoryModel.create({
@@ -36,7 +36,7 @@ export async function createCategory(
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: { error: 'Error creating category.' } }
+		return { success: false, error: { category: 'Error creating category.' } }
 	}
 }
 
@@ -54,7 +54,7 @@ export async function getCategories(): Promise<DataResult<ICategory[]>> {
 		handleError(error)
 		return {
 			success: false,
-			errors: { error: 'Error fetching categories.' },
+			error: { category: 'Error fetching categories.' },
 			data: [],
 		}
 	}
@@ -72,7 +72,7 @@ export async function updateCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, errors: { error: 'Category already exists.' } }
+			return { success: false, error: { category: 'Category already exists.' } }
 		}
 
 		const updatedCategory: ICategory | null =
@@ -82,7 +82,7 @@ export async function updateCategory(
 				{ new: true }
 			)
 		if (!updatedCategory) {
-			return { success: false, errors: { error: 'Category not found.' } }
+			return { success: false, error: { category: 'Category not found.' } }
 		}
 
 		debug(4, 0, updatedCategory)
@@ -90,7 +90,7 @@ export async function updateCategory(
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: { error: 'Error updating category.' } }
+		return { success: false, error: { category: 'Error updating category.' } }
 	}
 }
 
@@ -109,7 +109,7 @@ export async function deleteCategory(
 		if (projectsUsingCategory) {
 			return {
 				success: false,
-				errors: { error: 'Category is used in projects, cannot delete.' },
+				error: { category: 'Category is used in projects, cannot delete.' },
 			}
 		}
 
@@ -117,7 +117,7 @@ export async function deleteCategory(
 			await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
-			return { success: false, errors: { error: 'Category not found.' } }
+			return { success: false, error: { category: 'Category not found.' } }
 		}
 
 		debug(5, 0, deletedCategory)
@@ -125,6 +125,6 @@ export async function deleteCategory(
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
 		handleError(error)
-		return { success: false, errors: { error: 'Error deleting category.' } }
+		return { success: false, error: { category: 'Error deleting category.' } }
 	}
 }

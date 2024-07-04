@@ -7,9 +7,9 @@ export function toastArw(message: string) {
 	})
 }
 
-export function toastError(messageOrMessages: string | string[]) {
-	if (Array.isArray(messageOrMessages)) {
-		messageOrMessages.forEach((message) => {
+export function toastError(messages: string | string[]) {
+	if (Array.isArray(messages)) {
+		messages.forEach((message) => {
 			toast({
 				title: 'Error!',
 				variant: 'error',
@@ -20,7 +20,7 @@ export function toastError(messageOrMessages: string | string[]) {
 		toast({
 			title: 'Error!',
 			variant: 'error',
-			description: messageOrMessages,
+			description: messages,
 		})
 	}
 }

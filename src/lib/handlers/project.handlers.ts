@@ -19,10 +19,10 @@ import { debug, handleError } from '@/lib/utils/dev'
 // Create new project
 export const handleCreateProject = async (projectFormData: ProjectFormData) => {
 	try {
-		const { errors, data: createdProject }: Result<IProject> =
+		const { error, data: createdProject }: Result<IProject> =
 			await createProject(projectFormData)
-		if (errors) {
-			toastError(Object.values(errors))
+		if (error) {
+			toastError(Object.values(error))
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
 			toastSuccess(`${createdProject.title} is successfully added.`)
@@ -39,10 +39,10 @@ export const handleUpdateProject = async (
 	project: IProject
 ) => {
 	try {
-		const { errors, data: updatedProject }: Result<IProject> =
+		const { error, data: updatedProject }: Result<IProject> =
 			await updateProject(project.slug, projectFormData)
-		if (errors) {
-			toastError(Object.values(errors))
+		if (error) {
+			toastError(Object.values(error))
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
 			toastSuccess(`${projectFormData.title} is successfully updated.`)
