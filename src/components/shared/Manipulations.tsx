@@ -10,6 +10,7 @@ import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { icons } from '@/lib/constants/paths'
+import { debug } from '@/lib/utils/dev'
 
 export default function Manipulations({
 	project,
@@ -20,6 +21,7 @@ export default function Manipulations({
 	categories: ICategory[]
 	className?: string
 }) {
+	debug(8)
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 

@@ -23,7 +23,7 @@ export default function ProjectCard({
 	searchParams?: any
 	profile?: boolean
 }) {
-	debug(8)
+	debug(7)
 	const userLink = generateUrl([routes.PROJECTS], {
 		...searchParams,
 		user: project.user.username,

@@ -1,5 +1,6 @@
 // modules
 import { When } from 'react-if'
+import { Suspense } from 'react'
 // components
 import {
 	ArwContainer,

@@ -29,7 +29,7 @@ export default function SearchForm({
 }: {
 	categories: ICategory[]
 }) {
-	debug(7)
+	debug(8)
 	const router = useRouter()
 	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
 		value: category.label,

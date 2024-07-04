@@ -1,3 +1,4 @@
+'use client'
 // modules
 import { useRouter } from 'next/navigation'
 // components
