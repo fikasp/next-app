@@ -62,7 +62,7 @@ export default async function ProjectPage({
 						<ArwFlex row>
 							<ArwTitle>{current.title}</ArwTitle>
 							<When condition={!profile && isOwner}>
-								<Nav url={urlProfile} src={icons.EDIT} />
+								<Nav url={urlProfile} src={icons.USER} />
 							</When>
 							<When condition={profile}>
 								<Manipulations

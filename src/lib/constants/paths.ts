@@ -20,6 +20,7 @@ export const icons = {
 	SAVE: '/icons/save.svg',
 	SEARCH: '/icons/search.svg',
 	UPLOAD: '/icons/upload.svg',
+	USER: '/icons/user.svg',
 }
 
 export const images = {
