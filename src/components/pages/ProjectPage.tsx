@@ -32,7 +32,7 @@ export default async function ProjectPage({
 	searchParams: any
 	profile?: boolean
 }) {
-	debug(6, 9, searchParams)
+	debug(6, 9, params, searchParams)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 	const {
 		data: { prev, current, next },
@@ -45,10 +45,8 @@ export default async function ProjectPage({
 	// Generate URLs
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
-	const urlPrev =
-		prev && generateUrl([route, prev.slug], { ...searchParams, img: undefined })
-	const urlNext =
-		next && generateUrl([route, next.slug], { ...searchParams, img: undefined })
+	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
+	const urlNext = next && generateUrl([route, next.slug], searchParams)
 	const urlClose = generateUrl([route], searchParams)
 
 	return (
@@ -74,8 +72,8 @@ export default async function ProjectPage({
 					</ArwFlex>
 					<ImageList
 						project={current}
-						searchParams={searchParams}
 						profile={profile}
+						params={params}
 					/>
 					<ArwText className="max-sm:text-center">{current.info}</ArwText>
 				</ArwPaper>

@@ -8,18 +8,19 @@ import ImageCard from '@/components/lists/items/ImageCard'
 import ImageDialog from '@/components/dialogs/ImageDialog'
 import ImageForm from '@/components/forms/ImageForm'
 // lib
-import { IProject } from '@/lib/models/project.model'
-import { updateUrlParams } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
+import { generateUrl, updateUrlPath } from '@/lib/utils'
+import { IProject } from '@/lib/models/project.model'
+import { routes } from '@/lib/constants/paths'
 
 export default function ImageList({
 	project,
 	profile,
-	searchParams,
+	params,
 }: {
 	project: IProject
 	profile: boolean
-	searchParams: any
+	params: any
 }) {
 	debug(8)
 	// State of the modal
@@ -27,28 +28,42 @@ export default function ImageList({
 	// State of the selected image index
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
+	const route = profile ? routes.PROFILE : routes.PROJECTS
+
 	// Initialize state
 	useEffect(() => {
-		if (searchParams.img) {
-			const index = parseInt(searchParams.img)
+		if (params.img) {
+			const index = parseInt(params.img)
 			if (!isNaN(index) && index >= 0 && index < project.images.length) {
 				setSelectedImageIndex(index)
 				setIsDialogOpen(true)
 			}
 		}
-	}, [searchParams, project.images.length])
+	}, [params, project.images.length])
 
 	// Update URL
 	useEffect(() => {
 		if (isDialogOpen) {
-			updateUrlParams({ img: String(selectedImageIndex) })
+			const path = generateUrl([
+				route,
+				project.slug,
+				String(selectedImageIndex),
+			])
+			updateUrlPath(path)
 		}
 	}, [selectedImageIndex, isDialogOpen])
+
+	// Handle popstate event
+	useEffect(() => {
+		window.addEventListener('popstate', handleClose)
+		return () => {
+			window.removeEventListener('popstate', handleClose)
+		}
+	}, [])
 
 	// Handlers for the modal
 	const handleOpen = (index: number) => {
 		debug(2)
-		updateUrlParams({ img: String(index) })
 		setSelectedImageIndex(index)
 		setIsDialogOpen(true)
 	}
@@ -69,7 +84,8 @@ export default function ImageList({
 
 	const handleClose = () => {
 		debug(5)
-		updateUrlParams({ img: null })
+		const path = generateUrl([route, project.slug])
+		updateUrlPath(path)
 		setIsDialogOpen(false)
 	}
 

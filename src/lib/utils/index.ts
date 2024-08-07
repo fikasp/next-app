@@ -74,7 +74,9 @@ export function loadImage(transformations: string) {
 }
 
 // To string array
-export function toStringArray(data: string | string[] | { [key: string]: string }) {
+export function toStringArray(
+	data: string | string[] | { [key: string]: string }
+) {
 	if (typeof data === 'string') {
 		return [data]
 	} else if (Array.isArray(data)) {
@@ -126,5 +128,12 @@ export function updateUrlParams(
 		}
 	})
 
+	window.history.pushState({}, '', url.toString())
+}
+
+// Update URL path
+export function updateUrlPath(newPath: string) {
+	const url = new URL(window.location.toString())
+	url.pathname = newPath
 	window.history.pushState({}, '', url.toString())
 }
