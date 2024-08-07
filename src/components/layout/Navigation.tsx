@@ -200,6 +200,13 @@ const NavClose = ({
 		}
 	}
 
+	useEffect(() => {
+		window.addEventListener('popstate', handleClose)
+		return () => {
+			window.removeEventListener('popstate', handleClose)
+		}
+	})
+
 	return (
 		<ArwButton
 			src={icons.CLOSE}

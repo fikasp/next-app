@@ -53,14 +53,6 @@ export default function ImageList({
 		}
 	}, [selectedImageIndex, isDialogOpen, project.slug, route])
 
-	// Handle popstate event
-	useEffect(() => {
-		window.addEventListener('popstate', handleClose)
-		return () => {
-			window.removeEventListener('popstate', handleClose)
-		}
-	})
-
 	// Handlers for the modal
 	const handleOpen = (index: number) => {
 		debug(2)
