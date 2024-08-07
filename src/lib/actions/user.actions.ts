@@ -31,9 +31,11 @@ export async function getUser(clerkId: string | null) {
 
 		const user = await UserModel.findOne({ clerkId })
 
-		if (!user) throw new Error('User not found')
-
-		return deepClone(user)
+		if (!user) {
+			return null
+		} else {
+			return deepClone(user)
+		}
 	} catch (error) {
 		handleError(error)
 	}

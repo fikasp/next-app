@@ -41,7 +41,7 @@ export async function checkIfCurrentUserIsOwner(
 	user: undefined | IUser
 ): Promise<boolean> {
 	const currentUser = await getCurrentUser()
-	return user?._id === currentUser._id
+	return user?._id === currentUser?._id
 }
 
 // Generate unique slug
