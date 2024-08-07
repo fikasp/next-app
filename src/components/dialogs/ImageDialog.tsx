@@ -26,7 +26,7 @@ export default function ImageDialog({
 	handleNext: () => void
 }) {
 	debug(8)
-	const image = images[selectedIndex-1]
+	const image = images[selectedIndex - 1]
 	const [isImageLoaded, setIsImageLoaded] = useState(false)
 	const timerRef = useRef<any>(null)
 
@@ -51,45 +51,41 @@ export default function ImageDialog({
 
 	return (
 		<Dialog open={isOpen} onOpenChange={handleClose}>
-			<DialogContent className="flex-center w-full h-full p-0 bg-transparent dark:bg-transparent close-button-hidden">
-				<div className="w-full h-full md:w-full-4 flex-center">
-					<div onClick={handleClose} className="absolute inset-0 z-20" />
-					<div className="relative flex-center overflow-hidden">
-						<NavPrev
-							keyboard
-							scroll
-							touch
-							callback={handlePrev}
-							className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-2 text-white drop-shadow-lg"
-							size={30}
-						/>
-						<NavNext
-							keyboard
-							scroll
-							touch
-							callback={handleNext}
-							className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-2 text-white drop-shadow-lg"
-							size={30}
-						/>
-						<NavClose
-							callback={handleClose}
-							className="absolute top-2 right-2 z-50 text-white drop-shadow-lg"
-							size={30}
-						/>
-						<Image
-							src={image?.url}
-							alt={image?.name}
-							width={1400}
-							height={1400}
-							onLoad={handleImageLoad}
-							className="w-auto h-auto max-h-screen md:max-h-screen-4 object-cover"
-							priority
-						/>
-						<ArwText className="absolute bottom-4 text-white drop-shadow-lg">
-							{isImageLoaded ? `${image?.name}` : 'Loading...'}
-						</ArwText>
-					</div>
-				</div>
+			<DialogContent className="flex-center w-screen h-screen p-0 bg-transparent dark:bg-transparent close-button-hidden">
+				<div onClick={handleClose} className="absolute inset-0 z-20" />
+				<Image
+					src={image?.url}
+					alt={image?.name}
+					width={1400}
+					height={1400}
+					onLoad={handleImageLoad}
+					className="w-auto h-auto max-h-screen md:max-h-screen-4 md:max-w-screen-4 object-cover"
+					priority
+				/>
+				<NavPrev
+					touch
+					keyboard
+					scroll
+					callback={handlePrev}
+					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-0 md:left-4 xl:left-2 text-white drop-shadow-lg"
+					size={30}
+				/>
+				<NavNext
+					touch
+					keyboard
+					scroll
+					callback={handleNext}
+					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-0 md:right-4 xl:right-2 text-white drop-shadow-lg"
+					size={30}
+				/>
+				<NavClose
+					callback={handleClose}
+					className="absolute top-2 right-2 md:top-3 md:right-3 z-50 text-white drop-shadow-lg"
+					size={30}
+				/>
+				<ArwText className="absolute bottom-4 md:bottom-6 text-white drop-shadow-lg">
+					{isImageLoaded ? `${image?.name}` : 'Loading...'}
+				</ArwText>
 			</DialogContent>
 		</Dialog>
 	)
