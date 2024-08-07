@@ -79,7 +79,7 @@ const NavPrev = ({
 			document.removeEventListener('touchend', handleTouchEnd)
 			document.removeEventListener('wheel', handleWheel)
 		}
-	}, [handlePrev])
+	})
 
 	return (
 		<ArwButton
@@ -164,7 +164,7 @@ const NavNext = ({
 			document.removeEventListener('touchend', handleTouchEnd)
 			document.removeEventListener('wheel', handleWheel)
 		}
-	}, [handleNext])
+	})
 
 	return (
 		<ArwButton

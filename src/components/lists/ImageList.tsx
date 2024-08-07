@@ -51,7 +51,7 @@ export default function ImageList({
 			])
 			updateUrlPath(path)
 		}
-	}, [selectedImageIndex, isDialogOpen])
+	}, [selectedImageIndex, isDialogOpen, project.slug, route])
 
 	// Handle popstate event
 	useEffect(() => {
@@ -59,7 +59,7 @@ export default function ImageList({
 		return () => {
 			window.removeEventListener('popstate', handleClose)
 		}
-	}, [])
+	})
 
 	// Handlers for the modal
 	const handleOpen = (index: number) => {

@@ -28,7 +28,7 @@ export default function ImageDialog({
 	debug(8)
 	const image = images[selectedIndex]
 	const [isImageLoaded, setIsImageLoaded] = useState(false)
-	const timerRef = useRef<NodeJS.Timeout | null>(null)
+	const timerRef = useRef<any>(null)
 
 	useEffect(() => {
 		timerRef.current = setTimeout(() => {
