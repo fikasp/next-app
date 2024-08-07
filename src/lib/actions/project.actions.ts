@@ -143,6 +143,7 @@ export async function getProjectBySlug(
 			}
 		}
 		const currentProject = await ProjectModel.findOne({ slug })
+			.populate('user', '_id')
 			.populate('category')
 			.populate('images')
 		const prevProject = findPrev<IProject>(projects, currentIndex)

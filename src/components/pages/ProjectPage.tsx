@@ -11,15 +11,16 @@ import {
 } from '@/components/arw'
 import ImageList from '@/components/lists/ImageList'
 import Manipulations from '@/components/shared/Manipulations'
-import { NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
+import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import { DataResult } from '@/lib/types/results'
 import { debug } from '@/lib/utils/dev'
-import { generateUrl } from '@/lib/utils'
+import { checkIfCurrentUserIsOwner, generateUrl } from '@/lib/utils'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
+import { icons } from '@/lib/constants/paths'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
 
@@ -42,11 +43,15 @@ export default async function ProjectPage({
 		profile
 	)
 
+	// Check if the current user is the owner of the project
+	const isOwner = await checkIfCurrentUserIsOwner(current?.user)
+
 	// Generate URLs
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
 	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
 	const urlNext = next && generateUrl([route, next.slug], searchParams)
+	const urlProfile = generateUrl([routes.PROFILE, params.slug], searchParams)
 	const urlClose = generateUrl([route], searchParams)
 
 	return (
@@ -56,6 +61,9 @@ export default async function ProjectPage({
 					<ArwFlex row className="justify-between items-start">
 						<ArwFlex row>
 							<ArwTitle>{current.title}</ArwTitle>
+							<When condition={!profile && isOwner}>
+								<Nav url={urlProfile} src={icons.EDIT} />
+							</When>
 							<When condition={profile}>
 								<Manipulations
 									project={current}
@@ -70,11 +78,7 @@ export default async function ProjectPage({
 							<NavClose url={urlClose} />
 						</ArwFlex>
 					</ArwFlex>
-					<ImageList
-						project={current}
-						profile={profile}
-						params={params}
-					/>
+					<ImageList project={current} profile={profile} params={params} />
 					<ArwText className="max-sm:text-center">{current.info}</ArwText>
 				</ArwPaper>
 			</ArwContainer>

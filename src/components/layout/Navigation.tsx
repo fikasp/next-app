@@ -7,6 +7,42 @@ import { ArwButton } from '@/components/arw'
 // lib
 import { icons } from '@/lib/constants/paths'
 
+
+const Nav = ({
+	callback,
+	className,
+	src,
+	size,
+	url,
+}: {
+	callback?: () => void
+	url?: string | undefined | null
+	src: string
+	className?: string
+	size?: number
+}) => {
+	const router = useRouter()
+
+	const handleNav = () => {
+		if (callback) {
+			callback()
+		} else if (url) {
+			router.push(url)
+		} 
+	}
+
+	return (
+		<ArwButton
+			src={src}
+			className={className}
+			onClick={handleNav}
+			size={size}
+		/>
+	)
+}
+
+
+
 const NavPrev = ({
 	callback,
 	className,
@@ -217,4 +253,4 @@ const NavClose = ({
 	)
 }
 
-export { NavPrev, NavNext, NavClose }
+export { Nav, NavPrev, NavNext, NavClose }

@@ -26,7 +26,7 @@ export default function ImageList({
 	// State of the modal
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	// State of the selected image index
-	const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+	const [selectedImageIndex, setSelectedImageIndex] = useState(1)
 
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
@@ -34,7 +34,7 @@ export default function ImageList({
 	useEffect(() => {
 		if (params.img) {
 			const index = parseInt(params.img)
-			if (!isNaN(index) && index >= 0 && index < project.images.length) {
+			if (!isNaN(index) && index >= 1 && index <= project.images.length ) {
 				setSelectedImageIndex(index)
 				setIsDialogOpen(true)
 			}
@@ -63,14 +63,14 @@ export default function ImageList({
 	const handlePrev = () => {
 		debug(4)
 		setSelectedImageIndex((prevIndex) =>
-			prevIndex === 0 ? project.images.length - 1 : prevIndex - 1
+			prevIndex === 1 ? project.images.length : prevIndex - 1
 		)
 	}
 
 	const handleNext = () => {
 		debug(4)
 		setSelectedImageIndex((prevIndex) =>
-			prevIndex === project.images.length - 1 ? 0 : prevIndex + 1
+			prevIndex === project.images.length ? 1 : prevIndex + 1
 		)
 	}
 
@@ -91,7 +91,7 @@ export default function ImageList({
 							image={image}
 							project={project}
 							profile={profile}
-							handleOpen={() => handleOpen(index)}
+							handleOpen={() => handleOpen(index+1)}
 						/>
 					))}
 				</When>

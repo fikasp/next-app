@@ -26,14 +26,14 @@ export default function ImageDialog({
 	handleNext: () => void
 }) {
 	debug(8)
-	const image = images[selectedIndex]
+	const image = images[selectedIndex-1]
 	const [isImageLoaded, setIsImageLoaded] = useState(false)
 	const timerRef = useRef<any>(null)
 
 	useEffect(() => {
 		timerRef.current = setTimeout(() => {
 			setIsImageLoaded(false)
-		}, 500)
+		}, 1000)
 
 		return () => {
 			if (timerRef.current) {

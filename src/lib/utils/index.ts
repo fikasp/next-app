@@ -5,6 +5,9 @@ import { ZodSchema } from 'zod'
 import mongoose from 'mongoose'
 import qs from 'query-string'
 import slugify from 'slugify'
+// lib
+import { getCurrentUser } from '@/lib/actions/user.actions'
+import { IUser } from '@/lib/models/user.model'
 
 // Capitalize first letter
 export function capitalizeFirstLetter(str: string) {
@@ -31,6 +34,14 @@ export function findPrev<T>(array: T[], currentIndex: number) {
 // Find next element
 export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
+}
+
+// Check if the current user is the owner
+export async function checkIfCurrentUserIsOwner(
+	user: undefined | IUser
+): Promise<boolean> {
+	const currentUser = await getCurrentUser()
+	return user?._id === currentUser._id
 }
 
 // Generate unique slug
