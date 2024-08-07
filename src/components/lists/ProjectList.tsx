@@ -1,6 +1,6 @@
 // components
 import { ArwGrid } from '@/components/arw'
-import ProjectCard from '@/components/cards/ProjectCard'
+import ProjectCard from '@/components/lists/items/ProjectCard'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { ICategory } from '@/lib/models/category.model'

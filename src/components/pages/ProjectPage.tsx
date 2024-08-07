@@ -11,7 +11,7 @@ import {
 } from '@/components/arw'
 import ImageList from '@/components/lists/ImageList'
 import Manipulations from '@/components/shared/Manipulations'
-import Navigation from '@/components/shared/Navigation'
+import { NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import { DataResult } from '@/lib/types/results'
@@ -44,6 +44,7 @@ export default async function ProjectPage({
 
 	// Generate URLs
 	const route = profile ? routes.PROFILE : routes.PROJECTS
+
 	const urlPrev =
 		prev && generateUrl([route, prev.slug], { ...searchParams, img: undefined })
 	const urlNext =
@@ -65,13 +66,11 @@ export default async function ProjectPage({
 								/>
 							</When>
 						</ArwFlex>
-						<Navigation
-							urlClose={urlClose}
-							urlPrev={urlPrev}
-							urlNext={urlNext}
-							className="mt-1"
-							listenersKey
-						/>
+						<ArwFlex between row className="mt-1">
+							<NavPrev url={urlPrev} />
+							<NavNext url={urlNext} />
+							<NavClose url={urlClose} />
+						</ArwFlex>
 					</ArwFlex>
 					<ImageList
 						project={current}

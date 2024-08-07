@@ -1,4 +1,4 @@
-import ProjectLoading from '@/components/pages/ProjectLoading'
+import ProjectLoading from '@/components/pages/loadings/ProjectLoading'
 import { debug } from '@/lib/utils/dev'
 
 export default function Loading() {

@@ -6,7 +6,7 @@ import {
 	ArwSpinner,
 	ArwTitle,
 } from '@/components/arw'
-import Navigation from '@/components/shared/Navigation'
+import { NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 // lib
 import { debug } from '@/lib/utils/dev'
 
@@ -17,7 +17,11 @@ export default function ProjectLoading() {
 			<ArwPaper grow accent className="px-5 pb-5">
 				<ArwFlex row className="justify-between items-start">
 					<ArwTitle>Loading...</ArwTitle>
-					<Navigation className="mt-1" />
+					<ArwFlex between row className="mt-1">
+						<NavPrev />
+						<NavNext />
+						<NavClose />
+					</ArwFlex>
 				</ArwFlex>
 				<ArwSpinner accent />
 			</ArwPaper>
