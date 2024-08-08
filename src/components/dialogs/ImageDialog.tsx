@@ -51,7 +51,7 @@ export default function ImageDialog({
 
 	return (
 		<Dialog open={isOpen} onOpenChange={handleClose}>
-			<DialogContent className="flex-center w-screen h-screen p-0 bg-transparent dark:bg-transparent close-button-hidden">
+			<DialogContent className="flex-center w-full h-full p-0 bg-transparent dark:bg-transparent close-button-hidden">
 				<div onClick={handleClose} className="absolute inset-0 z-20" />
 				<Image
 					src={image?.url}
