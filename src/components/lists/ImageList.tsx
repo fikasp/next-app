@@ -34,7 +34,7 @@ export default function ImageList({
 	useEffect(() => {
 		if (params.img) {
 			const index = parseInt(params.img)
-			if (!isNaN(index) && index >= 1 && index <= project.images.length ) {
+			if (!isNaN(index) && index >= 1 && index <= project.images.length) {
 				setSelectedImageIndex(index)
 				setIsDialogOpen(true)
 			}
@@ -83,7 +83,10 @@ export default function ImageList({
 
 	return (
 		<>
-			<ArwGrid className="grow arw-grid-auto-130 content-start gap-3">
+			<ArwGrid className="arw-grid-auto-130 content-start gap-1">
+				<When condition={profile}>
+					<ImageForm project={project} />
+				</When>
 				<When condition={project?.images.length !== 0}>
 					{project?.images?.map((image, index) => (
 						<ImageCard
@@ -91,12 +94,9 @@ export default function ImageList({
 							image={image}
 							project={project}
 							profile={profile}
-							handleOpen={() => handleOpen(index+1)}
+							handleOpen={() => handleOpen(index + 1)}
 						/>
 					))}
-				</When>
-				<When condition={profile}>
-					<ImageForm project={project} />
 				</When>
 			</ArwGrid>
 			<ImageDialog

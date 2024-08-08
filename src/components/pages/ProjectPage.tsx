@@ -48,7 +48,6 @@ export default async function ProjectPage({
 
 	// Generate URLs
 	const route = profile ? routes.PROFILE : routes.PROJECTS
-
 	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
 	const urlNext = next && generateUrl([route, next.slug], searchParams)
 	const urlProfile = generateUrl([routes.PROFILE, params.slug], searchParams)
@@ -56,31 +55,42 @@ export default async function ProjectPage({
 
 	return (
 		current && (
-			<ArwContainer>
-				<ArwPaper grow accent className="px-5 pb-5">
-					<ArwFlex row className="justify-between items-start">
-						<ArwFlex row>
-							<ArwTitle>{current.title}</ArwTitle>
-							<When condition={!profile && isOwner}>
-								<Nav url={urlProfile} src={icons.USER} />
-							</When>
-							<When condition={profile}>
-								<Manipulations
-									project={current}
-									categories={categories}
-									className="relative z-30"
-								/>
-							</When>
-						</ArwFlex>
-						<ArwFlex between row className="mt-1">
-							<NavPrev url={urlPrev} />
-							<NavNext url={urlNext} />
-							<NavClose url={urlClose} />
-						</ArwFlex>
+			<ArwContainer className="p-0">
+				<ArwFlex
+					row
+					between
+					className="sticky top-[75px] z-50 p-3 backdrop-blur-md"
+				>
+					<ArwFlex row>
+						<NavPrev url={urlPrev} size={25} keyboard />
+						<ArwTitle>{current.title}</ArwTitle>
 					</ArwFlex>
+
+					<ArwFlex row className="justify-end">
+						<When condition={profile}>
+							<Manipulations
+								project={current}
+								categories={categories}
+								className="relative z-30"
+							/>
+						</When>
+
+						<When condition={!profile && isOwner}>
+							<Nav url={urlProfile} src={icons.USER} />
+						</When>
+
+						<NavClose url={urlClose} size={30} />
+						<NavNext url={urlNext} size={25} keyboard />
+					</ArwFlex>
+				</ArwFlex>
+
+				<ArwFlex className="px-4 grow">
 					<ImageList project={current} profile={profile} params={params} />
-					<ArwText className="max-sm:text-center">{current.info}</ArwText>
-				</ArwPaper>
+				</ArwFlex>
+
+				<ArwFlex row center className="p-4">
+					<ArwText>{current.info}</ArwText>
+				</ArwFlex>
 			</ArwContainer>
 		)
 	)

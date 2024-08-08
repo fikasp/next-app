@@ -13,18 +13,18 @@ import { debug } from '@/lib/utils/dev'
 export default function ProjectLoading() {
 	debug(4)
 	return (
-		<ArwContainer>
-			<ArwPaper grow accent className="px-5 pb-5">
-				<ArwFlex row className="justify-between items-start">
+		<ArwContainer className="p-0">
+			<ArwFlex row between className="p-3">
+				<ArwFlex row>
+					<NavPrev size={25} />
 					<ArwTitle>Loading...</ArwTitle>
-					<ArwFlex between row className="mt-1">
-						<NavPrev />
-						<NavNext />
-						<NavClose />
-					</ArwFlex>
 				</ArwFlex>
-				<ArwSpinner accent />
-			</ArwPaper>
+				<ArwFlex row>
+					<NavClose size={30} />
+					<NavNext size={25} />
+				</ArwFlex>
+			</ArwFlex>
+			<ArwSpinner accent />
 		</ArwContainer>
 	)
 }
