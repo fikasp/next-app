@@ -62,7 +62,7 @@ export default async function ProjectPage({
 					className="sticky top-[75px] z-50 p-3 backdrop-blur-md items-start"
 				>
 					<ArwFlex row className="items-start w-10">
-						<NavPrev url={urlPrev} size={25} keyboard />
+						<NavPrev url={urlPrev} size={25} keyboard touch />
 						<ArwTitle>{current.title}</ArwTitle>
 					</ArwFlex>
 
@@ -80,7 +80,7 @@ export default async function ProjectPage({
 						</When>
 
 						<NavClose url={urlClose} size={30} />
-						<NavNext url={urlNext} size={25} keyboard />
+						<NavNext url={urlNext} size={25} keyboard touch />
 					</ArwFlex>
 				</ArwFlex>
 
