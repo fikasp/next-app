@@ -49,7 +49,7 @@ export default function ProjectCard({
 				)}
 				className="absolute inset-0 z-20"
 			/>
-			<ArwFlex row between className="relative">
+			<ArwFlex row between className="relative items-start">
 				<ArwTitle className="group-hover:text-accent transition cursor-pointer relative z-10">
 					{project.title}
 				</ArwTitle>
@@ -57,7 +57,7 @@ export default function ProjectCard({
 					<Manipulations
 						project={project}
 						categories={categories}
-						className="relative z-30"
+						className="relative z-30 mt-1"
 					/>
 				</When>
 			</ArwFlex>
