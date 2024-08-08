@@ -61,8 +61,8 @@ export default async function ProjectPage({
 					between
 					className="sticky top-[75px] z-40 p-4 backdrop-blur-md items-start"
 				>
-					<ArwFlex row className="justify-start max-xs:max-w-[200px]">
-						<ArwTitle>{current.title}</ArwTitle>
+					<ArwFlex row className="justify-start ">
+						<ArwTitle className="max-xs:max-w-[128px]">{current.title}</ArwTitle>
 						<When condition={!profile && isOwner}>
 							<Nav url={urlProfile} src={icons.USER} className="self-start mt-[6px]"/>
 						</When>
