@@ -11,7 +11,7 @@ export default function ArwButton({
 	src,
 	size,
 }: {
-	onClick: () => void
+	onClick?: () => void
 	className?: string
 	disabled?: boolean
 	label?: string
@@ -24,7 +24,7 @@ export default function ArwButton({
 			aria-label={label}
 			className={cn(
 				disabled ? 'text-gray-400' : 'hover:text-accent-400',
-				'flex-center gap-2',
+				'flex-center gap-2 cursor-pointer',
 				className
 			)}
 		>

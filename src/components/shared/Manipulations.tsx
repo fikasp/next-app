@@ -2,7 +2,15 @@
 // modules
 import { useState } from 'react'
 // components
-import { ArwButton, ArwFlex } from '@/components/arw'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { ArwButton, ArwIcon } from '@/components/arw'
 import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
 import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 
@@ -27,16 +35,27 @@ export default function Manipulations({
 
 	return (
 		<>
-			<ArwFlex row className={className}>
-				<ArwButton
-					onClick={() => setIsUpdateDialogOpen(true)}
-					src={icons.EDIT}
-				/>
-				<ArwButton
-					onClick={() => setIsDeleteDialogOpen(true)}
-					src={icons.DELETE}
-				/>
-			</ArwFlex>
+			<DropdownMenu>
+				<DropdownMenuTrigger className={className}>
+					<ArwButton src={icons.DOTS3} size={30} />
+				</DropdownMenuTrigger>
+				<DropdownMenuContent className="flex flex-col items-start p-2">
+					<DropdownMenuItem asChild className="items-start text-left">
+						<ArwButton
+							label="Edit"
+							onClick={() => setIsUpdateDialogOpen(true)}
+							src={icons.EDIT}
+						/>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild className="text-left">
+						<ArwButton
+							label="Delete"
+							onClick={() => setIsDeleteDialogOpen(true)}
+							src={icons.DELETE}
+						/>
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
 
 			<ProjectDeleteDialog
 				project={project}

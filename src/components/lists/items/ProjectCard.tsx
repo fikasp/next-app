@@ -57,7 +57,7 @@ export default function ProjectCard({
 					<Manipulations
 						project={project}
 						categories={categories}
-						className="relative z-30 mt-1"
+						className="relative z-30"
 					/>
 				</When>
 			</ArwFlex>

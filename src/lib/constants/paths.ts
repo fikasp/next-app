@@ -11,6 +11,8 @@ export const icons = {
 	CANCEL: '/icons/cancel.svg',
 	CLOSE: '/icons/close.svg',
 	DELETE: '/icons/delete.svg',
+	DOTS3: '/icons/dots3.svg',
+	DOTS9: '/icons/dots9.svg',
 	EDIT: '/icons/edit.svg',
 	HOME: '/icons/home.svg',
 	MENU: '/icons/menu.svg',
@@ -20,7 +22,6 @@ export const icons = {
 	SAVE: '/icons/save.svg',
 	SEARCH: '/icons/search.svg',
 	UPLOAD: '/icons/upload.svg',
-	USER: '/icons/user.svg',
 }
 
 export const images = {

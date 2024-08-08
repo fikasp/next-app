@@ -64,14 +64,14 @@ export default async function ProjectPage({
 					<ArwFlex row className="justify-start ">
 						<ArwTitle className="max-xs:max-w-[128px]">{current.title}</ArwTitle>
 						<When condition={!profile && isOwner}>
-							<Nav url={urlProfile} src={icons.USER} className="self-start mt-[6px]"/>
+							<Nav url={urlProfile} src={icons.EDIT} className="self-start mt-[4px]"/>
 						</When>
 
 						<When condition={profile}>
 							<Manipulations
 								project={current}
 								categories={categories}
-								className="z-30 self-start mt-[5px]"
+								className="z-30 self-start"
 							/>
 						</When>
 					</ArwFlex>
