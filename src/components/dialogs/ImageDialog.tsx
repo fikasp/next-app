@@ -67,7 +67,7 @@ export default function ImageDialog({
 					keyboard
 					scroll
 					callback={handlePrev}
-					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-0 md:left-4 xl:left-2 text-white drop-shadow-lg"
+					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-0 md:left-4 xl:left-2 drop-shadow-lg"
 					size={30}
 				/>
 				<NavNext
@@ -75,15 +75,15 @@ export default function ImageDialog({
 					keyboard
 					scroll
 					callback={handleNext}
-					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-0 md:right-4 xl:right-2 text-white drop-shadow-lg"
+					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-0 md:right-4 xl:right-2 drop-shadow-lg"
 					size={30}
 				/>
 				<NavClose
 					callback={handleClose}
-					className="absolute top-2 right-2 md:top-3 md:right-3 z-50 text-white drop-shadow-lg"
+					className="absolute top-2 right-2 md:top-3 md:right-3 z-50  drop-shadow-lg"
 					size={30}
 				/>
-				<ArwText className="absolute bottom-4 md:bottom-6 text-white drop-shadow-lg">
+				<ArwText className="absolute bottom-4 md:bottom-6 drop-shadow-lg">
 					{isImageLoaded ? `${image?.name}` : 'Loading...'}
 				</ArwText>
 			</DialogContent>
