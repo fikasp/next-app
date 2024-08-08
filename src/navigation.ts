@@ -10,7 +10,7 @@ export const navigation = [
 	},
 	{
 		route: routes.PROFILE,
-		icon: icons.PROFILE,
+		icon: icons.USER,
 		label: 'My profile',
 		public: false
 	},
