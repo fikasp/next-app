@@ -14,9 +14,9 @@ export default function ProjectLoading() {
 	debug(4)
 	return (
 		<ArwContainer className="p-0">
-			<ArwFlex row between className="p-3 items-start">
+			<ArwFlex row between className="p-4 items-start">
 				<ArwFlex row className="items-start">
-					<NavPrev size={25} />
+					<NavPrev size={25} className="mt-[2px]"/>
 					<ArwTitle>Loading...</ArwTitle>
 				</ArwFlex>
 				<ArwFlex row>

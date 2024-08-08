@@ -59,10 +59,10 @@ export default async function ProjectPage({
 				<ArwFlex
 					row
 					between
-					className="sticky top-[75px] z-50 p-3 backdrop-blur-md items-start"
+					className="sticky top-[75px] z-40 p-4 backdrop-blur-md items-start"
 				>
 					<ArwFlex row className="items-start w-10">
-						<NavPrev url={urlPrev} size={25} keyboard touch />
+						<NavPrev url={urlPrev} size={25} keyboard touch className="mt-[2px]"/>
 						<ArwTitle>{current.title}</ArwTitle>
 					</ArwFlex>
 

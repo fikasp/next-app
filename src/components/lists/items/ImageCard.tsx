@@ -44,7 +44,7 @@ export default function ImageCard({
 				></Image>
 			</div>
 			<When condition={profile}>
-				<ArwFlex className="absolute top-0 right-0 z-40 p-3">
+				<ArwFlex className="absolute top-0 right-0 z-30 p-3">
 					<ArwButton
 						src={icons.DELETE}
 						onClick={() => handleRemoveImageFromProject(project, image)}
