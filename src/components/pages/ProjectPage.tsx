@@ -61,26 +61,25 @@ export default async function ProjectPage({
 					between
 					className="sticky top-[75px] z-40 p-4 backdrop-blur-md items-start"
 				>
-					<ArwFlex row className="items-start w-10">
-						<NavPrev url={urlPrev} size={25} keyboard touch className="mt-[2px]"/>
+					<ArwFlex row className="justify-start max-xs:max-w-[200px]">
 						<ArwTitle>{current.title}</ArwTitle>
-					</ArwFlex>
+						<When condition={!profile && isOwner}>
+							<Nav url={urlProfile} src={icons.USER} className="self-start mt-[6px]"/>
+						</When>
 
-					<ArwFlex row className="justify-end">
 						<When condition={profile}>
 							<Manipulations
 								project={current}
 								categories={categories}
-								className="relative z-30"
+								className="z-30 self-start mt-[5px]"
 							/>
 						</When>
+					</ArwFlex>
 
-						<When condition={!profile && isOwner}>
-							<Nav url={urlProfile} src={icons.USER} />
-						</When>
-
-						<NavClose url={urlClose} size={30} />
+					<ArwFlex row className="justify-end shrink-0">
+						<NavPrev url={urlPrev} size={25} keyboard touch />
 						<NavNext url={urlNext} size={25} keyboard touch />
+						<NavClose url={urlClose} size={30} />
 					</ArwFlex>
 				</ArwFlex>
 

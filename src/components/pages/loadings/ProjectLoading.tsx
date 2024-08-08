@@ -15,13 +15,11 @@ export default function ProjectLoading() {
 	return (
 		<ArwContainer className="p-0">
 			<ArwFlex row between className="p-4 items-start">
-				<ArwFlex row className="items-start">
-					<NavPrev size={25} className="mt-[2px]"/>
-					<ArwTitle>Loading...</ArwTitle>
-				</ArwFlex>
+				<ArwTitle>Loading...</ArwTitle>
 				<ArwFlex row>
-					<NavClose size={30} />
+					<NavPrev size={25} />
 					<NavNext size={25} />
+					<NavClose size={30} />
 				</ArwFlex>
 			</ArwFlex>
 			<ArwSpinner accent />
