@@ -4,7 +4,7 @@ import { If, Then, Else, When } from 'react-if'
 // components
 import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import Manipulations from '@/components/shared/Manipulations'
+import ProjectManipulations from '@/components/shared/ProjectManipulations'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { capitalizeFirstLetter, generateUrl } from '@/lib/utils'
@@ -54,7 +54,7 @@ export default function ProjectCard({
 					{project.title}
 				</ArwTitle>
 				<When condition={profile}>
-					<Manipulations
+					<ProjectManipulations
 						project={project}
 						categories={categories}
 						className="relative z-30"

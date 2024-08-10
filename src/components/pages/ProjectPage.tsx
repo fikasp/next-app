@@ -1,16 +1,14 @@
 // modules
 import { When } from 'react-if'
-
 // components
 import {
 	ArwContainer,
 	ArwFlex,
-	ArwPaper,
 	ArwText,
 	ArwTitle,
 } from '@/components/arw'
 import ImageList from '@/components/lists/ImageList'
-import Manipulations from '@/components/shared/Manipulations'
+import ProjectManipulations from '@/components/shared/ProjectManipulations'
 import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 // lib
 import { Adjacent } from '@/lib/types/results'
@@ -68,7 +66,7 @@ export default async function ProjectPage({
 						</When>
 
 						<When condition={profile}>
-							<Manipulations
+							<ProjectManipulations
 								project={current}
 								categories={categories}
 								className="z-30 self-start"
