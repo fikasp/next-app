@@ -1,7 +1,7 @@
 'use client'
 // modules
 import { When } from 'react-if'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 // components
 import { ArwGrid } from '@/components/arw'
 import ImageCard from '@/components/lists/items/ImageCard'
@@ -81,23 +81,26 @@ export default function ImageList({
 		setIsDialogOpen(false)
 	}
 
+	// Memoized image cards
+	const imageCards = useMemo(() => {
+		return project?.images?.map((image, index) => (
+			<ImageCard
+				key={image._id}
+				image={image}
+				project={project}
+				profile={profile}
+				handleOpen={() => handleOpen(index + 1)}
+			/>
+		))
+	}, [project, profile])
+
 	return (
 		<>
 			<ArwGrid className="arw-grid-auto-130 content-start gap-1">
 				<When condition={profile}>
 					<ImageForm project={project} />
 				</When>
-				<When condition={project?.images.length !== 0}>
-					{project?.images?.map((image, index) => (
-						<ImageCard
-							key={image._id}
-							image={image}
-							project={project}
-							profile={profile}
-							handleOpen={() => handleOpen(index + 1)}
-						/>
-					))}
-				</When>
+				<When condition={project?.images.length > 0}>{imageCards}</When>
 			</ArwGrid>
 			<ImageDialog
 				isOpen={isDialogOpen}
