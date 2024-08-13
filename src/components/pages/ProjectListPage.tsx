@@ -26,7 +26,7 @@ export default async function ProjectsListPage({
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 
 	return (
-		<If condition={projects.length === 0}>
+		<If condition={projects.length === 0 && !profile}>
 			<Then>
 				<ArwContainer center>No projects</ArwContainer>
 			</Then>

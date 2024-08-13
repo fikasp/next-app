@@ -1,5 +1,5 @@
 // components
-import { ArwIcon } from '@/components/arw'
+import { ArwIconSVG } from '@/components/arw'
 // lib
 import { cn } from '@/lib/utils'
 
@@ -28,7 +28,7 @@ export default function ArwButton({
 				className
 			)}
 		>
-			{src && <ArwIcon src={src} size={size} />}
+			{src && <ArwIconSVG src={src} size={size} />}
 			{label}
 		</div>
 	)

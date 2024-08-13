@@ -7,7 +7,6 @@ import { ArwButton } from '@/components/arw'
 // lib
 import { icons } from '@/lib/constants/paths'
 
-
 const Nav = ({
 	callback,
 	className,
@@ -28,7 +27,7 @@ const Nav = ({
 			callback()
 		} else if (url) {
 			router.push(url)
-		} 
+		}
 	}
 
 	return (
@@ -40,8 +39,6 @@ const Nav = ({
 		/>
 	)
 }
-
-
 
 const NavPrev = ({
 	callback,

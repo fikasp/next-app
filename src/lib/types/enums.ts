@@ -4,3 +4,13 @@ export enum SortOptions {
 	USER = 'user',
 	DATE = 'date',
 }
+
+export enum Icons {
+	ArrowDownUp = 'ArrowDownUp',
+	Menu = 'Menu',
+	Moon = 'Moon',
+	Search = 'Search',
+	SquarePlus = 'SquarePlus',
+	Sun = 'Sun',
+	User = 'User',
+}

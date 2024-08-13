@@ -9,6 +9,7 @@ import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { icons, routes } from '@/lib/constants/paths'
 import Link from 'next/link'
+import { Icons } from '@/lib/types/enums'
 
 export default async function ProjectsList({
 	projects,
@@ -40,7 +41,7 @@ export default async function ProjectsList({
 						center
 						className="max-lg:aspect-video hover:text-accent transition"
 					>
-						<ArwIcon src={icons.ADD} size={50} />
+						<ArwIcon icon={Icons.SquarePlus} size={50} />
 					</ArwPaper>
 				</Link>
 			</When>

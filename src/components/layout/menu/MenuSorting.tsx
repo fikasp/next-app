@@ -1,9 +1,7 @@
 'use client'
 // modules
-import { Moon, Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
 // components
-import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,19 +9,20 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 // lib
+import { SortOptions } from '@/lib/types/enums'
 import { useMobile } from '@/lib/utils/hooks'
-import { ArwText } from '../arw'
 
-export default function Theme({
+export default function MenuSorting({
 	setOpen,
 }: {
 	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-	const { setTheme } = useTheme()
 	const isMobile = useMobile()
+	const router = useRouter()
 
-	const handleClick = (theme: string) => () => {
-		setTheme(theme)
+	const handleClick = (sortOption: SortOptions) => () => {
+		const url = `projects?sort=${sortOption}`
+		router.push(url)
 		if (isMobile && setOpen) {
 			setOpen(false)
 		}
@@ -32,30 +31,28 @@ export default function Theme({
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<div className="flex-center gap-2 cursor-pointer hover:text-accent">
-					<div className="flex-center w-[35px]">
-						<Sun className="dark:hidden" />
-						<Moon className="hidden dark:block" />
-					</div>
-					<div className="md:hidden">
-						Theme
-					</div>
+					<div className="flex-center w-[35px]">Icon</div>
+					<div className="md:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">
 				<DropdownMenuItem
 					className="flex-center"
-					onClick={handleClick('light')}
+					onClick={handleClick(SortOptions.TITLE)}
 				>
-					Light
-				</DropdownMenuItem>
-				<DropdownMenuItem className="flex-center" onClick={handleClick('dark')}>
-					Dark
+					Sort by title
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="flex-center"
-					onClick={handleClick('system')}
+					onClick={handleClick(SortOptions.USER)}
 				>
-					System
+					Sort by user
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className="flex-center"
+					onClick={handleClick(SortOptions.DATE)}
+				>
+					Sort by date
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

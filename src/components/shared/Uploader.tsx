@@ -4,7 +4,7 @@ import { Else, If, Then } from 'react-if'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 import { useCallback } from 'react'
 // components
-import { ArwIcon, ArwText } from '@/components/arw'
+import { ArwIconSVG, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
 import { icons } from '@/lib/constants/paths'
@@ -56,7 +56,7 @@ export default function Uploader({
 				</Then>
 				<Else>
 					<div className="h-full flex flex-col items-center justify-between p-3 bg-blue">
-						<ArwIcon src={icons.UPLOAD} size={40} />
+						<ArwIconSVG src={icons.UPLOAD} size={40} />
 						<ArwText className="text-xs">Drag and drop or</ArwText>
 						<Button type="button" className="w-full text-xs">
 							Select image(s)

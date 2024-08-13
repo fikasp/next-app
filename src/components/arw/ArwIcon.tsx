@@ -1,23 +1,43 @@
-'use client'
 // modules
-import { ReactSVG } from 'react-svg'
+import {
+	ArrowDownUp,
+	Menu,
+	Moon,
+	Search,
+	SquarePlus,
+	Sun,
+	User,
+} from 'lucide-react'
+// lib
+import { Icons } from '@/lib/types/enums'
 
 export default function ArwIcon({
-	src,
+	icon,
 	className,
-	size,
+	size = 24,
 }: {
-	src: string
+	icon: Icons
 	className?: string
 	size?: number
 }) {
-	return (
-		<ReactSVG
-			src={src}
-			className={className}
-			beforeInjection={(svg) => {
-				svg.setAttribute('style', `width: ${size}; height: ${size}`)
-			}}
-		/>
-	)
+	const iconProps = { className, size }
+
+	switch (icon) {
+		case Icons.ArrowDownUp:
+			return <ArrowDownUp {...iconProps} />
+		case Icons.Menu:
+			return <Menu {...iconProps} />
+		case Icons.Moon:
+			return <Moon {...iconProps} />
+		case Icons.Search:
+			return <Search {...iconProps} />
+		case Icons.SquarePlus:
+			return <SquarePlus {...iconProps} />
+		case Icons.Sun:
+			return <Sun {...iconProps} />
+		case Icons.User:
+			return <User {...iconProps} />
+		default:
+			return null
+	}
 }

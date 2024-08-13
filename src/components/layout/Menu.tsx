@@ -1,50 +1,9 @@
-'use client'
-// modules
-import Link from 'next/link'
-import { useAuth } from '@clerk/nextjs'
-import { usePathname } from 'next/navigation'
-import { navigation } from '@/navigation'
 // components
-import Theme from './Theme'
-import { ArwIcon } from '@/components/arw'
+import MenuItem from '@/components/layout/menu/MenuItem'
+import MenuTheme from '@/components/layout/menu/MenuTheme'
 // lib
-import { useMobile } from '@/lib/utils/hooks'
-
-const MenuItem = ({
-	link,
-	setOpen,
-	publicRoute,
-}: {
-	link: any
-	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
-	publicRoute: boolean
-}) => {
-	const pathname = usePathname()
-	const isMobile = useMobile()
-	const { isSignedIn } = useAuth()
-	const isActive = link.route.split('?')[0] === pathname
-	const handleClick = () => {
-		if (isMobile && setOpen) {
-			setOpen(false)
-		}
-	}
-	if (!publicRoute && !isSignedIn) return null
-
-	return (
-		<li
-			className={`${isActive && 'text-accent'} hover:text-accent transition`}
-			onClick={handleClick}
-		>
-			<Link
-				className="flex items-center justify-center max-md:justify-start max-md:gap-2"
-				href={link.route}
-			>
-				<ArwIcon className="w-[35px] flex-center" src={link.icon} />
-				{link.label}
-			</Link>
-		</li>
-	)
-}
+import { navigation } from '@/navigation'
+import MenuSorting from './menu/MenuSorting'
 
 export default function Menu({
 	setOpen,
@@ -65,7 +24,10 @@ export default function Menu({
 					)
 				})}
 				<li className="flex">
-					<Theme setOpen={setOpen} />
+					<MenuSorting setOpen={setOpen} />
+				</li>
+				<li className="flex">
+					<MenuTheme setOpen={setOpen} />
 				</li>
 			</ul>
 		</nav>
