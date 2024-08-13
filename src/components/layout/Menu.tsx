@@ -12,7 +12,7 @@ export default function Menu({
 }) {
 	return (
 		<nav className="flex-center">
-			<ul className="flex max-md:flex-col md:items-center gap-6 md:gap-4">
+			<ul className="flex max-md:flex-col gap-6 md:gap-4">
 				{navigation.map((link) => {
 					return (
 						<MenuItem
@@ -23,11 +23,11 @@ export default function Menu({
 						/>
 					)
 				})}
-				<li className="flex">
-					<MenuSorting setOpen={setOpen} />
+				<li>
+					<MenuSorting />
 				</li>
-				<li className="flex">
-					<MenuTheme setOpen={setOpen} />
+				<li>
+					<MenuTheme />
 				</li>
 			</ul>
 		</nav>

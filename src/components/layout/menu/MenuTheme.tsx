@@ -1,6 +1,5 @@
 'use client'
 // modules
-import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 // components
 import {
@@ -9,30 +8,23 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ArwIcon } from '@/components/arw'
 // lib
-import { useMobile } from '@/lib/utils/hooks'
+import { Icons, Themes } from '@/lib/types/enums'
 
-export default function MenuTheme({
-	setOpen,
-}: {
-	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function MenuTheme() {
 	const { setTheme } = useTheme()
-	const isMobile = useMobile()
 
 	const handleClick = (theme: string) => () => {
 		setTheme(theme)
-		if (isMobile && setOpen) {
-			setOpen(false)
-		}
 	}
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<div className="flex-center gap-2 cursor-pointer hover:text-accent">
+				<div className="flex gap-2 cursor-pointer hover:text-accent">
 					<div className="flex-center w-[35px]">
-						<Sun className="flex dark:hidden" />
-						<Moon className="hidden dark:flex" />
+						<ArwIcon icon={Icons.Sun} className="flex dark:hidden" />
+						<ArwIcon icon={Icons.Moon} className="hidden dark:flex" />
 					</div>
 					<div className="md:hidden">Theme</div>
 				</div>
@@ -40,16 +32,19 @@ export default function MenuTheme({
 			<DropdownMenuContent align="center" className="text-center mt-2">
 				<DropdownMenuItem
 					className="flex-center gap-1"
-					onClick={handleClick('light')}
+					onClick={handleClick(Themes.LIGHT)}
 				>
-					<Sun /> Light
+					<ArwIcon icon={Icons.Sun} /> Light
 				</DropdownMenuItem>
-				<DropdownMenuItem className="flex-center gap-1" onClick={handleClick('dark')}>
-					<Moon /> Dark
+				<DropdownMenuItem
+					className="flex-center gap-1"
+					onClick={handleClick(Themes.DARK)}
+				>
+					<ArwIcon icon={Icons.Moon} /> Dark
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="flex-center"
-					onClick={handleClick('system')}
+					onClick={handleClick(Themes.SYSTEM)}
 				>
 					System
 				</DropdownMenuItem>

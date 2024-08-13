@@ -1,23 +1,8 @@
 // modules
-import {
-	ArrowDownUp,
-	ChevronLeft,
-	ChevronRight,
-	Ellipsis,
-	Home,
-	Menu,
-	Moon,
-	Pencil,
-	Search,
-	SquarePlus,
-	Sun,
-	Trash,
-	User,
-	X,
-} from 'lucide-react'
-// lib
+import * as icons from 'lucide-react'
 // components
 import { ArwSVG } from '@/components/arw'
+// lib
 import { Icons } from '@/lib/types/enums'
 
 export default function ArwIcon({
@@ -31,44 +16,16 @@ export default function ArwIcon({
 	size?: number
 	src?: string
 }) {
-	const iconProps = { className, size }
-
 	if (icon) {
-		switch (icon) {
-			case Icons.ArrowDownUp:
-				return <ArrowDownUp {...iconProps} />
-			case Icons.ChevronLeft:
-				return <ChevronLeft {...iconProps} />
-			case Icons.ChevronRight:
-				return <ChevronRight {...iconProps} />
-			case Icons.Ellipsis:
-				return <Ellipsis {...iconProps} />
-			case Icons.Home:
-				return <Home {...iconProps} />
-			case Icons.Menu:
-				return <Menu {...iconProps} />
-			case Icons.Moon:
-				return <Moon {...iconProps} />
-			case Icons.Pencil:
-				return <Pencil {...iconProps} />
-			case Icons.Search:
-				return <Search {...iconProps} />
-			case Icons.SquarePlus:
-				return <SquarePlus {...iconProps} />
-			case Icons.Sun:
-				return <Sun {...iconProps} />
-			case Icons.Trash:
-				return <Trash {...iconProps} />
-			case Icons.User:
-				return <User {...iconProps} />
-			case Icons.X:
-				return <X {...iconProps} />
-			default:
-				return null
+		const LucideIcon = icons[icon]
+		if (LucideIcon) {
+			return <LucideIcon className={className} size={size} />
+		} else {
+			return null
 		}
-	} else if (src) {
-		return <ArwSVG src={src} className={className} size={size} />
-	} else {
-		return null
 	}
+	if (src) {
+		return <ArwSVG src={src} className={className} size={size} />
+	}
+	return null
 }
