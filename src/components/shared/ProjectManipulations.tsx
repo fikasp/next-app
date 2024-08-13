@@ -37,18 +37,20 @@ export default function Manipulations({
 				<DropdownMenuTrigger className={className}>
 					<ArwButton icon={Icons.Ellipsis} size={30} />
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="flex flex-col items-start p-2">
-					<DropdownMenuItem asChild className="items-start text-left">
+				<DropdownMenuContent align="start" className="p-1">
+					<DropdownMenuItem asChild>
 						<ArwButton
 							label="Edit"
 							onClick={() => setIsUpdateDialogOpen(true)}
+							className="justify-start"
 							icon={Icons.Pencil}
 						/>
 					</DropdownMenuItem>
-					<DropdownMenuItem asChild className="text-left">
+					<DropdownMenuItem asChild>
 						<ArwButton
 							label="Delete"
 							onClick={() => setIsDeleteDialogOpen(true)}
+							className="justify-start"
 							icon={Icons.Trash}
 						/>
 					</DropdownMenuItem>

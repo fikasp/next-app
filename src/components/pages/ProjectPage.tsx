@@ -2,21 +2,20 @@
 import { When } from 'react-if'
 // components
 import { ArwContainer, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
-import ImageList from '@/components/lists/ImageList'
-import ProjectManipulations from '@/components/shared/ProjectManipulations'
 import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
+import ProjectManipulations from '@/components/shared/ProjectManipulations'
+import ImageList from '@/components/lists/ImageList'
 // lib
 import { Adjacent } from '@/lib/types/results'
+import { checkIfCurrentUserIsOwner, generateUrl } from '@/lib/utils'
 import { DataResult } from '@/lib/types/results'
 import { debug } from '@/lib/utils/dev'
-import { checkIfCurrentUserIsOwner, generateUrl } from '@/lib/utils'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
-import { icons } from '@/lib/constants/paths'
+import { Icons } from '@/lib/types/enums'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
-import { Icons } from '@/lib/types/enums'
 
 export default async function ProjectPage({
 	params,

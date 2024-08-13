@@ -1,6 +1,7 @@
 'use client'
 // modules
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 // components
 import {
 	DropdownMenu,
@@ -8,26 +9,31 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ArwIcon } from '@/components/arw'
 // lib
 import { Icons, SortOptions } from '@/lib/types/enums'
-import { useMobile } from '@/lib/utils/hooks'
-import { ArwIcon } from '@/components/arw'
+import { cn } from '@/lib/utils'
 
-export default function MenuSorting({
-	setOpen,
-}: {
-	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
-}) {
-	const isMobile = useMobile()
+export default function MenuSorting() {
+	const searchParams = useSearchParams()
 	const router = useRouter()
 
+	const currentSort =
+		(searchParams.get('sort') as SortOptions) || SortOptions.TITLE
+	const [sortBy, setSortBy] = useState<SortOptions>(currentSort)
+	const sortLabel = `Sort by ${sortBy.toLowerCase()}`
+
+	useEffect(() => {
+		setSortBy(currentSort)
+	}, [currentSort])
+
 	const handleClick = (sortOption: SortOptions) => () => {
-		const url = `projects?sort=${sortOption}`
+		const params = new URLSearchParams(searchParams.toString())
+		params.set('sort', sortOption)
+		const url = `?${params.toString()}`
 		router.push(url)
-		if (isMobile && setOpen) {
-			setOpen(false)
-		}
 	}
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -35,25 +41,25 @@ export default function MenuSorting({
 					<div className="flex-center w-[35px]">
 						<ArwIcon icon={Icons.ArrowDownUp} />
 					</div>
-					<div className="md:hidden">Sort options</div>
+					<div className="md:hidden">{sortLabel}</div>
 					<div className="max-md:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="center" className="text-center mt-2">
+			<DropdownMenuContent align="start" className="text-center mt-2">
 				<DropdownMenuItem
-					className="flex-center"
+					className={cn(sortBy === SortOptions.TITLE && 'font-bold')}
 					onClick={handleClick(SortOptions.TITLE)}
 				>
 					Sort by title
 				</DropdownMenuItem>
 				<DropdownMenuItem
-					className="flex-center"
+					className={cn(sortBy === SortOptions.USER && 'font-bold')}
 					onClick={handleClick(SortOptions.USER)}
 				>
 					Sort by user
 				</DropdownMenuItem>
 				<DropdownMenuItem
-					className="flex-center"
+					className={cn(sortBy === SortOptions.DATE && 'font-bold')}
 					onClick={handleClick(SortOptions.DATE)}
 				>
 					Sort by date

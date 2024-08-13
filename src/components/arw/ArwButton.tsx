@@ -1,7 +1,7 @@
 // components
 import { ArwIcon } from '@/components/arw'
-import { Icons } from '@/lib/types/enums'
 // lib
+import { Icons } from '@/lib/types/enums'
 import { cn } from '@/lib/utils'
 
 export default function ArwButton({
@@ -27,7 +27,7 @@ export default function ArwButton({
 			aria-label={label}
 			className={cn(
 				disabled ? 'text-gray-400' : 'hover:text-accent-400',
-				'flex-center gap-2 cursor-pointer transition',
+				'flex items-center justify-center gap-2 cursor-pointer transition',
 				className
 			)}
 		>
