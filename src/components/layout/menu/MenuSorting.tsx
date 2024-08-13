@@ -9,8 +9,9 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 // lib
-import { SortOptions } from '@/lib/types/enums'
+import { Icons, SortOptions } from '@/lib/types/enums'
 import { useMobile } from '@/lib/utils/hooks'
+import { ArwIcon } from '@/components/arw'
 
 export default function MenuSorting({
 	setOpen,
@@ -30,9 +31,12 @@ export default function MenuSorting({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<div className="flex-center gap-2 cursor-pointer hover:text-accent">
-					<div className="flex-center w-[35px]">Icon</div>
-					<div className="md:hidden">Sort</div>
+				<div className="flex-center cursor-pointer hover:text-accent max-md:gap-2">
+					<div className="flex-center w-[35px]">
+						<ArwIcon icon={Icons.ArrowDownUp} />
+					</div>
+					<div className="md:hidden">Sort options</div>
+					<div className="max-md:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">

@@ -1,5 +1,6 @@
 // components
-import { ArwIconSVG } from '@/components/arw'
+import { ArwIcon } from '@/components/arw'
+import { Icons } from '@/lib/types/enums'
 // lib
 import { cn } from '@/lib/utils'
 
@@ -8,6 +9,7 @@ export default function ArwButton({
 	className,
 	disabled,
 	label,
+	icon,
 	src,
 	size,
 }: {
@@ -15,6 +17,7 @@ export default function ArwButton({
 	className?: string
 	disabled?: boolean
 	label?: string
+	icon?: Icons
 	src?: string
 	size?: number
 }) {
@@ -28,7 +31,8 @@ export default function ArwButton({
 				className
 			)}
 		>
-			{src && <ArwIconSVG src={src} size={size} />}
+			{src && <ArwIcon src={src} size={size} />}
+			{icon && <ArwIcon icon={icon} size={size} />}
 			{label}
 		</div>
 	)

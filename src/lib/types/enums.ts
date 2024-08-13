@@ -7,10 +7,17 @@ export enum SortOptions {
 
 export enum Icons {
 	ArrowDownUp = 'ArrowDownUp',
+	ChevronLeft = 'ChevronLeft',
+	ChevronRight = 'ChevronRight',
+	Ellipsis = 'Ellipsis',
+	Home = 'Home',
 	Menu = 'Menu',
 	Moon = 'Moon',
+	Pencil = 'Pencil',
 	Search = 'Search',
 	SquarePlus = 'SquarePlus',
 	Sun = 'Sun',
+	Trash = 'Trash',
 	User = 'User',
+	X = 'X',
 }

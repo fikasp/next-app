@@ -17,9 +17,9 @@ export default function ProjectLoading() {
 			<ArwFlex row between className="p-4 items-start">
 				<ArwTitle>Loading...</ArwTitle>
 				<ArwFlex row>
-					<NavPrev size={25} />
-					<NavNext size={25} />
-					<NavClose size={30} />
+					<NavPrev />
+					<NavNext />
+					<NavClose />
 				</ArwFlex>
 			</ArwFlex>
 			<ArwSpinner accent />

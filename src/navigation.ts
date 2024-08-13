@@ -1,28 +1,28 @@
-import { icons } from '@/lib/constants/paths'
 import { routes } from '@/lib/constants/paths'
+import { Icons } from './lib/types/enums'
 
 export const navigation = [
 	{
 		route: routes.HOME,
-		icon: icons.HOME,
+		icon: Icons.Home,
 		label: 'Home',
 		public: true
 	},
 	{
 		route: routes.PROFILE,
-		icon: icons.PROFILE,
+		icon: Icons.User,
 		label: 'My profile',
 		public: false
 	},
 	{
 		route: routes.ADD,
-		icon: icons.ADD,
+		icon: Icons.SquarePlus,
 		label: 'Add project',
 		public: false
 	},
 	{
 		route: routes.SEARCH,
-		icon: icons.SEARCH,
+		icon: Icons.Search,
 		label: 'Search',
 		public: true
 	},

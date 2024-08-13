@@ -2,10 +2,10 @@
 // modules
 import { ReactSVG } from 'react-svg'
 
-export default function ArwIconSVG({
+export default function ArwSVG({
 	src,
 	className,
-	size,
+	size = 24,
 }: {
 	src: string
 	className?: string

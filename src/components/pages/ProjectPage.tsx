@@ -1,12 +1,7 @@
 // modules
 import { When } from 'react-if'
 // components
-import {
-	ArwContainer,
-	ArwFlex,
-	ArwText,
-	ArwTitle,
-} from '@/components/arw'
+import { ArwContainer, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import ImageList from '@/components/lists/ImageList'
 import ProjectManipulations from '@/components/shared/ProjectManipulations'
 import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
@@ -21,6 +16,7 @@ import { ICategory } from '@/lib/models/category.model'
 import { icons } from '@/lib/constants/paths'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
+import { Icons } from '@/lib/types/enums'
 
 export default async function ProjectPage({
 	params,
@@ -60,9 +56,15 @@ export default async function ProjectPage({
 					className="sticky top-[75px] z-40 p-4 backdrop-blur-md items-start"
 				>
 					<ArwFlex row className="justify-start ">
-						<ArwTitle className="max-xs:max-w-[128px]">{current.title}</ArwTitle>
+						<ArwTitle className="max-xs:max-w-[128px]">
+							{current.title}
+						</ArwTitle>
 						<When condition={!profile && isOwner}>
-							<Nav url={urlProfile} src={icons.EDIT} className="self-start mt-[4px]"/>
+							<Nav
+								url={urlProfile}
+								icon={Icons.Pencil}
+								className="self-start mt-[4px]"
+							/>
 						</When>
 
 						<When condition={profile}>
@@ -75,9 +77,9 @@ export default async function ProjectPage({
 					</ArwFlex>
 
 					<ArwFlex row className="justify-end shrink-0">
-						<NavPrev url={urlPrev} size={25} keyboard touch />
-						<NavNext url={urlNext} size={25} keyboard touch />
-						<NavClose url={urlClose} size={30} />
+						<NavPrev url={urlPrev} keyboard touch />
+						<NavNext url={urlNext} keyboard touch />
+						<NavClose url={urlClose} />
 					</ArwFlex>
 				</ArwFlex>
 

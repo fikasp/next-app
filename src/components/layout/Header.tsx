@@ -25,7 +25,7 @@ export default function Header() {
 		<header className="sticky z-50 top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50  shadow-md p-4 h-[75px] flex-center">
 			<div className="container flex justify-between p-0 xl:px-4">
 				{/* left */}
-				<div className="flex items-center">
+				<div className="flex items-center z-50">
 					<h1 className="text-2xl font-bold">
 						<ArwLink href={`/`}>ARW</ArwLink>
 					</h1>
@@ -64,7 +64,7 @@ export default function Header() {
 				</div>
 
 				{/* right */}
-				<div className="flex items-center">
+				<div className="flex items-center z-50">
 					<SignedIn>
 						<UserButton afterSignOutUrl="/" />
 					</SignedIn>

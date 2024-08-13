@@ -12,7 +12,7 @@ export default function Menu({
 }) {
 	return (
 		<nav className="flex-center">
-			<ul className="flex max-md:flex-col md:items-center gap-6">
+			<ul className="flex max-md:flex-col md:items-center gap-6 md:gap-4">
 				{navigation.map((link) => {
 					return (
 						<MenuItem

@@ -1,22 +1,22 @@
 'use client'
 // modules
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // components
 import { ArwButton } from '@/components/arw'
 // lib
-import { icons } from '@/lib/constants/paths'
+import { Icons } from '@/lib/types/enums'
 
 const Nav = ({
 	callback,
 	className,
-	src,
+	icon,
 	size,
 	url,
 }: {
 	callback?: () => void
 	url?: string | undefined | null
-	src: string
+	icon: Icons
 	className?: string
 	size?: number
 }) => {
@@ -32,7 +32,7 @@ const Nav = ({
 
 	return (
 		<ArwButton
-			src={src}
+			icon={icon}
 			className={className}
 			onClick={handleNav}
 			size={size}
@@ -43,7 +43,7 @@ const Nav = ({
 const NavPrev = ({
 	callback,
 	className,
-	size,
+	size = 30,
 	url,
 	keyboard,
 	scroll,
@@ -116,7 +116,7 @@ const NavPrev = ({
 
 	return (
 		<ArwButton
-			src={icons.PREV}
+			icon={Icons.ChevronLeft}
 			className={className}
 			disabled={!url && !callback}
 			onClick={handlePrev}
@@ -128,7 +128,7 @@ const NavPrev = ({
 const NavNext = ({
 	callback,
 	className,
-	size,
+	size = 30,
 	url,
 	keyboard,
 	scroll,
@@ -201,7 +201,7 @@ const NavNext = ({
 
 	return (
 		<ArwButton
-			src={icons.NEXT}
+			icon={Icons.ChevronRight}
 			className={className}
 			disabled={!url && !callback}
 			onClick={handleNext}
@@ -213,7 +213,7 @@ const NavNext = ({
 const NavClose = ({
 	callback,
 	className,
-	size,
+	size = 30,
 	url,
 }: {
 	callback?: () => void
@@ -242,7 +242,7 @@ const NavClose = ({
 
 	return (
 		<ArwButton
-			src={icons.CLOSE}
+			icon={Icons.X}
 			className={className}
 			onClick={handleClose}
 			size={size}
