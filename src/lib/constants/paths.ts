@@ -7,21 +7,12 @@ export const routes = {
 }
 
 export const icons = {
-	ADD: '/icons/add.svg',
 	CANCEL: '/icons/cancel.svg',
-	CLOSE: '/icons/close.svg',
 	DELETE: '/icons/delete.svg',
-	DOTS3: '/icons/dots3.svg',
-	DOTS9: '/icons/dots9.svg',
 	EDIT: '/icons/edit.svg',
-	HOME: '/icons/home.svg',
-	MENU: '/icons/menu.svg',
-	NEXT: '/icons/next.svg',
-	PREV: '/icons/prev.svg',
-	PROFILE: '/icons/profile.svg',
 	SAVE: '/icons/save.svg',
-	SEARCH: '/icons/search.svg',
 	UPLOAD: '/icons/upload.svg',
+	VERCEL: '/icons/vercel.svg',
 }
 
 export const images = {
