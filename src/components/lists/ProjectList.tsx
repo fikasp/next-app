@@ -1,10 +1,14 @@
+// modules
+import { When } from 'react-if'
 // components
-import { ArwGrid } from '@/components/arw'
+import { ArwGrid, ArwIcon, ArwPaper } from '@/components/arw'
 import ProjectCard from '@/components/lists/items/ProjectCard'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
+import { icons, routes } from '@/lib/constants/paths'
+import Link from 'next/link'
 
 export default async function ProjectsList({
 	projects,
@@ -29,6 +33,17 @@ export default async function ProjectsList({
 					profile={profile}
 				/>
 			))}
+			<When condition={profile}>
+				<Link href={routes.ADD}>
+					<ArwPaper
+						square
+						center
+						className="max-lg:aspect-video hover:text-accent transition"
+					>
+						<ArwIcon src={icons.ADD} size={50} />
+					</ArwPaper>
+				</Link>
+			</When>
 		</ArwGrid>
 	)
 }

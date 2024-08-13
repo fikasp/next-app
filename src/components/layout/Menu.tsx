@@ -16,7 +16,7 @@ const MenuItem = ({
 	publicRoute,
 }: {
 	link: any
-	setOpen: React.Dispatch<React.SetStateAction<boolean>>
+	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 	publicRoute: boolean
 }) => {
 	const pathname = usePathname()
@@ -24,7 +24,7 @@ const MenuItem = ({
 	const { isSignedIn } = useAuth()
 	const isActive = link.route.split('?')[0] === pathname
 	const handleClick = () => {
-		if (isMobile) {
+		if (isMobile && setOpen) {
 			setOpen(false)
 		}
 	}
@@ -49,7 +49,7 @@ const MenuItem = ({
 export default function Menu({
 	setOpen,
 }: {
-	setOpen: React.Dispatch<React.SetStateAction<boolean>>
+	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 	return (
 		<nav className="flex-center">
@@ -64,7 +64,7 @@ export default function Menu({
 						/>
 					)
 				})}
-				<li className="flex-center">
+				<li className="flex">
 					<Theme setOpen={setOpen} />
 				</li>
 			</ul>

@@ -1,6 +1,7 @@
 'use client'
 // modules
 import Link from 'next/link'
+import { Else, If, Then } from 'react-if'
 import { useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 // components
@@ -25,21 +26,32 @@ export default function Header() {
 				</div>
 
 				{/* center */}
-				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center">
-					<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal={isMobile}>
-						<SheetTrigger>
-							<ArwIcon
-								src={icons.MENU}
-								className="hover:text-accent transtion"
-							/>
-						</SheetTrigger>
-						<SheetContent
-							side="top"
-							className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
-						>
-							<Menu setOpen={setIsSheetOpen} />
-						</SheetContent>
-					</Sheet>
+				<div className="flex-center">
+					<If condition={isMobile}>
+						<Then>
+							<Sheet
+								open={isSheetOpen}
+								onOpenChange={setIsSheetOpen}
+								modal={isMobile}
+							>
+								<SheetTrigger>
+									<ArwIcon
+										src={icons.MENU}
+										className="hover:text-accent transtion"
+									/>
+								</SheetTrigger>
+								<SheetContent
+									side="top"
+									className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
+								>
+									<Menu setOpen={setIsSheetOpen} />
+								</SheetContent>
+							</Sheet>
+						</Then>
+						<Else>
+							<Menu />
+						</Else>
+					</If>
 				</div>
 
 				{/* right */}
