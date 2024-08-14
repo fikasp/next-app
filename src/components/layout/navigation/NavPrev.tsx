@@ -37,7 +37,7 @@ export default function NavPrev({
 
 	useKeys({ ArrowLeft: handlePrev }, keyboard)
 	useScroll({ ScrollUp: handlePrev }, scroll)
-	useSwipe({ SwipeLeft: handlePrev }, touch)
+	useSwipe({ SwipeRight: handlePrev }, touch)
 
 	return (
 		<ArwButton

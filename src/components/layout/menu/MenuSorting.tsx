@@ -21,7 +21,6 @@ export default function MenuSorting() {
 	const currentSort =
 		(searchParams.get('sort') as SortOptions) || SortOptions.TITLE
 	const [sortBy, setSortBy] = useState<SortOptions>(currentSort)
-	const sortLabel = `Sort by ${sortBy.toLowerCase()}`
 
 	useEffect(() => {
 		setSortBy(currentSort)
@@ -41,7 +40,7 @@ export default function MenuSorting() {
 					<div className="flex-center w-[35px]">
 						<ArwIcon icon={Icons.ArrowDownUp} />
 					</div>
-					<div className="md:hidden">{sortLabel}</div>
+					<div className="md:hidden">Sort options</div>
 					<div className="max-md:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>

@@ -37,7 +37,7 @@ export default function NavNext({
 
 	useKeys({ ArrowRight: handleNext }, keyboard)
 	useScroll({ ScrollDown: handleNext }, scroll)
-	useSwipe({ SwipeRight: handleNext }, touch)
+	useSwipe({ SwipeLeft: handleNext }, touch)
 
 	return (
 		<ArwButton
