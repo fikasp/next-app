@@ -12,6 +12,7 @@ import { debug } from '@/lib/utils/dev'
 import { generateUrl, updateUrlPath } from '@/lib/utils'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
+import { useKeys } from '@/lib/utils/hooks'
 
 export default function ImageList({
 	project,
@@ -29,6 +30,8 @@ export default function ImageList({
 	const [selectedImageIndex, setSelectedImageIndex] = useState(1)
 
 	const route = profile ? routes.PROFILE : routes.PROJECTS
+
+	useKeys({ ArrowDown: () => handleOpen(selectedImageIndex) }, !isDialogOpen)
 
 	// Initialize state
 	useEffect(() => {

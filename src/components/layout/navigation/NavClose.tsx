@@ -1,10 +1,11 @@
 'use client'
 // modules
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 // components
 import { ArwButton } from '@/components/arw'
 // lib
+import { useKeys, usePopState } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
 
 export default function NavClose({
@@ -30,12 +31,8 @@ export default function NavClose({
 		}
 	}, [callback, url, router])
 
-	useEffect(() => {
-		window.addEventListener('popstate', handleClose)
-		return () => {
-			window.removeEventListener('popstate', handleClose)
-		}
-	}, [handleClose])
+	useKeys({ ArrowUp: handleClose, Escape: handleClose })
+	usePopState(handleClose)
 
 	return (
 		<ArwButton

@@ -5,6 +5,7 @@ import { useCallback, useEffect } from 'react'
 // components
 import { ArwButton } from '@/components/arw'
 // lib
+import { useKeys, useSwipe, useScroll } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
 
 export default function NavNext({
@@ -34,58 +35,9 @@ export default function NavNext({
 		}
 	}, [callback, url, router])
 
-	useEffect(() => {
-		const handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === 'ArrowRight') {
-				handleNext()
-			}
-		}
-
-		const handleWheel = (event: WheelEvent) => {
-			if (event.deltaY > 0) {
-				handleNext()
-			}
-		}
-
-		let touchStartX = 0
-		let touchEndX = 0
-
-		const handleTouchStart = (event: TouchEvent) => {
-			touchStartX = event.touches[0].clientX
-		}
-
-		const handleTouchEnd = (event: TouchEvent) => {
-			touchEndX = event.changedTouches[0].clientX
-			const swipeDistance = touchStartX - touchEndX
-			if (swipeDistance > 50) {
-				handleNext()
-			}
-		}
-
-		// Event listeners
-		if (keyboard) {
-			document.addEventListener('keydown', handleKeyPress)
-		}
-		if (touch) {
-			document.addEventListener('touchstart', handleTouchStart)
-			document.addEventListener('touchend', handleTouchEnd)
-		}
-		if (scroll) {
-			document.addEventListener('wheel', handleWheel)
-		}
-		return () => {
-			if (keyboard) {
-				document.removeEventListener('keydown', handleKeyPress)
-			}
-			if (touch) {
-				document.removeEventListener('touchstart', handleTouchStart)
-				document.removeEventListener('touchend', handleTouchEnd)
-			}
-			if (scroll) {
-				document.removeEventListener('wheel', handleWheel)
-			}
-		}
-	}, [keyboard, scroll, touch, handleNext])
+	useKeys({ ArrowRight: handleNext }, keyboard)
+	useScroll({ ScrollDown: handleNext }, scroll)
+	useSwipe({ SwipeRight: handleNext }, touch)
 
 	return (
 		<ArwButton

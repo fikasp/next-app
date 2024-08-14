@@ -2,20 +2,22 @@
 // modules
 import Link from 'next/link'
 import { Else, If, Then, When } from 'react-if'
-import { useEffect, useState } from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { useEffect, useState } from 'react'
 // components
 import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import Menu from '@/components/layout/Menu'
 // lib
-import { useMobile } from '@/lib/utils/hooks'
+import { useMobile, useSwipe } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
 	const [isClient, setIsClient] = useState(false)
 	const isMobile = useMobile()
+
+	useSwipe({ SwipeUp: () => setIsSheetOpen(false) }, isSheetOpen)
 
 	useEffect(() => {
 		setIsClient(true)
