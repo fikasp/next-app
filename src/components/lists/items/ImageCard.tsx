@@ -17,11 +17,13 @@ export default function ImageCard({
 	project,
 	profile,
 	handleOpen,
+	handleEdit,
 }: {
 	image: IImage
 	project: IProject
 	profile: boolean
 	handleOpen: MouseEventHandler<HTMLDivElement>
+	handleEdit: (image: IImage) => void
 }) {
 	debug(8)
 
@@ -47,6 +49,7 @@ export default function ImageCard({
 					image={image}
 					project={project}
 					className="absolute top-0 right-0 z-30"
+					handleEdit={handleEdit}
 				/>
 			</When>
 		</ArwFlex>

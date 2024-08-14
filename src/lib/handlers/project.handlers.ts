@@ -65,6 +65,7 @@ export const handleAddImageToProject = async (
 		handleError(error)
 	}
 }
+
 // Remove image from project
 export const handleRemoveImageFromProject = async (
 	project: IProject,

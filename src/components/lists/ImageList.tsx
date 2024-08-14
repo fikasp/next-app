@@ -10,6 +10,7 @@ import ImageForm from '@/components/forms/ImageForm'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { generateUrl, updateUrlPath } from '@/lib/utils'
+import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
 import { useKeys } from '@/lib/utils/hooks'
@@ -28,6 +29,8 @@ export default function ImageList({
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	// State of the selected image index
 	const [selectedImageIndex, setSelectedImageIndex] = useState(1)
+	// State of the image being edited
+	const [editingImage, setEditingImage] = useState<IImage | null>(null)
 
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
@@ -84,18 +87,39 @@ export default function ImageList({
 		setIsDialogOpen(false)
 	}
 
+	// Handler for editing an image
+	const handleEditClick = (image: IImage) => {
+		setEditingImage(image)
+		console.log('Editing image:', image)
+	}
+
+	// Hander for canceling editing
+	const handleCancelClick = () => {
+		setEditingImage(null)
+	}
+
 	// Memoized image cards
 	const imageCards = useMemo(() => {
-		return project?.images?.map((image, index) => (
-			<ImageCard
-				key={image._id}
-				image={image}
-				project={project}
-				profile={profile}
-				handleOpen={() => handleOpen(index + 1)}
-			/>
-		))
-	}, [project, profile])
+		return project?.images?.map((image, index) =>
+			editingImage?._id === image._id ? (
+				<ImageForm
+					image={image}
+					project={project}
+					handleCancel={handleCancelClick}
+					key={image._id}
+				/>
+			) : (
+				<ImageCard
+					key={image._id}
+					image={image}
+					project={project}
+					profile={profile}
+					handleOpen={() => handleOpen(index + 1)}
+					handleEdit={handleEditClick}
+				/>
+			)
+		)
+	}, [project, profile, editingImage])
 
 	return (
 		<>

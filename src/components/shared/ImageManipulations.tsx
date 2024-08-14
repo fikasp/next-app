@@ -18,10 +18,12 @@ export default function ImageManipulations({
 	className,
 	project,
 	image,
+	handleEdit,
 }: {
 	className?: string
 	project: IProject
 	image: IImage
+	handleEdit: (image: IImage) => void
 }) {
 	debug(8)
 	return (
@@ -40,7 +42,7 @@ export default function ImageManipulations({
 					<DropdownMenuItem asChild>
 						<ArwButton
 							label="Edit"
-							onClick={() => console.log('Edit')}
+							onClick={() => handleEdit(image)}
 							icon={Icons.Pencil}
 						/>
 					</DropdownMenuItem>
