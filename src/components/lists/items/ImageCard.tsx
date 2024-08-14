@@ -4,14 +4,13 @@ import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import { When } from 'react-if'
 // components
-import { ArwButton, ArwFlex } from '@/components/arw'
+import { ArwFlex } from '@/components/arw'
+import ImageManipulations from '@/components/shared/ImageManipulations'
 // lib
-import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
+import { debug } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { loadImage } from '@/lib/utils'
-import { debug } from '@/lib/utils/dev'
-import { icons } from '@/lib/constants/paths'
 
 export default function ImageCard({
 	image,
@@ -44,13 +43,11 @@ export default function ImageCard({
 				></Image>
 			</div>
 			<When condition={profile}>
-				<ArwFlex className="absolute top-0 right-0 z-30 p-3">
-					<ArwButton
-						src={icons.DELETE}
-						onClick={() => handleRemoveImageFromProject(project, image)}
-						className="hover:text-accent-400 transition"
-					/>
-				</ArwFlex>
+				<ImageManipulations
+					image={image}
+					project={project}
+					className="absolute top-0 right-0 z-30"
+				/>
 			</When>
 		</ArwFlex>
 	)

@@ -1,3 +1,4 @@
+export { default as Arw } from './Arw'
 export { default as ArwButton } from './ArwButton'
 export { default as ArwCheckbox } from './ArwCheckbox'
 export { default as ArwContainer } from './ArwContainer'

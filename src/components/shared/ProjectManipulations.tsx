@@ -18,7 +18,7 @@ import { IProject } from '@/lib/models/project.model'
 import { Icons } from '@/lib/types/enums'
 import { debug } from '@/lib/utils/dev'
 
-export default function Manipulations({
+export default function ProjectManipulations({
 	project,
 	categories,
 	className,
@@ -34,15 +34,16 @@ export default function Manipulations({
 	return (
 		<>
 			<DropdownMenu>
-				<DropdownMenuTrigger className={className}>
-					<ArwButton icon={Icons.Ellipsis} size={30} />
+				<DropdownMenuTrigger asChild className={className}>
+					<div>
+						<ArwButton icon={Icons.Ellipsis} size={30} />
+					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="start" className="p-1">
 					<DropdownMenuItem asChild>
 						<ArwButton
 							label="Edit"
 							onClick={() => setIsUpdateDialogOpen(true)}
-							className="justify-start"
 							icon={Icons.Pencil}
 						/>
 					</DropdownMenuItem>
@@ -50,7 +51,6 @@ export default function Manipulations({
 						<ArwButton
 							label="Delete"
 							onClick={() => setIsDeleteDialogOpen(true)}
-							className="justify-start"
 							icon={Icons.Trash}
 						/>
 					</DropdownMenuItem>
