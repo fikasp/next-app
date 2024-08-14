@@ -9,6 +9,7 @@ import slugify from 'slugify'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IUser } from '@/lib/models/user.model'
 
+// @func capitalizeFirstLetter
 // Capitalize first letter
 export function capitalizeFirstLetter(str: string) {
 	if (!str) {
@@ -17,25 +18,31 @@ export function capitalizeFirstLetter(str: string) {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+// @func cn
 // Class names merge with tailwind
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
+// @func deepClone
 // Deep clone
 export function deepClone(obj: any) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
+// @func findPrev
 // Find prev element
 export function findPrev<T>(array: T[], currentIndex: number) {
 	return currentIndex > 0 ? array[currentIndex - 1] : null
 }
+
+// @func findNext
 // Find next element
 export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
 }
 
+// @func checkIfCurrentUserIsOwner
 // Check if the current user is the owner
 export async function checkIfCurrentUserIsOwner(
 	user: undefined | IUser
@@ -44,6 +51,7 @@ export async function checkIfCurrentUserIsOwner(
 	return user?._id === currentUser?._id
 }
 
+// @func generateUniqueSlug
 // Generate unique slug
 export async function generateUniqueSlug(
 	Model: mongoose.Model<any>,
@@ -62,6 +70,7 @@ export async function generateUniqueSlug(
 	return newSlug
 }
 
+// @func generateUrl
 // Generate URL
 export function generateUrl(
 	pathSegments: string[],
@@ -77,6 +86,7 @@ export function generateUrl(
 	})
 }
 
+// @func loadImage
 // Load image
 export function loadImage(transformations: string) {
 	return function (config: any) {
@@ -84,6 +94,7 @@ export function loadImage(transformations: string) {
 	}
 }
 
+// @func toStringArray
 // To string array
 export function toStringArray(
 	data: string | string[] | { [key: string]: string }
@@ -103,6 +114,7 @@ export function toStringArray(
 	}
 }
 
+// @func validateData
 // Parse with zod schema
 export function validateData(
 	schema: ZodSchema,
@@ -119,12 +131,14 @@ export function validateData(
 	return null
 }
 
+// @func transformImageUrl
 // Transform image URL
 export function transformImageUrl(url: string, transformations: string) {
 	const [urlStart, urlEnd] = url.split('upload')
 	return `${urlStart}upload/${transformations}/${urlEnd}`
 }
 
+// @func updateUrlParams
 // Update URL params
 export function updateUrlParams(
 	params: Record<string, string | undefined | null>
@@ -142,6 +156,7 @@ export function updateUrlParams(
 	window.history.pushState({}, '', url.toString())
 }
 
+// @func updateUrlPath
 // Update URL path
 export function updateUrlPath(newPath: string) {
 	const url = new URL(window.location.toString())

@@ -1,8 +1,8 @@
 // modules
 import { useMediaQuery } from 'react-responsive'
 import { useRef, useCallback, useEffect } from 'react'
-import { debug } from './dev'
 
+// @func useDebouce
 // Use debounce to delay the execution of a function
 export function useDebounce(
 	// eslint-disable-next-line no-unused-vars
@@ -26,22 +26,27 @@ export function useDebounce(
 	return debouncedFunc
 }
 
+// @func useMobile
 // Use mobile to check if the screen is mobile
 export function useMobile() {
 	const isMobile = useMediaQuery({ maxWidth: 768 })
 	return isMobile
 }
 
-type KeyActions = {
-	ArrowUp?: () => void
-	ArrowDown?: () => void
-	ArrowLeft?: () => void
-	ArrowRight?: () => void
-	Enter?: () => void
-	Escape?: () => void
-}
-
-export function useKeys(keyActions: KeyActions, enabled: boolean = true) {
+// @func useKeys
+// Use keys to call a function when the user presses a key
+export function useKeys(
+	keyActions: {
+		ArrowUp?: () => void
+		ArrowDown?: () => void
+		ArrowLeft?: () => void
+		ArrowRight?: () => void
+		Enter?: () => void
+		Escape?: () => void
+		F2?: () => void
+	},
+	enabled: boolean = true
+) {
 	useEffect(() => {
 		if (!enabled) return
 
@@ -52,6 +57,7 @@ export function useKeys(keyActions: KeyActions, enabled: boolean = true) {
 			ArrowRight: keyActions.ArrowRight,
 			Enter: keyActions.Enter,
 			Escape: keyActions.Escape,
+			F2: keyActions.F2,
 		}
 
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -67,6 +73,7 @@ export function useKeys(keyActions: KeyActions, enabled: boolean = true) {
 	}, [keyActions, enabled])
 }
 
+// @func useScroll
 // Use wheel to call a function when the user scrolls
 export function useScroll(
 	{
@@ -99,6 +106,7 @@ export function useScroll(
 	}, [ScrollUp, ScrollDown, threshold, enabled])
 }
 
+// @func useSwipe
 // Use swipe to call a function when the user swipes
 export function useSwipe(
 	{
@@ -121,11 +129,12 @@ export function useSwipe(
 		let touchStartX = 0
 		let touchStartY = 0
 
+		// handle touch start
 		const handleTouchStart = (event: TouchEvent) => {
 			touchStartX = event.touches[0].clientX
 			touchStartY = event.touches[0].clientY
 		}
-
+		// handle touch end
 		const handleTouchEnd = (event: TouchEvent) => {
 			const touchEndX = event.changedTouches[0].clientX
 			const touchEndY = event.changedTouches[0].clientY
@@ -133,6 +142,7 @@ export function useSwipe(
 			const swipeDistanceX = touchEndX - touchStartX
 			const swipeDistanceY = touchEndY - touchStartY
 
+			// check swipe direction
 			if (Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY)) {
 				// horizontal swipe
 				if (swipeDistanceX > threshold && SwipeRight) {
@@ -160,6 +170,7 @@ export function useSwipe(
 	}, [SwipeLeft, SwipeRight, SwipeUp, SwipeDown, threshold, enabled])
 }
 
+// @func usePopState
 // Use popstate to call a function when the user navigates
 export function usePopState(callback: () => void) {
 	useEffect(() => {

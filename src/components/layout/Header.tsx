@@ -9,14 +9,18 @@ import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import Menu from '@/components/layout/Menu'
 // lib
-import { useMobile, useSwipe } from '@/lib/utils/hooks'
+import { useKeys, useMobile, useSwipe } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
+import { routes } from '@/lib/constants/paths'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
 	const [isClient, setIsClient] = useState(false)
 	const isMobile = useMobile()
+	const router = useRouter()
 
+	useKeys({ F2: () => router.push(routes.SEARCH) })
 	useSwipe({ SwipeUp: () => setIsSheetOpen(false) }, isSheetOpen)
 
 	useEffect(() => {
