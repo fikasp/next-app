@@ -76,8 +76,8 @@ export default async function ProjectPage({
 					</ArwFlex>
 
 					<ArwFlex row className="justify-end shrink-0">
-						<NavPrev url={urlPrev} keyboard touch />
-						<NavNext url={urlNext} keyboard touch />
+						<NavPrev url={urlPrev} keys swipe />
+						<NavNext url={urlNext} keys swipe />
 						<NavClose url={urlClose} />
 					</ArwFlex>
 				</ArwFlex>

@@ -13,17 +13,17 @@ export default function NavNext({
 	className,
 	size = 30,
 	url,
-	keyboard = false,
+	keys = false,
 	scroll = false,
-	touch = false,
+	swipe = false,
 }: {
 	callback?: () => void
 	url?: string | undefined | null
 	className?: string
 	size?: number
-	keyboard?: boolean
+	keys?: boolean
 	scroll?: boolean
-	touch?: boolean
+	swipe?: boolean
 }) {
 	const router = useRouter()
 
@@ -35,9 +35,9 @@ export default function NavNext({
 		}
 	}, [callback, url, router])
 
-	useKeys({ ArrowRight: handleNext }, keyboard)
+	useKeys({ ArrowRight: handleNext }, keys)
 	useScroll({ ScrollDown: handleNext }, scroll)
-	useSwipe({ SwipeLeft: handleNext }, touch)
+	useSwipe({ SwipeLeft: handleNext }, swipe)
 
 	return (
 		<ArwButton

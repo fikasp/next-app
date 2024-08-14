@@ -63,17 +63,17 @@ export default function ImageDialog({
 					priority
 				/>
 				<NavPrev
-					touch
-					keyboard
+					keys
 					scroll
+					swipe
 					callback={handlePrev}
 					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-0 md:left-4 xl:left-3 arw-shadow-white dark:arw-shadow-black"
 					size={40}
 				/>
 				<NavNext
-					touch
-					keyboard
+					keys
 					scroll
+					swipe
 					callback={handleNext}
 					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-0 md:right-4 xl:right-3 arw-shadow-white dark:arw-shadow-black"
 					size={40}

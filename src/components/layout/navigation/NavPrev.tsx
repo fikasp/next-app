@@ -13,17 +13,17 @@ export default function NavPrev({
 	className,
 	size = 30,
 	url,
-	keyboard = false,
+	keys = false,
 	scroll = false,
-	touch = false,
+	swipe = false,
 }: {
 	callback?: () => void
 	url?: string | undefined | null
 	className?: string
 	size?: number
-	keyboard?: boolean
+	keys?: boolean
 	scroll?: boolean
-	touch?: boolean
+	swipe?: boolean
 }) {
 	const router = useRouter()
 
@@ -35,15 +35,15 @@ export default function NavPrev({
 		}
 	}, [callback, url, router])
 
-	useKeys({ ArrowLeft: handlePrev }, keyboard)
+	useKeys({ ArrowLeft: handlePrev }, keys)
 	useScroll({ ScrollUp: handlePrev }, scroll)
-	useSwipe({ SwipeRight: handlePrev }, touch)
+	useSwipe({ SwipeRight: handlePrev }, swipe)
 
 	return (
 		<ArwButton
 			icon={Icons.ChevronLeft}
-			className={className}
 			disabled={!url && !callback}
+			className={className}
 			onClick={handlePrev}
 			size={size}
 		/>
