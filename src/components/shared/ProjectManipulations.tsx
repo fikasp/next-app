@@ -38,7 +38,7 @@ export default function ProjectManipulations({
 						<ArwButton icon={Icons.Ellipsis} size={30} />
 					</div>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent align="start">
+				<DropdownMenuContent align="center">
 					<DropdownMenuItem onClick={() => setIsUpdateDialogOpen(true)}>
 						<ArwIcon icon={Icons.Pencil} />
 						Edit
