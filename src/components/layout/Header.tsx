@@ -1,31 +1,24 @@
 'use client'
 // modules
 import Link from 'next/link'
-import { Else, If, Then, When } from 'react-if'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 // components
 import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import Menu from '@/components/layout/Menu'
 // lib
-import { useKeys, useMobile, useSwipe } from '@/lib/utils/hooks'
+import { useKeys, useSwipe } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
 import { routes } from '@/lib/constants/paths'
 import { useRouter } from 'next/navigation'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)
-	const [isClient, setIsClient] = useState(false)
-	const isMobile = useMobile()
 	const router = useRouter()
 
 	useKeys({ F2: () => router.push(routes.SEARCH) })
 	useSwipe({ SwipeUp: () => setIsSheetOpen(false) }, isSheetOpen)
-
-	useEffect(() => {
-		setIsClient(true)
-	}, [])
 
 	return (
 		<header className="sticky z-50 top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50  shadow-md p-4 h-[75px] flex-center">
@@ -39,34 +32,22 @@ export default function Header() {
 
 				{/* center */}
 				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center w-full">
-					<When condition={isClient}>
-						<If condition={isMobile}>
-							<Then>
-								<Sheet
-									open={isSheetOpen}
-									onOpenChange={setIsSheetOpen}
-									modal={isMobile}
-								>
-									<SheetTrigger>
-										<ArwIcon
-											icon={Icons.Menu}
-											className="hover:text-accent transtion"
-											size={30}
-										/>
-									</SheetTrigger>
-									<SheetContent
-										side="top"
-										className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
-									>
-										<Menu setOpen={setIsSheetOpen} />
-									</SheetContent>
-								</Sheet>
-							</Then>
-							<Else>
-								<Menu />
-							</Else>
-						</If>
-					</When>
+					<Menu className="max-md:hidden" />
+					<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal>
+						<SheetTrigger className="md:hidden">
+							<ArwIcon
+								icon={Icons.Menu}
+								className="hover:text-accent transtion"
+								size={30}
+							/>
+						</SheetTrigger>
+						<SheetContent
+							side="top"
+							className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
+						>
+							<Menu setOpen={setIsSheetOpen} />
+						</SheetContent>
+					</Sheet>
 				</div>
 
 				{/* right */}

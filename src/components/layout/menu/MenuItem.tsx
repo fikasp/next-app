@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 // components
 import { ArwIcon } from '@/components/arw'
 // lib
-import { useMobile } from '@/lib/utils/hooks'
 import { cn } from '@/lib/utils'
 
 export default function MenuItem({
@@ -19,11 +18,12 @@ export default function MenuItem({
 	publicRoute: boolean
 }) {
 	const pathname = usePathname()
-	const isMobile = useMobile()
 	const isActive = link.route.split('?')[0] === pathname
 	const { isSignedIn } = useAuth()
 	const handleClick = () => {
-		if (isMobile && setOpen) {
+		if (setOpen) {
+			console.log('setOpen');
+			
 			setOpen(false)
 		}
 	}

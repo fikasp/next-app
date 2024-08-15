@@ -35,7 +35,7 @@ export default function ProjectForm({
 	categories: ICategory[]
 	handleClose?: () => void
 }) {
-	debug(8, 9, project)
+	debug(0, 0, project)
 	const router = useRouter()
 	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
 		value: category.label,

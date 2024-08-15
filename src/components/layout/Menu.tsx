@@ -4,14 +4,17 @@ import MenuTheme from '@/components/layout/menu/MenuTheme'
 // lib
 import { navigation } from '@/navigation'
 import MenuSorting from './menu/MenuSorting'
+import { cn } from '@/lib/utils'
 
 export default function Menu({
 	setOpen,
+	className,
 }: {
 	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
+	className?: string
 }) {
 	return (
-		<nav className="flex-center">
+		<nav className={cn('flex-center', className)}>
 			<ul className="flex max-md:flex-col gap-6 md:gap-4">
 				{navigation.map((link) => {
 					return (
