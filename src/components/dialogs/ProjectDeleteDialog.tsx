@@ -22,23 +22,23 @@ import { debug } from '@/lib/utils/dev'
 export default function ProjectDeleteDialog({
 	project,
 	open,
-	close,
+	handleClose,
 }: {
 	project: IProject
 	open: boolean
-	close: () => void
+	handleClose: () => void
 }) {
 	debug(8, 0, project)
 	const router = useRouter()
 
-	const handleAction = async () => {
+	const handleDelete = async () => {
 		await handleDeleteProject(project)
 		router.push(routes.PROFILE)
-		close()
+		handleClose()
 	}
 
 	return (
-		<AlertDialog open={open} onOpenChange={close}>
+		<AlertDialog open={open} onOpenChange={handleClose}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
@@ -50,8 +50,8 @@ export default function ProjectDeleteDialog({
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel onClick={close}>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleAction}>Continue</AlertDialogAction>
+					<AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
+					<AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

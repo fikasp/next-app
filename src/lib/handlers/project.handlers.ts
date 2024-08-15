@@ -5,6 +5,7 @@ import {
 	updateProject,
 	addImageToProject,
 	removeImageFromProject,
+	updateImageInProject,
 } from '@/lib/actions/project.actions'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
@@ -25,7 +26,7 @@ export const handleCreateProject = async (projectFormData: ProjectFormData) => {
 			toastError(error)
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
-			toastSuccess(`${createdProject.title} is successfully added.`)
+			toastSuccess(`Project ${createdProject.title} successfully added.`)
 		}
 	} catch (error) {
 		handleError(error)
@@ -45,7 +46,7 @@ export const handleUpdateProject = async (
 			toastError(error)
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
-			toastSuccess(`${projectFormData.title} is successfully updated.`)
+			toastSuccess(`Project ${projectFormData.title} successfully updated.`)
 		}
 	} catch (err) {
 		handleError(err)
@@ -60,7 +61,37 @@ export const handleAddImageToProject = async (
 	debug(2, 9, formData)
 	try {
 		const uploadedImage: UploadedImage = await uploadImage(formData)
-		await addImageToProject({ slug, ...uploadedImage })
+		const { data: addedImage } = await addImageToProject({
+			slug,
+			...uploadedImage,
+		})
+		if (addedImage) {
+			toastSuccess(`Image ${addedImage.name} successfully added.`)
+			return addedImage
+		}
+	} catch (error) {
+		handleError(error)
+	}
+}
+
+// Edit image in project
+export const handleUpdateImageInProject = async (
+	formData: FormData,
+	image: IImage
+) => {
+	debug(4, 9, formData)
+	try {
+		const uploadedImage: UploadedImage = await uploadImage(formData)
+		const { data: updatedImage } = await updateImageInProject({
+			image,
+			...uploadedImage,
+		})
+		if (updatedImage) {
+			toastSuccess(
+				`Image ${image.name} successfully updated to ${updatedImage.name}.`
+			)
+			return updatedImage
+		}
 	} catch (error) {
 		handleError(error)
 	}
@@ -78,7 +109,7 @@ export const handleRemoveImageFromProject = async (
 			image
 		)
 		if (updatedProject) {
-			toastSuccess('The image successfully removed.')
+			toastSuccess(`Image ${image.name} successfully removed.`)
 		}
 	} catch (error) {
 		handleError(error)
@@ -92,7 +123,7 @@ export const handleDeleteProject = async (project: IProject) => {
 	try {
 		const { data: deletedProject } = await deleteProject(project._id)
 		if (deletedProject) {
-			toastSuccess(`${deletedProject.title} is successfully deleted.`)
+			toastSuccess(`Project ${deletedProject.title} successfully deleted.`)
 		}
 	} catch (err) {
 		handleError(err)

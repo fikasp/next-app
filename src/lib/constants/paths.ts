@@ -11,8 +11,6 @@ export const icons = {
 	DELETE: '/icons/delete.svg',
 	EDIT: '/icons/edit.svg',
 	SAVE: '/icons/save.svg',
-	UPLOAD: '/icons/upload.svg',
-	VERCEL: '/icons/vercel.svg',
 }
 
 export const images = {

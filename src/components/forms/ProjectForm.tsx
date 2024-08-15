@@ -29,11 +29,11 @@ import { routes } from '@/lib/constants/paths'
 export default function ProjectForm({
 	project,
 	categories,
-	close,
+	handleClose,
 }: {
 	project?: IProject
 	categories: ICategory[]
-	close?: () => void
+	handleClose?: () => void
 }) {
 	debug(8, 9, project)
 	const router = useRouter()
@@ -62,8 +62,8 @@ export default function ProjectForm({
 				await handleCreateProject(projectFormData)
 			}
 			router.push(routes.PROFILE)
-			if (close) {
-				close()
+			if (handleClose) {
+				handleClose()
 			}
 		} catch (err) {
 			handleError(err)

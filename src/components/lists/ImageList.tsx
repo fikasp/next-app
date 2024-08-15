@@ -1,7 +1,7 @@
 'use client'
 // modules
 import { When } from 'react-if'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 // components
 import { ArwGrid } from '@/components/arw'
 import ImageCard from '@/components/lists/items/ImageCard'
@@ -31,6 +31,12 @@ export default function ImageList({
 	const [selectedImageIndex, setSelectedImageIndex] = useState(1)
 	// State of the image being edited
 	const [editingImage, setEditingImage] = useState<IImage | null>(null)
+	// State of the images
+	const [images, setImages] = useState<IImage[]>(project.images)
+
+	useEffect(() => {
+		setImages(project.images)
+	}, [project.images])
 
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
@@ -88,25 +94,36 @@ export default function ImageList({
 	}
 
 	// Handler for editing an image
-	const handleEditClick = (image: IImage) => {
+	const handleEditOpen = (image: IImage) => {
 		setEditingImage(image)
-		console.log('Editing image:', image)
 	}
 
 	// Hander for canceling editing
-	const handleCancelClick = () => {
+	const handleEditClose = () => {
 		setEditingImage(null)
 	}
 
+	const handleImageUpdate = useCallback(
+		(updatedImage: IImage) => {
+			const updatedImages = images.map((img) =>
+				img._id === updatedImage._id ? updatedImage : img
+			)
+			setImages(updatedImages)
+			setEditingImage(null)
+		},
+		[images, setImages, setEditingImage]
+	)
+
 	// Memoized image cards
 	const imageCards = useMemo(() => {
-		return project?.images?.map((image, index) =>
+		return images.map((image, index) =>
 			editingImage?._id === image._id ? (
 				<ImageForm
+					key={image._id}
 					image={image}
 					project={project}
-					handleCancel={handleCancelClick}
-					key={image._id}
+					handleUpdate={handleImageUpdate}
+					handleClose={handleEditClose}
 				/>
 			) : (
 				<ImageCard
@@ -115,11 +132,11 @@ export default function ImageList({
 					project={project}
 					profile={profile}
 					handleOpen={() => handleOpen(index + 1)}
-					handleEdit={handleEditClick}
+					handleEdit={handleEditOpen}
 				/>
 			)
 		)
-	}, [project, profile, editingImage])
+	}, [images, project, profile, editingImage, handleImageUpdate])
 
 	return (
 		<>

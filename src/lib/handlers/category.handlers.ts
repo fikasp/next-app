@@ -19,13 +19,11 @@ export const handleCreateCategory = async (
 	e.preventDefault()
 	try {
 		debug(2)
-		const { error, success }: Result<ICategory> = await createCategory(
-			newLabel
-		)
+		const { error, success }: Result<ICategory> = await createCategory(newLabel)
 		if (error) {
 			toastError(error)
 		} else if (success) {
-			toastSuccess('Category added.')
+			toastSuccess(`Category ${newLabel} added.`)
 			setNewLabel('')
 		}
 	} catch (error) {
@@ -48,7 +46,7 @@ export const handleUpdateCategory = async (
 			if (error) {
 				toastError(error)
 			} else if (success) {
-				toastSuccess('Category updated.')
+				toastSuccess(`Category ${editedLabel} updated.`)
 			}
 		} catch (error) {
 			handleError(error)
@@ -66,7 +64,7 @@ export const handleDeleteCategory = async (option: Option) => {
 		if (error) {
 			toastError(error)
 		} else if (success) {
-			toastSuccess('Category deleted.')
+			toastSuccess(`Category ${option.label} deleted.`)
 		}
 	} catch (error) {
 		handleError(error)

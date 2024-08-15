@@ -2,6 +2,7 @@ export enum Icons {
 	ArrowDownUp = 'ArrowDownUp',
 	ChevronLeft = 'ChevronLeft',
 	ChevronRight = 'ChevronRight',
+	CloudUpload = 'CloudUpload',
 	Ellipsis = 'Ellipsis',
 	Home = 'Home',
 	Menu = 'Menu',

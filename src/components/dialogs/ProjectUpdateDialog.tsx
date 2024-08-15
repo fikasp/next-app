@@ -10,18 +10,22 @@ export default function ProjectUpdateDialog({
 	project,
 	categories,
 	open,
-	close,
+	handleClose,
 }: {
 	project: IProject
 	categories: ICategory[]
 	open: boolean
-	close: () => void
+	handleClose: () => void
 }) {
 	debug(8, 0, project)
 	return (
-		<Dialog open={open} onOpenChange={close}>
+		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogContent className="flex flex-col aspect-square w-full-4 max-h-full max-w-md">
-				<ProjectForm project={project} categories={categories} close={close} />
+				<ProjectForm
+					project={project}
+					categories={categories}
+					handleClose={handleClose}
+				/>
 			</DialogContent>
 		</Dialog>
 	)

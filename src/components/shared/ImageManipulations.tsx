@@ -6,11 +6,11 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ArwButton } from '@/components/arw'
+import { ArwButton, ArwIcon } from '@/components/arw'
 // lib
+import { debug } from '@/lib/utils/dev'
 import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
 import { Icons } from '@/lib/types/enums'
-import { debug } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 
@@ -39,19 +39,14 @@ export default function ImageManipulations({
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="start" className="p-1">
-					<DropdownMenuItem asChild>
-						<ArwButton
-							label="Edit"
-							onClick={() => handleEdit(image)}
-							icon={Icons.Pencil}
-						/>
+					<DropdownMenuItem onClick={() => handleEdit(image)}>
+						<ArwIcon icon={Icons.Pencil} /> Edit
 					</DropdownMenuItem>
-					<DropdownMenuItem asChild>
-						<ArwButton
-							label="Delete"
-							onClick={() => handleRemoveImageFromProject(project, image)}
-							icon={Icons.Trash}
-						/>
+					<DropdownMenuItem
+						onClick={() => handleRemoveImageFromProject(project, image)}
+					>
+						<ArwIcon icon={Icons.Trash} />
+						Delete
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

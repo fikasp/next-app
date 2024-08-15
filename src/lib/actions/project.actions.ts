@@ -217,7 +217,7 @@ export async function addImageToProject({
 	publicID: string
 	name: string
 	url: string
-}): Promise<Result<IProject>> {
+}): Promise<Result<IImage>> {
 	try {
 		await connectToDatabase()
 		const image = await ImageModel.create({ publicID, name, url })
@@ -230,7 +230,37 @@ export async function addImageToProject({
 
 		debug(2, 9, updatedProject)
 		revalidatePath(routes.PROFILE, 'layout')
-		return { success: true, data: deepClone(updatedProject) }
+		return { success: true, data: deepClone(image) }
+	} catch (error) {
+		handleError(error)
+		return { success: false, error: { error: 'An error occurred' } }
+	}
+}
+
+// Update image in project
+export async function updateImageInProject({
+	image,
+	publicID,
+	name,
+	url,
+}: {
+	image: IImage
+	publicID: string
+	name: string
+	url: string
+}): Promise<Result<IImage>> {
+	try {
+		await connectToDatabase()
+
+		const updatedImage = await ImageModel.findByIdAndUpdate(
+			image._id,
+			{ publicID, url, name },
+			{ new: true }
+		)
+		await removeImage(image.publicID)
+		revalidatePath(routes.PROFILE, 'layout')
+		debug(4, 9, updatedImage)
+		return { success: true, data: deepClone(updatedImage) }
 	} catch (error) {
 		handleError(error)
 		return { success: false, error: { error: 'An error occurred' } }
@@ -256,8 +286,8 @@ export async function removeImageFromProject(
 		)
 
 		await removeImage(image.publicID)
-		debug(5, 9, updatedProject)
 		revalidatePath(routes.PROJECTS)
+		debug(5, 9, updatedProject)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
 		handleError(error)
