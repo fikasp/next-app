@@ -44,7 +44,7 @@ export default function MenuSorting() {
 					<div className="max-md:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="start" className="text-center mt-2">
+			<DropdownMenuContent align="center" className="text-center mt-2">
 				<DropdownMenuItem
 					className={cn(sortBy === SortOptions.TITLE && 'font-bold')}
 					onClick={handleClick(SortOptions.TITLE)}
