@@ -38,7 +38,7 @@ export default function ImageManipulations({
 						/>
 					</div>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent align="start" className="p-1">
+				<DropdownMenuContent align="center" className="p-1">
 					<DropdownMenuItem onClick={() => handleEdit(image)}>
 						<ArwIcon icon={Icons.Pencil} /> Edit
 					</DropdownMenuItem>
