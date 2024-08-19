@@ -53,8 +53,7 @@ export async function createProject(
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(newProject) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 
@@ -105,14 +104,14 @@ export async function getProjects(
 		const projects = await ProjectModel.find(projectQuery)
 			.populate('user', '_id username photo')
 			.populate('category')
+			.populate('cover')
 			.collation({ locale: 'pl', strength: 1 })
 			.sort(sort)
 
 		debug(3, 0, projects)
 		return { success: true, data: deepClone(projects) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, data: [], error: { error: 'An error occurred' } }
+		return { success: false, data: [], error: { error: handleError(error) } }
 	}
 }
 
@@ -146,6 +145,7 @@ export async function getProjectBySlug(
 			.populate('user', '_id')
 			.populate('category')
 			.populate('images')
+			.populate('cover')
 		const prevProject = findPrev<IProject>(projects, currentIndex)
 		const nextProject = findNext<IProject>(projects, currentIndex)
 
@@ -158,11 +158,10 @@ export async function getProjectBySlug(
 		debug(3, 0, adjacentProjects)
 		return { success: true, data: adjacentProjects }
 	} catch (error) {
-		handleError(error)
 		return {
 			success: false,
 			data: { prev: null, current: null, next: null },
-			error: { error: 'An error occurred' },
+			error: { error: handleError(error) },
 		}
 	}
 }
@@ -201,8 +200,7 @@ export async function updateProject(
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 
@@ -232,8 +230,7 @@ export async function addImageToProject({
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(image) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 
@@ -262,8 +259,7 @@ export async function updateImageInProject({
 		debug(4, 9, updatedImage)
 		return { success: true, data: deepClone(updatedImage) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 
@@ -290,8 +286,46 @@ export async function removeImageFromProject(
 		debug(5, 9, updatedProject)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
+	}
+}
+
+// Set project cover
+export async function setProjectCover(
+	slug: string,
+	image: IImage
+): Promise<Result<IProject>> {
+	try {
+		const updatedProject = await ProjectModel.findOneAndUpdate(
+			{ slug },
+			{
+				cover: image,
+			},
+			{ new: true }
+		)
+		revalidatePath(routes.PROFILE, 'layout')
+		return { success: true, data: deepClone(updatedProject) }
+	} catch (error) {
+		return { success: false, error: { error: handleError(error) } }
+	}
+}
+
+// Remove project cover
+export async function removeProjectCover(
+	slug: string
+): Promise<Result<IProject>> {
+	try {
+		const updatedProject = await ProjectModel.findOneAndUpdate(
+			{ slug },
+			{
+				cover: null,
+			},
+			{ new: true }
+		)
+		revalidatePath(routes.PROFILE, 'layout')
+		return { success: true, data: deepClone(updatedProject) }
+	} catch (error) {
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 
@@ -330,7 +364,6 @@ export async function deleteProject(
 		revalidatePath(routes.PROFILE)
 		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { error: 'An error occurred' } }
+		return { success: false, error: { error: handleError(error) } }
 	}
 }

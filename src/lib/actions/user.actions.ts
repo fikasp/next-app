@@ -20,7 +20,7 @@ export async function createUser(user: CreateUserData) {
 
 		return deepClone(newUser)
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -37,7 +37,7 @@ export async function getUser(clerkId: string | null) {
 			return deepClone(user)
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -48,7 +48,7 @@ export async function getCurrentUser() {
 
 		return deepClone(currentUser)
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -65,7 +65,7 @@ export async function updateUser(clerkId: string, user: UpdateUserData) {
 
 		return deepClone(updatedUser)
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -84,6 +84,6 @@ export async function deleteUser(clerkId: string) {
 
 		return deletedUser ? deepClone(deletedUser) : null
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }

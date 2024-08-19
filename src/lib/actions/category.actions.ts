@@ -16,7 +16,10 @@ export async function createCategory(
 ): Promise<Result<ICategory>> {
 	try {
 		if (!newLabel) {
-			return { success: false, error: { category: 'Category name is required.' } }
+			return {
+				success: false,
+				error: { category: 'Category name is required.' },
+			}
 		}
 
 		await connectToDatabase()
@@ -35,8 +38,7 @@ export async function createCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { category: 'Error creating category.' } }
+		return { success: false, error: { category: handleError(error) } }
 	}
 }
 
@@ -51,10 +53,9 @@ export async function getCategories(): Promise<DataResult<ICategory[]>> {
 		debug(3, 0, categories)
 		return { success: true, data: deepClone(categories) }
 	} catch (error) {
-		handleError(error)
 		return {
 			success: false,
-			error: { category: 'Error fetching categories.' },
+			error: { category: handleError(error) },
 			data: [],
 		}
 	}
@@ -89,8 +90,7 @@ export async function updateCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { category: 'Error updating category.' } }
+		return { success: false, error: { category: handleError(error) } }
 	}
 }
 
@@ -124,7 +124,6 @@ export async function deleteCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
-		handleError(error)
-		return { success: false, error: { category: 'Error deleting category.' } }
+		return { success: false, error: { category: handleError(error) } }
 	}
 }

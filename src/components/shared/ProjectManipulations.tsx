@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { When } from 'react-if'
 import { useState } from 'react'
 // components
 import {
@@ -13,9 +14,10 @@ import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
 import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 // lib
 import { debug } from '@/lib/utils/dev'
+import { handleRemoveProjectCover } from '@/lib/handlers/project.handlers'
 import { ICategory } from '@/lib/models/category.model'
-import { IProject } from '@/lib/models/project.model'
 import { Icons } from '@/lib/types/enums'
+import { IProject } from '@/lib/models/project.model'
 
 export default function ProjectManipulations({
 	project,
@@ -41,11 +43,17 @@ export default function ProjectManipulations({
 				<DropdownMenuContent align="center">
 					<DropdownMenuItem onClick={() => setIsUpdateDialogOpen(true)}>
 						<ArwIcon icon={Icons.Pencil} />
-						Edit
+						Edit project
 					</DropdownMenuItem>
+					<When condition={Boolean(project.cover)}>
+						<DropdownMenuItem onClick={() => handleRemoveProjectCover(project)}>
+							<ArwIcon icon={Icons.ImageDown} />
+							Remove cover
+						</DropdownMenuItem>
+					</When>
 					<DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
 						<ArwIcon icon={Icons.Trash} />
-						Delete
+						Delete project
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

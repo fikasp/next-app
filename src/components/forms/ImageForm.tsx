@@ -4,7 +4,7 @@ import { When } from 'react-if'
 import { useState } from 'react'
 import Image from 'next/image'
 // components
-import { Arw, ArwFlex } from '@/components/arw'
+import { ArwFlex } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 import Uploader from '@/components/shared/Uploader'
 // lib
@@ -60,7 +60,7 @@ export default function ImageForm({
 				}
 			}
 		} catch (error) {
-			handleError(error)
+			console.error(handleError(error))
 		}
 	}
 

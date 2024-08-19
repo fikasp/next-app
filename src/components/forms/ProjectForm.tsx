@@ -25,6 +25,7 @@ import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types/shared'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
+import { generateUrl } from '@/lib/utils'
 
 export default function ProjectForm({
 	project,
@@ -56,17 +57,25 @@ export default function ProjectForm({
 		try {
 			if (project) {
 				// Update project
-				await handleUpdateProject(projectFormData, project)
+				const updatedProject = await handleUpdateProject(
+					projectFormData,
+					project
+				)
+				if (updatedProject) {
+					router.push(routes.PROFILE)
+				}
 			} else {
 				// Create project
-				await handleCreateProject(projectFormData)
+				const createdProject = await handleCreateProject(projectFormData)
+				if (createdProject) {
+					router.push(generateUrl([routes.PROFILE, createdProject.slug]))
+				}
 			}
-			router.push(routes.PROFILE)
 			if (handleClose) {
 				handleClose()
 			}
-		} catch (err) {
-			handleError(err)
+		} catch (error) {
+			console.error(handleError(error))
 		}
 	}
 

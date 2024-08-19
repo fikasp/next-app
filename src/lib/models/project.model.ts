@@ -13,6 +13,7 @@ export interface IProject extends Document {
 	title: string
 	info: string
 	category: ICategory
+	cover: IImage | null
 	images: IImage[]
 }
 
@@ -47,6 +48,11 @@ const ProjectSchema = new Schema({
 			},
 		],
 		default: [],
+	},
+	cover: {
+		type: Schema.Types.ObjectId,
+		ref: 'Image',
+		default: null,
 	},
 })
 

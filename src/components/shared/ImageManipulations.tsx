@@ -9,10 +9,14 @@ import {
 import { ArwButton, ArwIcon } from '@/components/arw'
 // lib
 import { debug } from '@/lib/utils/dev'
-import { handleRemoveImageFromProject } from '@/lib/handlers/project.handlers'
+import {
+	handleRemoveImageFromProject,
+	handleSetProjectCover,
+} from '@/lib/handlers/project.handlers'
 import { Icons } from '@/lib/types/enums'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
+import { When } from 'react-if'
 
 export default function ImageManipulations({
 	className,
@@ -40,13 +44,21 @@ export default function ImageManipulations({
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="center" className="p-1">
 					<DropdownMenuItem onClick={() => handleEdit(image)}>
-						<ArwIcon icon={Icons.Pencil} /> Edit
+						<ArwIcon icon={Icons.RefreshCw} /> Replace image
 					</DropdownMenuItem>
+					<When condition={Boolean(project?.cover?._id !== image._id)}>
+						<DropdownMenuItem
+							onClick={() => handleSetProjectCover(project, image)}
+						>
+							<ArwIcon icon={Icons.ImageUp} />
+							Set as project cover
+						</DropdownMenuItem>
+					</When>
 					<DropdownMenuItem
 						onClick={() => handleRemoveImageFromProject(project, image)}
 					>
 						<ArwIcon icon={Icons.Trash} />
-						Delete
+						Delete image
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

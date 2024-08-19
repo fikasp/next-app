@@ -27,7 +27,7 @@ export const handleCreateCategory = async (
 			setNewLabel('')
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -49,7 +49,7 @@ export const handleUpdateCategory = async (
 				toastSuccess(`Category ${editedLabel} updated.`)
 			}
 		} catch (error) {
-			handleError(error)
+			console.error(handleError(error))
 		}
 	}
 }
@@ -67,6 +67,6 @@ export const handleDeleteCategory = async (option: Option) => {
 			toastSuccess(`Category ${option.label} deleted.`)
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }

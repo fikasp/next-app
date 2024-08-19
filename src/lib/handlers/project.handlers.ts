@@ -6,6 +6,8 @@ import {
 	addImageToProject,
 	removeImageFromProject,
 	updateImageInProject,
+	setProjectCover,
+	removeProjectCover,
 } from '@/lib/actions/project.actions'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
@@ -18,7 +20,9 @@ import { debug, handleError } from '@/lib/utils/dev'
 
 // CREATE
 // Create new project
-export const handleCreateProject = async (projectFormData: ProjectFormData) => {
+export const handleCreateProject = async (
+	projectFormData: ProjectFormData
+): Promise<IProject | undefined> => {
 	try {
 		const { error, data: createdProject }: Result<IProject> =
 			await createProject(projectFormData)
@@ -27,9 +31,10 @@ export const handleCreateProject = async (projectFormData: ProjectFormData) => {
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
 			toastSuccess(`Project ${createdProject.title} successfully added.`)
+			return createdProject
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -38,7 +43,7 @@ export const handleCreateProject = async (projectFormData: ProjectFormData) => {
 export const handleUpdateProject = async (
 	projectFormData: ProjectFormData,
 	project: IProject
-) => {
+): Promise<IProject | undefined> => {
 	try {
 		const { error, data: updatedProject }: Result<IProject> =
 			await updateProject(project.slug, projectFormData)
@@ -47,9 +52,10 @@ export const handleUpdateProject = async (
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
 			toastSuccess(`Project ${projectFormData.title} successfully updated.`)
+			return updatedProject
 		}
-	} catch (err) {
-		handleError(err)
+	} catch (error) {
+		console.error(handleError(error))
 	}
 }
 
@@ -70,7 +76,7 @@ export const handleAddImageToProject = async (
 			return addedImage
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -93,7 +99,7 @@ export const handleUpdateImageInProject = async (
 			return updatedImage
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
 	}
 }
 
@@ -112,7 +118,47 @@ export const handleRemoveImageFromProject = async (
 			toastSuccess(`Image ${image.name} successfully removed.`)
 		}
 	} catch (error) {
-		handleError(error)
+		console.error(handleError(error))
+	}
+}
+
+// Set project cover
+export const handleSetProjectCover = async (
+	project: IProject,
+	image: IImage
+) => {
+	debug(4, 9, project)
+	try {
+		const { error, data: updatedProject } = await setProjectCover(
+			project.slug,
+			image
+		)
+		if (error) {
+			toastError(error)
+		} else if (updatedProject) {
+			toastSuccess(`Image ${image.name} successfully set as cover.`)
+			return updatedProject
+		}
+	} catch (error) {
+		console.error(handleError(error))
+	}
+}
+
+// Remove project cover
+export const handleRemoveProjectCover = async (project: IProject) => {
+	debug(4, 9, project)
+	try {
+		const { error, data: updatedProject } = await removeProjectCover(
+			project.slug
+		)
+		if (error) {
+			toastError(error)
+		} else if (updatedProject) {
+			toastSuccess(`Cover image successfully removed.`)
+			return updatedProject
+		}
+	} catch (error) {
+		console.error(handleError(error))
 	}
 }
 
@@ -125,7 +171,7 @@ export const handleDeleteProject = async (project: IProject) => {
 		if (deletedProject) {
 			toastSuccess(`Project ${deletedProject.title} successfully deleted.`)
 		}
-	} catch (err) {
-		handleError(err)
+	} catch (error) {
+		console.error(handleError(error))
 	}
 }
