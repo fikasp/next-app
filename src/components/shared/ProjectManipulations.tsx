@@ -43,12 +43,12 @@ export default function ProjectManipulations({
 				<DropdownMenuContent align="center">
 					<DropdownMenuItem onClick={() => setIsUpdateDialogOpen(true)}>
 						<ArwIcon icon={Icons.Pencil} />
-						Edit project
+						Edit project info
 					</DropdownMenuItem>
 					<When condition={Boolean(project.cover)}>
 						<DropdownMenuItem onClick={() => handleRemoveProjectCover(project)}>
 							<ArwIcon icon={Icons.ImageDown} />
-							Remove cover
+							Remove project cover
 						</DropdownMenuItem>
 					</When>
 					<DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>

@@ -127,7 +127,7 @@ export const handleSetProjectCover = async (
 	project: IProject,
 	image: IImage
 ) => {
-	debug(4, 9, project)
+	debug(4, 0, project)
 	try {
 		const { error, data: updatedProject } = await setProjectCover(
 			project.slug,
@@ -146,7 +146,7 @@ export const handleSetProjectCover = async (
 
 // Remove project cover
 export const handleRemoveProjectCover = async (project: IProject) => {
-	debug(4, 9, project)
+	debug(4, 0, project)
 	try {
 		const { error, data: updatedProject } = await removeProjectCover(
 			project.slug
