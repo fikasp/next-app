@@ -2,16 +2,16 @@
 // modules
 import Link from 'next/link'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 // components
 import { ArwLink, ArwIcon } from '@/components/arw'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import Menu from '@/components/layout/Menu'
 // lib
-import { useKeys, useSwipe } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
 import { routes } from '@/lib/constants/paths'
-import { useRouter } from 'next/navigation'
+import { useKeys, useSwipe } from '@/lib/utils/hooks'
 
 export default function Header() {
 	const [isSheetOpen, setIsSheetOpen] = useState(false)

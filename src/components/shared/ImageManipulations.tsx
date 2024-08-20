@@ -1,4 +1,6 @@
 'use client'
+// modules
+import { When } from 'react-if'
 // components
 import {
 	DropdownMenu,
@@ -8,7 +10,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ArwButton, ArwIcon } from '@/components/arw'
 // lib
-import { debug } from '@/lib/utils/dev'
 import {
 	handleRemoveImageFromProject,
 	handleSetProjectCover,
@@ -16,7 +17,7 @@ import {
 import { Icons } from '@/lib/types/enums'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
-import { When } from 'react-if'
+import { debug } from '@/lib/utils/dev'
 
 export default function ImageManipulations({
 	className,
@@ -27,6 +28,7 @@ export default function ImageManipulations({
 	className?: string
 	project: IProject
 	image: IImage
+	// eslint-disable-next-line no-unused-vars
 	handleEdit: (image: IImage) => void
 }) {
 	debug(8)

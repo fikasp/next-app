@@ -22,8 +22,8 @@ export default function MenuItem({
 	const { isSignedIn } = useAuth()
 	const handleClick = () => {
 		if (setOpen) {
-			console.log('setOpen');
-			
+			console.log('setOpen')
+
 			setOpen(false)
 		}
 	}

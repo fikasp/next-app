@@ -4,7 +4,7 @@ import { When } from 'react-if'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 // components
 import { ArwGrid } from '@/components/arw'
-import ImageCard from '@/components/lists/items/ImageCard'
+import ImageCard from '@/components/content/items/ImageCard'
 import ImageDialog from '@/components/dialogs/ImageDialog'
 import ImageForm from '@/components/forms/ImageForm'
 // lib

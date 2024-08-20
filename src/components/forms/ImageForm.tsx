@@ -26,6 +26,7 @@ export default function ImageForm({
 	image?: IImage
 	project: IProject
 	handleClose?: () => void
+	// eslint-disable-next-line no-unused-vars
 	handleUpdate?: (image: IImage) => void
 }) {
 	const editMode = Boolean(image)

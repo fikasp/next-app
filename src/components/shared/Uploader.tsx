@@ -7,8 +7,8 @@ import { useCallback } from 'react'
 import { Arw, ArwIcon, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
-import { cn } from '@/lib/utils'
 import { Icons } from '@/lib/types/enums'
+import { cn } from '@/lib/utils'
 
 export default function Uploader({
 	files,

@@ -2,7 +2,7 @@
 import { Else, If, Then } from 'react-if'
 // components
 import { ArwContainer } from '@/components/arw'
-import ProjectsList from '@/components/lists/ProjectList'
+import ProjectsList from '@/components/content/ProjectList'
 // lib
 import { DataResult } from '@/lib/types/results'
 import { getCategories } from '@/lib/actions/category.actions'

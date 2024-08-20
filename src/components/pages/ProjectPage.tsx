@@ -4,7 +4,7 @@ import { When } from 'react-if'
 import { ArwContainer, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 import ProjectManipulations from '@/components/shared/ProjectManipulations'
-import ImageList from '@/components/lists/ImageList'
+import ImageList from '@/components/content/ImageList'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import { checkIfCurrentUserIsOwner, generateUrl } from '@/lib/utils'

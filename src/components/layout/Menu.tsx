@@ -1,9 +1,9 @@
 // components
 import MenuItem from '@/components/layout/menu/MenuItem'
+import MenuSorting from '@/components/layout/menu/MenuSorting'
 import MenuTheme from '@/components/layout/menu/MenuTheme'
 // lib
 import { navigation } from '@/navigation'
-import MenuSorting from './menu/MenuSorting'
 import { cn } from '@/lib/utils'
 
 export default function Menu({

@@ -23,6 +23,7 @@ export default function ImageCard({
 	project: IProject
 	profile: boolean
 	handleOpen: MouseEventHandler<HTMLDivElement>
+	// eslint-disable-next-line no-unused-vars
 	handleEdit: (image: IImage) => void
 }) {
 	debug(8)

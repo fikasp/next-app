@@ -1,11 +1,5 @@
 // components
-import {
-	ArwContainer,
-	ArwFlex,
-	ArwPaper,
-	ArwSpinner,
-	ArwTitle,
-} from '@/components/arw'
+import { ArwContainer, ArwFlex, ArwSpinner, ArwTitle } from '@/components/arw'
 import { NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
 // lib
 import { debug } from '@/lib/utils/dev'

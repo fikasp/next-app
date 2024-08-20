@@ -1,15 +1,15 @@
 // modules
+import Link from 'next/link'
 import { When } from 'react-if'
 // components
 import { ArwGrid, ArwIcon, ArwPaper } from '@/components/arw'
-import ProjectCard from '@/components/lists/items/ProjectCard'
+import ProjectCard from '@/components/content/items/ProjectCard'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { ICategory } from '@/lib/models/category.model'
+import { Icons } from '@/lib/types/enums'
 import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
-import Link from 'next/link'
-import { Icons } from '@/lib/types/enums'
 
 export default async function ProjectsList({
 	projects,

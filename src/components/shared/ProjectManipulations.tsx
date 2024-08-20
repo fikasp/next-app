@@ -13,11 +13,11 @@ import { ArwButton, ArwIcon } from '@/components/arw'
 import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
 import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 // lib
-import { debug } from '@/lib/utils/dev'
 import { handleRemoveProjectCover } from '@/lib/handlers/project.handlers'
 import { ICategory } from '@/lib/models/category.model'
 import { Icons } from '@/lib/types/enums'
 import { IProject } from '@/lib/models/project.model'
+import { debug } from '@/lib/utils/dev'
 
 export default function ProjectManipulations({
 	project,

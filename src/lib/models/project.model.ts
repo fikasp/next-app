@@ -1,6 +1,5 @@
 // modules
-import { Document } from 'mongoose'
-import { Schema, model, models } from 'mongoose'
+import { Document, Schema, model, models } from 'mongoose'
 // lib
 import { ICategory } from '@/lib/models/category.model'
 import { IImage } from '@/lib/models/image.model'

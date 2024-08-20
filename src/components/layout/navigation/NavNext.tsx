@@ -1,7 +1,7 @@
 'use client'
 // modules
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 // components
 import { ArwButton } from '@/components/arw'
 // lib

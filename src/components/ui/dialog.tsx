@@ -44,7 +44,7 @@ const DialogContent = React.forwardRef<
 			{children}
 			<DialogPrimitive.Close
 				className={cn(
-					className?.includes("close-button-hidden")
+					className?.includes('close-button-hidden')
 						? 'absolute right-4 top-4 opacity-0'
 						: 'absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-base-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-base-100 data-[state=open]:text-base-500 dark:ring-offset-base-950 dark:focus:ring-base-300 dark:data-[state=open]:bg-base-800 dark:data-[state=open]:text-base-400'
 				)}
