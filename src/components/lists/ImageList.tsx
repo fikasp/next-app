@@ -44,8 +44,8 @@ export default function ImageList({
 
 	// Initialize state
 	useEffect(() => {
-		if (params.img) {
-			const index = parseInt(params.img)
+		if (params.slug[1]) {
+			const index = parseInt(params.slug[1])
 			if (!isNaN(index) && index >= 1 && index <= project.images.length) {
 				setSelectedImageIndex(index)
 				setIsDialogOpen(true)

@@ -31,7 +31,7 @@ export default async function ProjectPage({
 	const {
 		data: { prev, current, next },
 	}: DataResult<Adjacent<IProject>> = await getProjectBySlug(
-		params.slug,
+		params.slug[0],
 		searchParams,
 		profile
 	)
@@ -43,7 +43,7 @@ export default async function ProjectPage({
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
 	const urlNext = next && generateUrl([route, next.slug], searchParams)
-	const urlProfile = generateUrl([routes.PROFILE, params.slug], searchParams)
+	const urlProfile = generateUrl([routes.PROFILE, params.slug[0]], searchParams)
 	const urlClose = generateUrl([route], searchParams)
 
 	return (

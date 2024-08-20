@@ -25,6 +25,7 @@ export default function ArwButton({
 		<div
 			onClick={onClick}
 			aria-label={label}
+			role="button"
 			className={cn(
 				disabled ? 'text-gray-400' : 'hover:text-accent-400',
 				'flex items-center justify-start gap-2 cursor-pointer transition',

@@ -13,7 +13,7 @@ import { debug } from '@/lib/utils/dev'
 export default function ProjectLoading() {
 	debug(4)
 	return (
-		<ArwContainer className="p-0">
+		<ArwContainer className="p-0 relative">
 			<ArwFlex row between className="p-4 items-start">
 				<ArwTitle>Loading...</ArwTitle>
 				<ArwFlex row>
@@ -22,7 +22,7 @@ export default function ProjectLoading() {
 					<NavClose />
 				</ArwFlex>
 			</ArwFlex>
-			<ArwSpinner accent />
+			<ArwSpinner accent absolute />
 		</ArwContainer>
 	)
 }

@@ -67,7 +67,7 @@ export default function ImageDialog({
 					scroll
 					swipe
 					callback={handlePrev}
-					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 left-0 md:left-4 xl:left-3 arw-shadow-white dark:arw-shadow-black"
+					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 left-0 md:left-4 xl:left-3 arw-shadow-white dark:arw-shadow-black"
 					size={40}
 				/>
 				<NavNext
@@ -75,7 +75,7 @@ export default function ImageDialog({
 					scroll
 					swipe
 					callback={handleNext}
-					className="absolute top-[50%] translate-y-[-50%] p-1 z-50 right-0 md:right-4 xl:right-3 arw-shadow-white dark:arw-shadow-black"
+					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 right-0 md:right-4 xl:right-3 arw-shadow-white dark:arw-shadow-black"
 					size={40}
 				/>
 				<NavClose

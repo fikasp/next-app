@@ -4,12 +4,20 @@ import { cn } from '@/lib/utils'
 export default function ArwSpinner({
 	accent,
 	className,
+	absolute,
 }: {
 	accent?: boolean
 	className?: string
+	absolute?: boolean
 }) {
 	return (
-		<div className="flex-center grow">
+		<div
+			className={cn(
+				absolute
+					? 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+					: 'flex-center grow'
+			)}
+		>
 			<div
 				className={cn(
 					'animate-spin h-32 w-32 rounded-full border-8 border-t-8',
