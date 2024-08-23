@@ -11,6 +11,7 @@ import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { updateProjectOrder } from '@/lib/actions/project.actions'
 import { toastSuccess } from '@/lib/utils/toasts'
+import { useMobile } from '@/lib/utils/hooks'
 
 export default function ProjectsListSort({
 	projects,
@@ -28,6 +29,8 @@ export default function ProjectsListSort({
 	useEffect(() => {
 		setProjectList(projects)
 	}, [projects])
+
+	const isMobile = useMobile()
 
 	const handleDragEnd = async (result: any) => {
 		if (!result.destination) return
@@ -52,7 +55,9 @@ export default function ProjectsListSort({
 	return (
 		<ArwContainer>
 			<DragDropContext onDragEnd={handleDragEnd}>
-				<Droppable droppableId="projects">
+				<Droppable
+					droppableId="projects"
+				>
 					{(provided) => (
 						<div
 							className="grid arw-grid-auto-300 gap-3"
