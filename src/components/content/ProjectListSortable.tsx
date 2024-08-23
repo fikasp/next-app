@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 // components
 import { ArwContainer } from '@/components/arw'
@@ -24,6 +24,10 @@ export default function ProjectsListSort({
 	profile: boolean
 }) {
 	const [projectList, setProjectList] = useState(projects)
+
+	useEffect(() => {
+		setProjectList(projects)
+	}, [projects])
 
 	const handleDragEnd = async (result: any) => {
 		if (!result.destination) return

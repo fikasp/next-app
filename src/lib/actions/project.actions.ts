@@ -391,7 +391,7 @@ export async function deleteProject(
 		const deletedProject = await ProjectModel.findByIdAndDelete(projectId)
 
 		debug(5, 0, deletedProject)
-		revalidatePath(routes.PROFILE)
+		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
 		return { success: false, error: { error: handleError(error) } }
