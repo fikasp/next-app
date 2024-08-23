@@ -1,3 +1,10 @@
+/**
+ * Provides a theme provider component for the application.
+ *
+ * @component
+ * @param {ThemeProviderProps} props - The props for the ThemeProvider component.
+ * @returns {JSX.Element} The rendered ThemeProvider component.
+ */
 'use client'
 
 import * as React from 'react'

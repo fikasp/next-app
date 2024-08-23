@@ -7,37 +7,25 @@ import { IUser } from '@/lib/models/user.model'
 
 export interface IProject extends Document {
 	_id: string
-	user: IUser
-	slug: string
-	title: string
-	info: string
 	category: ICategory
 	cover: IImage | null
 	images: IImage[]
+	info: string
+	order: number
+	slug: string
+	title: string
+	user: IUser
 }
 
 const ProjectSchema = new Schema({
-	user: {
-		type: Schema.Types.ObjectId,
-		required: true,
-		ref: 'User',
-	},
-	slug: {
-		type: String,
-		unique: true,
-		required: true,
-	},
-	title: {
-		type: String,
-		required: true,
-	},
-	info: {
-		type: String,
-		required: true,
-	},
 	category: {
 		type: Schema.Types.ObjectId,
 		ref: 'Category',
+	},
+	cover: {
+		type: Schema.Types.ObjectId,
+		ref: 'Image',
+		default: null,
 	},
 	images: {
 		type: [
@@ -48,10 +36,28 @@ const ProjectSchema = new Schema({
 		],
 		default: [],
 	},
-	cover: {
+	info: {
+		type: String,
+		required: true,
+	},
+	order: {
+		type: Number,
+		required: true,
+		default: 0,
+	},
+	slug: {
+		type: String,
+		unique: true,
+		required: true,
+	},
+	title: {
+		type: String,
+		required: true,
+	},
+	user: {
 		type: Schema.Types.ObjectId,
-		ref: 'Image',
-		default: null,
+		required: true,
+		ref: 'User',
 	},
 })
 

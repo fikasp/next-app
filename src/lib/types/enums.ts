@@ -23,9 +23,10 @@ export enum Icons {
 }
 
 export enum SortOptions {
+	CUSTOM = 'custom',
+	DATE = 'date',
 	TITLE = 'title',
 	USER = 'user',
-	DATE = 'date',
 }
 
 export enum Themes {

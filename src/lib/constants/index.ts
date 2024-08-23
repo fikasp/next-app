@@ -9,14 +9,8 @@ export const msg = {
 }
 
 export const sortOptions = [
-	{ label: 'Sort projects by title', value: SortOptions.TITLE },
-	{ label: 'Sort projects by user', value: SortOptions.USER },
+	{ label: 'Custom project sort', value: SortOptions.CUSTOM },
 	{ label: 'Sort projects by date', value: SortOptions.DATE },
-]
-
-export const categories = [
-	{ value: 'common', label: 'Common' },
-	{ value: 'mountains', label: 'Mountains' },
-	{ value: 'cities', label: 'Cities' },
-	{ value: 'other', label: 'Other' },
+	{ label: 'Sort projects by user', value: SortOptions.USER },
+	{ label: 'Sort projects by title', value: SortOptions.TITLE },
 ]

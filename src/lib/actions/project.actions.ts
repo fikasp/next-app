@@ -93,13 +93,14 @@ export async function getProjects(
 		}
 
 		const sortOptions: { [key: string]: any } = {
+			[SortOptions.CUSTOM]: { order: 1 },
 			[SortOptions.TITLE]: { title: 1 },
 			[SortOptions.USER]: { user: 1, title: 1 },
 			[SortOptions.DATE]: { _id: 1 },
 		}
 
 		const sort: any =
-			sortOptions[searchParams.sort] || sortOptions[SortOptions.TITLE]
+			sortOptions[searchParams.sort] || sortOptions[SortOptions.CUSTOM]
 
 		const projects = await ProjectModel.find(projectQuery)
 			.populate('user', '_id username photo')
@@ -122,6 +123,8 @@ export async function getProjectBySlug(
 	profile: boolean
 ): Promise<DataResult<Adjacent<IProject>>> {
 	try {
+		await connectToDatabase()
+
 		const { data: projects }: DataResult<IProject[]> = await getProjects(
 			searchParams,
 			profile
@@ -296,6 +299,8 @@ export async function setProjectCover(
 	image: IImage
 ): Promise<Result<IProject>> {
 	try {
+		await connectToDatabase()
+
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
 			{
@@ -315,6 +320,8 @@ export async function removeProjectCover(
 	slug: string
 ): Promise<Result<IProject>> {
 	try {
+		await connectToDatabase()
+
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
 			{
@@ -324,6 +331,29 @@ export async function removeProjectCover(
 		)
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(updatedProject) }
+	} catch (error) {
+		return { success: false, error: { error: handleError(error) } }
+	}
+}
+
+// Update project order
+export async function updateProjectOrder(
+	projects: { _id: string; order: number }[]
+): Promise<Result<null>> {
+	try {
+		await connectToDatabase()
+
+		const bulkOps = projects.map((project) => ({
+			updateOne: {
+				filter: { _id: project._id },
+				update: { order: project.order },
+			},
+		}))
+
+		await ProjectModel.bulkWrite(bulkOps)
+
+		revalidatePath(routes.PROFILE)
+		return { success: true, data: null }
 	} catch (error) {
 		return { success: false, error: { error: handleError(error) } }
 	}

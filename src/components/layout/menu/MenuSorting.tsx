@@ -19,7 +19,7 @@ export default function MenuSorting() {
 	const router = useRouter()
 
 	const currentSort =
-		(searchParams.get('sort') as SortOptions) || SortOptions.TITLE
+		(searchParams.get('sort') as SortOptions) || SortOptions.CUSTOM
 	const [sortBy, setSortBy] = useState<SortOptions>(currentSort)
 
 	useEffect(() => {
@@ -28,7 +28,11 @@ export default function MenuSorting() {
 
 	const handleClick = (sortOption: SortOptions) => () => {
 		const params = new URLSearchParams(searchParams.toString())
-		params.set('sort', sortOption)
+		if (sortOption === SortOptions.CUSTOM) {
+			params.delete('sort')
+		} else {
+			params.set('sort', sortOption)
+		}
 		const url = `?${params.toString()}`
 		router.push(url)
 	}
@@ -46,10 +50,16 @@ export default function MenuSorting() {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">
 				<DropdownMenuItem
-					className={cn(sortBy === SortOptions.TITLE && 'font-bold')}
-					onClick={handleClick(SortOptions.TITLE)}
+					className={cn(sortBy === SortOptions.CUSTOM && 'font-bold')}
+					onClick={handleClick(SortOptions.CUSTOM)}
 				>
-					Sort by title
+					Custom sort
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className={cn(sortBy === SortOptions.DATE && 'font-bold')}
+					onClick={handleClick(SortOptions.DATE)}
+				>
+					Sort by date
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className={cn(sortBy === SortOptions.USER && 'font-bold')}
@@ -58,10 +68,10 @@ export default function MenuSorting() {
 					Sort by user
 				</DropdownMenuItem>
 				<DropdownMenuItem
-					className={cn(sortBy === SortOptions.DATE && 'font-bold')}
-					onClick={handleClick(SortOptions.DATE)}
+					className={cn(sortBy === SortOptions.TITLE && 'font-bold')}
+					onClick={handleClick(SortOptions.TITLE)}
 				>
-					Sort by date
+					Sort by title
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

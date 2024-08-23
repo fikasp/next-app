@@ -42,7 +42,7 @@ export default function SearchForm({
 			title: '',
 			category: '',
 			profile: false,
-			sort: SortOptions.TITLE,
+			sort: SortOptions.CUSTOM,
 		},
 	})
 
@@ -51,7 +51,7 @@ export default function SearchForm({
 
 		if (title) queryParams.title = title
 		if (category) queryParams.category = category
-		if (sort !== SortOptions.TITLE) queryParams.sort = sort
+		if (sort !== SortOptions.CUSTOM) queryParams.sort = sort
 
 		const route = profile ? routes.PROFILE : routes.PROJECTS
 		const url = generateUrl([route], queryParams)
