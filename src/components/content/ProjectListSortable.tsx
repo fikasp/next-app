@@ -7,9 +7,9 @@ import { ArwContainer } from '@/components/arw'
 import ProjectCard from '@/components/content/items/ProjectCard'
 import AddCard from '@/components/content/items/AddCard'
 // lib
-import { updateProjectOrder } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
+import { updateProjectOrder } from '@/lib/actions/project.actions'
 import { toastSuccess } from '@/lib/utils/toasts'
 
 export default function ProjectsListSort({
@@ -31,8 +31,9 @@ export default function ProjectsListSort({
 
 	const handleDragEnd = async (result: any) => {
 		if (!result.destination) return
+		console.log(result)
 
-		const reorderedProjects = Array.from(projectList)
+		const reorderedProjects = [...projectList]
 		const [removed] = reorderedProjects.splice(result.source.index, 1)
 		reorderedProjects.splice(result.destination.index, 0, removed)
 		setProjectList(reorderedProjects)
@@ -80,8 +81,8 @@ export default function ProjectsListSort({
 									)}
 								</Draggable>
 							))}
-							<AddCard />
 							{provided.placeholder}
+							<AddCard />
 						</div>
 					)}
 				</Droppable>
