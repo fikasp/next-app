@@ -1,6 +1,7 @@
 // modules
 import { useMediaQuery } from 'react-responsive'
 import { useRef, useCallback, useEffect } from 'react'
+import { MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 
 // @func useDebouce
 // Use debounce to delay the execution of a function
@@ -24,6 +25,24 @@ export function useDebounce(
 		[func, wait]
 	)
 	return debouncedFunc
+}
+
+// @func useDndSensors
+export const useDndSensors = () => {
+	const sensors = useSensors(
+		useSensor(MouseSensor, {
+			activationConstraint: {
+				distance: 10,
+			},
+		}),
+		useSensor(TouchSensor, {
+			activationConstraint: {
+				delay: 250,
+				tolerance: 5,
+			},
+		})
+	)
+	return sensors
 }
 
 // @func useMobile

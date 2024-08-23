@@ -4,9 +4,8 @@ import { When } from 'react-if'
 import { useState } from 'react'
 import Image from 'next/image'
 // components
-import { ArwFlex } from '@/components/arw'
+import { ArwFlex, ArwUploader } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import Uploader from '@/components/shared/Uploader'
 // lib
 import {
 	handleAddImageToProject,
@@ -71,7 +70,7 @@ export default function ImageForm({
 			className="group relative rounded-md h-[130px] w-full bg-transparent border border-base-400 dark:border-base-800 overflow-hidden"
 		>
 			<div className="absolute inset-0 z-10">
-				<Uploader files={files} setFiles={setFiles} editMode={editMode} />
+				<ArwUploader files={files} setFiles={setFiles} editMode={editMode} />
 			</div>
 			<When condition={files.length > 0}>
 				<Button

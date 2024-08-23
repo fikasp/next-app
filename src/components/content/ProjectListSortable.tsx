@@ -1,19 +1,21 @@
 'use client'
 // modules
-import { useEffect, useState } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DndContext, closestCenter } from '@dnd-kit/core'
+import { SortableContext, arrayMove } from '@dnd-kit/sortable'
+import { useState, useEffect } from 'react'
 // components
 import { ArwContainer } from '@/components/arw'
-import ProjectCard from '@/components/content/items/ProjectCard'
-import AddCard from '@/components/content/items/AddCard'
+import AddCard from '@/components/content/cards/AddCard'
+import ProjectCard from '@/components/content/cards/ProjectCard'
+import SortableItem from '@/components/shared/SortableItem'
 // lib
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { updateProjectOrder } from '@/lib/actions/project.actions'
 import { toastSuccess } from '@/lib/utils/toasts'
-import { useMobile } from '@/lib/utils/hooks'
+import { updateProjectOrder } from '@/lib/actions/project.actions'
+import { useDndSensors } from '@/lib/utils/hooks'
 
-export default function ProjectsListSort({
+export default function ProjectsListSortable({
 	projects,
 	categories,
 	searchParams,
@@ -30,68 +32,55 @@ export default function ProjectsListSort({
 		setProjectList(projects)
 	}, [projects])
 
-	const isMobile = useMobile()
+	const handleDragEnd = async (event: any) => {
+		const { active, over } = event
 
-	const handleDragEnd = async (result: any) => {
-		if (!result.destination) return
-		console.log(result)
+		if (active.id !== over.id) {
+			const oldIndex = projectList.findIndex(
+				(project) => project._id === active.id
+			)
+			const newIndex = projectList.findIndex(
+				(project) => project._id === over.id
+			)
 
-		const reorderedProjects = [...projectList]
-		const [removed] = reorderedProjects.splice(result.source.index, 1)
-		reorderedProjects.splice(result.destination.index, 0, removed)
-		setProjectList(reorderedProjects)
+			const reorderedProjects = arrayMove(projectList, oldIndex, newIndex)
+			setProjectList(reorderedProjects)
 
-		const projects = reorderedProjects.map((project, index) => ({
-			_id: project._id,
-			order: index,
-		}))
+			const projects = reorderedProjects.map((project, index) => ({
+				_id: project._id,
+				order: index,
+			}))
 
-		const { success } = await updateProjectOrder(projects)
-		if (success) {
-			toastSuccess('Projects successfully reordered.')
+			const { success } = await updateProjectOrder(projects)
+			if (success) {
+				toastSuccess('Projects successfully reordered.')
+			}
 		}
 	}
 
 	return (
 		<ArwContainer>
-			<DragDropContext onDragEnd={handleDragEnd}>
-				<Droppable
-					droppableId="projects"
-				>
-					{(provided) => (
-						<div
-							className="grid arw-grid-auto-300 gap-3"
-							{...provided.droppableProps}
-							ref={provided.innerRef}
-						>
-							{projectList.map((project, index) => (
-								<Draggable
-									key={project._id}
-									draggableId={project._id}
-									index={index}
-								>
-									{(provided) => (
-										<div
-											ref={provided.innerRef}
-											{...provided.draggableProps}
-											{...provided.dragHandleProps}
-										>
-											<ProjectCard
-												project={project}
-												categories={categories}
-												searchParams={searchParams}
-												profile={profile}
-											/>
-										</div>
-									)}
-								</Draggable>
-							))}
-							{provided.placeholder}
-							<AddCard />
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
+			<DndContext
+				sensors={useDndSensors()}
+				collisionDetection={closestCenter}
+				onDragEnd={handleDragEnd}
+			>
+				<SortableContext items={projectList.map((project) => project._id)}>
+					<div className="grid arw-grid-auto-300 gap-3">
+						{projectList.map((project) => (
+							<SortableItem key={project._id} id={project._id}>
+								<ProjectCard
+									project={project}
+									categories={categories}
+									searchParams={searchParams}
+									profile={profile}
+								/>
+							</SortableItem>
+						))}
+						<AddCard />
+					</div>
+				</SortableContext>
+			</DndContext>
 		</ArwContainer>
 	)
 }

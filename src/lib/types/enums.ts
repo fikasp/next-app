@@ -6,6 +6,7 @@ export enum Icons {
 	ChevronRight = 'ChevronRight',
 	CloudUpload = 'CloudUpload',
 	Ellipsis = 'Ellipsis',
+	Grip = 'Grip',
 	Home = 'Home',
 	ImageDown = 'ImageDown',
 	ImageUp = 'ImageUp',

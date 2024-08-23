@@ -2,8 +2,8 @@
 import { Else, If, Then } from 'react-if'
 // components
 import { ArwContainer, ArwGrid } from '@/components/arw'
-import ProjectCard from '@/components/content/items/ProjectCard'
-import AddCard from '@/components/content/items/AddCard'
+import ProjectCard from '@/components/content/cards/ProjectCard'
+import AddCard from '@/components/content/cards/AddCard'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { ICategory } from '@/lib/models/category.model'
