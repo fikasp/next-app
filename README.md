@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project is a comprehensive template for building web applications using Next.js, styled with Tailwind CSS, featuring Shadcn as a component library, MongoDB for database management, Uploadthing for data storage and Clerk for user authentication.
+This project is a comprehensive template for building web applications using Next.js, styled with Tailwind CSS, featuring Shadcn as a component library, MongoDB for database management, Cloudinary for data storage and Clerk for user authentication.
 
 You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.vercel.app)**
 
@@ -14,7 +14,7 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
 - **[Tailwind CSS](https://tailwindcss.com/docs)** - Utility-first CSS framework for building custom designs with ease.
 - **[Shadcn/UI](https://ui.shadcn.com/docs)** - Comprehensive components library for building modern user interfaces.
 - **[MongoDB](https://docs.mongodb.com/)** - NoSQL database for flexible and scalable data storage solutions.
-- **[Uploadthing](https://docs.uploadthing.com/)** - Convenient data storage service for easily integrating file upload.
+- **[Cloudinary](https://cloudinary.com/)** - Convenient data storage service for easily integrating file upload.
 - **[Clerk](https://clerk.com/docs)** - User authentication service for seamless and secure authentication.
 
 ## Features
@@ -27,7 +27,7 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
 
 - **MongoDB Integration**: Integrated with MongoDB, the project enables efficient management and storage of data in a flexible and scalable NoSQL database, ensuring seamless data handling and retrieval.
 
-- **Uploadthing Support**: With Uploadthing integration, the project simplifies the process of handling file uploads, providing secure and reliable data storage solutions for uploaded files.
+- **Cloudinary Support**: With Cloudinary integration, the project simplifies the process of handling file uploads, providing secure and reliable data storage solutions for uploaded files.
 
 - **Clerk Authentication**: Incorporating Clerk for user authentication, the project offers robust and secure authentication mechanisms, including login, registration, password reset, and account management functionalities.
 
@@ -45,11 +45,10 @@ You can try it out here: **[https://next-fikasp.vercel.app](https://next-fikasp.
     - `layout.tsx` - Root application layout
   - `/components` - Reusable UI components
     - `/arw` - ARW components
-    - `/cards` - Cards components
+    - `/content` - List and cards components
     - `/dialogs` - Dialogs components
     - `/forms` - Forms components
     - `/layout` - Layout-related components
-    - `/lists` - Lists components
     - `/pages` - Components used in pages
     - `/shared` - Components used across multiple parts of the app
     - `/ui` - Components specific to the Shadcn library
@@ -108,12 +107,14 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-#MONGODB
-MONGODB_URI=
+MONGODB_DB=
+MONGODB_URL=
 
-#UPLOADTHING
-UPLOADTHING_SECRET=
-UPLOADTHING_APP_ID=
+#CLOUDINARY
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_FOLDER_NAME=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_API_KEY=
 
 #CLERK
 CLERK_SECRET_KEY=
@@ -125,7 +126,7 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 ```
 
 Fill in the environmental variable values with your actual credentials.
-You can obtain these credentials by signing up on the [MongoDB](https://www.mongodb.com/), [Uploadthing](https://uploadthing.com) and [Clerk](https://clerk.com/).
+You can obtain these credentials by signing up on the [MongoDB](https://www.mongodb.com/), [Cloudinary](https://cloudinary.com) and [Clerk](https://clerk.com/).
 
 **Running the Project**
 
@@ -139,7 +140,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 This template serves as a scalable starting point for your web applications.
 
-Customize the components, pages, and styles to your project's requirements. Implement custom authentication flows with Clerk and manage data efficiently with MongoDB and Uploadthing.
+Customize the components, pages, and styles to your project's requirements. Implement custom authentication flows with Clerk and manage data efficiently with MongoDB and Cloudinary.
 
 ## More
 
