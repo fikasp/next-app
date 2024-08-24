@@ -51,13 +51,8 @@ export default function ImageForm({
 				let count = 0
 				for (const file of files) {
 					const formData = createFilesFormData(file)
-					const addedImage = await handleAddImageToProject(
-						formData,
-						project.slug
-					)
-					if (addedImage) {
-						count++
-					}
+					await handleAddImageToProject(formData, project.slug)
+					count++
 					setUploadedCount(count)
 				}
 				setUploadedCount(0)
