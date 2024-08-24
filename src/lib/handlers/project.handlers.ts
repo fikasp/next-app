@@ -71,6 +71,10 @@ export const handleAddImageToProject = async (
 			toastError(error)
 			return
 		}
+		if (!uploadedImage) {
+			toastError('Error uploading image')
+			return
+		}
 		// Add image to project
 		if (uploadedImage) {
 			const { data: addedImage } = await addImageToProject({

@@ -48,12 +48,10 @@ export default function ImageForm({
 				}
 			} else {
 				// Add mode
-				let count = 0
 				for (const file of files) {
 					const formData = createFilesFormData(file)
 					await handleAddImageToProject(formData, project.slug)
-					count++
-					setUploadedCount(count)
+					setUploadedCount((prev) => prev + 1)
 				}
 				setUploadedCount(0)
 				setIsUploading(false)
