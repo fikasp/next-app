@@ -71,7 +71,7 @@ export default function ProjectsListSortable({
 							<SortableItem
 								key={project._id}
 								id={project._id}
-								className="right-5 top-1/2 -translate-y-1/2"
+								className="right-2 top-1/2 -translate-y-1/2"
 							>
 								<ProjectCard
 									project={project}

@@ -32,7 +32,7 @@ export default function SortableItem({
 			{children}
 			<div
 				className={cn(
-					'absolute z-20',
+					'absolute z-20 p-3',
 					center && 'top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2',
 					className
 				)}
