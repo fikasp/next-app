@@ -19,10 +19,16 @@ export default function SortableItem({
 	children: React.ReactNode
 	center?: boolean
 }) {
-	const { attributes, listeners, setNodeRef, transform, transition } =
-		useSortable({
-			id,
-		})
+	const {
+		attributes,
+		listeners,
+		setNodeRef,
+		setActivatorNodeRef,
+		transform,
+		transition,
+	} = useSortable({
+		id,
+	})
 	const style = {
 		transform: CSS.Transform.toString(transform),
 		transition,
@@ -36,6 +42,7 @@ export default function SortableItem({
 					center && 'top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2',
 					className
 				)}
+				ref={setActivatorNodeRef}
 				{...listeners}
 			>
 				<ArwButton icon={Icons.Grip} size={30} />
