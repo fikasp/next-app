@@ -13,23 +13,36 @@ cloudinary.config({
 
 // CREATE
 export async function uploadImage(formData: FormData) {
-	const image = formData.get('file') as File
-	const imageName = formData.get('name') as string
-	const imageData = await image.arrayBuffer()
-	const mime = image.type
-	const encoding = 'base64'
-	const base64Data = Buffer.from(imageData).toString(encoding)
-	const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
-	const result = await cloudinary.uploader.upload(fileUri, {
-		folder: process.env.CLOUDINARY_FOLDER_NAME,
-	})
-	const uploadedImage: UploadedImage = {
-		name: imageName,
-		publicID: result.public_id,
-		url: result.secure_url,
+	try {
+		const image = formData.get('file') as File
+		const imageName = formData.get('name') as string
+
+		if (!image || !imageName) {
+			throw new Error('File or name is missing in formData')
+		}
+
+		const imageData = await image.arrayBuffer()
+		const mime = image.type
+		const encoding = 'base64'
+		const base64Data = Buffer.from(imageData).toString(encoding)
+		const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
+
+		const result = await cloudinary.uploader.upload(fileUri, {
+			folder: process.env.CLOUDINARY_FOLDER_NAME,
+		})
+
+		const uploadedImage: UploadedImage = {
+			name: imageName,
+			publicID: result.public_id,
+			url: result.secure_url,
+		}
+
+		debug(2, 9, uploadedImage)
+		return uploadedImage
+	} catch (error) {
+		console.error('Error uploading image:', error)
+		throw error
 	}
-	debug(2, 9, uploadedImage)
-	return uploadedImage
 }
 
 // DELETE
