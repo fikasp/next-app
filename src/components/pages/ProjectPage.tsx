@@ -65,7 +65,7 @@ export default async function ProjectPage({
 							<Nav
 								url={urlProfile}
 								icon={Icons.Pencil}
-								className="self-start mt-[4px]"
+								className="max-md:arw-absolute-center"
 								size={20}
 							/>
 						</When>
@@ -73,7 +73,7 @@ export default async function ProjectPage({
 							<ProjectManipulations
 								project={current}
 								categories={categories}
-								className="z-30 self-start"
+								className="max-md:arw-absolute-center"
 							/>
 						</When>
 						<NavPrev url={urlPrev} keys />
