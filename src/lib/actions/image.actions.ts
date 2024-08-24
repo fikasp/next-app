@@ -17,12 +17,19 @@ export async function uploadImage(
 	formData: FormData
 ): Promise<Result<UploadedImage>> {
 	try {
+		const maxFileSize = 10485760 // 10MB
 		const image = formData.get('file') as File
 		const imageName = formData.get('name') as string
 		debug(2, 9, image)
 
 		if (!image || !imageName) {
 			return { success: false, error: { error: 'No image provided' } }
+		}
+		if (image.size > maxFileSize) {
+			return {
+				success: false,
+				error: { error: 'File size too large.' },
+			}
 		}
 
 		const imageData = await image.arrayBuffer()
