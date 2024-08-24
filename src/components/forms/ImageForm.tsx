@@ -11,7 +11,7 @@ import {
 	handleAddImageToProject,
 	handleUpdateImageInProject,
 } from '@/lib/handlers/project.handlers'
-import { createFilesFormData, loadImage } from '@/lib/utils'
+import { cn, createFilesFormData, loadImage } from '@/lib/utils'
 import { debug, handleError } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
@@ -31,6 +31,7 @@ export default function ImageForm({
 	const editMode = Boolean(image)
 	const [files, setFiles] = useState<File[]>([])
 	const [isUploading, setIsUploading] = useState(false)
+	const [uploadedCount, setUploadedCount] = useState(0)
 	debug(8, 9, files)
 
 	const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async () => {
@@ -47,6 +48,7 @@ export default function ImageForm({
 				}
 			} else {
 				// Add mode
+				let count = 0
 				for (const file of files) {
 					const formData = createFilesFormData(file)
 					const addedImage = await handleAddImageToProject(
@@ -54,10 +56,13 @@ export default function ImageForm({
 						project.slug
 					)
 					if (addedImage) {
-						setIsUploading(false)
-						setFiles([])
+						count++
 					}
+					setUploadedCount(count)
 				}
+				setUploadedCount(0)
+				setIsUploading(false)
+				setFiles([])
 			}
 		} catch (error) {
 			console.error(handleError(error))
@@ -75,10 +80,17 @@ export default function ImageForm({
 			<When condition={files.length > 0}>
 				<Button
 					variant="accent"
-					className="absolute left-3 bottom-3 w-full-3 z-20"
+					className={cn(
+						'absolute left-3 bottom-3 w-full-3 z-20',
+						isUploading && 'text-xs'
+					)}
 					onClick={handleSubmit}
 				>
-					{isUploading ? 'Uploading...' : 'Upload image'}
+					{isUploading
+						? editMode
+							? 'Uploading...'
+							: `Uploading... ${uploadedCount}/${files.length}`
+						: 'Upload image'}
 				</Button>
 			</When>
 			<When condition={editMode}>
