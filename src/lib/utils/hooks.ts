@@ -203,3 +203,10 @@ export function usePopState(callback: () => void) {
 		}
 	}, [callback])
 }
+
+// @func useScrollToTop
+export const useScrollToTop = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+}

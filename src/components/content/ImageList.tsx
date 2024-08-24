@@ -18,7 +18,7 @@ import { IProject } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
 import { toastSuccess } from '@/lib/utils/toasts'
 import { updateImageOrder } from '@/lib/actions/project.actions'
-import { useDndSensors, useKeys } from '@/lib/utils/hooks'
+import { useDndSensors, useKeys, useScrollToTop } from '@/lib/utils/hooks'
 
 export default function ImageList({
 	project,
@@ -45,6 +45,7 @@ export default function ImageList({
 
 	const route = profile ? routes.PROFILE : routes.PROJECTS
 
+	useScrollToTop()
 	useKeys({ ArrowDown: () => handleOpen(selectedImageIndex) }, !isDialogOpen)
 
 	// Initialize state
