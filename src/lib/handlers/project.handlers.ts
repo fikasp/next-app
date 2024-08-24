@@ -66,7 +66,10 @@ export const handleAddImageToProject = async (
 	debug(2, 9, formData)
 	try {
 		// Upload image
-		const { error, data: uploadedImage } = await uploadImage(formData)
+		const { error, data: uploadedImage } = (await uploadImage(formData)) || {
+			error: 'Image upload failure.',
+			data: null,
+		}
 		if (error) {
 			toastError(error)
 			return
