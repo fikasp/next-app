@@ -1,5 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary'
 import { NextResponse } from 'next/server'
+import { v2 as cloudinary } from 'cloudinary'
 
 export async function POST() {
 	const timestamp = Math.round(new Date().getTime() / 1000)

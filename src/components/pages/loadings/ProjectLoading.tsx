@@ -8,15 +8,24 @@ export default function ProjectLoading() {
 	debug(4)
 	return (
 		<ArwContainer className="p-0 relative">
-			<ArwFlex row between className="p-4 items-start">
+			{/* top */}
+			<ArwFlex row between className="p-4">
 				<ArwTitle>Loading...</ArwTitle>
 				<ArwFlex row>
-					<NavPrev />
-					<NavNext />
 					<NavClose />
 				</ArwFlex>
 			</ArwFlex>
-			<ArwSpinner accent absolute />
+
+			{/* center */}
+			<ArwFlex className="grow">
+				<ArwSpinner accent absolute />
+			</ArwFlex>
+
+			{/* bottm */}
+			<ArwFlex row between className="p-4">
+				<NavPrev />
+				<NavNext />
+			</ArwFlex>
 		</ArwContainer>
 	)
 }

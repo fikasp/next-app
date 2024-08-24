@@ -49,45 +49,41 @@ export default async function ProjectPage({
 	return (
 		current && (
 			<ArwContainer className="p-0">
+				{/* top */}
 				<ArwFlex
 					row
 					between
 					className="sticky top-[75px] z-40 p-4 backdrop-blur-md items-start"
 				>
-					<ArwFlex row className="justify-start ">
-						<ArwTitle className="max-xs:max-w-[128px]">
-							{current.title}
-						</ArwTitle>
+					<ArwFlex row className="justify-start">
+						<ArwTitle>{current.title}</ArwTitle>
 					</ArwFlex>
 
 					<ArwFlex row className="justify-end shrink-0">
 						<When condition={!profile && isOwner}>
-							<Nav
-								url={urlProfile}
-								icon={Icons.Pencil}
-								className="max-md:arw-absolute-center"
-								size={20}
-							/>
+							<Nav url={urlProfile} icon={Icons.Pencil} size={20} />
 						</When>
 						<When condition={profile}>
-							<ProjectManipulations
-								project={current}
-								categories={categories}
-								className="max-md:arw-absolute-center"
-							/>
+							<ProjectManipulations project={current} categories={categories} />
 						</When>
-						<NavPrev url={urlPrev} keys />
-						<NavNext url={urlNext} keys />
 						<NavClose url={urlClose} />
 					</ArwFlex>
 				</ArwFlex>
 
+				{/* center */}
 				<ArwFlex className="px-4 grow">
 					<ImageList project={current} profile={profile} params={params} />
 				</ArwFlex>
 
-				<ArwFlex row center className="p-4">
+				{/* bottom */}
+				<ArwFlex
+					row
+					between
+					className="sticky bottom-[0px] z-40 p-4 backdrop-blur-md"
+				>
+					<NavPrev url={urlPrev} keys />
 					<ArwText>{current.info}</ArwText>
+					<NavNext url={urlNext} keys />
 				</ArwFlex>
 			</ArwContainer>
 		)
