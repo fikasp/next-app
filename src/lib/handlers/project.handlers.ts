@@ -70,7 +70,6 @@ export const handleAddImageToProject = async (
 		debug(0,10,uploadedImage)
 		if (!uploadedImage.name) {
 			toastError('Image failed to upload.')
-			return
 		}
 		const { data: addedImage } = await addImageToProject({
 			slug,
