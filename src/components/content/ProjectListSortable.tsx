@@ -68,7 +68,11 @@ export default function ProjectsListSortable({
 				<SortableContext items={projectList.map((project) => project._id)}>
 					<div className="grid arw-grid-auto-300 gap-3">
 						{projectList.map((project) => (
-							<SortableItem key={project._id} id={project._id}>
+							<SortableItem
+								key={project._id}
+								id={project._id}
+								className="right-5 top-1/2 -translate-y-1/2"
+							>
 								<ProjectCard
 									project={project}
 									categories={categories}

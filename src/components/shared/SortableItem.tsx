@@ -12,10 +12,12 @@ export default function SortableItem({
 	id,
 	className,
 	children,
+	center,
 }: {
 	id: string
 	className?: string
 	children: React.ReactNode
+	center?: boolean
 }) {
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({
@@ -30,7 +32,8 @@ export default function SortableItem({
 			{children}
 			<div
 				className={cn(
-					'absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30',
+					'absolute z-20',
+					center && 'top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2',
 					className
 				)}
 				{...listeners}

@@ -353,7 +353,29 @@ export async function updateProjectOrder(
 		await ProjectModel.bulkWrite(bulkOps)
 
 		revalidatePath(routes.PROFILE)
-		return { success: true, data: null }
+		return { success: true }
+	} catch (error) {
+		return { success: false, error: { error: handleError(error) } }
+	}
+}
+
+// Update image order
+export async function updateImageOrder(
+	slug: string,
+	reorderedImages: IImage[]
+): Promise<Result<null>> {
+	try {
+		await connectToDatabase()
+
+		await ProjectModel.findOneAndUpdate(
+			{ slug },
+			{
+				images: reorderedImages,
+			}
+		)
+
+		revalidatePath(routes.PROFILE)
+		return { success: true }
 	} catch (error) {
 		return { success: false, error: { error: handleError(error) } }
 	}
