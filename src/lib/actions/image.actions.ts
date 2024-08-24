@@ -3,7 +3,8 @@
 import { v2 as cloudinary } from 'cloudinary'
 // lib
 import { UploadedImage } from '@/lib/types/shared'
-import { debug } from '@/lib/utils/dev'
+import { debug, handleError } from '@/lib/utils/dev'
+import { Result } from '@/lib/types/results'
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -12,17 +13,16 @@ cloudinary.config({
 })
 
 // CREATE
-export async function uploadImage(formData: FormData) {
+export async function uploadImage(
+	formData: FormData
+): Promise<Result<UploadedImage>> {
 	try {
 		const image = formData.get('file') as File
 		const imageName = formData.get('name') as string
-
-		debug(10)
-		debug(0, 9, image)
-		debug(0, 10, imageName)
+		debug(2, 9, image)
 
 		if (!image || !imageName) {
-			throw new Error('File or name is missing in formData')
+			return { success: false, error: { error: 'No image provided' } }
 		}
 
 		const imageData = await image.arrayBuffer()
@@ -42,10 +42,9 @@ export async function uploadImage(formData: FormData) {
 		}
 
 		debug(2, 9, uploadedImage)
-		return uploadedImage
+		return { success: true, data: uploadedImage }
 	} catch (error) {
-		console.error('Error uploading image:', error)
-		throw error
+		return { success: false, error: { error: handleError(error) } }
 	}
 }
 

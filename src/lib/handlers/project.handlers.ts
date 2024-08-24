@@ -16,7 +16,6 @@ import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types/results'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { uploadImage } from '@/lib/actions/image.actions'
-import { UploadedImage } from '@/lib/types/shared'
 
 // CREATE
 // Create new project
@@ -66,17 +65,21 @@ export const handleAddImageToProject = async (
 ) => {
 	debug(2, 9, formData)
 	try {
-		const uploadedImage: UploadedImage = await uploadImage(formData)
-		debug(0,10,uploadedImage)
-		if (!uploadedImage.name) {
-			toastError('Image failed to upload.')
+		// Upload image
+		const { error, data: uploadedImage } = await uploadImage(formData)
+		if (error) {
+			toastError(error)
+			return
 		}
-		const { data: addedImage } = await addImageToProject({
-			slug,
-			...uploadedImage,
-		})
-		if (addedImage) {
-			toastSuccess(`Image ${addedImage.name} successfully added.`)
+		// Add image to project
+		if (uploadedImage) {
+			const { data: addedImage } = await addImageToProject({
+				slug,
+				...uploadedImage,
+			})
+			if (addedImage) {
+				toastSuccess(`Image ${addedImage.name} successfully added.`)
+			}
 		}
 	} catch (error) {
 		console.error(handleError(error))
@@ -90,16 +93,25 @@ export const handleUpdateImageInProject = async (
 ) => {
 	debug(4, 9, formData)
 	try {
-		const uploadedImage: UploadedImage = await uploadImage(formData)
-		const { data: updatedImage } = await updateImageInProject({
-			image,
-			...uploadedImage,
-		})
-		if (updatedImage) {
-			toastSuccess(
-				`Image ${image.name} successfully updated to ${updatedImage.name}.`
-			)
-			return updatedImage
+		// Upload image
+		const { error, data: uploadedImage } = await uploadImage(formData)
+		if (error) {
+			toastError(error)
+			return
+		}
+
+		// Update image in project
+		if (uploadedImage) {
+			const { data: updatedImage } = await updateImageInProject({
+				image,
+				...uploadedImage,
+			})
+			if (updatedImage) {
+				toastSuccess(
+					`Image ${image.name} successfully updated to ${updatedImage.name}.`
+				)
+				return updatedImage
+			}
 		}
 	} catch (error) {
 		console.error(handleError(error))
