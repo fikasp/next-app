@@ -71,17 +71,16 @@ export default function ImageForm({
 			<When condition={files.length > 0}>
 				<Button
 					variant="accent"
-					className={cn(
-						'absolute left-3 bottom-3 w-full-3 z-20',
-						isUploading && 'text-xs'
-					)}
+					className={cn('absolute left-3 bottom-3 w-full-3 z-20 text-xs')}
 					onClick={handleSubmit}
 				>
 					{isUploading
-						? editMode
+						? files.length == 1 || editMode
 							? 'Uploading...'
 							: `Uploading... ${uploadedCount}/${files.length}`
-						: 'Upload image'}
+						: files.length == 1
+						? 'Upload image'
+						: 'Upload images'}
 				</Button>
 			</When>
 			<When condition={editMode}>

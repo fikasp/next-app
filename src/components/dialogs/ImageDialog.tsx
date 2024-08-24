@@ -28,12 +28,13 @@ export default function ImageDialog({
 	debug(8)
 	const image = images[selectedIndex - 1]
 	const [isImageLoaded, setIsImageLoaded] = useState(false)
+	const [imageName, setImageName] = useState('')
 	const timerRef = useRef<any>(null)
 
 	useEffect(() => {
 		timerRef.current = setTimeout(() => {
 			setIsImageLoaded(false)
-		}, 1000)
+		}, 200)
 
 		return () => {
 			if (timerRef.current) {
@@ -45,6 +46,7 @@ export default function ImageDialog({
 	const handleImageLoad = () => {
 		if (timerRef.current) {
 			clearTimeout(timerRef.current)
+			setImageName(image?.name || '')
 		}
 		setIsImageLoaded(true)
 	}
@@ -67,7 +69,7 @@ export default function ImageDialog({
 					scroll
 					swipe
 					callback={handlePrev}
-					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 left-0 md:left-4 xl:left-3 arw-shadow-white dark:arw-shadow-black"
+					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 left-0 md:left-4 xl:left-1 arw-shadow-white dark:arw-shadow-black"
 					size={40}
 				/>
 				<NavNext
@@ -75,7 +77,7 @@ export default function ImageDialog({
 					scroll
 					swipe
 					callback={handleNext}
-					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 right-0 md:right-4 xl:right-3 arw-shadow-white dark:arw-shadow-black"
+					className="absolute top-1/2 -translate-y-1/2 p-1 z-50 right-0 md:right-4 xl:right-1 arw-shadow-white dark:arw-shadow-black"
 					size={40}
 				/>
 				<NavClose
@@ -83,7 +85,7 @@ export default function ImageDialog({
 					className="absolute top-3 right-3 z-50 arw-shadow-white dark:arw-shadow-black"
 				/>
 				<ArwText className="absolute bottom-4 md:bottom-6 arw-shadow-white dark:arw-shadow-black">
-					{isImageLoaded ? `${image?.name}` : 'Loading...'}
+					{isImageLoaded ? imageName : 'Loading...'}
 				</ArwText>
 			</DialogContent>
 		</Dialog>
