@@ -11,10 +11,10 @@ import {
 	handleAddImageToProject,
 	handleUpdateImageInProject,
 } from '@/lib/handlers/project.handlers'
-import { cn, createFilesFormData, loadImage } from '@/lib/utils'
+import { cn, loadImage } from '@/lib/utils'
 import { debug, handleError } from '@/lib/utils/dev'
-import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
+import { IImage } from '@/lib/models/image.model'
 
 export default function ImageForm({
 	image,
@@ -41,16 +41,14 @@ export default function ImageForm({
 		try {
 			// Edit mode
 			if (image && handleUpdate) {
-				const formData = createFilesFormData(files[0])
-				const updatedImage = await handleUpdateImageInProject(formData, image)
+				const updatedImage = await handleUpdateImageInProject(files[0], image)
 				if (updatedImage) {
 					handleUpdate(updatedImage)
 				}
 			} else {
 				// Add mode
 				for (const file of files) {
-					const formData = createFilesFormData(file)
-					await handleAddImageToProject(formData, project.slug)
+					await handleAddImageToProject(file, project.slug)
 					setUploadedCount((prev) => prev + 1)
 				}
 				setUploadedCount(0)

@@ -24,12 +24,11 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-// @func createFilesFormData
-// Create files form data
-export function createFilesFormData(file: File): FormData {
+// @func createFormDataFromFile
+// Create form data from file
+export function createFormDataFromFile(file: File): FormData {
 	const formData = new FormData()
 	formData.append('file', file)
-	formData.append('name', file.name)
 	return formData
 }
 

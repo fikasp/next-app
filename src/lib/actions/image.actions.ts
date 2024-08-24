@@ -4,7 +4,6 @@ import { v2 as cloudinary } from 'cloudinary'
 // lib
 import { UploadedImage } from '@/lib/types/shared'
 import { debug, handleError } from '@/lib/utils/dev'
-import { Result } from '@/lib/types/results'
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -12,26 +11,13 @@ cloudinary.config({
 	api_key: process.env.CLOUDINARY_API_KEY,
 })
 
+
 // CREATE
 export async function uploadImage(
 	formData: FormData
-): Promise<Result<UploadedImage>> {
+): Promise<UploadedImage | undefined> {
 	try {
-		const maxFileSize = 10485760 // 10MB
 		const image = formData.get('file') as File
-		const imageName = formData.get('name') as string
-		debug(2, 9, image)
-
-		if (!image || !imageName) {
-			return { success: false, error: { error: 'No image provided' } }
-		}
-		if (image.size > maxFileSize) {
-			return {
-				success: false,
-				error: { error: 'File size too large.' },
-			}
-		}
-
 		const imageData = await image.arrayBuffer()
 		const mime = image.type
 		const encoding = 'base64'
@@ -43,15 +29,15 @@ export async function uploadImage(
 		})
 
 		const uploadedImage: UploadedImage = {
-			name: imageName,
+			name: result.original_filename,
 			publicID: result.public_id,
 			url: result.secure_url,
 		}
 
 		debug(2, 9, uploadedImage)
-		return { success: true, data: uploadedImage }
+		return uploadedImage
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		handleError(error)
 	}
 }
 

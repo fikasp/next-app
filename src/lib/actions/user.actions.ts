@@ -3,7 +3,7 @@
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
-import { connectToDatabase } from '@/lib/utils/mongoose'
+import { connectToDatabase } from '@/lib/utils/servers'
 import { CreateUserData, UpdateUserData } from '@/lib/types/shared'
 import { deepClone } from '@/lib/utils'
 import { handleError } from '@/lib/utils/dev'
