@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,6 +39,7 @@ export default function ProjectForm({
 }) {
 	debug(0, 0, project)
 	const router = useRouter()
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
 		value: category.label,
 		label: category.label,
@@ -54,6 +56,7 @@ export default function ProjectForm({
 
 	const handleSubmit = async (projectFormData: ProjectFormData) => {
 		debug(1, 9, projectFormData)
+		setIsSubmitting(true)
 		try {
 			if (project) {
 				// Update project
@@ -76,6 +79,8 @@ export default function ProjectForm({
 			}
 		} catch (error) {
 			console.error(handleError(error))
+		} finally {
+			setIsSubmitting(false)
 		}
 	}
 
@@ -139,8 +144,14 @@ export default function ProjectForm({
 					/>
 				</ArwFlex>
 				<ArwFlex>
-					<Button variant="accent">
-						{project ? 'Update project' : 'Add project'}
+					<Button variant="accent" disabled={isSubmitting}>
+						{isSubmitting
+							? project
+								? 'Updating project...'
+								: 'Adding project...'
+							: project
+							? 'Update project'
+							: 'Add project'}
 					</Button>
 				</ArwFlex>
 			</ArwForm>
