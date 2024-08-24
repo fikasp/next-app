@@ -67,7 +67,7 @@ export const handleAddImageToProject = async (
 	debug(2, 9, formData)
 	try {
 		const uploadedImage: UploadedImage = await uploadImage(formData)
-		if (uploadedImage.name) {
+		if (!uploadedImage.name) {
 			toastError('Image failed to upload.')
 			return
 		}
