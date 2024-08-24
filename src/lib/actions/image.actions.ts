@@ -17,6 +17,10 @@ export async function uploadImage(formData: FormData) {
 		const image = formData.get('file') as File
 		const imageName = formData.get('name') as string
 
+		debug(10)
+		debug(0, 9, image)
+		debug(0, 10, imageName)
+
 		if (!image || !imageName) {
 			throw new Error('File or name is missing in formData')
 		}
