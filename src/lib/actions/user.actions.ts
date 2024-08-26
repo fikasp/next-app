@@ -15,8 +15,7 @@ export async function createUser(user: CreateUserData) {
 	try {
 		await connectToDatabase()
 
-		const newUser = await UserModel.create({ ...user, admin: false })
-		debug(10, 10, newUser)
+		const newUser = await UserModel.create(user)
 		revalidatePath(routes.PROJECTS)
 
 		return deepClone(newUser)
