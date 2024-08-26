@@ -8,11 +8,11 @@ import {
 	ArwCheckbox,
 	ArwFlex,
 	ArwForm,
+	ArwFormField,
 	ArwSelect,
 	ArwTitle,
 } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import { FormField } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 // lib
 import { generateUrl } from '@/lib/utils'
@@ -20,8 +20,6 @@ import { ICategory } from '@/lib/models/category.model'
 import { Option } from '@/lib/types/shared'
 import { routes } from '@/lib/constants/paths'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
-import { sortOptions } from '@/lib/constants'
-import { SortOptions } from '@/lib/types/enums'
 import { debug } from '@/lib/utils/dev'
 
 export default function SearchForm({
@@ -42,16 +40,14 @@ export default function SearchForm({
 			title: '',
 			category: '',
 			profile: false,
-			sort: SortOptions.CUSTOM,
 		},
 	})
 
-	const handleSubmit = ({ title, category, sort, profile }: SearchFormData) => {
+	const handleSubmit = ({ title, category, profile }: SearchFormData) => {
 		const queryParams: { [key: string]: string | undefined } = {}
 
 		if (title) queryParams.title = title
 		if (category) queryParams.category = category
-		if (sort !== SortOptions.CUSTOM) queryParams.sort = sort
 
 		const route = profile ? routes.PROFILE : routes.PROJECTS
 		const url = generateUrl([route], queryParams)
@@ -68,9 +64,11 @@ export default function SearchForm({
 				Search projects
 			</ArwTitle>
 
-			<ArwFlex className="gap-6">
-				<FormField
+			<ArwFlex>
+				<ArwFormField
+					label="Title"
 					name="title"
+					className="justify-center"
 					control={form.control}
 					render={({ field }) => (
 						<Input
@@ -80,9 +78,11 @@ export default function SearchForm({
 						/>
 					)}
 				/>
-				<FormField
+				<ArwFormField
 					control={form.control}
+					label="Category"
 					name="category"
+					className="justify-center"
 					render={({ field }) => (
 						<ArwSelect
 							onValueChange={field.onChange}
@@ -93,20 +93,10 @@ export default function SearchForm({
 						/>
 					)}
 				/>
-				<FormField
-					name="sort"
-					control={form.control}
-					render={({ field }) => (
-						<ArwSelect
-							options={sortOptions}
-							onValueChange={field.onChange}
-							defaultValue={field.value}
-							center
-						/>
-					)}
-				/>
-				<FormField
+				<ArwFormField
 					name="profile"
+					label="My profile"
+					className="justify-center"
 					control={form.control}
 					render={({ field }) => (
 						<ArwCheckbox
