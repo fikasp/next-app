@@ -46,7 +46,7 @@ export default async function ProjectPage({
 
 	// Check if the current user is the owner of the project
 	const isOwner = await checkIfCurrentUserIsOwner(current?.user)
-	const isAdmin = await checkIfCurrentUserIsAdmin(current?.user)
+	const isAdmin = await checkIfCurrentUserIsAdmin()
 
 	// Generate URLs
 	const route = getBaseRoute(profile, admin)
