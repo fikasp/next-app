@@ -20,7 +20,7 @@ export default function ProjectsListSortable({
 	categories,
 	searchParams,
 	profile,
-	admin
+	admin,
 }: {
 	projects: IProject[]
 	categories: ICategory[]

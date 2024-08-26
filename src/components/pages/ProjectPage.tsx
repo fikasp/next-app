@@ -1,8 +1,16 @@
 // modules
 import { When } from 'react-if'
 // components
-import { ArwContainer, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
-import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
+import {
+	ArwContainer,
+	ArwFlex,
+	ArwNav,
+	ArwNavClose,
+	ArwNavNext,
+	ArwNavPrev,
+	ArwText,
+	ArwTitle,
+} from '@/components/arw'
 import ProjectManipulations from '@/components/shared/manipulations/ProjectManipulations'
 import ImageList from '@/components/content/ImageList'
 // lib
@@ -43,15 +51,14 @@ export default async function ProjectPage({
 		profile
 	)
 
-	// Check if the current user is the owner of the project
 	const isOwner = await checkIfCurrentUserIsOwner(current?.user)
 	const isAdmin = await checkIfCurrentUserIsAdmin()
 
 	// Generate URLs
-	const route = getBaseRoute(profile, admin)
-	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
-	const urlNext = next && generateUrl([route, next.slug], searchParams)
-	const urlClose = generateUrl([route], searchParams)
+	const baseRoute = getBaseRoute(profile, admin)
+	const urlPrev = prev && generateUrl([baseRoute, prev.slug], searchParams)
+	const urlNext = next && generateUrl([baseRoute, next.slug], searchParams)
+	const urlClose = generateUrl([baseRoute], searchParams)
 
 	const getEditUrl = () => {
 		if (isOwner)
@@ -75,13 +82,13 @@ export default async function ProjectPage({
 					</ArwFlex>
 
 					<ArwFlex row className="justify-end shrink-0">
-						<When condition={!profile && getEditUrl()}>
-							<Nav url={getEditUrl()} icon={Icons.Pencil} size={20} />
+						<When condition={!admin && !profile && getEditUrl()}>
+							<ArwNav url={getEditUrl()} icon={Icons.Pencil} size={20} />
 						</When>
-						<When condition={profile}>
+						<When condition={admin || profile}>
 							<ProjectManipulations project={current} categories={categories} />
 						</When>
-						<NavClose url={urlClose} />
+						<ArwNavClose url={urlClose} />
 					</ArwFlex>
 				</ArwFlex>
 
@@ -100,9 +107,9 @@ export default async function ProjectPage({
 					between
 					className="sticky bottom-[0px] z-40 p-4 backdrop-blur-md"
 				>
-					<NavPrev url={urlPrev} keys />
+					<ArwNavPrev url={urlPrev} keys />
 					<ArwText>{current.info}</ArwText>
-					<NavNext url={urlNext} keys />
+					<ArwNavNext url={urlNext} keys />
 				</ArwFlex>
 			</ArwContainer>
 		)

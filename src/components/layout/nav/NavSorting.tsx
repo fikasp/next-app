@@ -45,7 +45,7 @@ export default function MenuSorting() {
 						<ArwIcon icon={Icons.ArrowDownUp} />
 					</div>
 					<div className="md:hidden">Sort options</div>
-					<div className="max-md:hidden">Sort</div>
+					<div className="max-lg:hidden">Sort</div>
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">

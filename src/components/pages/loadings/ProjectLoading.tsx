@@ -1,6 +1,13 @@
 // components
-import { ArwContainer, ArwFlex, ArwSpinner, ArwTitle } from '@/components/arw'
-import { NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
+import {
+	ArwContainer,
+	ArwFlex,
+	ArwNavClose,
+	ArwNavNext,
+	ArwNavPrev,
+	ArwSpinner,
+	ArwTitle,
+} from '@/components/arw'
 // lib
 import { debug } from '@/lib/utils/dev'
 
@@ -12,7 +19,7 @@ export default function ProjectLoading() {
 			<ArwFlex row between className="p-4">
 				<ArwTitle>Loading...</ArwTitle>
 				<ArwFlex row>
-					<NavClose />
+					<ArwNavClose />
 				</ArwFlex>
 			</ArwFlex>
 
@@ -23,8 +30,8 @@ export default function ProjectLoading() {
 
 			{/* bottm */}
 			<ArwFlex row between className="p-4">
-				<NavPrev />
-				<NavNext />
+				<ArwNavPrev />
+				<ArwNavNext />
 			</ArwFlex>
 		</ArwContainer>
 	)
