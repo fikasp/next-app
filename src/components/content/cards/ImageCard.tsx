@@ -5,7 +5,7 @@ import { MouseEventHandler } from 'react'
 import { When } from 'react-if'
 // components
 import { ArwFlex } from '@/components/arw'
-import ImageManipulations from '@/components/shared/ImageManipulations'
+import ImageManipulations from '@/components/shared/manipulations/ImageManipulations'
 // lib
 import { debug } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'

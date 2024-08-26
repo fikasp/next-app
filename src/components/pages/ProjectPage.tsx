@@ -3,7 +3,7 @@ import { When } from 'react-if'
 // components
 import { ArwContainer, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import { Nav, NavClose, NavNext, NavPrev } from '@/components/layout/Navigation'
-import ProjectManipulations from '@/components/shared/ProjectManipulations'
+import ProjectManipulations from '@/components/shared/manipulations/ProjectManipulations'
 import ImageList from '@/components/content/ImageList'
 // lib
 import { Adjacent } from '@/lib/types/results'

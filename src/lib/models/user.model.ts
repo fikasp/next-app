@@ -2,15 +2,21 @@ import { Schema, model, models } from 'mongoose'
 
 export interface IUser extends Document {
 	_id: string
+	admin: boolean
 	clerkId: string
 	email: string
-	username: string
 	firstName?: string
 	lastName?: string
+	username: string
 	photo?: string
 }
 
 const UserSchema = new Schema({
+	admin: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 	clerkId: {
 		type: String,
 		required: true,
@@ -21,16 +27,16 @@ const UserSchema = new Schema({
 		required: true,
 		unique: true,
 	},
-	username: {
-		type: String,
-		required: true,
-		unique: true,
-	},
 	firstName: {
 		type: String,
 	},
 	lastName: {
 		type: String,
+	},
+	username: {
+		type: String,
+		required: true,
+		unique: true,
 	},
 	photo: {
 		type: String,

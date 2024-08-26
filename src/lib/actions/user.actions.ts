@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/utils/servers'
 import { CreateUserData, UpdateUserData } from '@/lib/types/shared'
 import { deepClone } from '@/lib/utils'
-import { handleError } from '@/lib/utils/dev'
+import { debug, handleError } from '@/lib/utils/dev'
 import { IUser, UserModel } from '@/lib/models/user.model'
 import { routes } from '@/lib/constants/paths'
 
@@ -15,7 +15,8 @@ export async function createUser(user: CreateUserData) {
 	try {
 		await connectToDatabase()
 
-		const newUser = await UserModel.create(user)
+		const newUser = await UserModel.create({ ...user, admin: false })
+		debug(10, 10, newUser)
 		revalidatePath(routes.PROJECTS)
 
 		return deepClone(newUser)

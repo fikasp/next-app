@@ -4,7 +4,7 @@ import { If, Then, Else, When } from 'react-if'
 // components
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
-import ProjectManipulations from '@/components/shared/ProjectManipulations'
+import ProjectManipulations from '@/components/shared/manipulations/ProjectManipulations'
 // lib
 import { debug } from '@/lib/utils/dev'
 import {
