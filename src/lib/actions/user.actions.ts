@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/utils/servers'
 import { CreateUserData, UpdateUserData } from '@/lib/types/shared'
 import { deepClone } from '@/lib/utils'
-import { debug, handleError } from '@/lib/utils/dev'
+import { handleError } from '@/lib/utils/dev'
 import { IUser, UserModel } from '@/lib/models/user.model'
 import { routes } from '@/lib/constants/paths'
 

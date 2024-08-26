@@ -62,7 +62,6 @@ export async function createProject(
 export async function getProjects(
 	searchParams: any,
 	profile: boolean,
-	admin: boolean
 ): Promise<DataResult<IProject[]>> {
 	try {
 		await connectToDatabase()
