@@ -24,7 +24,6 @@ export default async function ProjectsListPage({
 	const { data: projects }: DataResult<IProject[]> = await getProjects(
 		searchParams,
 		profile,
-		admin
 	)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 
