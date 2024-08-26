@@ -7,6 +7,7 @@ import qs from 'query-string'
 import slugify from 'slugify'
 // lib
 import { getCurrentUser } from '@/lib/actions/user.actions'
+import { routes } from '@/lib/constants/paths'
 import { IUser } from '@/lib/models/user.model'
 
 // @func capitalizeFirstLetter
@@ -48,6 +49,13 @@ export function findPrev<T>(array: T[], currentIndex: number) {
 // Find next element
 export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
+}
+
+// @func checkIfCurrentUserIsAdmin
+// Check if the current user is the admin
+export async function checkIfCurrentUserIsAdmin(): Promise<boolean> {
+	const currentUser = await getCurrentUser()
+	return currentUser?.admin
 }
 
 // @func checkIfCurrentUserIsOwner
@@ -92,6 +100,15 @@ export function generateUrl(
 		url: path,
 		query: queryParams,
 	})
+}
+
+// @func getBaseRoute
+// Get base route
+export const getBaseRoute = (
+	profile: boolean | undefined,
+	admin: boolean | undefined
+) => {
+	return profile ? routes.PROFILE : admin ? routes.ADMIN : routes.PROJECTS
 }
 
 // @func loadImage

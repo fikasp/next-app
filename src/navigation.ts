@@ -6,24 +6,28 @@ export const navigation = [
 		route: routes.HOME,
 		icon: Icons.Home,
 		label: 'Home',
-		public: true,
+	},
+	{
+		route: routes.ADMIN,
+		icon: Icons.Users,
+		label: 'Admin',
+		admin: true,
 	},
 	{
 		route: routes.PROFILE,
 		icon: Icons.User,
 		label: 'My profile',
-		public: false,
+		profile: true,
 	},
 	{
 		route: routes.ADD,
 		icon: Icons.SquarePlus,
 		label: 'Add project',
-		public: false,
+		profile: true,
 	},
 	{
 		route: routes.SEARCH,
 		icon: Icons.Search,
 		label: 'Search',
-		public: true,
 	},
 ]

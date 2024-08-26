@@ -61,7 +61,8 @@ export async function createProject(
 // Get projects
 export async function getProjects(
 	searchParams: any,
-	profile: boolean
+	profile: boolean,
+	admin: boolean
 ): Promise<DataResult<IProject[]>> {
 	try {
 		await connectToDatabase()
@@ -120,14 +121,16 @@ export async function getProjects(
 export async function getProjectBySlug(
 	slug: string,
 	searchParams: any,
-	profile: boolean
+	profile: boolean,
+	admin: boolean
 ): Promise<DataResult<Adjacent<IProject>>> {
 	try {
 		await connectToDatabase()
 
 		const { data: projects }: DataResult<IProject[]> = await getProjects(
 			searchParams,
-			profile
+			profile,
+			admin
 		)
 
 		if (!projects) {

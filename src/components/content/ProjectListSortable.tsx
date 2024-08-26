@@ -20,11 +20,13 @@ export default function ProjectsListSortable({
 	categories,
 	searchParams,
 	profile,
+	admin
 }: {
 	projects: IProject[]
 	categories: ICategory[]
 	searchParams: any
 	profile: boolean
+	admin: boolean
 }) {
 	const [projectList, setProjectList] = useState(projects)
 
@@ -78,6 +80,7 @@ export default function ProjectsListSortable({
 									categories={categories}
 									searchParams={searchParams}
 									profile={profile}
+									admin={admin}
 								/>
 							</SortableItem>
 						))}

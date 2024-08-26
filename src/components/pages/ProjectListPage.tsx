@@ -14,25 +14,29 @@ import { debug } from '@/lib/utils/dev'
 export default async function ProjectsListPage({
 	searchParams,
 	profile = false,
+	admin = false,
 }: {
 	searchParams: any
 	profile?: boolean
+	admin?: boolean
 }) {
 	debug(6, 9, searchParams)
 	const { data: projects }: DataResult<IProject[]> = await getProjects(
 		searchParams,
-		profile
+		profile,
+		admin
 	)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 
 	return (
-		<If condition={profile && !searchParams.sort}>
+		<If condition={(profile || admin) && !searchParams.sort}>
 			<Then>
 				<ProjectsListSortable
 					projects={projects}
 					categories={categories}
 					searchParams={searchParams}
 					profile={profile}
+					admin={admin}
 				/>
 			</Then>
 			<Else>
@@ -41,6 +45,7 @@ export default async function ProjectsListPage({
 					categories={categories}
 					searchParams={searchParams}
 					profile={profile}
+					admin={admin}
 				/>
 			</Else>
 		</If>

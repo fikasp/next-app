@@ -20,6 +20,7 @@ export enum Icons {
 	Sun = 'Sun',
 	Trash = 'Trash',
 	User = 'User',
+	Users = 'Users',
 	X = 'X',
 }
 

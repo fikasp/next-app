@@ -1,5 +1,6 @@
 export const routes = {
 	ADD: '/add',
+	ADMIN: '/admin',
 	PROFILE: '/profile',
 	PROJECTS: '/projects',
 	SEARCH: '/search',

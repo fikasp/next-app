@@ -1,7 +1,6 @@
 'use client'
 // modules
 import Link from 'next/link'
-import { useAuth } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 // components
 import { ArwIcon } from '@/components/arw'
@@ -11,15 +10,20 @@ import { cn } from '@/lib/utils'
 export default function MenuItem({
 	link,
 	setOpen,
-	publicRoute,
+	admin,
+	adminRoute,
+	profileRoute,
+	profile,
 }: {
 	link: any
 	setOpen?: React.Dispatch<React.SetStateAction<boolean>>
-	publicRoute: boolean
+	admin?: boolean
+	adminRoute?: boolean
+	profileRoute?: boolean
+	profile?: boolean
 }) {
 	const pathname = usePathname()
 	const isActive = link.route.split('?')[0] === pathname
-	const { isSignedIn } = useAuth()
 	const handleClick = () => {
 		if (setOpen) {
 			console.log('setOpen')
@@ -27,7 +31,8 @@ export default function MenuItem({
 			setOpen(false)
 		}
 	}
-	if (!publicRoute && !isSignedIn) return null
+	if (adminRoute && !admin) return null
+	if (profileRoute && !profile) return null
 
 	return (
 		<li

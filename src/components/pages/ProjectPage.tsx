@@ -7,7 +7,12 @@ import ProjectManipulations from '@/components/shared/manipulations/ProjectManip
 import ImageList from '@/components/content/ImageList'
 // lib
 import { Adjacent } from '@/lib/types/results'
-import { checkIfCurrentUserIsOwner, generateUrl } from '@/lib/utils'
+import {
+	checkIfCurrentUserIsAdmin,
+	checkIfCurrentUserIsOwner,
+	generateUrl,
+	getBaseRoute,
+} from '@/lib/utils'
 import { DataResult } from '@/lib/types/results'
 import { debug } from '@/lib/utils/dev'
 import { getCategories } from '@/lib/actions/category.actions'
@@ -21,10 +26,12 @@ export default async function ProjectPage({
 	params,
 	searchParams,
 	profile = false,
+	admin = false,
 }: {
 	params: any
 	searchParams: any
 	profile?: boolean
+	admin?: boolean
 }) {
 	debug(6, 9, params, searchParams)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
@@ -33,18 +40,27 @@ export default async function ProjectPage({
 	}: DataResult<Adjacent<IProject>> = await getProjectBySlug(
 		params.slug[0],
 		searchParams,
-		profile
+		profile,
+		admin
 	)
 
 	// Check if the current user is the owner of the project
 	const isOwner = await checkIfCurrentUserIsOwner(current?.user)
+	const isAdmin = await checkIfCurrentUserIsAdmin(current?.user)
 
 	// Generate URLs
-	const route = profile ? routes.PROFILE : routes.PROJECTS
+	const route = getBaseRoute(profile, admin)
 	const urlPrev = prev && generateUrl([route, prev.slug], searchParams)
 	const urlNext = next && generateUrl([route, next.slug], searchParams)
-	const urlProfile = generateUrl([routes.PROFILE, params.slug[0]], searchParams)
 	const urlClose = generateUrl([route], searchParams)
+
+	const getEditUrl = () => {
+		if (isOwner)
+			return generateUrl([routes.PROFILE, params.slug[0]], searchParams)
+		if (isAdmin)
+			return generateUrl([routes.ADMIN, params.slug[0]], searchParams)
+		return null
+	}
 
 	return (
 		current && (
@@ -60,8 +76,8 @@ export default async function ProjectPage({
 					</ArwFlex>
 
 					<ArwFlex row className="justify-end shrink-0">
-						<When condition={!profile && isOwner}>
-							<Nav url={urlProfile} icon={Icons.Pencil} size={20} />
+						<When condition={!profile && getEditUrl()}>
+							<Nav url={getEditUrl()} icon={Icons.Pencil} size={20} />
 						</When>
 						<When condition={profile}>
 							<ProjectManipulations project={current} categories={categories} />
@@ -72,7 +88,11 @@ export default async function ProjectPage({
 
 				{/* center */}
 				<ArwFlex className="px-4 grow">
-					<ImageList project={current} profile={profile} params={params} />
+					<ImageList
+						project={current}
+						profile={profile || admin}
+						params={params}
+					/>
 				</ArwFlex>
 
 				{/* bottom */}

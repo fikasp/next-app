@@ -11,6 +11,7 @@ import {
 	capitalizeFirstLetter,
 	cn,
 	generateUrl,
+	getBaseRoute,
 	transformImageUrl,
 } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
@@ -22,24 +23,24 @@ export default function ProjectCard({
 	categories,
 	searchParams,
 	profile,
+	admin,
 }: {
 	project: IProject
 	categories: ICategory[]
 	searchParams?: any
 	profile?: boolean
+	admin?: boolean
 }) {
 	debug(7)
-	const userLink = generateUrl([routes.PROJECTS], {
+	const route = getBaseRoute(profile, admin)
+	const userLink = generateUrl([route], {
 		...searchParams,
 		user: project.user.username,
 	})
-	const categoryLink = generateUrl(
-		[profile ? routes.PROFILE : routes.PROJECTS],
-		{
-			...searchParams,
-			category: project.category?.label,
-		}
-	)
+	const categoryLink = generateUrl([route], {
+		...searchParams,
+		category: project.category?.label,
+	})
 
 	const coverUrl = project?.cover?.url
 		? transformImageUrl(project.cover.url, 'h_400')
@@ -63,10 +64,7 @@ export default function ProjectCard({
 				}}
 			/>
 			<Link
-				href={generateUrl(
-					[profile ? routes.PROFILE : routes.PROJECTS, project.slug],
-					searchParams
-				)}
+				href={generateUrl([route, project.slug], searchParams)}
 				className="absolute inset-0 z-20"
 			/>
 			<ArwFlex row between className="relative items-start">
@@ -78,7 +76,7 @@ export default function ProjectCard({
 				>
 					{project.title}
 				</ArwTitle>
-				<When condition={profile}>
+				<When condition={profile || admin}>
 					<ProjectManipulations
 						project={project}
 						categories={categories}

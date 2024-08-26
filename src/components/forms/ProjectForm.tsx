@@ -2,7 +2,7 @@
 // modules
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import {
@@ -39,6 +39,7 @@ export default function ProjectForm({
 }) {
 	debug(0, 0, project)
 	const router = useRouter()
+	const pathname = usePathname() 
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
 		value: category.label,
@@ -65,7 +66,7 @@ export default function ProjectForm({
 					project
 				)
 				if (updatedProject) {
-					router.push(routes.PROFILE)
+					router.push(pathname)
 				}
 			} else {
 				// Create project
