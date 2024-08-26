@@ -40,8 +40,7 @@ export default async function ProjectPage({
 	}: DataResult<Adjacent<IProject>> = await getProjectBySlug(
 		params.slug[0],
 		searchParams,
-		profile,
-		admin
+		profile
 	)
 
 	// Check if the current user is the owner of the project
