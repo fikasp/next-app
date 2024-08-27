@@ -1,6 +1,6 @@
 // modules
 import Link from 'next/link'
-import { If, Then, Else, When } from 'react-if'
+import { When } from 'react-if'
 // components
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ArwFlex, ArwLink, ArwPaper, ArwText, ArwTitle } from '@/components/arw'
@@ -84,25 +84,14 @@ export default function ProjectCard({
 				</When>
 			</ArwFlex>
 			<ArwFlex row between>
-				<If condition={profile}>
-					<Then>
-						<ArwText className={cn('relative z-10', coverWhite)}>
-							{project.info}
-						</ArwText>
-					</Then>
-					<Else>
-						<ArwLink href={userLink} className={coverWhite}>
-							<ArwFlex row className="items-center gap-2 relative z-30">
-								<Avatar>
-									<AvatarImage src={project.user.photo} />
-								</Avatar>
-								<ArwText>
-									{capitalizeFirstLetter(project.user.username)}
-								</ArwText>
-							</ArwFlex>
-						</ArwLink>
-					</Else>
-				</If>
+				<ArwLink href={userLink} className={coverWhite}>
+					<ArwFlex row className="items-center gap-2 relative z-30">
+						<Avatar>
+							<AvatarImage src={project.user.photo} />
+						</Avatar>
+						<ArwText>{capitalizeFirstLetter(project.user.username)}</ArwText>
+					</ArwFlex>
+				</ArwLink>
 				<ArwLink href={categoryLink} className={coverWhite}>
 					<ArwFlex className="relative z-30">
 						<ArwText>{capitalizeFirstLetter(project.category?.label)}</ArwText>

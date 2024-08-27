@@ -5,10 +5,10 @@ import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { ArwLink } from '@/components/arw'
 import Menu from '@/components/layout/Menu'
 // lib
-import { checkIfCurrentUserIsAdmin } from '@/lib/utils'
+import { checkIsAdmin } from '@/lib/utils'
 
-export default async function Header() {
-	const isAdmin = await checkIfCurrentUserIsAdmin()
+export default function Header() {
+	const isAdmin = checkIsAdmin()
 
 	return (
 		<header className="sticky z-50 top-0 backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 shadow-md p-4 h-[75px] flex-center">

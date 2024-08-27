@@ -1,6 +1,6 @@
 'use client'
 // modules
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 // components
 import {
 	AlertDialog,
@@ -16,7 +16,7 @@ import { ArwTitle } from '@/components/arw'
 // lib
 import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
-import { routes } from '@/lib/constants/paths'
+import { extractBasePathname } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
 
 export default function ProjectDeleteDialog({
@@ -30,10 +30,11 @@ export default function ProjectDeleteDialog({
 }) {
 	debug(8, 0, project)
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const handleDelete = async () => {
 		await handleDeleteProject(project)
-		router.push(routes.PROFILE)
+		router.push(extractBasePathname(pathname))
 		handleClose()
 	}
 

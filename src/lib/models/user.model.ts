@@ -2,7 +2,6 @@ import { Schema, model, models } from 'mongoose'
 
 export interface IUser extends Document {
 	_id: string
-	admin: boolean
 	clerkId: string
 	email: string
 	firstName?: string
@@ -12,11 +11,6 @@ export interface IUser extends Document {
 }
 
 const UserSchema = new Schema({
-	admin: {
-		type: Boolean,
-		required: true,
-		default: false,
-	},
 	clerkId: {
 		type: String,
 		required: true,

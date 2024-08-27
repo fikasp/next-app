@@ -20,7 +20,7 @@ export default function Menu({ isAdmin }: { isAdmin: boolean }) {
 
 	return (
 		<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-center w-full">
-			<Navigation className="max-md:hidden" isAdmin={isAdmin}/>
+			<Navigation className="max-md:hidden" isAdmin={isAdmin} />
 			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal>
 				<SheetTrigger className="md:hidden">
 					<ArwIcon
@@ -33,7 +33,7 @@ export default function Menu({ isAdmin }: { isAdmin: boolean }) {
 					side="top"
 					className="backdrop-blur-md bg-base-200/50 dark:bg-base-950/50 border-none flex-center min-h-[75px]"
 				>
-					<Navigation setOpen={setIsSheetOpen} isAdmin={isAdmin}/>
+					<Navigation setOpen={setIsSheetOpen} isAdmin={isAdmin} />
 				</SheetContent>
 			</Sheet>
 		</div>

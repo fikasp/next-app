@@ -1,4 +1,5 @@
 // modules
+import { auth } from '@clerk/nextjs/server'
 import { twMerge } from 'tailwind-merge'
 import { type ClassValue, clsx } from 'clsx'
 import { ZodSchema } from 'zod'
@@ -51,20 +52,27 @@ export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
 }
 
-// @func checkIfCurrentUserIsAdmin
-// Check if the current user is the admin
-export async function checkIfCurrentUserIsAdmin(): Promise<boolean> {
-	const currentUser = await getCurrentUser()
-	return currentUser?.admin
+// @func checkIsAdmin
+// Check if the current user is admin
+export function checkIsAdmin(): boolean {
+	const { sessionClaims } = auth()
+	return sessionClaims?.metadata.role === 'admin'
 }
 
-// @func checkIfCurrentUserIsOwner
+// @func checkIsOwner
 // Check if the current user is the owner
-export async function checkIfCurrentUserIsOwner(
+export async function checkIsOwner(
 	user: undefined | IUser
 ): Promise<boolean> {
 	const currentUser = await getCurrentUser()
 	return user?._id === currentUser?._id
+}
+
+// @func extractBasePathname
+// Extract base pathname
+export function extractBasePathname(path: string): string {
+	const parts = path.split('/')
+	return parts.length > 2 ? `/${parts[1]}` : path
 }
 
 // @func generateUniqueSlug

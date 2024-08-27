@@ -16,8 +16,8 @@ import ImageList from '@/components/content/ImageList'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import {
-	checkIfCurrentUserIsAdmin,
-	checkIfCurrentUserIsOwner,
+	checkIsAdmin,
+	checkIsOwner,
 	generateUrl,
 	getBaseRoute,
 } from '@/lib/utils'
@@ -51,8 +51,8 @@ export default async function ProjectPage({
 		profile
 	)
 
-	const isOwner = await checkIfCurrentUserIsOwner(current?.user)
-	const isAdmin = await checkIfCurrentUserIsAdmin()
+	const isOwner = await checkIsOwner(current?.user)
+	const isAdmin = checkIsAdmin()
 
 	// Generate URLs
 	const baseRoute = getBaseRoute(profile, admin)

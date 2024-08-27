@@ -1,11 +1,11 @@
 module.exports = {
-	async up(db, client) {
+	async up(db) {
 		await db
 			.collection('users')
 			.updateMany({ admin: { $exists: false } }, { $set: { admin: false } })
 	},
 
-	async down(db, client) {
+	async down(db) {
 		await db
 			.collection('users')
 			.updateMany({ admin: { $exists: true } }, { $unset: { admin: '' } })

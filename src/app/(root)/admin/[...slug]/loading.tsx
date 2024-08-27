@@ -1,7 +1,14 @@
-import { debug } from '@/lib/utils/dev'
+// modules
+import { redirect } from 'next/navigation'
+// components
 import ProjectLoading from '@/components/pages/loadings/ProjectLoading'
+// lib
+import { checkIsAdmin } from '@/lib/utils'
 
 export default function Loading() {
-	debug(4)
-	return <ProjectLoading />
+	if (!checkIsAdmin()) {
+		redirect('/')
+	} else {
+		return <ProjectLoading />
+	}
 }

@@ -21,12 +21,12 @@ import {
 	handleUpdateProject,
 } from '@/lib/handlers/project.handlers'
 import { debug, handleError } from '@/lib/utils/dev'
+import { extractBasePathname, generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types/shared'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
-import { generateUrl } from '@/lib/utils'
 
 export default function ProjectForm({
 	project,
@@ -39,7 +39,7 @@ export default function ProjectForm({
 }) {
 	debug(0, 0, project)
 	const router = useRouter()
-	const pathname = usePathname() 
+	const pathname = usePathname()
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const categoryOptions: Option[] = categories.map((category: ICategory) => ({
 		value: category.label,
@@ -66,7 +66,7 @@ export default function ProjectForm({
 					project
 				)
 				if (updatedProject) {
-					router.push(pathname)
+					router.push(extractBasePathname(pathname))
 				}
 			} else {
 				// Create project
