@@ -13,10 +13,10 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
-import { Result } from '@/lib/types/results'
+import { Result } from '@/lib/types'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { uploadToCloudinary } from '@/lib/utils/services'
-import { UploadedImage } from '@/lib/types/shared'
+import { UploadedImage } from '@/lib/types'
 
 // CREATE
 // Create new project

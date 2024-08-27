@@ -2,7 +2,7 @@
 import { ArwPaper, ArwContainer } from '@/components/arw'
 import SearchForm from '@/components/forms/SearchForm'
 // lib
-import { DataResult } from '@/lib/types/results'
+import { DataResult } from '@/lib/types'
 import { getCategories } from '@/lib/actions/category.actions'
 import { ICategory } from '@/lib/models/category.model'
 import { debug } from '@/lib/utils/dev'

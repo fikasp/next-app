@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
-import { Option } from '@/lib/types/shared'
+import { Option } from '@/lib/types'
 import { routes } from '@/lib/constants/paths'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { debug } from '@/lib/utils/dev'

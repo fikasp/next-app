@@ -2,8 +2,8 @@
 // modules
 import { v2 as cloudinary } from 'cloudinary'
 // lib
-import { UploadedImage } from '@/lib/types/shared'
 import { debug, handleError } from '@/lib/utils/dev'
+import { UploadedImage } from '@/lib/types'
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

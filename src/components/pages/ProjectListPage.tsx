@@ -4,7 +4,7 @@ import { Else, If, Then } from 'react-if'
 import ProjectsListSortable from '@/components/content/ProjectListSortable'
 import ProjectsList from '@/components/content/ProjectList'
 // lib
-import { DataResult } from '@/lib/types/results'
+import { DataResult } from '@/lib/types'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjects } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'

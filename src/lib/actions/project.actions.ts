@@ -2,13 +2,17 @@
 // modules
 import { revalidatePath } from 'next/cache'
 // lib
-import { Adjacent } from '@/lib/types/results'
+import {
+	deepClone,
+	generateUniqueSlug,
+	validateData,
+	findPrev,
+	findNext,
+} from '@/lib/utils'
+import { Adjacent, DataResult, Result } from '@/lib/types'
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/services'
-import { DataResult, Result } from '@/lib/types/results'
 import { debug, handleError } from '@/lib/utils/dev'
-import { deepClone, generateUniqueSlug, validateData } from '@/lib/utils'
-import { findPrev, findNext } from '@/lib/utils'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'

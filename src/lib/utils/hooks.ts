@@ -45,13 +45,6 @@ export const useDndSensors = () => {
 	return sensors
 }
 
-// @func useMobile
-// Use mobile to check if the screen is mobile
-export function useMobile() {
-	const isMobile = useMediaQuery({ maxWidth: 768 })
-	return isMobile
-}
-
 // @func useKeys
 // Use keys to call a function when the user presses a key
 export function useKeys(
@@ -92,6 +85,28 @@ export function useKeys(
 	}, [keyActions, enabled])
 }
 
+// @func useMobile
+// Use mobile to check if the screen is mobile
+export function useMobile() {
+	const isMobile = useMediaQuery({ maxWidth: 768 })
+	return isMobile
+}
+
+// @func usePopState
+// Use popstate to call a function when the user navigates
+export function usePopState(callback: () => void) {
+	useEffect(() => {
+		const handlePopState = () => {
+			callback()
+		}
+
+		window.addEventListener('popstate', handlePopState)
+		return () => {
+			window.removeEventListener('popstate', handlePopState)
+		}
+	}, [callback])
+}
+
 // @func useScroll
 // Use wheel to call a function when the user scrolls
 export function useScroll(
@@ -123,6 +138,13 @@ export function useScroll(
 			document.removeEventListener('wheel', handleWheel)
 		}
 	}, [ScrollUp, ScrollDown, threshold, enabled])
+}
+
+// @func useScrollToTop
+export const useScrollToTop = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 }
 
 // @func useSwipe
@@ -189,24 +211,3 @@ export function useSwipe(
 	}, [SwipeLeft, SwipeRight, SwipeUp, SwipeDown, threshold, enabled])
 }
 
-// @func usePopState
-// Use popstate to call a function when the user navigates
-export function usePopState(callback: () => void) {
-	useEffect(() => {
-		const handlePopState = () => {
-			callback()
-		}
-
-		window.addEventListener('popstate', handlePopState)
-		return () => {
-			window.removeEventListener('popstate', handlePopState)
-		}
-	}, [callback])
-}
-
-// @func useScrollToTop
-export const useScrollToTop = () => {
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [])
-}

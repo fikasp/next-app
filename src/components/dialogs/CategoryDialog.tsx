@@ -12,7 +12,7 @@ import {
 	handleDeleteCategory,
 	handleUpdateCategory,
 } from '@/lib/handlers/category.handlers'
-import { Option } from '@/lib/types/shared'
+import { Option } from '@/lib/types'
 import { icons } from '@/lib/constants/paths'
 import { debug } from '@/lib/utils/dev'
 

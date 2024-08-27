@@ -1,7 +1,7 @@
 // modules
 import mongoose, { Mongoose } from 'mongoose'
 // lib
-import { UploadedImage } from '@/lib/types/shared'
+import { UploadedImage } from '@/lib/types'
 
 const MONGODB_URL = process.env.MONGODB_URL
 const MONGODB_DB = process.env.MONGODB_DB

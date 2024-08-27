@@ -18,7 +18,6 @@ const debugModes: { [key: number]: ChalkInstance } = {
 	10: chalk.bgRed.black,
 }
 
-// @func debug
 // Debugging function
 export function debug(logMode: number, dataMode?: number, ...data: any) {
 	if (!debugActive) return
@@ -51,7 +50,6 @@ export function debug(logMode: number, dataMode?: number, ...data: any) {
 	}
 }
 
-// @func handleError
 // Error handler
 export function handleError(error: any) {
 	if (error instanceof Error) {

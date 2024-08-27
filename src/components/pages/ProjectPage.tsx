@@ -14,14 +14,14 @@ import {
 import ProjectManipulations from '@/components/shared/manipulations/ProjectManipulations'
 import ImageList from '@/components/content/ImageList'
 // lib
-import { Adjacent } from '@/lib/types/results'
+import { Adjacent } from '@/lib/types'
 import {
 	checkIsAdmin,
 	checkIsOwner,
 	generateUrl,
 	getBaseRoute,
 } from '@/lib/utils'
-import { DataResult } from '@/lib/types/results'
+import { DataResult } from '@/lib/types'
 import { debug } from '@/lib/utils/dev'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'

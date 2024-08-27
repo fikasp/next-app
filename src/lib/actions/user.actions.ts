@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 // lib
 import { connectToDatabase } from '@/lib/utils/services'
-import { CreateUserData, UpdateUserData } from '@/lib/types/shared'
+import { CreateUserData, UpdateUserData } from '@/lib/types'
 import { deepClone } from '@/lib/utils'
 import { handleError } from '@/lib/utils/dev'
 import { IUser, UserModel } from '@/lib/models/user.model'

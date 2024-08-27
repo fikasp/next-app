@@ -24,7 +24,7 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { extractBaseRoute, generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
-import { Option } from '@/lib/types/shared'
+import { Option } from '@/lib/types'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
 

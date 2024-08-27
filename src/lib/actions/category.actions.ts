@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 // lib
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/services'
-import { DataResult, Result } from '@/lib/types/results'
+import { DataResult, Result } from '@/lib/types'
 import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone } from '@/lib/utils'
 import { ProjectModel } from '@/lib/models/project.model'

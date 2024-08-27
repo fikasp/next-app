@@ -14,8 +14,8 @@ import { ArwFlex } from '@/components/arw'
 // lib
 import { cn } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
-import { Option } from '@/lib/types/shared'
 import { useDebounce } from '@/lib/utils/hooks'
+import { Option } from '@/lib/types'
 
 export default function ArwSelect({
 	onValueChange,
