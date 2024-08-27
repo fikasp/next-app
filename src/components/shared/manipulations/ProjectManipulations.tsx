@@ -37,11 +37,7 @@ export default function ProjectManipulations({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild className={className}>
 					<div>
-						<ArwButton
-							icon={Icons.Ellipsis}
-							className="arw-shadow-black"
-							size={30}
-						/>
+						<ArwButton icon={Icons.Ellipsis} size={30} />
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="center">

@@ -135,7 +135,7 @@ export default function ImageList({
 				<SortableItem
 					key={image._id}
 					id={image._id}
-					className="bottom-0 left-0"
+					className="bottom-0 left-0 drop-shadow text-white"
 				>
 					<ImageCard
 						key={image._id}

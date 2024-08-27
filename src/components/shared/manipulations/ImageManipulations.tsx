@@ -40,7 +40,7 @@ export default function ImageManipulations({
 						<ArwButton
 							size={30}
 							icon={Icons.Ellipsis}
-							className="arw-shadow-black text-white py-2 px-4"
+							className="text-white drop-shadow py-2 px-4"
 						/>
 					</div>
 				</DropdownMenuTrigger>
