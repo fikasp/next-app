@@ -351,8 +351,6 @@ export async function updateProjectOrder(
 		}))
 
 		await ProjectModel.bulkWrite(bulkOps)
-
-		revalidatePath(routes.PROFILE)
 		return { success: true }
 	} catch (error) {
 		return { success: false, error: { error: handleError(error) } }
@@ -373,8 +371,6 @@ export async function updateImageOrder(
 				images: reorderedImages,
 			}
 		)
-
-		revalidatePath(routes.PROFILE)
 		return { success: true }
 	} catch (error) {
 		return { success: false, error: { error: handleError(error) } }
