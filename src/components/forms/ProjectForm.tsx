@@ -21,7 +21,7 @@ import {
 	handleUpdateProject,
 } from '@/lib/handlers/project.handlers'
 import { debug, handleError } from '@/lib/utils/dev'
-import { extractBasePathname, generateUrl } from '@/lib/utils'
+import { extractBaseRoute, generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types/shared'
@@ -66,7 +66,7 @@ export default function ProjectForm({
 					project
 				)
 				if (updatedProject) {
-					router.push(extractBasePathname(pathname))
+					router.push(extractBaseRoute(pathname))
 				}
 			} else {
 				// Create project

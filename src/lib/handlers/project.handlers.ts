@@ -15,8 +15,8 @@ import { IProject } from '@/lib/models/project.model'
 import { ProjectFormData } from '@/lib/types/zod'
 import { Result } from '@/lib/types/results'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
+import { uploadToCloudinary } from '@/lib/utils/services'
 import { UploadedImage } from '@/lib/types/shared'
-import { uploadToCloudinary } from '@/lib/utils/servers'
 
 // CREATE
 // Create new project

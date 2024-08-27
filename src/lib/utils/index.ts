@@ -8,8 +8,8 @@ import qs from 'query-string'
 import slugify from 'slugify'
 // lib
 import { getCurrentUser } from '@/lib/actions/user.actions'
-import { routes } from '@/lib/constants/paths'
 import { IUser } from '@/lib/models/user.model'
+import { routes } from '@/lib/constants/paths'
 
 // @func capitalizeFirstLetter
 // Capitalize first letter
@@ -18,6 +18,20 @@ export function capitalizeFirstLetter(str: string) {
 		return str
 	}
 	return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+// @func checkIsAdmin
+// Check if the current user is admin
+export function checkIsAdmin(): boolean {
+	const { sessionClaims } = auth()
+	return sessionClaims?.metadata.role === 'admin'
+}
+
+// @func checkIsOwner
+// Check if the current user is the owner
+export async function checkIsOwner(user: undefined | IUser): Promise<boolean> {
+	const currentUser = await getCurrentUser()
+	return user?._id === currentUser?._id
 }
 
 // @func cn
@@ -40,10 +54,11 @@ export function deepClone(obj: any) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
-// @func findPrev
-// Find prev element
-export function findPrev<T>(array: T[], currentIndex: number) {
-	return currentIndex > 0 ? array[currentIndex - 1] : null
+// @func extractBaseRoute
+// Extract base route
+export function extractBaseRoute(pathname: string): string {
+	const parts = pathname.split('/')
+	return parts.length > 2 ? `/${parts[1]}` : pathname
 }
 
 // @func findNext
@@ -52,27 +67,10 @@ export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
 }
 
-// @func checkIsAdmin
-// Check if the current user is admin
-export function checkIsAdmin(): boolean {
-	const { sessionClaims } = auth()
-	return sessionClaims?.metadata.role === 'admin'
-}
-
-// @func checkIsOwner
-// Check if the current user is the owner
-export async function checkIsOwner(
-	user: undefined | IUser
-): Promise<boolean> {
-	const currentUser = await getCurrentUser()
-	return user?._id === currentUser?._id
-}
-
-// @func extractBasePathname
-// Extract base pathname
-export function extractBasePathname(path: string): string {
-	const parts = path.split('/')
-	return parts.length > 2 ? `/${parts[1]}` : path
+// @func findPrev
+// Find prev element
+export function findPrev<T>(array: T[], currentIndex: number) {
+	return currentIndex > 0 ? array[currentIndex - 1] : null
 }
 
 // @func generateUniqueSlug
@@ -147,23 +145,6 @@ export function toStringArray(
 	}
 }
 
-// @func validateData
-// Parse with zod schema
-export function validateData(
-	schema: ZodSchema,
-	data: any
-): Record<string, string> | null {
-	const result = schema.safeParse(data)
-
-	if (!result.success) {
-		const errors = Object.fromEntries(
-			result.error.errors.map((error) => [error.path, error.message])
-		)
-		return errors
-	}
-	return null
-}
-
 // @func transformImageUrl
 // Transform image URL
 export function transformImageUrl(url: string, transformations: string) {
@@ -195,4 +176,21 @@ export function updateUrlPath(newPath: string) {
 	const url = new URL(window.location.toString())
 	url.pathname = newPath
 	window.history.pushState({}, '', url.toString())
+}
+
+// @func validateData
+// Parse with zod schema
+export function validateData(
+	schema: ZodSchema,
+	data: any
+): Record<string, string> | null {
+	const result = schema.safeParse(data)
+
+	if (!result.success) {
+		const errors = Object.fromEntries(
+			result.error.errors.map((error) => [error.path, error.message])
+		)
+		return errors
+	}
+	return null
 }

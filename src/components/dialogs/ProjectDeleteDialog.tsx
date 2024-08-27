@@ -16,7 +16,7 @@ import { ArwTitle } from '@/components/arw'
 // lib
 import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
-import { extractBasePathname } from '@/lib/utils'
+import { extractBaseRoute } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
 
 export default function ProjectDeleteDialog({
@@ -34,7 +34,7 @@ export default function ProjectDeleteDialog({
 
 	const handleDelete = async () => {
 		await handleDeleteProject(project)
-		router.push(extractBasePathname(pathname))
+		router.push(extractBaseRoute(pathname))
 		handleClose()
 	}
 

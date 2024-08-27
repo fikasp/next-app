@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 // lib
 import { Adjacent } from '@/lib/types/results'
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
-import { connectToDatabase } from '@/lib/utils/servers'
+import { connectToDatabase } from '@/lib/utils/services'
 import { DataResult, Result } from '@/lib/types/results'
 import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone, generateUniqueSlug, validateData } from '@/lib/utils'
