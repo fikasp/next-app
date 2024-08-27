@@ -1,9 +1,6 @@
-// modules
-import { redirect } from 'next/navigation'
 // components
 import ProjectPage from '@/components/pages/ProjectPage'
-// lib
-import { checkIsAdmin } from '@/lib/utils'
+import IsAdmin from '@/components/pages/middlewares/IsAdmin'
 
 export default function Page({
 	params,
@@ -12,9 +9,9 @@ export default function Page({
 	params: any
 	searchParams: any
 }) {
-	if (!checkIsAdmin()) {
-		redirect('/')
-	} else {
-		return <ProjectPage params={params} searchParams={searchParams} admin />
-	}
+	return (
+		<IsAdmin>
+			<ProjectPage params={params} searchParams={searchParams} admin />
+		</IsAdmin>
+	)
 }

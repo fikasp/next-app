@@ -45,14 +45,13 @@ export default function ProjectCard({
 		? transformImageUrl(project.cover.url, 'h_400')
 		: null
 
-	const coverWhite = coverUrl ? 'text-white' : ''
-
 	return (
 		<ArwPaper
 			accent
 			square
 			className="relative justify-between px-5 py-4 group max-lg:aspect-video overflow-hidden"
 		>
+			{/* cover */}
 			<div
 				className="absolute inset-0 group-hover:opacity-80 transition"
 				style={{
@@ -67,34 +66,43 @@ export default function ProjectCard({
 				className="absolute inset-0 z-20"
 			/>
 			<ArwFlex row between className="relative items-start">
+				{/* title */}
 				<ArwTitle
 					className={cn(
-						'group-hover:text-accent transition cursor-pointer relative z-10',
-						coverWhite
+						'text-white drop-shadow group-hover:text-accent transition cursor-pointer relative z-10'
 					)}
 				>
 					{project.title}
 				</ArwTitle>
+
+				{/* manipulation */}
 				<When condition={profile || admin}>
 					<ProjectManipulations
 						project={project}
 						categories={categories}
-						className={cn('relative z-30', coverWhite)}
+						className={cn('relative z-30 text-white drop-shadow')}
 					/>
 				</When>
 			</ArwFlex>
 			<ArwFlex row between>
-				<ArwLink href={userLink} className={coverWhite}>
+				{/* user */}
+				<ArwLink href={userLink}>
 					<ArwFlex row className="items-center gap-2 relative z-30">
 						<Avatar>
 							<AvatarImage src={project.user.photo} />
 						</Avatar>
-						<ArwText>{capitalizeFirstLetter(project.user.username)}</ArwText>
+						<ArwText className="text-white hover:text-accent drop-shadow transition">
+							{capitalizeFirstLetter(project.user.username)}
+						</ArwText>
 					</ArwFlex>
 				</ArwLink>
-				<ArwLink href={categoryLink} className={coverWhite}>
+
+				{/* category */}
+				<ArwLink href={categoryLink}>
 					<ArwFlex className="relative z-30">
-						<ArwText>{capitalizeFirstLetter(project.category?.label)}</ArwText>
+						<ArwText className="text-white hover:text-accent drop-shadow transition">
+							{capitalizeFirstLetter(project.category?.label)}
+						</ArwText>
 					</ArwFlex>
 				</ArwLink>
 			</ArwFlex>
