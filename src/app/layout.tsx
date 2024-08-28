@@ -27,7 +27,7 @@ const roboto = Roboto({
 // metadata
 export const metadata: Metadata = {
 	title: 'ARW Next App',
-	description: 'Next.js template with MongoDB and Cloudinary',
+	description: 'Next.js template with MongoDB, Cloudinary and Clerk',
 }
 
 export default function RootLayout({

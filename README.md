@@ -1,4 +1,4 @@
-# Next App Template
+# ARW Next App
 
 ## Introduction
 
