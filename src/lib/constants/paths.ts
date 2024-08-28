@@ -4,10 +4,12 @@ export const routes = {
 	PROFILE: '/profile',
 	PROJECTS: '/projects',
 	SEARCH: '/search',
+	SIGNIN: '/sign-in',
 	HOME: '/',
 }
 
 export const icons = {
+	ARW: '/icons/ARW.svg',
 	CANCEL: '/icons/cancel.svg',
 	DELETE: '/icons/delete.svg',
 	EDIT: '/icons/edit.svg',
@@ -15,5 +17,6 @@ export const icons = {
 }
 
 export const images = {
+	ARW: '/images/ARW.png',
 	IMAGE: '/images/image.png',
 }
