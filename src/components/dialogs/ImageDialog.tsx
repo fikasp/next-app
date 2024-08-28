@@ -4,7 +4,12 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 // components
 import { ArwNavClose, ArwNavNext, ArwNavPrev, ArwText } from '@/components/arw'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+} from '@/components/ui/dialog'
 // lib
 import { IImage } from '@/lib/models/image.model'
 import { debug } from '@/lib/utils/dev'
@@ -53,12 +58,14 @@ export default function ImageDialog({
 	return (
 		<Dialog open={isOpen} onOpenChange={handleClose}>
 			<DialogContent className="flex-center w-full h-full p-0 bg-transparent dark:bg-transparent close-button-hidden">
+				<DialogTitle className="hidden">Image</DialogTitle>
+				<DialogDescription className="hidden">Image</DialogDescription>
 				<div onClick={handleClose} className="absolute inset-0 z-20" />
 				<Image
 					src={image?.url}
 					alt={image?.name}
-					width={1400}
-					height={1400}
+					width={2400}
+					height={1600}
 					onLoad={handleImageLoad}
 					className="w-auto h-auto max-h-screen md:max-h-screen-4 md:max-w-screen-4 object-cover"
 					priority

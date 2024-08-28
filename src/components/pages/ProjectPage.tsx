@@ -108,7 +108,7 @@ export default async function ProjectPage({
 					className="sticky bottom-[0px] z-40 p-4 backdrop-blur-md"
 				>
 					<ArwNavPrev url={urlPrev} keys />
-					<ArwText>{current.info}</ArwText>
+					<ArwText center>{current.info}</ArwText>
 					<ArwNavNext url={urlNext} keys />
 				</ArwFlex>
 			</ArwContainer>

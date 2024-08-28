@@ -100,7 +100,7 @@ export default function ProjectCard({
 				{/* category */}
 				<ArwLink href={categoryLink}>
 					<ArwFlex className="relative z-30">
-						<ArwText className="text-white hover:text-accent drop-shadow transition">
+						<ArwText className="text-white text-right hover:text-accent drop-shadow transition">
 							{capitalizeFirstLetter(project.category?.label)}
 						</ArwText>
 					</ArwFlex>
