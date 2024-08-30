@@ -178,7 +178,7 @@ export default function ImageList({
 
 	return (
 		<>
-			<ArwGrid className="arw-grid-auto-150 content-start gap-1">
+			<ArwGrid className="arw-grid-auto-150 sm:arw-grid-auto-200 content-start gap-1">
 				<When condition={profile}>
 					<ImageForm project={project} />
 				</When>

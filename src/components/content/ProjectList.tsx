@@ -14,7 +14,7 @@ export default async function ProjectsList({
 	categories,
 	searchParams,
 	profile,
-	admin
+	admin,
 }: {
 	projects: IProject[]
 	categories: ICategory[]
@@ -30,7 +30,7 @@ export default async function ProjectsList({
 			</Then>
 			<Else>
 				<ArwContainer>
-					<ArwGrid className="arw-grid-auto-300 gap-3 content-start">
+					<ArwGrid className="arw-grid-auto-300 gap-2 content-start">
 						{projects.map((project: IProject) => (
 							<ProjectCard
 								key={project._id}
