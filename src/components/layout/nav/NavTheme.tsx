@@ -12,7 +12,7 @@ import { ArwIcon } from '@/components/arw'
 // lib
 import { Icons, Themes } from '@/lib/types/enums'
 
-export default function MenuTheme() {
+export default function NavTheme() {
 	const { setTheme } = useTheme()
 
 	const handleClick = (theme: string) => () => {
@@ -22,7 +22,7 @@ export default function MenuTheme() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<div className="flex gap-2 cursor-pointer hover:text-accent">
-					<div className="flex-center w-[35px]">
+					<div className="flex-center">
 						<ArwIcon icon={Icons.Sun} className="flex dark:hidden" />
 						<ArwIcon icon={Icons.Moon} className="hidden dark:flex" />
 					</div>

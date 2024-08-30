@@ -35,11 +35,11 @@ export default function NavItem({
 			onClick={handleClick}
 		>
 			<Link
-				className="flex items-center justify-center max-md:justify-start max-md:gap-2"
+				className="flex items-center justify-center max-md:justify-start gap-2 md:gap-1"
 				href={item.route}
 			>
-				<ArwIcon className="w-[35px] flex-center" icon={item.icon} />
-				<ArwText className={cn(item.labelHide ? 'md:hidden lg:block' : '')}>
+				<ArwIcon className="flex-center" icon={item.icon} />
+				<ArwText className={cn(item.autoHide ? 'md:hidden lg:block' : '')}>
 					{item.label}
 				</ArwText>
 			</Link>

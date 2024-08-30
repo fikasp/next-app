@@ -1,11 +1,14 @@
 export const routes = {
 	ADD: '/add',
 	ADMIN: '/admin',
+	API_CLERK: '/api/clerk',
+	API_STRIPE: '/api/stripe',
+	HOME: '/',
 	PROFILE: '/profile',
+	PROJECTS_SLUGS: '/projects/(.*)',
 	PROJECTS: '/projects',
 	SEARCH: '/search',
 	SIGNIN: '/sign-in',
-	HOME: '/',
 }
 
 export const icons = {

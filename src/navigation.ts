@@ -5,7 +5,7 @@ export type Nav = {
 	route: string
 	icon: Icons
 	label: string
-	labelHide: boolean
+	autoHide: boolean
 	profile: boolean
 	admin?: boolean
 }
@@ -15,14 +15,14 @@ export const navigation: Nav[] = [
 		route: routes.HOME,
 		icon: Icons.Home,
 		label: 'Home',
-		labelHide: true,
+		autoHide: true,
 		profile: false,
 	},
 	{
 		route: routes.ADMIN,
 		icon: Icons.Users,
 		label: 'Admin',
-		labelHide: false,
+		autoHide: false,
 		profile: false,
 		admin: true,
 	},
@@ -30,21 +30,21 @@ export const navigation: Nav[] = [
 		route: routes.PROFILE,
 		icon: Icons.User,
 		label: 'My profile',
-		labelHide: false,
+		autoHide: false,
 		profile: true,
 	},
 	{
 		route: routes.ADD,
 		icon: Icons.SquarePlus,
 		label: 'Add project',
-		labelHide: false,
+		autoHide: false,
 		profile: true,
 	},
 	{
 		route: routes.SEARCH,
 		icon: Icons.Search,
 		label: 'Search',
-		labelHide: false,
+		autoHide: false,
 		profile: false,
 	},
 ]

@@ -105,7 +105,7 @@ export default async function ProjectPage({
 				<ArwFlex
 					row
 					between
-					className="sticky bottom-[0px] z-40 p-4 backdrop-blur-md"
+					className="sticky bottom-0 sm:bottom-[56px] z-40 p-4 backdrop-blur-md"
 				>
 					<ArwNavPrev url={urlPrev} keys />
 					<ArwText center>{current.info}</ArwText>

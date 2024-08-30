@@ -14,7 +14,7 @@ import { ArwIcon } from '@/components/arw'
 import { Icons, SortOptions } from '@/lib/types/enums'
 import { cn } from '@/lib/utils'
 
-export default function MenuSorting() {
+export default function NavSorting() {
 	const searchParams = useSearchParams()
 	const router = useRouter()
 
@@ -40,8 +40,8 @@ export default function MenuSorting() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<div className="flex-center cursor-pointer hover:text-accent max-md:gap-2">
-					<div className="flex-center w-[35px]">
+				<div className="flex-center cursor-pointer hover:text-accent gap-2 md:gap-1">
+					<div className="flex-center">
 						<ArwIcon icon={Icons.ArrowDownUp} />
 					</div>
 					<div className="md:hidden">Sort options</div>
