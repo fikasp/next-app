@@ -1,4 +1,4 @@
-import ArwSpinner from '@/components/arw/common/ArwSpinner'
+import { ArwSpinner } from '@/components/arw'
 
 export default function Loading() {
 	return <ArwSpinner accent />
