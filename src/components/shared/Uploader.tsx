@@ -4,7 +4,7 @@ import { Else, If, Then } from 'react-if'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 import { useCallback } from 'react'
 // components
-import { Arw, ArwIcon, ArwText } from '@/components/arw'
+import { Arw, ArwFlex, ArwIcon, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
 import { Icons } from '@/lib/types/enums'
@@ -63,12 +63,14 @@ export default function Uploader({
 								: 'bg-blue hover:bg-blue-600 transition duration-300 ease-in-out'
 						)}
 					>
-						<ArwIcon
-							size={40}
-							icon={Icons.CloudUpload}
-							className={cn(editMode && 'opacity-0')}
-						/>
-						<ArwText className="text-xs">Drag and drop or</ArwText>
+						<ArwFlex center className="grow gap-1">
+							<ArwIcon
+								size={48}
+								icon={Icons.CloudUpload}
+								className={cn(editMode && 'opacity-0')}
+							/>
+							<ArwText className="text-xs">Drag and drop or</ArwText>
+						</ArwFlex>
 						<Button type="button" className="w-full text-xs">
 							{editMode ? 'Select image' : 'Select image(s)'}
 						</Button>
