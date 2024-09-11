@@ -27,7 +27,7 @@ export default function Uploader({
 		[setFiles]
 	)
 
-	const { getRootProps, getInputProps } = useDropzone({
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
 		onDrop,
 		accept: { 'image/*': [] },
 	})
@@ -57,10 +57,11 @@ export default function Uploader({
 				<Else>
 					<Arw
 						className={cn(
-							'h-full flex flex-col items-center justify-between p-3',
+							'h-full flex flex-col items-center justify-between transition p-3',
 							editMode
-								? 'bg-transparent'
-								: 'bg-blue hover:bg-blue-600 transition duration-300 ease-in-out'
+								? 'bg-transparent '
+								: 'bg-blue hover:bg-blue-600 duration-300 ease-in-out',
+							isDragActive && 'bg-blue-600 '
 						)}
 					>
 						<ArwFlex center className="grow gap-1">
