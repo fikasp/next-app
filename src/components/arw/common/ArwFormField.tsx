@@ -1,8 +1,6 @@
 'use client'
 // modules
 import { When } from 'react-if'
-import { Control } from 'react-hook-form'
-import Image from 'next/image'
 // components
 import {
 	FormControl,
@@ -11,12 +9,6 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form'
-// lib
-import { useArwFormContext } from './ArwForm'
-import { FormFieldType } from '@/lib/types/enums'
-import { cn } from '@/lib/utils'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import {
 	Select,
 	SelectContent,
@@ -24,22 +16,23 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useArwFormContext } from '@/components/arw/common/ArwForm'
+// lib
+import { FormFieldType } from '@/lib/types/enums'
+import { cn } from '@/lib/utils'
 
-interface ArwFormFieldProps {
+interface FormFieldProps {
 	children?: React.ReactNode
 	className?: string
-	control: Control<any>
-	dateFormat?: string
-	description?: string
 	disabled?: boolean
-	iconAlt?: string
-	iconSrc?: string
 	label?: string
 	name: string
 	placeholder?: string
+	// eslint-disable-next-line
 	render?: (field: any) => React.ReactNode
-	showTimeSelect?: boolean
 	type?: FormFieldType
 }
 
@@ -48,7 +41,7 @@ const RenderField = ({
 	props,
 }: {
 	field: any
-	props: ArwFormFieldProps
+	props: FormFieldProps
 }) => {
 	const { center } = useArwFormContext()
 	switch (props.type) {
@@ -56,46 +49,36 @@ const RenderField = ({
 		case FormFieldType.CHECKBOX:
 			return (
 				<FormControl>
-					<div className="flex items-center gap-3">
+					<FormItem
+						className={cn(
+							'flex items-center gap-2',
+							center && 'justify-center'
+						)}
+					>
 						<Checkbox
 							checked={field.value}
 							onCheckedChange={field.onChange}
 							disabled={props.disabled}
 							id={props.name}
 						/>
-						<Label
-							htmlFor={props.name}
-							className="text-xs font-thin text-zinc-200 leading-5 cursor-pointer"
-						>
+						<Label htmlFor={props.name} className="cursor-pointer">
 							{props.label}
 						</Label>
-					</div>
+					</FormItem>
 				</FormControl>
 			)
 
 		// Input
 		case FormFieldType.INPUT:
 			return (
-				<div>
-					{props.iconSrc && (
-						<Image
-							src={props.iconSrc}
-							height={24}
-							width={24}
-							alt={props.iconAlt || 'icon'}
-							className="ml-2"
-							priority
-						/>
-					)}
-					<FormControl>
-						<Input
-							{...field}
-							placeholder={props.placeholder}
-							className={cn(center ? 'text-center' : 'text-left')}
-							disabled={props.disabled}
-						/>
-					</FormControl>
-				</div>
+				<FormControl>
+					<Input
+						{...field}
+						placeholder={props.placeholder}
+						className={cn(center && 'text-center')}
+						disabled={props.disabled}
+					/>
+				</FormControl>
 			)
 
 		// Select
@@ -103,12 +86,10 @@ const RenderField = ({
 			return (
 				<FormControl>
 					<Select onValueChange={field.onChange} value={field.value}>
-						<SelectTrigger className="shad-select-trigger">
+						<SelectTrigger>
 							<SelectValue placeholder={props.placeholder} />
 						</SelectTrigger>
-						<SelectContent className="shad-select-content">
-							{props.children}
-						</SelectContent>
+						<SelectContent>{props.children}</SelectContent>
 					</Select>
 				</FormControl>
 			)
@@ -120,70 +101,29 @@ const RenderField = ({
 					<Textarea
 						{...field}
 						placeholder={props.placeholder}
-						className="shad-textArea"
 						disabled={props.disabled}
 					/>
 				</FormControl>
 			)
-
-		// case FormFieldType.PHONE:
-		// 	return (
-		// 		<FormControl>
-		// 			<PhoneInput
-		// 				defaultCountry="PL"
-		// 				placeholder={props.placeholder}
-		// 				international
-		// 				withCountryCallingCode
-		// 				value={field.value as E164Number | undefined}
-		// 				onChange={field.onChange}
-		// 				className="input-phone"
-		// 			/>
-		// 		</FormControl>
-		// 	)
-
-		// case FormFieldType.DATE_PICKER:
-		// 	return (
-		// 		<div className="flex rounded-md border border-dark-500 bg-dark-400">
-		// 			<Image
-		// 				src="/assets/icons/calendar.svg"
-		// 				height={24}
-		// 				width={24}
-		// 				alt="user"
-		// 				className="ml-2"
-		// 			/>
-		// 			<FormControl>
-		// 				<ReactDatePicker
-		// 					showTimeSelect={props.showTimeSelect ?? false}
-		// 					selected={field.value}
-		// 					onChange={(date: Date | null) => field.onChange(date)}
-		// 					timeInputLabel="Time:"
-		// 					dateFormat={props.dateFormat ?? 'MM/dd/yyyy'}
-		// 					wrapperClassName="date-picker"
-		// 					placeholderText={props.placeholder}
-		// 				/>
-		// 			</FormControl>
-		// 		</div>
-		// 	)
-
 		default:
 			return props.render && props.render(field)
 	}
 }
 
-export default function ArwFormField(props: ArwFormFieldProps) {
-	const { className, control, label, name } = props
-	const { grid, center } = useArwFormContext()
+export default function ArwFormField(props: FormFieldProps) {
+	const { className, label, name, type } = props
+	const { grid, center, control } = useArwFormContext()
 	return (
 		<FormField
 			name={name}
-			control={control}
+			control={control!}
 			render={({ field }) => {
 				return (
 					<FormItem
 						className={cn(grid ? `grid ${grid}` : 'flex flex-col', 'gap-2')}
 					>
 						{/* Label */}
-						<When condition={label}>
+						<When condition={label && type != FormFieldType.CHECKBOX}>
 							<FormLabel
 								className={cn(
 									'flex items-center',

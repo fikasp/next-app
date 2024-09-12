@@ -4,7 +4,6 @@ import { useRef, useCallback, useEffect } from 'react'
 import { MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 
 // @func useDebouce
-// Use debounce to delay the execution of a function
 export function useDebounce(
 	// eslint-disable-next-line no-unused-vars
 	func: (...args: any[]) => void,
@@ -46,7 +45,6 @@ export const useDndSensors = () => {
 }
 
 // @func useKeys
-// Use keys to call a function when the user presses a key
 export function useKeys(
 	keyActions: {
 		ArrowUp?: () => void
@@ -86,14 +84,12 @@ export function useKeys(
 }
 
 // @func useMobile
-// Use mobile to check if the screen is mobile
 export function useMobile() {
 	const isMobile = useMediaQuery({ maxWidth: 768 })
 	return isMobile
 }
 
 // @func usePopState
-// Use popstate to call a function when the user navigates
 export function usePopState(callback: () => void) {
 	useEffect(() => {
 		const handlePopState = () => {
@@ -108,7 +104,6 @@ export function usePopState(callback: () => void) {
 }
 
 // @func useScroll
-// Use wheel to call a function when the user scrolls
 export function useScroll(
 	{
 		ScrollUp,
@@ -148,7 +143,6 @@ export const useScrollToTop = () => {
 }
 
 // @func useSwipe
-// Use swipe to call a function when the user swipes
 export function useSwipe(
 	{
 		SwipeLeft,

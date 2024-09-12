@@ -1,6 +1,5 @@
 export { default as Arw } from './base/Arw'
-export { default as ArwButton } from './common/ArwButton'
-export { default as ArwCheckbox } from './common/ArwCheckbox'
+export { default as ArwButton } from './base/ArwButton'
 export { default as ArwContainer } from './base/ArwContainer'
 export { default as ArwFlex } from './base/ArwFlex'
 export { default as ArwForm } from './common/ArwForm'

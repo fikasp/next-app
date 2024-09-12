@@ -9,12 +9,10 @@ import {
 	ArwFlex,
 	ArwForm,
 	ArwFormField,
-	ArwGrid,
 	ArwSelect,
 	ArwTitle,
 } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import CategoryDialog from '@/components/dialogs/CategoryDialog'
 // lib
 import {
@@ -22,13 +20,13 @@ import {
 	handleUpdateProject,
 } from '@/lib/handlers/project.handlers'
 import { debug, handleError } from '@/lib/utils/dev'
-import { extractBaseRoute, generateUrl } from '@/lib/utils'
+import { extractBaseRoute, generateUrl, getButtonText } from '@/lib/utils'
+import { FormFieldType } from '@/lib/types/enums'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
-import { FormFieldType } from '@/lib/types/enums'
 
 export default function ProjectForm({
 	project,
@@ -102,21 +100,18 @@ export default function ProjectForm({
 
 				<ArwFlex>
 					<ArwFormField
-						control={form.control}
-						name="title"
-						label="Title"
 						type={FormFieldType.INPUT}
 						placeholder="Enter a title"
+						label="Title"
+						name="title"
 					/>
 					<ArwFormField
-						control={form.control}
-						name="info"
-						label="Information"
 						type={FormFieldType.INPUT}
 						placeholder="Enter a information"
+						label="Information"
+						name="info"
 					/>
 					<ArwFormField
-						control={form.control}
 						name="category"
 						label="Category"
 						render={(field) => (
@@ -127,7 +122,6 @@ export default function ProjectForm({
 									placeholder="Select a category"
 									options={categoryOptions}
 									search
-									center
 								>
 									<CategoryDialog options={categoryOptions} />
 								</ArwSelect>
@@ -137,13 +131,7 @@ export default function ProjectForm({
 				</ArwFlex>
 				<ArwFlex>
 					<Button variant="accent" disabled={isSubmitting}>
-						{isSubmitting
-							? project
-								? 'Updating project...'
-								: 'Adding project...'
-							: project
-							? 'Update project'
-							: 'Add project'}
+						{getButtonText(isSubmitting, project, 'project')}
 					</Button>
 				</ArwFlex>
 			</ArwForm>

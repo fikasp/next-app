@@ -8,6 +8,7 @@ import { ArwFormContextType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 const defaultContextValue: ArwFormContextType = {
+	control: null,
 	center: false,
 	grid: '',
 }
@@ -35,7 +36,7 @@ export default function ArwForm({
 }) {
 	return (
 		<Form {...form}>
-			<ArwFormContext.Provider value={{ grid, center }}>
+			<ArwFormContext.Provider value={{ grid, center, control: form.control }}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
 					className={cn('flex gap-4', row ? '' : 'flex-col', className)}

@@ -64,7 +64,7 @@ export default function ImageForm({
 	return (
 		<ArwFlex
 			center
-			className="group relative rounded-sm aspect-video h-full w-full bg-transparent overflow-hidden"
+			className="group relative rounded-sm aspect-video min-h-[150px] h-full w-full bg-transparent overflow-hidden"
 		>
 			<div className="absolute inset-0 z-10">
 				<Uploader files={files} setFiles={setFiles} editMode={editMode} />

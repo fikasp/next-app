@@ -15,6 +15,7 @@ import { ArwFlex } from '@/components/arw'
 import { cn } from '@/lib/utils'
 import { debug } from '@/lib/utils/dev'
 import { useDebounce } from '@/lib/utils/hooks'
+import { useArwFormContext } from './ArwForm'
 import { Option } from '@/lib/types'
 
 export default function ArwSelect({
@@ -24,7 +25,6 @@ export default function ArwSelect({
 	defaultValue,
 	placeholder,
 	className,
-	center,
 	search,
 }: {
 	// eslint-disable-next-line no-unused-vars
@@ -34,7 +34,6 @@ export default function ArwSelect({
 	defaultValue?: string
 	placeholder?: string
 	className?: string
-	center?: boolean
 	search?: boolean
 }) {
 	debug(0, 0, options)
@@ -43,6 +42,7 @@ export default function ArwSelect({
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
 	const [selectedValue, setSelectedValue] = useState(defaultValue)
+	const { center } = useArwFormContext()
 
 	const toggleOpen = () => setIsOpen(!isOpen)
 

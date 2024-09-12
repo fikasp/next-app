@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import {
-	ArwCheckbox,
 	ArwFlex,
 	ArwForm,
 	ArwFormField,
@@ -13,7 +12,6 @@ import {
 	ArwTitle,
 } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 // lib
 import { generateUrl } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
@@ -21,6 +19,7 @@ import { Option } from '@/lib/types'
 import { routes } from '@/lib/constants/paths'
 import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { debug } from '@/lib/utils/dev'
+import { FormFieldType } from '@/lib/types/enums'
 
 export default function SearchForm({
 	categories,
@@ -67,19 +66,12 @@ export default function SearchForm({
 
 			<ArwFlex>
 				<ArwFormField
+					type={FormFieldType.INPUT}
+					placeholder="Enter a title"
 					label="Title"
 					name="title"
-					control={form.control}
-					render={(field) => (
-						<Input
-							placeholder="Enter a title"
-							className="text-center"
-							{...field}
-						/>
-					)}
 				/>
 				<ArwFormField
-					control={form.control}
 					label="Category"
 					name="category"
 					render={(field) => (
@@ -88,21 +80,13 @@ export default function SearchForm({
 							placeholder="Select a category"
 							options={categoryOptions}
 							search
-							center
 						/>
 					)}
 				/>
 				<ArwFormField
+					type={FormFieldType.CHECKBOX}
+					label="Show only my projects"
 					name="profile"
-					label="My profile"
-					control={form.control}
-					render={(field) => (
-						<ArwCheckbox
-							checked={field.value}
-							onCheckedChange={field.onChange}
-							label="Show only my projects"
-						/>
-					)}
 				/>
 			</ArwFlex>
 			<ArwFlex>

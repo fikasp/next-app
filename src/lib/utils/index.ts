@@ -12,7 +12,6 @@ import { IUser } from '@/lib/models/user.model'
 import { routes } from '@/lib/constants/paths'
 
 // @func capitalizeFirstLetter
-// Capitalize first letter
 export function capitalizeFirstLetter(str: string) {
 	if (!str) {
 		return str
@@ -21,27 +20,23 @@ export function capitalizeFirstLetter(str: string) {
 }
 
 // @func checkIsAdmin
-// Check if the current user is admin
 export function checkIsAdmin(): boolean {
 	const { sessionClaims } = auth()
 	return sessionClaims?.metadata.role === 'admin'
 }
 
 // @func checkIsOwner
-// Check if the current user is the owner
 export async function checkIsOwner(user: undefined | IUser): Promise<boolean> {
 	const currentUser = await getCurrentUser()
 	return user?._id === currentUser?._id
 }
 
 // @func cn
-// Class names merge with tailwind
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
 // @func createFormDataFromFile
-// Create form data from file
 export function createFormDataFromFile(file: File): FormData {
 	const formData = new FormData()
 	formData.append('file', file)
@@ -49,32 +44,27 @@ export function createFormDataFromFile(file: File): FormData {
 }
 
 // @func deepClone
-// Deep clone
 export function deepClone(obj: any) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
 // @func extractBaseRoute
-// Extract base route
 export function extractBaseRoute(pathname: string): string {
 	const parts = pathname.split('/')
 	return parts.length > 2 ? `/${parts[1]}` : pathname
 }
 
 // @func findNext
-// Find next element
 export function findNext<T>(array: T[], currentIndex: number) {
 	return currentIndex < array.length - 1 ? array[currentIndex + 1] : null
 }
 
 // @func findPrev
-// Find prev element
 export function findPrev<T>(array: T[], currentIndex: number) {
 	return currentIndex > 0 ? array[currentIndex - 1] : null
 }
 
 // @func generateUniqueSlug
-// Generate unique slug
 export async function generateUniqueSlug(
 	Model: mongoose.Model<any>,
 	text: string,
@@ -93,7 +83,6 @@ export async function generateUniqueSlug(
 }
 
 // @func generateUrl
-// Generate URL
 export function generateUrl(
 	pathSegments: string[],
 	queryParams: { [key: string]: string | undefined } = {}
@@ -109,7 +98,6 @@ export function generateUrl(
 }
 
 // @func getBaseRoute
-// Get base route
 export const getBaseRoute = (
 	profile: boolean | undefined,
 	admin: boolean | undefined
@@ -117,8 +105,20 @@ export const getBaseRoute = (
 	return profile ? routes.PROFILE : admin ? routes.ADMIN : routes.PROJECTS
 }
 
+// @func getButtonText
+export const getButtonText = (
+	isSubmitting: boolean,
+	entity: any,
+	entityName: string,
+) => {
+	if (isSubmitting) {
+		return entity ? `Updating ${entityName}...` : `Adding ${entityName}...`
+	} else {
+		return entity ? `Update ${entityName}` : `Add ${entityName}`
+	}
+}
+
 // @func loadImage
-// Load image
 export function loadImage(transformations: string) {
 	return function (config: any) {
 		return transformImageUrl(config.src, transformations)
@@ -126,7 +126,6 @@ export function loadImage(transformations: string) {
 }
 
 // @func toStringArray
-// To string array
 export function toStringArray(
 	data: string | string[] | { [key: string]: string }
 ) {
@@ -146,14 +145,12 @@ export function toStringArray(
 }
 
 // @func transformImageUrl
-// Transform image URL
 export function transformImageUrl(url: string, transformations: string) {
 	const [urlStart, urlEnd] = url.split('upload')
 	return `${urlStart}upload/${transformations}/${urlEnd}`
 }
 
 // @func updateUrlParams
-// Update URL params
 export function updateUrlParams(
 	params: Record<string, string | undefined | null>
 ) {
@@ -171,7 +168,6 @@ export function updateUrlParams(
 }
 
 // @func updateUrlPath
-// Update URL path
 export function updateUrlPath(newPath: string) {
 	const url = new URL(window.location.toString())
 	url.pathname = newPath
@@ -179,7 +175,6 @@ export function updateUrlPath(newPath: string) {
 }
 
 // @func validateData
-// Parse with zod schema
 export function validateData(
 	schema: ZodSchema,
 	data: any
