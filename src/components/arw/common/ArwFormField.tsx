@@ -1,5 +1,6 @@
 'use client'
 // modules
+import { When } from 'react-if'
 import { Control } from 'react-hook-form'
 // components
 import {
@@ -10,6 +11,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 // lib
+import { useArwFormContext } from './ArwForm'
 import { cn } from '@/lib/utils'
 
 export default function ArwFormField({
@@ -18,64 +20,50 @@ export default function ArwFormField({
 	name,
 	render,
 	label,
-	center,
-	grid,
 }: {
 	className?: string
 	control: Control<any>
 	name: string
 	// eslint-disable-next-line no-unused-vars
-	render: (props: { field: any }) => React.ReactNode
+	render: (field: any) => React.ReactNode
 	label?: string
-	center?: boolean
-	grid?: boolean
 }) {
+	const { grid, center } = useArwFormContext()
 	return (
 		<FormField
 			name={name}
 			control={control}
-			render={({ field, fieldState }) => {
-				return grid && label ? (
-					<>
-						<FormLabel
-							className={cn(
-								'flex items-center bg-base-100 dark:bg-base-800 p-4 rounded-md',
-								center ? 'justify-center' : 'justify-start',
-								className
-							)}
-						>
-							{label}
-						</FormLabel>
-						<FormControl>{render({ field })}</FormControl>
-
-						{fieldState.error && (
-							<>
-								<FormItem />
-								<FormMessage
-									className={cn(
-										'flex items-center relative top-[-10px]',
-										className
-									)}
-								/>
-							</>
-						)}
-					</>
-				) : (
-					<FormItem className="flex flex-col gap-2">
-						{label && (
+			render={({ field }) => {
+				return (
+					<FormItem
+						className={cn(grid ? `grid ${grid}` : 'flex flex-col', 'gap-2')}
+					>
+						{/* Label */}
+						<When condition={label}>
 							<FormLabel
 								className={cn(
 									'flex items-center',
-									center ? 'justify-center' : 'justify-start',
+									center ? 'justify-center text-center' : 'justify-start',
 									className
 								)}
 							>
 								{label}
 							</FormLabel>
-						)}
-						<FormControl>{render({ field })}</FormControl>
+						</When>
+
+						{/* Field */}
+						<FormItem className={cn(grid && !label && 'col-span-2')}>
+							<FormControl>{render(field)}</FormControl>
+						</FormItem>
+
+						{/* Message */}
 						<FormMessage
-							className={cn('flex items-center text-center', className)}
+							className={cn(
+								'flex items-center',
+								center ? 'justify-center text-center' : 'justify-start',
+								grid ? (label ? 'col-start-2' : 'col-span-2') : '',
+								className
+							)}
 						/>
 					</FormItem>
 				)

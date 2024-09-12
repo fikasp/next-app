@@ -9,6 +9,7 @@ import {
 	ArwFlex,
 	ArwForm,
 	ArwFormField,
+	ArwGrid,
 	ArwSelect,
 	ArwTitle,
 } from '@/components/arw'
@@ -91,6 +92,8 @@ export default function ProjectForm({
 				form={form}
 				onSubmit={handleSubmit}
 				className="grow justify-between gap-8"
+				// grid="grid-cols-[90px_auto]"
+				center
 			>
 				<ArwTitle center accent>
 					{project ? 'Update project' : 'Add new project'}
@@ -101,8 +104,7 @@ export default function ProjectForm({
 						control={form.control}
 						name="title"
 						label="Title"
-						className="justify-center"
-						render={({ field }) => (
+						render={(field) => (
 							<Input
 								placeholder="Enter a title"
 								className="text-center"
@@ -114,8 +116,7 @@ export default function ProjectForm({
 						control={form.control}
 						name="info"
 						label="Information"
-						className="justify-center"
-						render={({ field }) => (
+						render={(field) => (
 							<Input
 								placeholder="Enter a information"
 								className="text-center"
@@ -127,8 +128,7 @@ export default function ProjectForm({
 						control={form.control}
 						name="category"
 						label="Category"
-						className="justify-center"
-						render={({ field }) => (
+						render={(field) => (
 							<>
 								<ArwSelect
 									onValueChange={field.onChange}

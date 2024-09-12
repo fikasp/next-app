@@ -1,3 +1,9 @@
+// @class ArwFormContext
+export type ArwFormContextType = {
+	center?: boolean
+	grid?: string
+}
+
 // @class Adjacent
 export type Adjacent<T> = {
 	prev: T | null

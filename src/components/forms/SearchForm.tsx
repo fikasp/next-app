@@ -56,6 +56,7 @@ export default function SearchForm({
 
 	return (
 		<ArwForm
+			center
 			form={form}
 			onSubmit={handleSubmit}
 			className="grow justify-between gap-8"
@@ -68,9 +69,8 @@ export default function SearchForm({
 				<ArwFormField
 					label="Title"
 					name="title"
-					className="justify-center"
 					control={form.control}
-					render={({ field }) => (
+					render={(field) => (
 						<Input
 							placeholder="Enter a title"
 							className="text-center"
@@ -82,8 +82,7 @@ export default function SearchForm({
 					control={form.control}
 					label="Category"
 					name="category"
-					className="justify-center"
-					render={({ field }) => (
+					render={(field) => (
 						<ArwSelect
 							onValueChange={field.onChange}
 							placeholder="Select a category"
@@ -96,9 +95,8 @@ export default function SearchForm({
 				<ArwFormField
 					name="profile"
 					label="My profile"
-					className="justify-center"
 					control={form.control}
-					render={({ field }) => (
+					render={(field) => (
 						<ArwCheckbox
 							checked={field.value}
 							onCheckedChange={field.onChange}
