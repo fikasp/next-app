@@ -28,6 +28,7 @@ import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
 import { projectSchema, ProjectFormData } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
+import { FormFieldType } from '@/lib/types/enums'
 
 export default function ProjectForm({
 	project,
@@ -104,25 +105,15 @@ export default function ProjectForm({
 						control={form.control}
 						name="title"
 						label="Title"
-						render={(field) => (
-							<Input
-								placeholder="Enter a title"
-								className="text-center"
-								{...field}
-							/>
-						)}
+						type={FormFieldType.INPUT}
+						placeholder="Enter a title"
 					/>
 					<ArwFormField
 						control={form.control}
 						name="info"
 						label="Information"
-						render={(field) => (
-							<Input
-								placeholder="Enter a information"
-								className="text-center"
-								{...field}
-							/>
-						)}
+						type={FormFieldType.INPUT}
+						placeholder="Enter a information"
 					/>
 					<ArwFormField
 						control={form.control}

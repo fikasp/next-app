@@ -1,5 +1,15 @@
 /* eslint-disable no-unused-vars */
 
+export enum FormFieldType {
+	CHECKBOX = 'checkbox',
+	DATE = 'date',
+	INPUT = 'input',
+	PHONE = 'phone',
+	SELECT = 'select',
+	SKELETON = 'skeleton',
+	TEXTAREA = 'textarea',
+}
+
 export enum Icons {
 	ArrowDownUp = 'ArrowDownUp',
 	ChevronLeft = 'ChevronLeft',
