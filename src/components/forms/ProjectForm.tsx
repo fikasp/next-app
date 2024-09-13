@@ -24,7 +24,7 @@ import { FormFieldType } from '@/lib/types/enums'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
-import { projectSchema, ProjectFormValues } from '@/lib/types/zod'
+import { projectFormSchema, ProjectFormValues } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
 
 export default function ProjectForm({
@@ -36,7 +36,7 @@ export default function ProjectForm({
 	categories: ICategory[]
 	handleClose?: () => void
 }) {
-	debug(0, 0, project)
+	debug(8, 0, project)
 	const router = useRouter()
 	const pathname = usePathname()
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -47,7 +47,7 @@ export default function ProjectForm({
 
 	// Form
 	const form = useForm<ProjectFormValues>({
-		resolver: zodResolver(projectSchema),
+		resolver: zodResolver(projectFormSchema),
 		defaultValues: {
 			title: project?.title || '',
 			category: project?.category?.label || '',

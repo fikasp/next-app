@@ -16,7 +16,7 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
-import { ProjectFormValues, projectSchema } from '@/lib/types/zod'
+import { ProjectFormValues, projectFormSchema } from '@/lib/types/zod'
 import { removeImage, removeImages } from '@/lib/actions/image.actions'
 import { routes } from '@/lib/constants/paths'
 import { UserModel, IUser } from '@/lib/models/user.model'
@@ -25,12 +25,12 @@ import { SortOptions } from '@/lib/types/enums'
 // CREATE
 // Create project
 export async function createProject(
-	projectData: ProjectFormValues
+	projectValues: ProjectFormValues
 ): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
-		const validationErrors = validateData(projectSchema, projectData)
+		const validationErrors = validateData(projectFormSchema, projectValues)
 		if (validationErrors) {
 			return {
 				success: false,
@@ -40,16 +40,16 @@ export async function createProject(
 
 		const user: IUser = await getCurrentUser()
 		const category: ICategory | null = await CategoryModel.findOne({
-			label: projectData.category,
+			label: projectValues.category,
 		})
 
-		const slug = await generateUniqueSlug(ProjectModel, projectData.title)
+		const slug = await generateUniqueSlug(ProjectModel, projectValues.title)
 
 		const newProject: IProject = await ProjectModel.create({
 			user,
 			slug,
-			title: projectData.title,
-			info: projectData.info,
+			title: projectValues.title,
+			info: projectValues.info,
 			category,
 		})
 
@@ -177,27 +177,27 @@ export async function getProjectBySlug(
 // Update project
 export async function updateProject(
 	slug: string,
-	projectData: ProjectFormValues
+	projectValues: ProjectFormValues
 ): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
 
 		const updatedSlug = await generateUniqueSlug(
 			ProjectModel,
-			projectData.title,
+			projectValues.title,
 			slug
 		)
 
 		const category: ICategory | null = await CategoryModel.findOne({
-			label: projectData.category,
+			label: projectValues.category,
 		})
 
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
 			{
 				slug: updatedSlug,
-				title: projectData.title,
-				info: projectData.info,
+				title: projectValues.title,
+				info: projectValues.info,
 				category,
 			},
 			{ new: true }

@@ -16,7 +16,7 @@ import { debug } from '@/lib/utils/dev'
 import { FormFieldType } from '@/lib/types/enums'
 import { generateUrl, getBaseRoute } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
-import { searchSchema, SearchFormValues } from '@/lib/types/zod'
+import { searchFormSchema, SearchFormValues } from '@/lib/types/zod'
 import { Option, QueryParams } from '@/lib/types'
 
 export default function SearchForm({
@@ -33,7 +33,7 @@ export default function SearchForm({
 
 	// Form
 	const form = useForm<SearchFormValues>({
-		resolver: zodResolver(searchSchema),
+		resolver: zodResolver(searchFormSchema),
 		defaultValues: {
 			title: '',
 			category: '',
