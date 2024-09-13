@@ -5,7 +5,8 @@
 @layer utilities {
 	/* forms */
 	.arw-input {
-		@apply bg-white/50
+		@apply
+		bg-white/50
 		dark:bg-transparent
 
 		placeholder:text-base-300 
@@ -22,6 +23,11 @@
 		dark:border-base-700
 
 		rounded-md;
+	}
+
+	.arw-placeholder {
+		@apply data-[placeholder]:text-base-300 
+		dark:data-[placeholder]:text-base-500;
 	}
 
 	/* layout */

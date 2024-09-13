@@ -41,7 +41,6 @@ export default function ArwSelect({
 	const [isOpen, setIsOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredOptions, setFilteredOptions] = useState(options)
-	const [selectedValue, setSelectedValue] = useState(defaultValue)
 	const { center } = useArwFormContext()
 
 	const toggleOpen = () => setIsOpen(!isOpen)
@@ -69,7 +68,6 @@ export default function ArwSelect({
 	// Handle select change
 	const handleSelectChange = (value: string) => {
 		debug(0, 0, value)
-		setSelectedValue(value)
 		onValueChange(value)
 	}
 
@@ -90,9 +88,8 @@ export default function ArwSelect({
 		>
 			<SelectTrigger
 				className={cn(
-					'text-md py-6 px-3',
-					!selectedValue && 'text-base-300 dark:text-base-500',
-					center && 'flex-center gap-2 pl-9',
+					'arw-placeholder',
+					center && 'flex-center gap-2 pl-8',
 					className
 				)}
 				onClick={toggleOpen}

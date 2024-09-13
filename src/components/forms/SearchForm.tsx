@@ -4,13 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
-import {
-	ArwFlex,
-	ArwForm,
-	ArwFormField,
-	ArwSelect,
-	ArwTitle,
-} from '@/components/arw'
+import { ArwFlex, ArwForm, ArwFormField, ArwTitle } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
 import { generateUrl } from '@/lib/utils'
@@ -54,36 +48,31 @@ export default function SearchForm({
 	}
 
 	return (
-		<ArwForm
-			center
+		<ArwForm<SearchFormData>
 			form={form}
 			onSubmit={handleSubmit}
 			className="grow justify-between gap-8"
+			center
 		>
 			<ArwTitle center accent>
 				Search projects
 			</ArwTitle>
 
-			<ArwFlex>
-				<ArwFormField
+			<ArwFlex className="gap-5">
+				<ArwFormField<SearchFormData>
 					type={FormFieldType.INPUT}
 					placeholder="Enter a title"
 					label="Title"
 					name="title"
 				/>
-				<ArwFormField
+				<ArwFormField<SearchFormData>
+					type={FormFieldType.SELECT}
+					name={'category'}
+					options={categoryOptions}
+					placeholder="Select a category"
 					label="Category"
-					name="category"
-					render={(field) => (
-						<ArwSelect
-							onValueChange={field.onChange}
-							placeholder="Select a category"
-							options={categoryOptions}
-							search
-						/>
-					)}
 				/>
-				<ArwFormField
+				<ArwFormField<SearchFormData>
 					type={FormFieldType.CHECKBOX}
 					label="Show only my projects"
 					name="profile"

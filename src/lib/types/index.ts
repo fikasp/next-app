@@ -1,12 +1,3 @@
-import { Control } from 'react-hook-form'
-
-// @class ArwFormContextType
-export type ArwFormContextType = {
-	control: Control<any> | null
-	center?: boolean
-	grid?: string
-}
-
 // @class Adjacent
 export type Adjacent<T> = {
 	prev: T | null

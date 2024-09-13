@@ -87,7 +87,7 @@ export default function ProjectForm({
 
 	return (
 		<>
-			<ArwForm
+			<ArwForm<ProjectFormData>
 				form={form}
 				onSubmit={handleSubmit}
 				className="grow justify-between gap-8"
@@ -98,20 +98,20 @@ export default function ProjectForm({
 					{project ? 'Update project' : 'Add new project'}
 				</ArwTitle>
 
-				<ArwFlex>
-					<ArwFormField
+				<ArwFlex className="gap-5">
+					<ArwFormField<ProjectFormData>
 						type={FormFieldType.INPUT}
 						placeholder="Enter a title"
 						label="Title"
 						name="title"
 					/>
-					<ArwFormField
+					<ArwFormField<ProjectFormData>
 						type={FormFieldType.INPUT}
 						placeholder="Enter a information"
 						label="Information"
 						name="info"
 					/>
-					<ArwFormField
+					<ArwFormField<ProjectFormData>
 						name="category"
 						label="Category"
 						render={(field) => (

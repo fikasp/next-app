@@ -12,6 +12,7 @@ import {
 import {
 	Select,
 	SelectContent,
+	SelectItem,
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
@@ -19,30 +20,32 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useArwFormContext } from '@/components/arw/common/ArwForm'
+import { useArwFormContext } from '@/components/arw/base/ArwForm'
 // lib
 import { FormFieldType } from '@/lib/types/enums'
+import { Option } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
-interface FormFieldProps {
+interface FormFieldProps<T> {
 	children?: React.ReactNode
 	className?: string
 	disabled?: boolean
 	label?: string
-	name: string
+	name: keyof T
+	options?: Option[]
 	placeholder?: string
 	// eslint-disable-next-line
 	render?: (field: any) => React.ReactNode
 	type?: FormFieldType
 }
 
-const RenderField = ({
+function RenderField<T>({
 	field,
 	props,
 }: {
 	field: any
-	props: FormFieldProps
-}) => {
+	props: FormFieldProps<T>
+}) {
 	const { center } = useArwFormContext()
 	switch (props.type) {
 		// Checkbox
@@ -59,9 +62,9 @@ const RenderField = ({
 							checked={field.value}
 							onCheckedChange={field.onChange}
 							disabled={props.disabled}
-							id={props.name}
+							id={String(props.name)}
 						/>
-						<Label htmlFor={props.name} className="cursor-pointer">
+						<Label htmlFor={String(props.name)} className="cursor-pointer">
 							{props.label}
 						</Label>
 					</FormItem>
@@ -86,10 +89,25 @@ const RenderField = ({
 			return (
 				<FormControl>
 					<Select onValueChange={field.onChange} value={field.value}>
-						<SelectTrigger>
+						<SelectTrigger
+							className={cn(
+								'arw-placeholder',
+								center && 'flex-center gap-2 pl-8'
+							)}
+						>
 							<SelectValue placeholder={props.placeholder} />
 						</SelectTrigger>
-						<SelectContent>{props.children}</SelectContent>
+						<SelectContent>
+							{props.options?.map((option: Option) => (
+								<SelectItem
+									key={option.value}
+									className={cn(center && 'flex-center pl-0')}
+									value={option.value}
+								>
+									{option.label}
+								</SelectItem>
+							))}
+						</SelectContent>
 					</Select>
 				</FormControl>
 			)
@@ -110,12 +128,12 @@ const RenderField = ({
 	}
 }
 
-export default function ArwFormField(props: FormFieldProps) {
+export default function ArwFormField<T>(props: FormFieldProps<T>) {
 	const { className, label, name, type } = props
 	const { grid, center, control } = useArwFormContext()
 	return (
 		<FormField
-			name={name}
+			name={String(name)}
 			control={control!}
 			render={({ field }) => {
 				return (
