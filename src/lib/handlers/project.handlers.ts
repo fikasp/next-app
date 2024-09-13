@@ -12,7 +12,7 @@ import {
 import { debug, handleError } from '@/lib/utils/dev'
 import { IImage } from '@/lib/models/image.model'
 import { IProject } from '@/lib/models/project.model'
-import { ProjectFormData } from '@/lib/types/zod'
+import { ProjectFormValues } from '@/lib/types/zod'
 import { Result } from '@/lib/types'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { uploadToCloudinary } from '@/lib/utils/services'
@@ -21,7 +21,7 @@ import { UploadedImage } from '@/lib/types'
 // CREATE
 // Create new project
 export const handleCreateProject = async (
-	projectFormData: ProjectFormData
+	projectFormData: ProjectFormValues
 ): Promise<IProject | undefined> => {
 	try {
 		const { error, data: createdProject }: Result<IProject> =
@@ -41,7 +41,7 @@ export const handleCreateProject = async (
 // UPDATE
 // Update project data
 export const handleUpdateProject = async (
-	projectFormData: ProjectFormData,
+	projectFormData: ProjectFormValues,
 	project: IProject
 ): Promise<IProject | undefined> => {
 	try {

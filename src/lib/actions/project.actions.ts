@@ -16,7 +16,7 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IImage, ImageModel } from '@/lib/models/image.model'
 import { IProject, ProjectModel } from '@/lib/models/project.model'
-import { ProjectFormData, projectSchema } from '@/lib/types/zod'
+import { ProjectFormValues, projectSchema } from '@/lib/types/zod'
 import { removeImage, removeImages } from '@/lib/actions/image.actions'
 import { routes } from '@/lib/constants/paths'
 import { UserModel, IUser } from '@/lib/models/user.model'
@@ -25,7 +25,7 @@ import { SortOptions } from '@/lib/types/enums'
 // CREATE
 // Create project
 export async function createProject(
-	projectData: ProjectFormData
+	projectData: ProjectFormValues
 ): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()
@@ -177,7 +177,7 @@ export async function getProjectBySlug(
 // Update project
 export async function updateProject(
 	slug: string,
-	projectData: ProjectFormData
+	projectData: ProjectFormValues
 ): Promise<Result<IProject>> {
 	try {
 		await connectToDatabase()

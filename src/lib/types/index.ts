@@ -28,6 +28,11 @@ export type Option = {
 	label: string
 }
 
+// @class QueryParams
+export type QueryParams = {
+	[key: string]: string | undefined
+}
+
 // @class Result
 export type Result<T> = {
 	success: boolean

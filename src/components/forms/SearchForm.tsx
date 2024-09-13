@@ -4,16 +4,20 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
-import { ArwFlex, ArwForm, ArwFormField, ArwTitle } from '@/components/arw'
-import { Button } from '@/components/ui/button'
+import {
+	ArwFlex,
+	ArwForm,
+	ArwFormField,
+	ArwSubmit,
+	ArwTitle,
+} from '@/components/arw'
 // lib
-import { generateUrl } from '@/lib/utils'
-import { ICategory } from '@/lib/models/category.model'
-import { Option } from '@/lib/types'
-import { routes } from '@/lib/constants/paths'
-import { searchSchema, SearchFormData } from '@/lib/types/zod'
 import { debug } from '@/lib/utils/dev'
 import { FormFieldType } from '@/lib/types/enums'
+import { generateUrl, getBaseRoute } from '@/lib/utils'
+import { ICategory } from '@/lib/models/category.model'
+import { searchSchema, SearchFormValues } from '@/lib/types/zod'
+import { Option, QueryParams } from '@/lib/types'
 
 export default function SearchForm({
 	categories,
@@ -27,7 +31,8 @@ export default function SearchForm({
 		label: category.label,
 	}))
 
-	const form = useForm<SearchFormData>({
+	// Form
+	const form = useForm<SearchFormValues>({
 		resolver: zodResolver(searchSchema),
 		defaultValues: {
 			title: '',
@@ -36,51 +41,55 @@ export default function SearchForm({
 		},
 	})
 
-	const handleSubmit = ({ title, category, profile }: SearchFormData) => {
-		const queryParams: { [key: string]: string | undefined } = {}
+	// Submit
+	const handleSubmit = (searchFormValues: SearchFormValues) => {
+		const { title, category, profile } = searchFormValues
+		const queryParams: QueryParams = {}
 
 		if (title) queryParams.title = title
 		if (category) queryParams.category = category
 
-		const route = profile ? routes.PROFILE : routes.PROJECTS
+		const route = getBaseRoute(profile)
 		const url = generateUrl([route], queryParams)
 		router.push(url)
 	}
 
 	return (
-		<ArwForm<SearchFormData>
+		<ArwForm<SearchFormValues>
 			form={form}
 			onSubmit={handleSubmit}
 			className="grow justify-between gap-8"
 			center
 		>
-			<ArwTitle center accent>
+			{/* Title */}
+			<ArwTitle accent center>
 				Search projects
 			</ArwTitle>
 
-			<ArwFlex className="gap-5">
-				<ArwFormField<SearchFormData>
+			{/* Fields */}
+			<ArwFlex>
+				<ArwFormField<SearchFormValues>
 					type={FormFieldType.INPUT}
 					placeholder="Enter a title"
 					label="Title"
 					name="title"
 				/>
-				<ArwFormField<SearchFormData>
+				<ArwFormField<SearchFormValues>
 					type={FormFieldType.SELECT}
-					name={'category'}
 					options={categoryOptions}
 					placeholder="Select a category"
 					label="Category"
+					name="category"
 				/>
-				<ArwFormField<SearchFormData>
+				<ArwFormField<SearchFormValues>
 					type={FormFieldType.CHECKBOX}
 					label="Show only my projects"
 					name="profile"
 				/>
 			</ArwFlex>
-			<ArwFlex>
-				<Button variant="accent">Search</Button>
-			</ArwFlex>
+
+			{/* Submit*/}
+			<ArwSubmit accent>Search</ArwSubmit>
 		</ArwForm>
 	)
 }

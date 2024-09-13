@@ -17,5 +17,5 @@ export const searchSchema = z.object({
 	profile: z.boolean(),
 })
 
-export type SearchFormData = z.infer<typeof searchSchema>
-export type ProjectFormData = z.infer<typeof projectSchema>
+export type SearchFormValues = z.infer<typeof searchSchema>
+export type ProjectFormValues = z.infer<typeof projectSchema>

@@ -100,16 +100,16 @@ export function generateUrl(
 // @func getBaseRoute
 export const getBaseRoute = (
 	profile: boolean | undefined,
-	admin: boolean | undefined
+	admin?: boolean | undefined
 ) => {
 	return profile ? routes.PROFILE : admin ? routes.ADMIN : routes.PROJECTS
 }
 
-// @func getButtonText
-export const getButtonText = (
-	isSubmitting: boolean,
+// @func getEntityText
+export const getEntityText = (
 	entity: any,
-	entityName: string,
+	entityName: string = '',
+	isSubmitting?: boolean
 ) => {
 	if (isSubmitting) {
 		return entity ? `Updating ${entityName}...` : `Adding ${entityName}...`

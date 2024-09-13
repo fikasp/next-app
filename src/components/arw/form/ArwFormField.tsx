@@ -20,7 +20,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useArwFormContext } from '@/components/arw/base/ArwForm'
+import { useArwFormContext } from '@/components/arw/form/ArwForm'
 // lib
 import { FormFieldType } from '@/lib/types/enums'
 import { Option } from '@/lib/types'
@@ -128,6 +128,17 @@ function RenderField<T>({
 	}
 }
 
+/**
+ * A generic form field component that integrates with the ArwForm context.
+ *
+ * @template T - The type of the form field value.
+ * @param {FormFieldProps<T>} props - The properties for the form field component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the form field.
+ * @param {string} [props.label] - The label for the form field.
+ * @param {string | number} props.name - The name of the form field.
+ * @param {FormFieldType} props.type - The type of the form field.
+ * @returns {JSX.Element} The rendered form field component.
+ */
 export default function ArwFormField<T>(props: FormFieldProps<T>) {
 	const { className, label, name, type } = props
 	const { grid, center, control } = useArwFormContext()

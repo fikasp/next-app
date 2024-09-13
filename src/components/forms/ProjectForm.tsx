@@ -10,22 +10,21 @@ import {
 	ArwForm,
 	ArwFormField,
 	ArwSelect,
+	ArwSubmit,
 	ArwTitle,
 } from '@/components/arw'
-import { Button } from '@/components/ui/button'
-import CategoryDialog from '@/components/dialogs/CategoryDialog'
 // lib
 import {
 	handleCreateProject,
 	handleUpdateProject,
 } from '@/lib/handlers/project.handlers'
 import { debug, handleError } from '@/lib/utils/dev'
-import { extractBaseRoute, generateUrl, getButtonText } from '@/lib/utils'
+import { extractBaseRoute, generateUrl, getEntityText } from '@/lib/utils'
 import { FormFieldType } from '@/lib/types/enums'
 import { ICategory } from '@/lib/models/category.model'
 import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
-import { projectSchema, ProjectFormData } from '@/lib/types/zod'
+import { projectSchema, ProjectFormValues } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
 
 export default function ProjectForm({
@@ -46,7 +45,8 @@ export default function ProjectForm({
 		label: category.label,
 	}))
 
-	const form = useForm<ProjectFormData>({
+	// Form
+	const form = useForm<ProjectFormValues>({
 		resolver: zodResolver(projectSchema),
 		defaultValues: {
 			title: project?.title || '',
@@ -55,14 +55,15 @@ export default function ProjectForm({
 		},
 	})
 
-	const handleSubmit = async (projectFormData: ProjectFormData) => {
-		debug(1, 9, projectFormData)
+	// Submit
+	const handleSubmit = async (projectFormValues: ProjectFormValues) => {
+		debug(1, 9, projectFormValues)
 		setIsSubmitting(true)
 		try {
 			if (project) {
 				// Update project
 				const updatedProject = await handleUpdateProject(
-					projectFormData,
+					projectFormValues,
 					project
 				)
 				if (updatedProject) {
@@ -70,7 +71,7 @@ export default function ProjectForm({
 				}
 			} else {
 				// Create project
-				const createdProject = await handleCreateProject(projectFormData)
+				const createdProject = await handleCreateProject(projectFormValues)
 				if (createdProject) {
 					router.push(generateUrl([routes.PROFILE, createdProject.slug]))
 				}
@@ -86,55 +87,50 @@ export default function ProjectForm({
 	}
 
 	return (
-		<>
-			<ArwForm<ProjectFormData>
-				form={form}
-				onSubmit={handleSubmit}
-				className="grow justify-between gap-8"
-				// grid="grid-cols-[90px_auto]"
-				center
-			>
-				<ArwTitle center accent>
-					{project ? 'Update project' : 'Add new project'}
-				</ArwTitle>
+		<ArwForm<ProjectFormValues>
+			form={form}
+			onSubmit={handleSubmit}
+			className="grow justify-between gap-8"
+			center
+		>
+			{/* Title */}
+			<ArwTitle accent center>
+				{getEntityText(project, 'project')}
+			</ArwTitle>
 
-				<ArwFlex className="gap-5">
-					<ArwFormField<ProjectFormData>
-						type={FormFieldType.INPUT}
-						placeholder="Enter a title"
-						label="Title"
-						name="title"
-					/>
-					<ArwFormField<ProjectFormData>
-						type={FormFieldType.INPUT}
-						placeholder="Enter a information"
-						label="Information"
-						name="info"
-					/>
-					<ArwFormField<ProjectFormData>
-						name="category"
-						label="Category"
-						render={(field) => (
-							<>
-								<ArwSelect
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-									placeholder="Select a category"
-									options={categoryOptions}
-									search
-								>
-									<CategoryDialog options={categoryOptions} />
-								</ArwSelect>
-							</>
-						)}
-					/>
-				</ArwFlex>
-				<ArwFlex>
-					<Button variant="accent" disabled={isSubmitting}>
-						{getButtonText(isSubmitting, project, 'project')}
-					</Button>
-				</ArwFlex>
-			</ArwForm>
-		</>
+			{/* Fields */}
+			<ArwFlex>
+				<ArwFormField<ProjectFormValues>
+					type={FormFieldType.INPUT}
+					placeholder="Enter a title"
+					label="Title"
+					name="title"
+				/>
+				<ArwFormField<ProjectFormValues>
+					type={FormFieldType.INPUT}
+					placeholder="Enter a information"
+					label="Information"
+					name="info"
+				/>
+				<ArwFormField<ProjectFormValues>
+					name="category"
+					label="Category"
+					render={(field) => (
+						<ArwSelect
+							field={field}
+							options={categoryOptions}
+							placeholder="Select a category"
+							search
+							manage
+						/>
+					)}
+				/>
+			</ArwFlex>
+
+			{/* Submit*/}
+			<ArwSubmit accent isSubmitting={isSubmitting}>
+				{getEntityText(project, 'project', isSubmitting)}
+			</ArwSubmit>
+		</ArwForm>
 	)
 }
