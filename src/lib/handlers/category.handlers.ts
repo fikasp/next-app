@@ -4,7 +4,7 @@ import {
 	updateCategory,
 } from '@/lib/actions/category.actions'
 import { ICategory } from '@/lib/models/category.model'
-import { Option, Result } from '@/lib/types'
+import { Option } from '@/lib/types'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { debug, handleError } from '@/lib/utils/dev'
 
