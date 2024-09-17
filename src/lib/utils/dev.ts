@@ -2,9 +2,10 @@
 import chalk, { ChalkInstance } from 'chalk'
 
 // Settings
+const logMode = 10
 const debugActive = true
 const debugActiveModes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const debugModes: { [key: number]: ChalkInstance } = {
+const modes: { [key: number]: ChalkInstance } = {
 	0: chalk.gray,
 	1: chalk.gray,
 	2: chalk.green,
@@ -18,6 +19,18 @@ const debugModes: { [key: number]: ChalkInstance } = {
 	10: chalk.bgRed.black,
 }
 
+// Log function
+export function log(...data: any) {
+	const chalkLog: ChalkInstance = modes[logMode]
+	data.forEach((item: any) => {
+		if (typeof item === 'object') {
+			console.log(chalkLog(JSON.stringify(item, null, 2)))
+		} else {
+			console.log(chalkLog(item))
+		}
+	})
+}
+
 // Debugging function
 export function debug(logMode: number, dataMode?: number, ...data: any) {
 	if (!debugActive) return
@@ -26,7 +39,7 @@ export function debug(logMode: number, dataMode?: number, ...data: any) {
 	if (debugActiveModes.includes(logMode as number)) {
 		const stack = new Error().stack
 		const callerFunction = stack?.split('\n')[2].trim().split(' ')[1]
-		const chalkLog: ChalkInstance = debugModes[logMode] || chalk.white
+		const chalkLog: ChalkInstance = modes[logMode] || chalk.white
 		console.log(chalkLog(`<!-- ${callerFunction} -->`))
 	}
 
@@ -38,7 +51,7 @@ export function debug(logMode: number, dataMode?: number, ...data: any) {
 			})
 		} else {
 			const chalkLog: ChalkInstance =
-				debugModes[dataMode as number] || chalk.white
+				modes[dataMode as number] || chalk.white
 			data.forEach((item: any) => {
 				if (typeof item === 'object') {
 					console.log(chalkLog(JSON.stringify(item, null, 2)))
