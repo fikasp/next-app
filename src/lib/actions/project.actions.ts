@@ -9,7 +9,7 @@ import {
 	findPrev,
 	findNext,
 } from '@/lib/utils'
-import { Adjacent, DataResult, Result } from '@/lib/types'
+import { Adjacent, ProjectSearchParams } from '@/lib/types'
 import { CategoryModel, ICategory } from '@/lib/models/category.model'
 import { connectToDatabase } from '@/lib/utils/services'
 import { debug, handleError } from '@/lib/utils/dev'
@@ -64,27 +64,33 @@ export async function createProject(
 // READ
 // Get projects
 export async function getProjects(
-	searchParams: any,
+	searchParams: ProjectSearchParams,
 	profile: boolean
 ): Promise<DataResult<IProject[]>> {
 	try {
 		await connectToDatabase()
-
 		const projectQuery: any = {}
 
-		if (profile) {
-			const user: IUser = await getCurrentUser()
-			projectQuery.user = user._id
-		} else if (searchParams.user) {
-			const user = await UserModel.findOne({ username: searchParams.user })
-			if (user) {
-				projectQuery.user = user._id
-			}
+		// Sort
+		const sortOptions: { [key: string]: any } = {
+			[SortOptions.CUSTOM]: { order: 1 },
+			[SortOptions.TITLE]: { title: 1 },
+			[SortOptions.USER]: { user: 1, title: 1 },
+			[SortOptions.DATE]: { _id: 1 },
 		}
 
+		let sortQuery: any = sortOptions[SortOptions.CUSTOM]
+
+		if (searchParams.sort) {
+			sortQuery = sortOptions[searchParams.sort]
+		}
+
+		// Title
 		if (searchParams.title) {
 			projectQuery.title = { $regex: searchParams.title, $options: 'i' }
 		}
+
+		// Category
 		if (searchParams.category) {
 			const category = await CategoryModel.findOne({
 				label: searchParams.category,
@@ -96,22 +102,23 @@ export async function getProjects(
 			}
 		}
 
-		const sortOptions: { [key: string]: any } = {
-			[SortOptions.CUSTOM]: { order: 1 },
-			[SortOptions.TITLE]: { title: 1 },
-			[SortOptions.USER]: { user: 1, title: 1 },
-			[SortOptions.DATE]: { _id: 1 },
+		// Profile
+		if (profile) {
+			const user: IUser = await getCurrentUser()
+			projectQuery.user = user._id
+		} else if (searchParams.user) {
+			const user = await UserModel.findOne({ username: searchParams.user })
+			if (user) {
+				projectQuery.user = user._id
+			}
 		}
-
-		const sort: any =
-			sortOptions[searchParams.sort] || sortOptions[SortOptions.CUSTOM]
 
 		const projects = await ProjectModel.find(projectQuery)
 			.populate('user', '_id username photo')
 			.populate('category')
 			.populate('cover')
 			.collation({ locale: 'pl', strength: 1 })
-			.sort(sort)
+			.sort(sortQuery)
 
 		debug(3, 0, projects)
 		return { success: true, data: deepClone(projects) }
@@ -123,7 +130,7 @@ export async function getProjects(
 // Get project by slug
 export async function getProjectBySlug(
 	slug: string,
-	searchParams: any,
+	searchParams: ProjectSearchParams,
 	profile: boolean
 ): Promise<DataResult<Adjacent<IProject>>> {
 	try {

@@ -21,7 +21,6 @@ import {
 	generateUrl,
 	getBaseRoute,
 } from '@/lib/utils'
-import { DataResult } from '@/lib/types'
 import { debug } from '@/lib/utils/dev'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjectBySlug } from '@/lib/actions/project.actions'
@@ -36,8 +35,8 @@ export default async function ProjectPage({
 	profile = false,
 	admin = false,
 }: {
-	params: any
-	searchParams: any
+	params: CatchAllSlugParams
+	searchParams: SearchParams
 	profile?: boolean
 	admin?: boolean
 }) {

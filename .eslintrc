@@ -1,9 +1,10 @@
 {
-	"extends": ["eslint:recommended", "next"],
+	"extends": "next/core-web-vitals",
 	"globals": {
 		"React": "writable"
 	},
 	"rules": {
+		// "no-undef": "off"
 		// "no-mixed-spaces-and-tabs": "off",
 		// "no-unused-vars": "off"
 	}

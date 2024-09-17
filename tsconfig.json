@@ -12,6 +12,7 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"incremental": true,
+		"typeRoots": ["./src/lib/types"],
 		"plugins": [
 			{
 				"name": "next"
@@ -21,6 +22,12 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.d.ts",
+		"next-env.d.ts",
+		".next/types/**/*.ts",
+	],
 	"exclude": ["node_modules"]
 }

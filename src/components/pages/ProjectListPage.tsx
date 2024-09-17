@@ -4,7 +4,6 @@ import { Else, If, Then } from 'react-if'
 import ProjectsListSortable from '@/components/content/ProjectListSortable'
 import ProjectsList from '@/components/content/ProjectList'
 // lib
-import { DataResult } from '@/lib/types'
 import { getCategories } from '@/lib/actions/category.actions'
 import { getProjects } from '@/lib/actions/project.actions'
 import { ICategory } from '@/lib/models/category.model'
@@ -16,7 +15,7 @@ export default async function ProjectsListPage({
 	profile = false,
 	admin = false,
 }: {
-	searchParams: any
+	searchParams: SearchParams
 	profile?: boolean
 	admin?: boolean
 }) {
@@ -24,7 +23,7 @@ export default async function ProjectsListPage({
 
 	const { data: projects }: DataResult<IProject[]> = await getProjects(
 		searchParams,
-		profile,
+		profile
 	)
 	const { data: categories }: DataResult<ICategory[]> = await getCategories()
 

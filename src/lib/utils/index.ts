@@ -85,7 +85,7 @@ export async function generateUniqueSlug(
 // @func generateUrl
 export function generateUrl(
 	pathSegments: string[],
-	queryParams: { [key: string]: string | undefined } = {}
+	searchParams: SearchParams = {}
 ): string {
 	// Join the path segments into a single string
 	const path = pathSegments.join('/')
@@ -93,7 +93,7 @@ export function generateUrl(
 	// Generate the full URL with query parameters
 	return qs.stringifyUrl({
 		url: path,
-		query: queryParams,
+		query: searchParams,
 	})
 }
 

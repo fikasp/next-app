@@ -1,11 +1,62 @@
+/* eslint-disable no-unused-vars */
 export {}
 
-export type Roles = 'admin' | 'moderator'
-
 declare global {
-	export interface CustomJwtSessionClaims {
+	// @class CatchAllSlugPageProps
+	type CatchAllSlugPageProps = {
+		params: CatchAllSlugParams
+		searchParams: SearchParams
+	}
+
+	// @class CatchAllSlugParams
+	interface CatchAllSlugParams {
+		[key: string]: string[]
+	}
+
+	// @class CustomJwtSessionClaims
+	interface CustomJwtSessionClaims {
 		metadata: {
-			role?: Roles
+			role?: 'admin' | 'moderator'
 		}
+	}
+
+	// @class DataResult
+	type DataResult<T> = {
+		success: boolean
+		error?: { [key: string]: string }
+		data: T
+	}
+
+	// @class LayoutProps
+	type LayoutProps = {
+		children: React.ReactNode
+	}
+
+	// @class PageProps
+	type PageProps = {
+		searchParams: SearchParams
+	}
+
+	// @class Result
+	type Result<T> = {
+		success: boolean
+		error?: { [key: string]: string }
+		data?: T
+	}
+
+	// @class SearchParams
+	interface SearchParams {
+		[key: string]: string | string[] | undefined
+	}
+
+	// @class SingleSlugPageProps
+	type SingleSlugPageProps = {
+		params: SingleSlugParams
+		searchParams: SearchParams
+	}
+
+	// @class SingleSlugParams
+	interface SingleSlugParams {
+		[key: string]: string
 	}
 }

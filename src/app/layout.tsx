@@ -30,11 +30,7 @@ export const metadata: Metadata = {
 	description: 'Next.js template with MongoDB, Cloudinary and Clerk',
 }
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: Readonly<LayoutProps>) {
 	return (
 		<ClerkProvider
 			appearance={{

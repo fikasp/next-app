@@ -17,7 +17,7 @@ import { FormFieldType } from '@/lib/types/enums'
 import { generateUrl, getBaseRoute } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { searchFormSchema, SearchFormValues } from '@/lib/types/zod'
-import { Option, QueryParams } from '@/lib/types'
+import { Option, ProjectSearchParams } from '@/lib/types'
 
 export default function SearchForm({
 	categories,
@@ -44,13 +44,13 @@ export default function SearchForm({
 	// Submit
 	const handleSubmit = (searchFormValues: SearchFormValues) => {
 		const { title, category, profile } = searchFormValues
-		const queryParams: QueryParams = {}
+		const searchParams: ProjectSearchParams = {}
 
-		if (title) queryParams.title = title
-		if (category) queryParams.category = category
+		if (title) searchParams.title = title
+		if (category) searchParams.category = category
 
 		const route = getBaseRoute(profile)
-		const url = generateUrl([route], queryParams)
+		const url = generateUrl([route], searchParams)
 		router.push(url)
 	}
 
