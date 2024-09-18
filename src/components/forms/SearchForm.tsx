@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import {
+	ArwButton,
 	ArwFlex,
 	ArwForm,
 	ArwFormField,
-	ArwSubmit,
 	ArwTitle,
 } from '@/components/arw'
 // lib
@@ -89,7 +89,7 @@ export default function SearchForm({
 			</ArwFlex>
 
 			{/* Submit*/}
-			<ArwSubmit accent>Search</ArwSubmit>
+			<ArwButton accent>Search</ArwButton>
 		</ArwForm>
 	)
 }

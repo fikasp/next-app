@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 // components
-import { ArwButton } from '@/components/arw'
+import { ArwButtonIcon } from '@/components/arw'
 // lib
 import { useKeys, usePopState } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
@@ -35,7 +35,7 @@ export default function NavClose({
 	usePopState(handleClose)
 
 	return (
-		<ArwButton
+		<ArwButtonIcon
 			icon={Icons.X}
 			className={className}
 			onClick={handleClose}

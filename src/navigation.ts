@@ -44,7 +44,7 @@ export const navigation: Nav[] = [
 		route: routes.SEARCH,
 		icon: Icons.Search,
 		label: 'Search',
-		autoHide: false,
+		autoHide: true,
 		profile: false,
 	},
 ]

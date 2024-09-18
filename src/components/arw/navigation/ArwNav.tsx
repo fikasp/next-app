@@ -2,7 +2,7 @@
 // modules
 import { useRouter } from 'next/navigation'
 // components
-import { ArwButton } from '@/components/arw'
+import { ArwButtonIcon } from '@/components/arw'
 // lib
 import { Icons } from '@/lib/types/enums'
 
@@ -30,7 +30,7 @@ export default function Nav({
 	}
 
 	return (
-		<ArwButton
+		<ArwButtonIcon
 			icon={icon}
 			className={className}
 			onClick={handleNav}

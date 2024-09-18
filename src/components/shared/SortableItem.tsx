@@ -3,7 +3,7 @@
 import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 // components
-import { ArwButton } from '@/components/arw'
+import { ArwButtonIcon } from '@/components/arw'
 // lib
 import { Icons } from '@/lib/types/enums'
 import { cn } from '@/lib/utils'
@@ -45,7 +45,7 @@ export default function SortableItem({
 				ref={setActivatorNodeRef}
 				{...listeners}
 			>
-				<ArwButton icon={Icons.Grip} size={30} />
+				<ArwButtonIcon icon={Icons.Grip} size={30} />
 			</div>
 		</div>
 	)

@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ArwButton, ArwIcon } from '@/components/arw'
+import { ArwButtonIcon, ArwIcon } from '@/components/arw'
 import ProjectDeleteDialog from '@/components/dialogs/ProjectDeleteDialog'
 import ProjectUpdateDialog from '@/components/dialogs/ProjectUpdateDialog'
 // lib
@@ -37,7 +37,7 @@ export default function ProjectManipulations({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild className={className}>
 					<div>
-						<ArwButton icon={Icons.Ellipsis} size={30} />
+						<ArwButtonIcon icon={Icons.Ellipsis} size={30} />
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="center">

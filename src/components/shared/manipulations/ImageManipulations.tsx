@@ -8,7 +8,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ArwButton, ArwIcon } from '@/components/arw'
+import { ArwButtonIcon, ArwIcon } from '@/components/arw'
 // lib
 import {
 	handleRemoveImageFromProject,
@@ -37,7 +37,7 @@ export default function ImageManipulations({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild className={className}>
 					<div>
-						<ArwButton
+						<ArwButtonIcon
 							size={30}
 							icon={Icons.Ellipsis}
 							className="text-white drop-shadow py-2 px-4"

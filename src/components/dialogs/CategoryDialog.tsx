@@ -2,7 +2,7 @@
 // modules
 import { useEffect, useRef, useState } from 'react'
 // components
-import { ArwButton, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
+import { ArwButtonIcon, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -63,13 +63,13 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 											onKeyDown={(e) => e.stopPropagation()}
 										/>
 										<ArwFlex row>
-											<ArwButton
+											<ArwButtonIcon
 												onClick={() =>
 													handleUpdateCategory(editedLabel, editedOption)
 												}
 												src={icons.SAVE}
 											/>
-											<ArwButton
+											<ArwButtonIcon
 												onClick={handleCancelClick}
 												src={icons.CANCEL}
 											/>
@@ -79,11 +79,11 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 									<>
 										<ArwText>{option.label}</ArwText>
 										<ArwFlex row>
-											<ArwButton
+											<ArwButtonIcon
 												onClick={() => handleEditClick(option)}
 												src={icons.EDIT}
 											/>
-											<ArwButton
+											<ArwButtonIcon
 												onClick={() => handleDeleteCategory(option)}
 												src={icons.DELETE}
 											/>

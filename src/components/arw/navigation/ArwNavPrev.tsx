@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 // components
-import { ArwButton } from '@/components/arw'
+import { ArwButtonIcon } from '@/components/arw'
 // lib
 import { useSwipe, useScroll, useKeys } from '@/lib/utils/hooks'
 import { Icons } from '@/lib/types/enums'
@@ -40,7 +40,7 @@ export default function NavPrev({
 	useSwipe({ SwipeRight: handlePrev }, swipe)
 
 	return (
-		<ArwButton
+		<ArwButtonIcon
 			icon={Icons.ChevronLeft}
 			disabled={!url && !callback}
 			className={className}

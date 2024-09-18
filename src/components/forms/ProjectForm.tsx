@@ -6,11 +6,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 // components
 import {
+	ArwButton,
 	ArwFlex,
 	ArwForm,
 	ArwFormField,
 	ArwSelect,
-	ArwSubmit,
 	ArwTitle,
 } from '@/components/arw'
 // lib
@@ -128,9 +128,9 @@ export default function ProjectForm({
 			</ArwFlex>
 
 			{/* Submit*/}
-			<ArwSubmit accent isSubmitting={isSubmitting}>
+			<ArwButton accent isSubmitting={isSubmitting}>
 				{getEntityText(project, 'project', isSubmitting)}
-			</ArwSubmit>
+			</ArwButton>
 		</ArwForm>
 	)
 }
