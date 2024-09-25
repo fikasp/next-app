@@ -34,6 +34,7 @@ export default function ProjectManipulations({
 
 	return (
 		<>
+			{/* Dropdown menu */}
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild className={className}>
 					<div>
@@ -58,17 +59,24 @@ export default function ProjectManipulations({
 				</DropdownMenuContent>
 			</DropdownMenu>
 
-			<ProjectDeleteDialog
-				project={project}
-				handleClose={() => setIsDeleteDialogOpen(false)}
-				open={isDeleteDialogOpen}
-			/>
-			<ProjectUpdateDialog
-				project={project}
-				categories={categories}
-				handleClose={() => setIsUpdateDialogOpen(false)}
-				open={isUpdateDialogOpen}
-			/>
+			{/* Delete dialog */}
+			<When condition={isDeleteDialogOpen}>
+				<ProjectDeleteDialog
+					project={project}
+					handleClose={() => setIsDeleteDialogOpen(false)}
+					open={isDeleteDialogOpen}
+				/>
+			</When>
+
+			{/* Update dialog */}
+			<When condition={isUpdateDialogOpen}>
+				<ProjectUpdateDialog
+					project={project}
+					categories={categories}
+					handleClose={() => setIsUpdateDialogOpen(false)}
+					open={isUpdateDialogOpen}
+				/>
+			</When>
 		</>
 	)
 }

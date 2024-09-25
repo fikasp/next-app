@@ -11,7 +11,7 @@ import {
 	ArwText,
 	ArwTitle,
 } from '@/components/arw'
-import ProjectManipulations from '@/components/shared/manipulations/ProjectManipulations'
+import ProjectManipulations from '@/components/content/manipulations/ProjectManipulations'
 import ImageList from '@/components/content/ImageList'
 // lib
 import { Adjacent } from '@/lib/types'

@@ -41,6 +41,13 @@ export const navigation: Nav[] = [
 		profile: true,
 	},
 	{
+		route: routes.KANBAN,
+		icon: Icons.SquareKanban,
+		label: 'Kanban',
+		autoHide: false,
+		profile: true,
+	},
+	{
 		route: routes.SEARCH,
 		icon: Icons.Search,
 		label: 'Search',

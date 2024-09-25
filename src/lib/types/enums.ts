@@ -25,6 +25,7 @@ export enum Icons {
 	Pencil = 'Pencil',
 	RefreshCw = 'RefreshCw',
 	Search = 'Search',
+	SquareKanban = 'SquareKanban',
 	SquarePlus = 'SquarePlus',
 	Star = 'Star',
 	Sun = 'Sun',

@@ -4,6 +4,7 @@ export const routes = {
 	API_CLERK: '/api/clerk',
 	API_STRIPE: '/api/stripe',
 	HOME: '/',
+	KANBAN: '/kanban',
 	PROFILE: '/profile',
 	PROJECTS_SLUGS: '/projects/(.*)',
 	PROJECTS: '/projects',
