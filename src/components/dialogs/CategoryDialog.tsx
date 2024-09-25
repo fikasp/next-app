@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 // components
 import { ArwButtonIcon, ArwFlex, ArwText, ArwTitle } from '@/components/arw'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTrigger,
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 // lib
 import {
@@ -46,6 +51,9 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 			</DialogTrigger>
 
 			<DialogContent className="flex flex-col w-full-4 max-h-screen-4 max-w-md">
+				<DialogDescription className="hidden">
+					Category dialog
+				</DialogDescription>
 				<ArwTitle center accent>
 					Manage options
 				</ArwTitle>

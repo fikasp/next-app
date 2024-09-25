@@ -26,8 +26,8 @@ export default function NavItem({
 			setOpen(false)
 		}
 	}
-	if (item.admin && !admin) return null
-	if (item.profile && !profile) return null
+	if (item.adminOnly && !admin) return null
+	if (item.profileOnly && !profile) return null
 
 	return (
 		<li

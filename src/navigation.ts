@@ -6,52 +6,49 @@ export type Nav = {
 	icon: Icons
 	label: string
 	autoHide: boolean
-	profile: boolean
-	admin?: boolean
+	profileOnly: boolean
+	adminOnly: boolean
 }
 
 export const navigation: Nav[] = [
-	{
-		route: routes.HOME,
-		icon: Icons.Home,
-		label: 'Home',
-		autoHide: true,
-		profile: false,
-	},
 	{
 		route: routes.ADMIN,
 		icon: Icons.Users,
 		label: 'Admin',
 		autoHide: false,
-		profile: false,
-		admin: true,
+		profileOnly: false,
+		adminOnly: true,
 	},
 	{
 		route: routes.PROFILE,
 		icon: Icons.User,
 		label: 'My profile',
 		autoHide: false,
-		profile: true,
+		profileOnly: true,
+		adminOnly: false,
 	},
 	{
 		route: routes.ADD,
 		icon: Icons.SquarePlus,
 		label: 'Add project',
 		autoHide: false,
-		profile: true,
+		profileOnly: true,
+		adminOnly: false,
 	},
 	{
 		route: routes.KANBAN,
 		icon: Icons.SquareKanban,
 		label: 'Kanban',
 		autoHide: false,
-		profile: true,
+		profileOnly: true,
+		adminOnly: false,
 	},
 	{
 		route: routes.SEARCH,
 		icon: Icons.Search,
 		label: 'Search',
 		autoHide: true,
-		profile: false,
+		profileOnly: false,
+		adminOnly: false,
 	},
 ]
