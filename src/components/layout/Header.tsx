@@ -15,7 +15,7 @@ export default function Header() {
 			<div className="container flex justify-between items-center p-0 xl:px-4">
 				{/* left */}
 				<ArwLink href={`/`} className="flex-center z-50">
-					<ArwIcon src={icons.ARW} size={40} />
+					<ArwIcon src={icons.ARW} />
 					<ArwTitle className="text-2xl max-lg:hidden">ARW</ArwTitle>
 				</ArwLink>
 

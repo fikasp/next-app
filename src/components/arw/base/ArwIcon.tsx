@@ -25,7 +25,7 @@ export default function ArwIcon({
 		}
 	}
 	if (src) {
-		return <ArwSVG src={src} className={className} size={size} />
+		return <ArwSVG src={src} className={className} />
 	}
 	return null
 }
