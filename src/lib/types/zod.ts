@@ -1,14 +1,11 @@
 // modules
 import { z } from 'zod'
+import { txt } from '@/lib/constants'
 
 export const projectFormSchema = z.object({
-	title: z
-		.string()
-		.min(3, { message: 'Title must contain at least 3 characters' }),
-	info: z
-		.string()
-		.min(3, { message: 'Information must contain at least 3 characters' }),
-	category: z.string().min(1, { message: 'Category is required' }),
+	title: z.string().min(3, { message: txt.zod.TITLE }),
+	info: z.string().min(3, { message: txt.zod.INFO }),
+	category: z.string().min(1, { message: txt.zod.CATEGORY }),
 })
 
 export const searchFormSchema = z.object({

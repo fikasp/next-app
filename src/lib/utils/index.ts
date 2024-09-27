@@ -10,6 +10,7 @@ import slugify from 'slugify'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IUser } from '@/lib/models/user.model'
 import { routes } from '@/lib/constants/paths'
+import { txt } from '@/lib/constants'
 
 // @func capitalizeFirstLetter
 export function capitalizeFirstLetter(str: string) {
@@ -112,9 +113,11 @@ export const getEntityText = (
 	isSubmitting?: boolean
 ) => {
 	if (isSubmitting) {
-		return entity ? `Updating ${entityName}...` : `Adding ${entityName}...`
+		return entity ? txt.common.UPDATING : txt.common.ADDING
 	} else {
-		return entity ? `Update ${entityName}` : `Add ${entityName}`
+		return entity
+			? `${txt.common.UPDATE} ${entityName}`
+			: `${txt.common.ADD} ${entityName}`
 	}
 }
 

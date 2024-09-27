@@ -26,6 +26,7 @@ import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
 import { projectFormSchema, ProjectFormValues } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
+import { txt } from '@/lib/constants'
 
 export default function ProjectForm({
 	project,
@@ -95,31 +96,31 @@ export default function ProjectForm({
 		>
 			{/* Title */}
 			<ArwTitle accent center>
-				{getEntityText(project, 'project')}
+				{getEntityText(project, txt.common.PROJECT)}
 			</ArwTitle>
 
 			{/* Fields */}
 			<ArwFlex>
 				<ArwFormField<ProjectFormValues>
 					type={FormFieldType.INPUT}
-					placeholder="Enter a title"
-					label="Title"
+					placeholder={txt.forms.TITLE_PLACEHOLDER}
+					label={txt.forms.TITLE_LABEL}
 					name="title"
 				/>
 				<ArwFormField<ProjectFormValues>
 					type={FormFieldType.INPUT}
-					placeholder="Enter a information"
-					label="Information"
+					placeholder={txt.forms.INFORMATION_PLACEHOLDER}
+					label={txt.forms.INFORMATION_LABEL}
 					name="info"
 				/>
 				<ArwFormField<ProjectFormValues>
 					name="category"
-					label="Category"
+					label={txt.forms.CATEGORY_LABEL}
 					render={(field) => (
 						<ArwSelect
 							field={field}
 							options={categoryOptions}
-							placeholder="Select a category"
+							placeholder={txt.forms.CATEGORY_PLACEHOLDER}
 							search
 							manage
 						/>
@@ -129,7 +130,7 @@ export default function ProjectForm({
 
 			{/* Submit*/}
 			<ArwButton accent isSubmitting={isSubmitting}>
-				{getEntityText(project, 'project', isSubmitting)}
+				{getEntityText(project, txt.common.PROJECT, isSubmitting)}
 			</ArwButton>
 		</ArwForm>
 	)

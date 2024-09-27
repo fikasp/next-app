@@ -12,6 +12,7 @@ import {
 import { ArwIcon } from '@/components/arw'
 // lib
 import { Icons, SortOptions } from '@/lib/types/enums'
+import { txt } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export default function NavSorting() {
@@ -44,8 +45,8 @@ export default function NavSorting() {
 					<div className="flex-center">
 						<ArwIcon icon={Icons.ArrowDownUp} />
 					</div>
-					<div className="md:hidden">Sort options</div>
-					<div className="max-lg:hidden">Sort</div>
+					<div className="md:hidden">{txt.menu.SORT_OPTIONS}</div>
+					<div className="max-lg:hidden">{txt.menu.SORT}</div>
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">
@@ -53,25 +54,25 @@ export default function NavSorting() {
 					className={cn(sortBy === SortOptions.CUSTOM && 'font-bold')}
 					onClick={handleClick(SortOptions.CUSTOM)}
 				>
-					Custom sort
+					{txt.menu.SORT_CUSTOM}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className={cn(sortBy === SortOptions.DATE && 'font-bold')}
 					onClick={handleClick(SortOptions.DATE)}
 				>
-					Sort by date
+					{txt.menu.SORT_DATE}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className={cn(sortBy === SortOptions.USER && 'font-bold')}
 					onClick={handleClick(SortOptions.USER)}
 				>
-					Sort by user
+					{txt.menu.SORT_USER}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className={cn(sortBy === SortOptions.TITLE && 'font-bold')}
 					onClick={handleClick(SortOptions.TITLE)}
 				>
-					Sort by title
+					{txt.menu.SORT_TITLE}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
