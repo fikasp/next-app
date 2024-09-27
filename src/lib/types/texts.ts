@@ -1,6 +1,6 @@
-// texts types
+// texts interface
 
-export type TXT = {
+export interface TXT {
 	common: {
 		ADD: string
 		ADDING: string

@@ -1,6 +1,6 @@
 import { Icons } from '@/lib/types/enums'
 import { routes } from '@/lib/constants/paths'
-import { txt } from '@/lib/constants'
+import { txt } from '@/lib/constants/texts'
 
 export type Nav = {
 	route: string

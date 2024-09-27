@@ -12,7 +12,7 @@ import {
 import { ArwIcon } from '@/components/arw'
 // lib
 import { Icons, SortOptions } from '@/lib/types/enums'
-import { txt } from '@/lib/constants'
+import { txt } from '@/lib/constants/texts'
 import { cn } from '@/lib/utils'
 
 export default function NavSorting() {

@@ -26,7 +26,7 @@ import { IProject } from '@/lib/models/project.model'
 import { Option } from '@/lib/types'
 import { projectFormSchema, ProjectFormValues } from '@/lib/types/zod'
 import { routes } from '@/lib/constants/paths'
-import { txt } from '@/lib/constants'
+import { txt } from '@/lib/constants/texts'
 
 export default function ProjectForm({
 	project,

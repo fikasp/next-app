@@ -1,6 +1,6 @@
 // modules
 import { z } from 'zod'
-import { txt } from '@/lib/constants'
+import { txt } from '@/lib/constants/texts'
 
 export const projectFormSchema = z.object({
 	title: z.string().min(3, { message: txt.zod.TITLE }),

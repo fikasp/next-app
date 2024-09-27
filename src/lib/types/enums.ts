@@ -35,6 +35,11 @@ export enum Icons {
 	X = 'X',
 }
 
+export enum Lang {
+	PL = 'Polish',
+	EN = 'English',
+}
+
 export enum SortOptions {
 	CUSTOM = 'custom',
 	DATE = 'date',

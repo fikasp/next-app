@@ -10,7 +10,7 @@ import slugify from 'slugify'
 import { getCurrentUser } from '@/lib/actions/user.actions'
 import { IUser } from '@/lib/models/user.model'
 import { routes } from '@/lib/constants/paths'
-import { txt } from '@/lib/constants'
+import { txt } from '@/lib/constants/texts'
 
 // @func capitalizeFirstLetter
 export function capitalizeFirstLetter(str: string) {
