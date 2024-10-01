@@ -17,6 +17,7 @@ import { handleRemoveProjectCover } from '@/lib/handlers/project.handlers'
 import { ICategory } from '@/lib/models/category.model'
 import { Icons } from '@/lib/types/enums'
 import { IProject } from '@/lib/models/project.model'
+import { txt } from '@/lib/constants/texts'
 import { debug } from '@/lib/utils/dev'
 
 export default function ProjectManipulations({
@@ -44,17 +45,17 @@ export default function ProjectManipulations({
 				<DropdownMenuContent align="center">
 					<DropdownMenuItem onClick={() => setIsUpdateDialogOpen(true)}>
 						<ArwIcon icon={Icons.Pencil} />
-						Update project info
+						{txt.manipulations.PROJECT_UPDATE}
 					</DropdownMenuItem>
 					<When condition={Boolean(project.cover)}>
 						<DropdownMenuItem onClick={() => handleRemoveProjectCover(project)}>
 							<ArwIcon icon={Icons.ImageDown} />
-							Remove project cover
+							{txt.manipulations.COVER_DELETE}
 						</DropdownMenuItem>
 					</When>
 					<DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
 						<ArwIcon icon={Icons.Trash} />
-						Delete project
+						{txt.manipulations.PROJECT_DELETE}
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

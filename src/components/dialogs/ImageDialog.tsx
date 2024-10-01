@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 // lib
 import { IImage } from '@/lib/models/image.model'
+import { txt } from '@/lib/constants/texts'
 import { debug } from '@/lib/utils/dev'
 
 export default function ImageDialog({
@@ -91,7 +92,7 @@ export default function ImageDialog({
 					className="absolute top-3 right-3 z-50 arw-shadow-white dark:arw-shadow-black"
 				/>
 				<ArwText className="absolute bottom-4 md:bottom-6 arw-shadow-white dark:arw-shadow-black">
-					{isImageLoaded ? imageName : 'Loading...'}
+					{isImageLoaded ? imageName : txt.common.LOADING}
 				</ArwText>
 			</DialogContent>
 		</Dialog>

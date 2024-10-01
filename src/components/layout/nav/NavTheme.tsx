@@ -11,6 +11,7 @@ import {
 import { ArwIcon } from '@/components/arw'
 // lib
 import { Icons, Themes } from '@/lib/types/enums'
+import { txt } from '@/lib/constants/texts'
 
 export default function NavTheme() {
 	const { setTheme } = useTheme()
@@ -26,27 +27,27 @@ export default function NavTheme() {
 						<ArwIcon icon={Icons.Sun} className="flex dark:hidden" />
 						<ArwIcon icon={Icons.Moon} className="hidden dark:flex" />
 					</div>
-					<div className="md:hidden">Theme</div>
+					<div className="md:hidden">{txt.menu.THEME}</div>
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="center" className="text-center mt-2">
 				<DropdownMenuItem
-					className="flex-center gap-1"
+					className="flex-start gap-1"
 					onClick={handleClick(Themes.LIGHT)}
 				>
-					<ArwIcon icon={Icons.Sun} /> Light
+					<ArwIcon icon={Icons.Sun} /> {txt.menu.THEME_LIGHT}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="flex-center gap-1"
 					onClick={handleClick(Themes.DARK)}
 				>
-					<ArwIcon icon={Icons.Moon} /> Dark
+					<ArwIcon icon={Icons.Moon} /> {txt.menu.THEME_DARK}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="flex-center"
 					onClick={handleClick(Themes.SYSTEM)}
 				>
-					System
+					{txt.menu.THEME_SYSTEM}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

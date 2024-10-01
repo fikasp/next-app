@@ -16,6 +16,7 @@ import { cn, loadImage } from '@/lib/utils'
 import { debug, handleError } from '@/lib/utils/dev'
 import { IProject } from '@/lib/models/project.model'
 import { IImage } from '@/lib/models/image.model'
+import { txt } from '@/lib/constants/texts'
 
 export default function ImageForm({
 	image,
@@ -77,11 +78,11 @@ export default function ImageForm({
 				>
 					{isUploading
 						? files.length == 1 || editMode
-							? 'Uploading...'
-							: `Uploading... ${uploadedCount}/${files.length}`
+							? txt.common.UPLOADING
+							: `${txt.common.UPLOADING} ${uploadedCount}/${files.length}`
 						: files.length == 1
-						? 'Upload image'
-						: 'Upload images'}
+						? txt.forms.UPLOAD_IMAGE
+						: txt.forms.UPLOAD_IMAGES}
 				</Button>
 			</When>
 			<When condition={editMode}>
@@ -101,7 +102,7 @@ export default function ImageForm({
 					className="absolute left-3 top-3 w-full-3 z-30"
 					onClick={handleClose}
 				>
-					Cancel
+					{txt.common.CANCEL}
 				</Button>
 			</When>
 		</ArwFlex>

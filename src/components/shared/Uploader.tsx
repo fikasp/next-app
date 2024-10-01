@@ -8,6 +8,7 @@ import { Arw, ArwFlex, ArwIcon, ArwText } from '@/components/arw'
 import { Button } from '@/components/ui/button'
 // lib
 import { Icons } from '@/lib/types/enums'
+import { txt } from '@/lib/constants/texts'
 import { cn } from '@/lib/utils'
 
 export default function Uploader({
@@ -70,10 +71,10 @@ export default function Uploader({
 								icon={Icons.CloudUpload}
 								className={cn(editMode && 'opacity-0')}
 							/>
-							<ArwText className="text-xs">Drag and drop or</ArwText>
+							<ArwText className="text-xs">{txt.shared.DND}</ArwText>
 						</ArwFlex>
 						<Button type="button" className="w-full text-xs">
-							{editMode ? 'Select image' : 'Select image(s)'}
+							{editMode ? txt.shared.SELECT_IMAGE : txt.shared.SELECT_IMAGES}
 						</Button>
 					</Arw>
 				</Else>
