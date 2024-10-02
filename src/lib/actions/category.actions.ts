@@ -8,6 +8,7 @@ import { debug, handleError } from '@/lib/utils/dev'
 import { deepClone } from '@/lib/utils'
 import { ProjectModel } from '@/lib/models/project.model'
 import { routes } from '@/lib/constants/paths'
+import { txt } from '@/lib/constants/texts'
 
 // CREATE
 export async function createCategory(
@@ -17,7 +18,7 @@ export async function createCategory(
 		if (!newLabel) {
 			return {
 				success: false,
-				error: { category: 'Category name is required.' },
+				error: { category: txt.errors.CATEGORY_NAME_REQUIRED },
 			}
 		}
 
@@ -26,7 +27,7 @@ export async function createCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, error: { category: 'Category already exists.' } }
+			return { success: false, error: { category: txt.errors.CATEGORY_EXISTS } }
 		}
 
 		const newCategory: ICategory = await CategoryModel.create({
@@ -72,7 +73,7 @@ export async function updateCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, error: { category: 'Category already exists.' } }
+			return { success: false, error: { category: txt.errors.CATEGORY_EXISTS } }
 		}
 
 		const updatedCategory: ICategory | null =
@@ -82,7 +83,10 @@ export async function updateCategory(
 				{ new: true }
 			)
 		if (!updatedCategory) {
-			return { success: false, error: { category: 'Category not found.' } }
+			return {
+				success: false,
+				error: { category: txt.errors.CATEGORY_NOT_FOUND },
+			}
 		}
 
 		debug(4, 0, updatedCategory)
@@ -108,7 +112,7 @@ export async function deleteCategory(
 		if (projectsUsingCategory) {
 			return {
 				success: false,
-				error: { category: 'Category is used in projects, cannot delete.' },
+				error: { category: txt.errors.CATEGORY_USED },
 			}
 		}
 
@@ -116,7 +120,10 @@ export async function deleteCategory(
 			await CategoryModel.findOneAndDelete({ label })
 
 		if (!deletedCategory) {
-			return { success: false, error: { category: 'Category not found.' } }
+			return {
+				success: false,
+				error: { category: txt.errors.CATEGORY_NOT_FOUND },
+			}
 		}
 
 		debug(5, 0, deletedCategory)

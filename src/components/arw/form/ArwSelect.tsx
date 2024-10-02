@@ -19,6 +19,7 @@ import { useDebounce } from '@/lib/utils/hooks'
 import { Option } from '@/lib/types'
 import { When } from 'react-if'
 import CategoryDialog from '@/components/dialogs/CategoryDialog'
+import { txt } from '@/lib/constants/texts'
 
 export default function ArwSelect({
 	field,
@@ -88,7 +89,7 @@ export default function ArwSelect({
 				)}
 			>
 				<SelectValue
-					placeholder={placeholder ? placeholder : 'Select a value'}
+					placeholder={placeholder ? placeholder : txt.forms.SELECT_A_VALUE}
 				/>
 			</SelectTrigger>
 			<SelectContent
@@ -107,7 +108,7 @@ export default function ArwSelect({
 									center && 'text-center',
 									'w-full max-sm:w-[200px] text-sm p-2'
 								)}
-								placeholder="Search..."
+								placeholder={`${txt.common.SEARCH}...`}
 							/>
 						</ArwFlex>
 					)}

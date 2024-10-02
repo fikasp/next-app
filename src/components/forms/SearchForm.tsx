@@ -18,6 +18,7 @@ import { generateUrl, getBaseRoute } from '@/lib/utils'
 import { ICategory } from '@/lib/models/category.model'
 import { searchFormSchema, SearchFormValues } from '@/lib/types/zod'
 import { Option, ProjectSearchParams } from '@/lib/types'
+import { txt } from '@/lib/constants/texts'
 
 export default function SearchForm({
 	categories,
@@ -63,33 +64,33 @@ export default function SearchForm({
 		>
 			{/* Title */}
 			<ArwTitle accent center>
-				Search projects
+				{txt.forms.SEARCH_PROJECTS}
 			</ArwTitle>
 
 			{/* Fields */}
 			<ArwFlex>
 				<ArwFormField<SearchFormValues>
 					type={FormFieldType.INPUT}
-					placeholder="Enter a title"
-					label="Title"
+					placeholder={txt.forms.TITLE_PLACEHOLDER}
+					label={txt.forms.TITLE_LABEL}
 					name="title"
 				/>
 				<ArwFormField<SearchFormValues>
 					type={FormFieldType.SELECT}
 					options={categoryOptions}
-					placeholder="Select a category"
-					label="Category"
+					placeholder={txt.forms.CATEGORY_PLACEHOLDER}
+					label={txt.forms.CATEGORY_LABEL}
 					name="category"
 				/>
 				<ArwFormField<SearchFormValues>
 					type={FormFieldType.CHECKBOX}
-					label="Show only my projects"
+					label={txt.forms.SHOW_ONLY_MY_PROJECTS}
 					name="profile"
 				/>
 			</ArwFlex>
 
 			{/* Submit*/}
-			<ArwButton accent>Search</ArwButton>
+			<ArwButton accent>{txt.common.SEARCH}</ArwButton>
 		</ArwForm>
 	)
 }

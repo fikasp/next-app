@@ -20,6 +20,7 @@ import {
 import { Option } from '@/lib/types'
 import { icons } from '@/lib/constants/paths'
 import { debug } from '@/lib/utils/dev'
+import { txt } from '@/lib/constants/texts'
 
 export default function CategoryDialog({ options }: { options: Option[] }) {
 	debug(8, 0, options)
@@ -46,7 +47,7 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 		<Dialog>
 			<DialogTrigger>
 				<Button variant="outline" className="p-2 w-full">
-					Manage options
+					{txt.dialogs.MANAGE_OPTIONS}
 				</Button>
 			</DialogTrigger>
 
@@ -55,7 +56,7 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 					Category dialog
 				</DialogDescription>
 				<ArwTitle center accent>
-					Manage options
+					{txt.dialogs.MANAGE_OPTIONS}
 				</ArwTitle>
 				<ArwFlex className="overflow-auto">
 					<ArwFlex className="p-2">
@@ -111,14 +112,14 @@ export default function CategoryDialog({ options }: { options: Option[] }) {
 						value={newLabel}
 						onChange={(e) => setNewLabel(e.target.value)}
 						onKeyDown={(e) => e.stopPropagation()}
-						placeholder="Enter new category"
+						placeholder={txt.dialogs.ENTER_NEW_CATEGORY}
 						className="p-2 w-full"
 					/>
-					<Button className="w-full">Add Option</Button>
+					<Button className="w-full">{txt.dialogs.ADD_OPTION}</Button>
 				</form>
 				<DialogTrigger>
 					<Button variant="accent" className="w-full">
-						Close options
+						{txt.dialogs.CLOSE_OPTIONS}
 					</Button>
 				</DialogTrigger>
 			</DialogContent>

@@ -17,6 +17,7 @@ import { ArwTitle } from '@/components/arw'
 import { handleDeleteProject } from '@/lib/handlers/project.handlers'
 import { IProject } from '@/lib/models/project.model'
 import { extractBaseRoute } from '@/lib/utils'
+import { txt } from '@/lib/constants/texts'
 import { debug } from '@/lib/utils/dev'
 
 export default function ProjectDeleteDialog({
@@ -43,16 +44,20 @@ export default function ProjectDeleteDialog({
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
-						<ArwTitle accent>Delete project</ArwTitle>
+						<ArwTitle accent>{txt.manipulations.PROJECT_DELETE}</ArwTitle>
 					</AlertDialogTitle>
 					<AlertDialogDescription>
-						<p>Are you sure to delete this project?</p>
-						<p>This action cannot be undone.</p>
+						<p>{txt.dialogs.DELETE_NOTIFICATION_1}</p>
+						<p>{txt.dialogs.DELETE_NOTIFICATION_2}</p>
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+					<AlertDialogCancel onClick={handleClose}>
+						{txt.common.CANCEL}
+					</AlertDialogCancel>
+					<AlertDialogAction onClick={handleDelete}>
+						{txt.common.CONTINUE}
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

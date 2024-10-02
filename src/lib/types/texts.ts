@@ -5,11 +5,44 @@ export interface TXT {
 		ADD: string
 		ADDING: string
 		CANCEL: string
+		CONTINUE: string
+		ERROR: string
 		LOADING: string
 		PROJECT: string
+		PROJECTS: string
+		SEARCH: string
+		SUCCESS: string
 		UPDATE: string
 		UPDATING: string
 		UPLOADING: string
+		WARNING: string
+	}
+	dialogs: {
+		ADD_OPTION: string
+		CLOSE_OPTIONS: string
+		DELETE_NOTIFICATION_1: string
+		DELETE_NOTIFICATION_2: string
+		ENTER_NEW_CATEGORY: string
+		MANAGE_OPTIONS: string
+	}
+	errors: {
+		CATEGORY_EXISTS: string
+		CATEGORY_NOT_FOUND: string
+		CATEGORY_NAME_REQUIRED: string
+		CATEGORY_USED: string
+	}
+	forms: {
+		CATEGORY_LABEL: string
+		CATEGORY_PLACEHOLDER: string
+		INFORMATION_LABEL: string
+		INFORMATION_PLACEHOLDER: string
+		SEARCH_PROJECTS: string
+		SELECT_A_VALUE: string
+		SHOW_ONLY_MY_PROJECTS: string
+		TITLE_LABEL: string
+		TITLE_PLACEHOLDER: string
+		UPLOAD_IMAGE: string
+		UPLOAD_IMAGES: string
 	}
 	manipulations: {
 		COVER_CREATE: string
@@ -36,21 +69,13 @@ export interface TXT {
 		THEME_LIGHT: string
 		THEME_SYSTEM: string
 	}
-	forms: {
-		CATEGORY_LABEL: string
-		CATEGORY_PLACEHOLDER: string
-		INFORMATION_LABEL: string
-		INFORMATION_PLACEHOLDER: string
-		SHOW_ONLY_MY: string
-		TITLE_LABEL: string
-		TITLE_PLACEHOLDER: string
-		UPLOAD_IMAGE: string
-		UPLOAD_IMAGES: string
-	}
 	shared: {
 		DND: string
 		SELECT_IMAGE: string
 		SELECT_IMAGES: string
+	}
+	toasts: {
+
 	}
 	zod: {
 		CATEGORY: string
