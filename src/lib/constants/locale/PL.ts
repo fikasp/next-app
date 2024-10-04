@@ -31,6 +31,9 @@ export const PL: TXT = {
 		CATEGORY_NAME_REQUIRED: 'Nazwa kategorii jest wymagana.',
 		CATEGORY_USED:
 			'Kategoria jest już użyta w projekcie. Nie można jej usunąć.',
+		IMAGE_NOT_FOUND: 'Obrazek nie został znaleziony',
+		PROJECT_NOT_FOUND: 'Projekt nie został znaleziony',
+		UNAUTHORIZED_ACCESS: 'Nieautoryzowany dostęp do tego projektu',
 	},
 	forms: {
 		CATEGORY_LABEL: 'Kategoria',

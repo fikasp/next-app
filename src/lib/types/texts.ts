@@ -30,6 +30,9 @@ export interface TXT {
 		CATEGORY_NOT_FOUND: string
 		CATEGORY_NAME_REQUIRED: string
 		CATEGORY_USED: string
+		IMAGE_NOT_FOUND: string
+		PROJECT_NOT_FOUND: string
+		UNAUTHORIZED_ACCESS: string
 	}
 	forms: {
 		CATEGORY_LABEL: string

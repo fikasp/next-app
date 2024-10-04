@@ -21,6 +21,7 @@ import { removeImage, removeImages } from '@/lib/actions/image.actions'
 import { routes } from '@/lib/constants/paths'
 import { UserModel, IUser } from '@/lib/models/user.model'
 import { SortOptions } from '@/lib/types/enums'
+import { txt } from '@/lib/constants/texts'
 
 // CREATE
 // Create project
@@ -98,7 +99,7 @@ export async function getProjects(
 			if (category) {
 				projectQuery.category = category._id
 			} else {
-				throw new Error('Category not found')
+				throw new Error(txt.errors.CATEGORY_NOT_FOUND)
 			}
 		}
 
@@ -152,7 +153,7 @@ export async function getProjectBySlug(
 			return {
 				success: false,
 				data: { prev: null, current: null, next: null },
-				error: { error: 'Unauthorized access to this project' },
+				error: { error: txt.errors.UNAUTHORIZED_ACCESS },
 			}
 		}
 		const currentProject = await ProjectModel.findOne({ slug })
@@ -287,7 +288,7 @@ export async function removeImageFromProject(
 
 		const deletedImage = await ImageModel.findByIdAndDelete(image._id)
 		if (!deletedImage) {
-			return { success: false, error: { error: 'Image not found' } }
+			return { success: false, error: { error: txt.errors.IMAGE_NOT_FOUND } }
 		}
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
@@ -399,7 +400,7 @@ export async function deleteProject(
 		const project = await ProjectModel.findById(projectId).populate('images')
 
 		if (!project) {
-			throw new Error('Project not found')
+			throw new Error(txt.errors.PROJECT_NOT_FOUND)
 		}
 
 		// Extract image IDs

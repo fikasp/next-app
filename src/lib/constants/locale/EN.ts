@@ -30,6 +30,9 @@ export const EN: TXT = {
 		CATEGORY_NOT_FOUND: 'Category not found.',
 		CATEGORY_NAME_REQUIRED: 'Category name is required.',
 		CATEGORY_USED: 'Category is used in projects, cannot delete.',
+		IMAGE_NOT_FOUND: 'Image not found',
+		PROJECT_NOT_FOUND: 'Project not found',
+		UNAUTHORIZED_ACCESS: 'Unauthorized access to this project.',
 	},
 	forms: {
 		CATEGORY_LABEL: 'Category',
@@ -74,9 +77,7 @@ export const EN: TXT = {
 		SELECT_IMAGE: 'Select image',
 		SELECT_IMAGES: 'Select image(s)',
 	},
-	toasts: {
-
-	},
+	toasts: {},
 	zod: {
 		CATEGORY: 'Category is required',
 		INFO: 'Information must contain at least 3 characters',
