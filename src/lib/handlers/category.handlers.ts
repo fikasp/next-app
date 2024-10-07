@@ -7,6 +7,7 @@ import { ICategory } from '@/lib/models/category.model'
 import { Option } from '@/lib/types'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { debug, handleError } from '@/lib/utils/dev'
+import { txt } from '@/lib/constants/texts'
 
 // CREATE
 export const handleCreateCategory = async (
@@ -22,7 +23,9 @@ export const handleCreateCategory = async (
 		if (error) {
 			toastError(error)
 		} else if (success) {
-			toastSuccess(`Category ${newLabel} added.`)
+			toastSuccess(
+				`${txt.toasts.CATEGORY} ${newLabel} ${txt.toasts.CATEGORY_ADDED}`
+			)
 			setNewLabel('')
 		}
 	} catch (error) {
@@ -45,7 +48,9 @@ export const handleUpdateCategory = async (
 			if (error) {
 				toastError(error)
 			} else if (success) {
-				toastSuccess(`Category ${editedLabel} updated.`)
+				toastSuccess(
+					`${txt.toasts.CATEGORY} ${editedLabel} ${txt.toasts.CATEGORY_UPDATED}`
+				)
 			}
 		} catch (error) {
 			console.error(handleError(error))
@@ -63,7 +68,9 @@ export const handleDeleteCategory = async (option: Option) => {
 		if (error) {
 			toastError(error)
 		} else if (success) {
-			toastSuccess(`Category ${option.label} deleted.`)
+			toastSuccess(
+				`${txt.toasts.CATEGORY} ${option.label} ${txt.toasts.CATEGORY_DELETED}`
+			)
 		}
 	} catch (error) {
 		console.error(handleError(error))

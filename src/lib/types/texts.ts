@@ -78,7 +78,21 @@ export interface TXT {
 		SELECT_IMAGES: string
 	}
 	toasts: {
-
+		CATEGORY_ADDED: string
+		CATEGORY_DELETED: string
+		CATEGORY_UPDATED: string
+		CATEGORY: string
+		IMAGE_ADDED: string
+		IMAGE_COVER_REMOVE: string
+		IMAGE_COVER_SET: string
+		IMAGE_DELETED: string
+		IMAGE_UPDATED: string
+		IMAGE_UPLOAD_FAILED: string
+		IMAGE: string
+		PROJECT_ADDED: string
+		PROJECT_DELETED: string
+		PROJECT_UPDATED: string
+		PROJECT: string
 	}
 	zod: {
 		CATEGORY: string

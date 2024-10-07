@@ -16,6 +16,7 @@ import { ProjectFormValues } from '@/lib/types/zod'
 import { toastError, toastSuccess } from '@/lib/utils/toasts'
 import { uploadToCloudinary } from '@/lib/utils/services'
 import { UploadedImage } from '@/lib/types'
+import { txt } from '@/lib/constants/texts'
 
 // CREATE
 // Create new project
@@ -29,7 +30,9 @@ export const handleCreateProject = async (
 			toastError(error)
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
-			toastSuccess(`Project ${createdProject.title} successfully added.`)
+			toastSuccess(
+				`${txt.toasts.PROJECT} ${createdProject.title} ${txt.toasts.PROJECT_ADDED}`
+			)
 			return createdProject
 		}
 	} catch (error) {
@@ -50,7 +53,9 @@ export const handleUpdateProject = async (
 			toastError(error)
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
-			toastSuccess(`Project ${projectFormData.title} successfully updated.`)
+			toastSuccess(
+				`${txt.toasts.PROJECT} ${projectFormData.title} ${txt.toasts.PROJECT_UPDATED}`
+			)
 			return updatedProject
 		}
 	} catch (error) {
@@ -68,7 +73,7 @@ export const handleAddImageToProject = async (file: File, slug: string) => {
 		)
 
 		if (!uploadedImage) {
-			toastError('Image upload failed.')
+			toastError(txt.toasts.IMAGE_UPLOAD_FAILED)
 			return
 		} else {
 			// Add image to project
@@ -77,7 +82,9 @@ export const handleAddImageToProject = async (file: File, slug: string) => {
 				...uploadedImage,
 			})
 			if (addedImage) {
-				toastSuccess(`Image ${addedImage.name} successfully added.`)
+				toastSuccess(
+					`${txt.toasts.IMAGE} ${addedImage.name} ${txt.toasts.IMAGE_ADDED}`
+				)
 			}
 		}
 	} catch (error) {
@@ -96,7 +103,7 @@ export const handleUpdateImageInProject = async (file: File, image: IImage) => {
 		)
 
 		if (!uploadedImage) {
-			toastError('Image upload failed.')
+			toastError(txt.toasts.IMAGE_UPLOAD_FAILED)
 			return
 		} else {
 			// Update image in project
@@ -106,7 +113,7 @@ export const handleUpdateImageInProject = async (file: File, image: IImage) => {
 			})
 			if (updatedImage) {
 				toastSuccess(
-					`Image ${image.name} successfully updated to ${updatedImage.name}.`
+					`${txt.toasts.IMAGE} ${image.name} ${txt.toasts.IMAGE_UPDATED} ${updatedImage.name}.`
 				)
 				return updatedImage
 			}
@@ -128,7 +135,9 @@ export const handleRemoveImageFromProject = async (
 			image
 		)
 		if (updatedProject) {
-			toastSuccess(`Image ${image.name} successfully removed.`)
+			toastSuccess(
+				`${txt.toasts.IMAGE} ${image.name} ${txt.toasts.IMAGE_DELETED}`
+			)
 		}
 	} catch (error) {
 		console.error(handleError(error))
@@ -149,7 +158,9 @@ export const handleSetProjectCover = async (
 		if (error) {
 			toastError(error)
 		} else if (updatedProject) {
-			toastSuccess(`Image ${image.name} successfully set as cover.`)
+			toastSuccess(
+				`${txt.toasts.IMAGE} ${image.name} ${txt.toasts.IMAGE_COVER_SET}`
+			)
 			return updatedProject
 		}
 	} catch (error) {
@@ -167,7 +178,7 @@ export const handleRemoveProjectCover = async (project: IProject) => {
 		if (error) {
 			toastError(error)
 		} else if (updatedProject) {
-			toastSuccess(`Cover image successfully removed.`)
+			toastSuccess(txt.toasts.IMAGE_COVER_REMOVE)
 			return updatedProject
 		}
 	} catch (error) {
@@ -182,7 +193,9 @@ export const handleDeleteProject = async (project: IProject) => {
 	try {
 		const { data: deletedProject } = await deleteProject(project._id)
 		if (deletedProject) {
-			toastSuccess(`Project ${deletedProject.title} successfully deleted.`)
+			toastSuccess(
+				`${txt.toasts.PROJECT} ${deletedProject.title} ${txt.toasts.PROJECT_DELETED}`
+			)
 		}
 	} catch (error) {
 		console.error(handleError(error))
