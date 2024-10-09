@@ -23,7 +23,7 @@ declare global {
 	// @class DataResult
 	type DataResult<T> = {
 		success: boolean
-		error?: { [key: string]: string }
+		errors?: { [key: string]: string }
 		data: T
 	}
 
@@ -40,7 +40,7 @@ declare global {
 	// @class Result
 	type Result<T> = {
 		success: boolean
-		error?: { [key: string]: string }
+		errors?: { [key: string]: string }
 		data?: T
 	}
 

@@ -35,7 +35,7 @@ export async function createProject(
 		if (validationErrors) {
 			return {
 				success: false,
-				error: validationErrors,
+				errors: validationErrors,
 			}
 		}
 
@@ -58,7 +58,7 @@ export async function createProject(
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(newProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -124,7 +124,7 @@ export async function getProjects(
 		debug(3, 0, projects)
 		return { success: true, data: deepClone(projects) }
 	} catch (error) {
-		return { success: false, data: [], error: { error: handleError(error) } }
+		return { success: false, data: [], errors: { error: handleError(error) } }
 	}
 }
 
@@ -153,7 +153,7 @@ export async function getProjectBySlug(
 			return {
 				success: false,
 				data: { prev: null, current: null, next: null },
-				error: { error: txt.errors.UNAUTHORIZED_ACCESS },
+				errors: { error: txt.errors.UNAUTHORIZED_ACCESS },
 			}
 		}
 		const currentProject = await ProjectModel.findOne({ slug })
@@ -176,7 +176,7 @@ export async function getProjectBySlug(
 		return {
 			success: false,
 			data: { prev: null, current: null, next: null },
-			error: { error: handleError(error) },
+			errors: { error: handleError(error) },
 		}
 	}
 }
@@ -215,7 +215,7 @@ export async function updateProject(
 		revalidatePath(routes.PROJECTS)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -245,7 +245,7 @@ export async function addImageToProject({
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(image) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -274,7 +274,7 @@ export async function updateImageInProject({
 		debug(4, 9, updatedImage)
 		return { success: true, data: deepClone(updatedImage) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -288,7 +288,7 @@ export async function removeImageFromProject(
 
 		const deletedImage = await ImageModel.findByIdAndDelete(image._id)
 		if (!deletedImage) {
-			return { success: false, error: { error: txt.errors.IMAGE_NOT_FOUND } }
+			return { success: false, errors: { error: txt.errors.IMAGE_NOT_FOUND } }
 		}
 		const updatedProject = await ProjectModel.findOneAndUpdate(
 			{ slug },
@@ -301,7 +301,7 @@ export async function removeImageFromProject(
 		debug(5, 9, updatedProject)
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -323,7 +323,7 @@ export async function setProjectCover(
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -344,7 +344,7 @@ export async function removeProjectCover(
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(updatedProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -365,7 +365,7 @@ export async function updateProjectOrder(
 		await ProjectModel.bulkWrite(bulkOps)
 		return { success: true }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -385,7 +385,7 @@ export async function updateImageOrder(
 		)
 		return { success: true }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }
 
@@ -424,6 +424,6 @@ export async function deleteProject(
 		revalidatePath(routes.PROFILE, 'layout')
 		return { success: true, data: deepClone(deletedProject) }
 	} catch (error) {
-		return { success: false, error: { error: handleError(error) } }
+		return { success: false, errors: { error: handleError(error) } }
 	}
 }

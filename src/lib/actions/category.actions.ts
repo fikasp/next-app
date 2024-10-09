@@ -18,7 +18,7 @@ export async function createCategory(
 		if (!newLabel) {
 			return {
 				success: false,
-				error: { category: txt.errors.CATEGORY_NAME_REQUIRED },
+				errors: { category: txt.errors.CATEGORY_NAME_REQUIRED },
 			}
 		}
 
@@ -27,7 +27,7 @@ export async function createCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, error: { category: txt.errors.CATEGORY_EXISTS } }
+			return { success: false, errors: { category: txt.errors.CATEGORY_EXISTS } }
 		}
 
 		const newCategory: ICategory = await CategoryModel.create({
@@ -38,7 +38,7 @@ export async function createCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(newCategory) }
 	} catch (error) {
-		return { success: false, error: { category: handleError(error) } }
+		return { success: false, errors: { category: handleError(error) } }
 	}
 }
 
@@ -55,7 +55,7 @@ export async function getCategories(): Promise<DataResult<ICategory[]>> {
 	} catch (error) {
 		return {
 			success: false,
-			error: { category: handleError(error) },
+			errors: { category: handleError(error) },
 			data: [],
 		}
 	}
@@ -73,7 +73,7 @@ export async function updateCategory(
 			label: { $regex: new RegExp(`^${newLabel}$`, 'i') },
 		})
 		if (existingCategory) {
-			return { success: false, error: { category: txt.errors.CATEGORY_EXISTS } }
+			return { success: false, errors: { category: txt.errors.CATEGORY_EXISTS } }
 		}
 
 		const updatedCategory: ICategory | null =
@@ -85,7 +85,7 @@ export async function updateCategory(
 		if (!updatedCategory) {
 			return {
 				success: false,
-				error: { category: txt.errors.CATEGORY_NOT_FOUND },
+				errors: { category: txt.errors.CATEGORY_NOT_FOUND },
 			}
 		}
 
@@ -93,7 +93,7 @@ export async function updateCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(updatedCategory) }
 	} catch (error) {
-		return { success: false, error: { category: handleError(error) } }
+		return { success: false, errors: { category: handleError(error) } }
 	}
 }
 
@@ -112,7 +112,7 @@ export async function deleteCategory(
 		if (projectsUsingCategory) {
 			return {
 				success: false,
-				error: { category: txt.errors.CATEGORY_USED },
+				errors: { category: txt.errors.CATEGORY_USED },
 			}
 		}
 
@@ -122,7 +122,7 @@ export async function deleteCategory(
 		if (!deletedCategory) {
 			return {
 				success: false,
-				error: { category: txt.errors.CATEGORY_NOT_FOUND },
+				errors: { category: txt.errors.CATEGORY_NOT_FOUND },
 			}
 		}
 
@@ -130,6 +130,6 @@ export async function deleteCategory(
 		revalidatePath(routes.ADD)
 		return { success: true, data: deepClone(deletedCategory) }
 	} catch (error) {
-		return { success: false, error: { category: handleError(error) } }
+		return { success: false, errors: { category: handleError(error) } }
 	}
 }

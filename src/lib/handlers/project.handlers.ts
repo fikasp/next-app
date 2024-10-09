@@ -24,10 +24,10 @@ export const handleCreateProject = async (
 	projectFormData: ProjectFormValues
 ): Promise<IProject | undefined> => {
 	try {
-		const { error, data: createdProject }: Result<IProject> =
+		const { errors, data: createdProject }: Result<IProject> =
 			await createProject(projectFormData)
-		if (error) {
-			toastError(error)
+		if (errors) {
+			toastError(errors)
 		} else if (createdProject) {
 			debug(2, 9, createdProject)
 			toastSuccess(
@@ -47,10 +47,10 @@ export const handleUpdateProject = async (
 	project: IProject
 ): Promise<IProject | undefined> => {
 	try {
-		const { error, data: updatedProject }: Result<IProject> =
+		const { errors, data: updatedProject }: Result<IProject> =
 			await updateProject(project.slug, projectFormData)
-		if (error) {
-			toastError(error)
+		if (errors) {
+			toastError(errors)
 		} else if (updatedProject) {
 			debug(4, 9, updatedProject)
 			toastSuccess(
@@ -151,12 +151,12 @@ export const handleSetProjectCover = async (
 ) => {
 	debug(4, 0, project)
 	try {
-		const { error, data: updatedProject } = await setProjectCover(
+		const { errors, data: updatedProject } = await setProjectCover(
 			project.slug,
 			image
 		)
-		if (error) {
-			toastError(error)
+		if (errors) {
+			toastError(errors)
 		} else if (updatedProject) {
 			toastSuccess(
 				`${txt.toasts.IMAGE} ${image.name} ${txt.toasts.IMAGE_COVER_SET}`
@@ -172,11 +172,11 @@ export const handleSetProjectCover = async (
 export const handleRemoveProjectCover = async (project: IProject) => {
 	debug(4, 0, project)
 	try {
-		const { error, data: updatedProject } = await removeProjectCover(
+		const { errors, data: updatedProject } = await removeProjectCover(
 			project.slug
 		)
-		if (error) {
-			toastError(error)
+		if (errors) {
+			toastError(errors)
 		} else if (updatedProject) {
 			toastSuccess(txt.toasts.IMAGE_COVER_REMOVE)
 			return updatedProject
